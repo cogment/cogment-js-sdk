@@ -1,0 +1,7 @@
+{
+  "excludeExternals": true,
+  "includeDeclarations": true,
+  "includeVersion": true,
+  "mode": "modules",
+  "out": "public"
+}

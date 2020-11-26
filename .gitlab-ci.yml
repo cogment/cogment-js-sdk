@@ -1,0 +1,68 @@
+image: node:14
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - lint
+  - build
+  - test
+  - deploy
+
+prebuild:
+  stage: .pre
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$COGMENT_API_DEPLOY_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+  script:
+    - npm install
+
+lint:
+  stage: lint
+  script:
+    - npm run lint
+
+build:
+  stage: build
+  script:
+    - echo "Hello, $GITLAB_USER_LOGIN!"
+    - npm run build
+
+test:
+  stage: test
+  script:
+    - npm run test
+  artifacts:
+    paths:
+      - coverage/lcov-report
+    reports:
+      junit: junit.xml
+
+pages:
+  stage: deploy
+  script:
+    - npm run docs
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
+
+deploy:staging:
+  stage: deploy
+  script:
+    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
+  only:
+    - develop
+
+deploy:production:
+  stage: deploy
+  script:
+    - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
+  only:
+    - master

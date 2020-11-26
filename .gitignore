@@ -1,0 +1,12 @@
+*_pb.*
+*.log
+.DS_Store
+node_modules
+dist
+*.iml
+.idea
+src/**/*.js
+test/**/*.js
+junit.xml
+coverage
+public
