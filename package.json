@@ -23,7 +23,7 @@
     "lint:eslint": "eslint --cache {src,test}/**/*.ts",
     "lint:prettier": "prettier --check {src,test}/**/*.ts",
     "pretty-quick": "pretty-quick",
-    "protos": "protoc -I ../cogment-api ../cogment-api/*.proto --js_out=import_style=commonjs,binary:src/protos --ts_out=service=grpc-web:src/protos",
+    "protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/*.proto --js_out=import_style=commonjs,binary:src/protos --ts_out=service=grpc-web:src/protos",
     "size": "size-limit",
     "start": "node dist/index.js",
     "test": "jest test"
@@ -43,7 +43,7 @@
     "@types/node": "^14.14.10",
     "@typescript-eslint/eslint-plugin": "^4.8.2",
     "@typescript-eslint/parser": "^4.8.2",
-    "cogment-api": "gitlab:ai-r/cogment-api#v0.2.2",
+    "cogment-api": "gitlab:ai-r/cogment-api#v0.4.0",
     "doctoc": "^1.4.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
