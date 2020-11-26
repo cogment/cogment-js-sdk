@@ -30,7 +30,7 @@ lint:
 build:
   stage: build
   script:
-    - echo "Hello, $GITLAB_USER_LOGIN!"
+    - apt-get update -y && apt-get install protobuf-compiler -y
     - npm run build
 
 test:
