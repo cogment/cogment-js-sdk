@@ -10,3 +10,4 @@ test/**/*.js
 junit.xml
 coverage
 public
+.eslintcache
