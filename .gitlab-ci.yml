@@ -45,7 +45,7 @@ test:
     - npm run test
   variables:
     NODE_ENV: test
-  coverage: 'All files\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*'
+  coverage: '/All files\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*/'
   artifacts:
     paths:
       - coverage/lcov-report
