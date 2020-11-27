@@ -30,10 +30,6 @@
   },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.13.0",
-    "lodash": "^4.17.20",
-    "lodash-es": "^4.17.15"
-  },
-  "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.0",
     "@types/eslint": "^7.2.5",
     "@types/google-protobuf": "^3.7.4",
@@ -52,6 +48,8 @@
     "jest": "^26.6.3",
     "jest-junit": "^12.0.0",
     "lint-staged": "^10.5.2",
+    "lodash": "^4.17.20",
+    "lodash-es": "^4.17.15",
     "np": "^7.0.0",
     "prettier": "^2.2.0",
     "prettier-plugin-pkg": "^0.8.0",
@@ -66,6 +64,7 @@
     "typedoc": "^0.19.2",
     "typescript": "^4.1.2"
   },
+  "devDependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
