@@ -43,6 +43,8 @@ test:
   stage: test
   script:
     - npm run test
+  variables:
+    NODE_ENV: test
   artifacts:
     paths:
       - coverage/lcov-report

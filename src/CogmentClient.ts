@@ -15,11 +15,11 @@
  *
  */
 
-import {VersionInfo, VersionRequest} from 'cogment/api/common_pb';
+import {VersionInfo, VersionRequest} from './cogment/api/common_pb';
 import {
   ServiceError,
   TrialLifecycleClient,
-} from 'cogment/api/orchestrator_pb_service';
+} from './cogment/api/orchestrator_pb_service';
 
 export class CogmentClient {
   constructor(private trialLifecycleClient: TrialLifecycleClient) {}

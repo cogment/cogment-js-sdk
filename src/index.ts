@@ -15,8 +15,8 @@
  *
  */
 
-import {TrialLifecycleClient} from 'cogment/api/orchestrator_pb_service';
-import {CogmentClient} from 'CogmentClient';
+import {CogmentClient} from './CogmentClient';
+import {TrialLifecycleClient} from './cogment/api/orchestrator_pb_service';
 
 const ORCHESTRATOR_URL = 'orchestrator:9000';
 const trialLifecycleClient = new TrialLifecycleClient(ORCHESTRATOR_URL);
@@ -33,3 +33,7 @@ orchestratorClient
   .catch((err: Error) => {
     console.error(`${err}\n${err.stack}`);
   });
+
+const sum = (a: number, b: number) => a + b;
+
+export {sum};
