@@ -17,6 +17,7 @@ prebuild:
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
   script:
     - npm install --production=false
+  dependencies: []
   artifacts:
     paths:
       - node_modules
@@ -65,3 +66,15 @@ deploy:production:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
   only:
     - master
+
+post:
+  stage: .post
+  script:
+    - ls node_modules > node_modules.txt
+  artifacts:
+    expose_as: node_modules
+    paths:
+      - node_modules.log
+  when: always
+  needs:
+    - prebuild
