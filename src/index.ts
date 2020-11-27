@@ -15,10 +15,13 @@
  *
  */
 
+import {grpc} from '@improbable-eng/grpc-web';
 import {CogmentClient} from './CogmentClient';
 import {TrialLifecycleClient} from './cogment/api/orchestrator_pb_service';
 
 const ORCHESTRATOR_URL = 'orchestrator:9000';
+const transport = grpc.WebsocketTransport();
+const grpcWebClient = transport({});
 const trialLifecycleClient = new TrialLifecycleClient(ORCHESTRATOR_URL);
 const orchestratorClient = new CogmentClient(trialLifecycleClient);
 
@@ -33,7 +36,3 @@ orchestratorClient
   .catch((err: Error) => {
     console.error(`${err}\n${err.stack}`);
   });
-
-const sum = (a: number, b: number) => a + b;
-
-export {sum};

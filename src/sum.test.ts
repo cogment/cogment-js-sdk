@@ -15,7 +15,7 @@
  *
  */
 
-import {sum} from '../src';
+import {sum} from './sum';
 
 describe('blah', () => {
   it('works', () => {
