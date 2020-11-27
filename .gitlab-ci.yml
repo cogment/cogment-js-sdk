@@ -59,7 +59,7 @@ pages:
   stage: deploy
   script:
     - npm run docs
-    - cp coverage/lcov-report public/coverage
+    - cp -r coverage/lcov-report public/coverage
   artifacts:
     paths:
       - public
