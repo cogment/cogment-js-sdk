@@ -1,3 +1,6 @@
+src/*.d.ts
+*.d.ts.map
+*.js.map
 *_pb.*
 *.log
 .DS_Store
