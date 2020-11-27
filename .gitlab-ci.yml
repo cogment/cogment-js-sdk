@@ -61,28 +61,16 @@ pages:
   only:
     - master
 
-deploy:staging:
+package:npm:beta:
   stage: deploy
   script:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
   only:
     - develop
 
-deploy:production:
+package:npm:
   stage: deploy
   script:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
   only:
     - master
-
-post:
-  stage: .post
-  script:
-    - ls node_modules > node_modules.log
-  artifacts:
-    expose_as: node_modules
-    paths:
-      - node_modules.log
-  when: always
-  needs:
-    - prebuild
