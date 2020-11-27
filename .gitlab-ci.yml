@@ -6,6 +6,9 @@ stages:
   - test
   - deploy
 
+variables:
+  PROTOC_URL: https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protoc-3.14.0-linux-x86_64.zip
+
 prebuild:
   stage: .pre
   before_script:
@@ -16,7 +19,7 @@ prebuild:
     - chmod 700 ~/.ssh
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
   script:
-    - npm install --production=false
+    - npm install
   artifacts:
     paths:
       - node_modules
@@ -28,8 +31,12 @@ lint:
 
 build:
   stage: build
+  before_script:
+    - apt-get update -y
+    - apt-get install curl unzip -y
+    - curl -LSso protoc.zip "${PROTOC_URL}"
+    - unzip -o protoc.zip -d /usr/local/ -x readme.txt
   script:
-    - apt-get update -y && apt-get install protobuf-compiler -y
     - npm run build
 
 test:
