@@ -18,7 +18,7 @@
     "analyze": "size-limit --why",
     "build": "npm run protos && npm run compile",
     "compile": "tsc",
-    "docs": "typedoc src/**/*.ts",
+    "docs": "typedoc",
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint --cache {src,test}/**/*.ts",
     "lint:prettier": "prettier --check {src,test}/**/*.ts",
