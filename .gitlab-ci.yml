@@ -69,7 +69,7 @@ deploy:production:
 post:
   stage: .post
   script:
-    - ls node_modules > node_modules.txt
+    - ls node_modules > node_modules.log
   artifacts:
     expose_as: node_modules
     paths:
