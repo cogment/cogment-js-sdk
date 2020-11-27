@@ -16,13 +16,34 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
+import {VersionInfo} from './cogment/api/common_pb';
+import {
+  TrialLifecycle,
+  TrialLifecycleClient,
+} from './cogment/api/orchestrator_pb_service';
 import {CogmentClient} from './CogmentClient';
-import {TrialLifecycleClient} from './cogment/api/orchestrator_pb_service';
 
 const ORCHESTRATOR_URL = 'orchestrator:9000';
-const transport = grpc.WebsocketTransport();
-const grpcWebClient = transport({});
 const trialLifecycleClient = new TrialLifecycleClient(ORCHESTRATOR_URL);
+const transport = grpc.WebsocketTransport();
+const client = grpc.client(TrialLifecycle.Version, {
+  host: ORCHESTRATOR_URL,
+  transport,
+});
+
+client.onMessage((req) => (req: grpc.ProtobufMessage) => {
+  console.log('Got a messagee!');
+  console.log(req);
+});
+///const grpcWebServer = transport({
+//  methodDefinition: (req: any) => {},
+//  debug: true,
+//  onChunk(chunkBytes: Uint8Array, flush: boolean | undefined): void {},
+//  onEnd(err: Error | undefined): void {},
+//  onHeaders(headers: Metadata, status: number): void {},
+//  url: '/_socket',
+//});
+
 const orchestratorClient = new CogmentClient(trialLifecycleClient);
 
 console.log('oh hai!');
