@@ -17,8 +17,6 @@ prebuild:
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
   script:
     - npm install --production=false
-  dependencies: []
-  needs: []
   artifacts:
     paths:
       - node_modules
