@@ -1,9 +1,5 @@
 image: node:14
 
-cache:
-  paths:
-    - node_modules/
-
 stages:
   - lint
   - build
@@ -20,7 +16,10 @@ prebuild:
     - chmod 700 ~/.ssh
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
   script:
-    - npm install
+    - npm install --production=false
+  artifacts:
+    paths:
+      - node_modules
 
 lint:
   stage: lint
