@@ -40,7 +40,7 @@ build:
     - npm run build
   artifacts:
     paths:
-      - src/api/cogment
+      - src/cogment/api
 
 test:
   stage: test
