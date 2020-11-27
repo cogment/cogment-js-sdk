@@ -23,7 +23,7 @@
     "lint:eslint": "eslint --cache {src,test}/**/*.ts",
     "lint:prettier": "prettier --check {src,test}/**/*.ts",
     "pretty-quick": "pretty-quick",
-    "protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
+    "protos": "protoc --plugin=protoc-gen-ts=node_modules/.bin/protoc-gen-ts -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "size": "size-limit",
     "start": "node dist/index.js",
     "test": "jest test"
