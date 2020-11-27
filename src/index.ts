@@ -16,7 +16,6 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import {VersionInfo} from './cogment/api/common_pb';
 import {
   TrialLifecycle,
   TrialLifecycleClient,
@@ -24,13 +23,15 @@ import {
 import {CogmentClient} from './CogmentClient';
 
 const ORCHESTRATOR_URL = 'orchestrator:9000';
-const trialLifecycleClient = new TrialLifecycleClient(ORCHESTRATOR_URL);
+
 const transport = grpc.WebsocketTransport();
+const trialLifecycleClient = new TrialLifecycleClient(ORCHESTRATOR_URL, {
+  transport,
+});
 const client = grpc.client(TrialLifecycle.Version, {
   host: ORCHESTRATOR_URL,
   transport,
 });
-
 client.onMessage((req) => (req: grpc.ProtobufMessage) => {
   console.log('Got a messagee!');
   console.log(req);
@@ -45,8 +46,6 @@ client.onMessage((req) => (req: grpc.ProtobufMessage) => {
 //});
 
 const orchestratorClient = new CogmentClient(trialLifecycleClient);
-
-console.log('oh hai!');
 
 orchestratorClient
   .version()
