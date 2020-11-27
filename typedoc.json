@@ -2,7 +2,7 @@
   "excludeExternals": true,
   "includeDeclarations": true,
   "includeVersion": true,
-  "exclude": ["src/cogment/api/*"],
+  "externalPattern": [],
   "mode": "modules",
   "out": "public"
 }

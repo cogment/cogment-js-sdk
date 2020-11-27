@@ -48,7 +48,7 @@ test:
   coverage: '/All files\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*/'
   artifacts:
     paths:
-      - coverage/lcov-report
+      - coverage
     reports:
       junit: junit.xml
 
@@ -56,6 +56,7 @@ pages:
   stage: deploy
   script:
     - npm run docs
+    - cp coverage/lcov-report public/coverage
   artifacts:
     paths:
       - public
