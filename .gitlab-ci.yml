@@ -38,6 +38,9 @@ build:
     - unzip -o protoc.zip -d /usr/local/ -x readme.txt
   script:
     - npm run build
+  artifacts:
+    paths:
+      - src/api/cogment
 
 test:
   stage: test
