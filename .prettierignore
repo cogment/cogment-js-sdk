@@ -1,5 +1,4 @@
 dist
 coverage
-docs
 public
-src/protos
+src/cogment/api
