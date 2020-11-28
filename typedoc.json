@@ -1,8 +1,8 @@
 {
-  "excludeExternals": true,
   "includeDeclarations": true,
   "includeVersion": true,
-  "externalPattern": [],
-  "mode": "modules",
+  "externalPattern": ["src/cogment/api/*"],
+  "exclude": ["src/**/*.test.*", "node_modules/**/*"],
+  "mode": "file",
   "out": "public"
 }
