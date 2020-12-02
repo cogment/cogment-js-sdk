@@ -52,7 +52,7 @@ Currently, the [cogment-api][1] repo contains our protobuf definitions. It would
 
 Note: this monorepo would _not_ be a reproduction of the pre-1.0 monorepo - the repo would contain only the protobuf definitions and potentially the SDK code.
 Note: The proto files themselves do not have to be included in compiled packages, although they _could_, this would allow developers who want more fine grained control over consumption of the protobuf api.
-Note: Exporting the *public* portion of the compiled protobufs would allow developers to skip use of the SDK altogether, using the compiled protobuf code.
+Note: Exporting the _public_ portion of the compiled protobufs would allow developers to skip use of the SDK altogether, using the compiled protobuf code.
 
 Advantages:
 

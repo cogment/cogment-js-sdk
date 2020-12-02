@@ -21,7 +21,7 @@
     "docs": "typedoc",
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint --cache {src,test}/**/*.ts",
-    "lint:prettier": "prettier --check {src,test}/**/*.ts",
+    "lint:prettier": "prettier --check .",
     "protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "size": "size-limit",
     "start": "webpack serve",
@@ -82,9 +82,9 @@
     }
   },
   "lint-staged": {
-    "*.{ts}": "npm run test",
     "*.{ts,js}": "npm run lint:eslint",
-    "*.{ts,js,css,md,json}": "npm run lint:prettier"
+    "*.{ts,js,css,md,json,yaml}": "npm run lint:prettier",
+    "*.{ts}": "npm run test"
   },
   "size-limit": [
     {
