@@ -1,6 +1,9 @@
 /node_modules/
-dist/
-coverage/
-docs/
-public/
-src/protos
+/dist/
+/coverage/
+/docs/
+/public/
+/src/protos
+/jest.config.js
+/.eslintrc.js
+/webpack.config.js

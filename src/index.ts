@@ -22,7 +22,9 @@ import {
 } from './cogment/api/orchestrator_pb_service';
 import {CogmentClient} from './CogmentClient';
 
-const ORCHESTRATOR_URL = 'orchestrator:9000';
+const ORCHESTRATOR_URL = 'http://orchestrator:8088';
+
+console.log('wat!');
 
 const transport = grpc.WebsocketTransport();
 const trialLifecycleClient = new TrialLifecycleClient(ORCHESTRATOR_URL, {

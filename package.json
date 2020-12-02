@@ -12,21 +12,24 @@
   "engines": {
     "node": ">=10"
   },
-  "main": "dist/index.js",
+  "main": "dist/main.bundle.js",
+  "module": "",
   "types": "dist/index.d.ts",
   "scripts": {
     "analyze": "size-limit --why",
-    "build": "npm run protos && npm run compile",
-    "compile": "tsc",
+    "build": "npm run protos && npm run webpack",
     "docs": "typedoc",
     "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint --cache {src,test}/**/*.ts",
     "lint:prettier": "prettier --check {src,test}/**/*.ts",
-    "pretty-quick": "pretty-quick",
     "protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "size": "size-limit",
-    "start": "node dist/index.js",
-    "test": "jest test"
+    "start": "webpack serve",
+    "test": "npm run build && npm run test:post-build",
+    "test:post-build": "jest",
+    "tsc": "tsc",
+    "watch": "webpack --watch",
+    "webpack": "webpack"
   },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.13.0",
@@ -35,16 +38,17 @@
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^4.9.0",
-    "@types/eslint": "^7.2.5",
+    "@types/eslint": "^7.2.6",
     "@types/google-protobuf": "^3.7.4",
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.16",
     "@types/lodash": "^4.14.165",
     "@types/long": "^4.0.1",
     "@types/node": "^14.14.10",
-    "@typescript-eslint/eslint-plugin": "^4.8.2",
-    "@typescript-eslint/parser": "^4.8.2",
+    "@types/semver": "^7.3.4",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "clean-webpack-plugin": "^3.0.0",
     "cogment-api": "gitlab:ai-r/cogment-api#v1.0.0-alpha2",
-    "doctoc": "^1.4.0",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
     "google-protobuf": "^3.14.0",
@@ -57,14 +61,20 @@
     "prettier-plugin-pkg": "^0.8.0",
     "prettier-plugin-sh": "^0.6.0",
     "rimraf": "^3.0.2",
+    "semver": "^7.3.4",
     "size-limit": "^4.9.0",
+    "source-map-loader": "^1.1.2",
     "tiny-invariant": "^1.1.0",
     "tiny-warning": "^1.0.3",
     "ts-jest": "^26.4.4",
+    "ts-loader": "^8.0.11",
     "ts-protoc-gen": "^0.13.0",
     "tslib": "^2.0.3",
     "typedoc": "^0.19.2",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "webpack": "^5.9.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
   },
   "husky": {
     "hooks": {
@@ -72,8 +82,9 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix",
-    "*.{ts,js,css,md,json}": "prettier --write"
+    "*.{ts}": "npm run test",
+    "*.{ts,js}": "npm run lint:eslint",
+    "*.{ts,js,css,md,json}": "npm run lint:prettier"
   },
   "size-limit": [
     {
