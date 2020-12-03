@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Commands": {
+      "type": "array",
+      "title": "Commands",
+      "description": "cogment run <command>",
+      "items": {
+        "type": "string",
+        "title": "Command",
+        "description": "Shell command to run"
+      }
+    },
+    "Environment": {
+      "type": "object",
+      "title": "Environment",
+      "description": "Environment Properties",
+      "properties": {
+        "config_type": {
+          "type": "string",
+          "description": "Qualified protobuf name that configures the environment"
+        }
+      }
+    },
+    "Trial": {
+      "title": "Trial",
+      "description": "Trial Properties",
+      "properties": {
+        "config_type": {
+          "type": "string",
+          "description": "Qualified protobuf name that configures the trial"
+        },
+        "pre_hooks": {
+          "type": "array",
+          "title": "Pre-hooks",
+          "description": "List of prehooks that will be called in order to mutate the trial configuration",
+          "items": {
+            "type": "string",
+            "title": "gRPC URI",
+            "description": "The gRPC URI that will be called before each trial",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "TrialParams": {
+      "title": "Trial Parameters",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["description", "name", "properties", "title"],
+      "properties": {
+        "environment": {
+          "type": "object",
+          "title": "Trial environment params",
+          "description": "Trial specific environment configuration",
+          "properties": {
+            "endpoint": {
+              "type": "string",
+              "title": "Trial gRPC URI",
+              "description": "The gRPC URI of the environment microservice",
+              "format": "uri"
+            }
+          }
+        },
+        "actors": {
+          "type": "array",
+          "title": "Actors",
+          "description": "List of actor configurations",
+          "items": {
+            "type": "object",
+            "title": "Actor",
+            "description": "Actor Configuration",
+            "properties": {
+              "name": {
+                "type": "string",
+                "title": "Name",
+                "description": "Name of this actor (reference is used in parts of the application)"
+              },
+              "actor_class": {
+                "type": "string",
+                "title": "Actor Class",
+                "description": "Class of this actor"
+              },
+              "implementation": {
+                "type": "string",
+                "title": "Actor Implementation",
+                "description": "Which implementation of this actor to use"
+              },
+              "endpoint": {
+                "type": "string",
+                "title": "Trial gRPC URI",
+                "description": "The gRPC URI of the actor microservice",
+                "format": "uri"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "title": "CogmentYaml",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "import",
+    "commands",
+    "environment",
+    "trial",
+    "actor_classes",
+    "trial_params"
+  ],
+  "properties": {
+    "import": {
+      "type": "object",
+      "title": "Import",
+      "description": "External properties",
+      "properties": {
+        "proto": {
+          "type": "array",
+          "title": "Protobufs",
+          "description": "List of user protobufs to import into project",
+          "items": {
+            "type": "string",
+            "title": "Protobuf path",
+            "description": "Path to a protobuf file that will included in your Cogment application"
+          }
+        }
+      }
+    },
+    "commands": {
+      "$ref": "#/definitions/Commands"
+    },
+    "environment": {
+      "$ref": "#/definitions/Environment"
+    },
+    "actor_classes": {},
+    "trial_params": {
+      "$ref": "#/definitions/TrialParams"
+    }
+  }
+}
