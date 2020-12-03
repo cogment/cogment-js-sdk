@@ -20,7 +20,6 @@ variables:
 
 .cache:protoc:
   cache:
-    key: protoc
     paths:
       - protoc
 
@@ -53,6 +52,8 @@ build:
   stage: build
   extends:
     - .cache:protoc
+  before_script:
+    - cp -r protoc/{bin,include} /usr/local/
   script:
     - npm run build
   artifacts:
