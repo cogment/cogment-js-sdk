@@ -19,9 +19,11 @@
     "analyze": "size-limit --why",
     "build": "npm run protos && npm run webpack",
     "docs": "typedoc",
-    "lint": "npm run lint:prettier && npm run lint:eslint",
+    "lint": "npm run lint:prettier:check && npm run lint:eslint",
     "lint:eslint": "eslint --cache {src,test}/**/*.ts",
-    "lint:prettier": "prettier --check .",
+    "lint:prettier": "prettier .",
+    "lint:prettier:check": "npm run lint:prettier -- --check",
+    "lint:prettier:write": "npm run lint:prettier -- --write",
     "protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "size": "size-limit",
     "start": "webpack serve",
@@ -47,6 +49,7 @@
     "@types/semver": "^7.3.4",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
+    "@webpack-cli/init": "^1.0.3",
     "clean-webpack-plugin": "^3.0.0",
     "cogment-api": "gitlab:ai-r/cogment-api#v1.0.0-alpha2",
     "eslint": "^7.14.0",
@@ -64,6 +67,7 @@
     "semver": "^7.3.4",
     "size-limit": "^4.9.0",
     "source-map-loader": "^1.1.2",
+    "terser-webpack-plugin": "^5.0.3",
     "tiny-invariant": "^1.1.0",
     "tiny-warning": "^1.0.3",
     "ts-jest": "^26.4.4",
@@ -83,7 +87,7 @@
   },
   "lint-staged": {
     "*.{ts,js}": "npm run lint:eslint",
-    "*.{ts,js,css,md,json,yaml}": "npm run lint:prettier",
+    "*.{ts,js,css,md,json,yaml,yml}": "npm run lint:prettier:check",
     "*.{ts}": "npm run test"
   },
   "size-limit": [

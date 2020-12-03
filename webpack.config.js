@@ -15,6 +15,7 @@
  *
  */
 
+const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
@@ -31,13 +32,9 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
-        enforce: 'pre',
-        test: /\.map$/,
-        loader: 'source-map-loader',
+        loader: 'ts-loader',
+        include: [path.resolve(__dirname, 'src')],
+        exclude: [/node_modules/],
       },
     ],
   },
@@ -45,11 +42,16 @@ module.exports = {
     extensions: ['.ts', '.js', '.json'],
   },
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+    library: 'cogment',
+    libraryTarget: 'umd',
   },
   plugins: [
     new webpack.ProgressPlugin(),
     new CleanWebpackPlugin({verbose: true}),
   ],
+  optimization: {
+    minimizer: [new TerserPlugin()],
+  },
 };
