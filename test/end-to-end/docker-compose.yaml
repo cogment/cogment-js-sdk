@@ -47,3 +47,7 @@ services:
       - PYTHONUNBUFFERED=1
     # stdin_open: true
     # tty: true
+
+  node:
+    build:
+      context: .

@@ -27,8 +27,10 @@
     "protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "size": "size-limit",
     "start": "webpack serve",
-    "test": "npm run build && npm run test:post-build",
-    "test:post-build": "jest",
+    "test": "npm run test:post-build",
+    "test:end-to-end": "echo lol almost",
+    "test:jest": "jest",
+    "test:post-build": "npm run test:jest && npm run test:end-to-end",
     "tsc": "tsc",
     "watch": "webpack --watch",
     "webpack": "webpack"
