@@ -23,7 +23,17 @@ variables:
     paths:
       - protoc
 
-prebuild:
+prebuild:download-protoc:
+  stage: prebuild
+  extends:
+    - .cache:protoc
+  script:
+    - apt-get update -y
+    - apt-get install curl unzip -y
+    - curl -LSso protoc.zip "${PROTOC_URL}"
+    - unzip -od protoc protoc.zip
+
+prebuild:npm-install:
   stage: .pre
   extends:
     - .ssh
@@ -42,12 +52,6 @@ build:
   stage: build
   extends:
     - .cache:protoc
-  before_script:
-    - apt-get update -y
-    - apt-get install curl unzip -y
-    - curl -LSso protoc.zip "${PROTOC_URL}"
-    - unzip -od protoc protoc.zip
-    - cp -r protoc/{bin,include} /usr/local/
   script:
     - npm run build
   artifacts:
