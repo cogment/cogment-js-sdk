@@ -20,7 +20,7 @@ variables:
 
 .cache:protoc:
   cache:
-    key: protoc
+    key: ${PROTOC_URL}
     paths:
       - protoc
 
