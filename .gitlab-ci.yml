@@ -24,7 +24,7 @@ variables:
       - protoc
 
 prebuild:download-protoc:
-  stage: prebuild
+  stage: .pre
   extends:
     - .cache:protoc
   script:
