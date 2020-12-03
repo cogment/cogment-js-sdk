@@ -20,6 +20,7 @@ variables:
 
 .cache:protoc:
   cache:
+    key: protoc
     paths:
       - protoc
 
