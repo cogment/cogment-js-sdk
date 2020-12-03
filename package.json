@@ -1,5 +1,5 @@
 {
-  "name": "cogment-js-sdk",
+  "name": "cogment",
   "version": "1.0.0",
   "description": "Javascript SDK for the Cogment Framework",
   "repository": {
@@ -27,10 +27,9 @@
     "protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "size": "size-limit",
     "start": "webpack serve",
-    "test": "npm run test:post-build",
-    "test:end-to-end": "echo lol almost",
+    "test": "npm run test:jest && npm run test:end-to-end",
+    "test:end-to-end": "",
     "test:jest": "jest",
-    "test:post-build": "npm run test:jest && npm run test:end-to-end",
     "tsc": "tsc",
     "watch": "webpack --watch",
     "webpack": "webpack"
