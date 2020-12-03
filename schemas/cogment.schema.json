@@ -2,13 +2,18 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
     "Commands": {
-      "type": "array",
+      "type": "object",
       "title": "Commands",
       "description": "cogment run <command>",
       "items": {
-        "type": "string",
+        "type": "array",
         "title": "Command",
-        "description": "Shell command to run"
+        "description": "Shell command to run",
+        "items": {
+          "type": "string",
+          "title": "Command",
+          "description": "Command"
+        }
       }
     },
     "Environment": {
@@ -47,7 +52,7 @@
       "title": "Trial Parameters",
       "type": "object",
       "additionalProperties": false,
-      "required": ["description", "name", "properties", "title"],
+      "required": ["environment", "actors"],
       "properties": {
         "environment": {
           "type": "object",
@@ -132,6 +137,9 @@
     },
     "environment": {
       "$ref": "#/definitions/Environment"
+    },
+    "trial": {
+      "$ref": "#/definitions/Trial"
     },
     "actor_classes": {},
     "trial_params": {

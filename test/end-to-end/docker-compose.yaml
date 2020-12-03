@@ -10,7 +10,7 @@ services:
       - ./:/app
 
   agent:
-    image: registry.gitlab.com/change_me/agent
+    #    image: registry.gitlab.com/change_me/agent
     build:
       context: .
       dockerfile: agents/agent/Dockerfile
@@ -20,7 +20,7 @@ services:
       - PYTHONUNBUFFERED=1
 
   env:
-    image: registry.gitlab.com/change_me/env
+    #    image: registry.gitlab.com/change_me/env
     build:
       context: .
       dockerfile: envs/Dockerfile
