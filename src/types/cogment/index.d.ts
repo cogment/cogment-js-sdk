@@ -15,30 +15,28 @@
  *
  */
 
+// eslint-disable-next-line import/no-unresolved
 import * as cogSettings from './cog_settings.js';
 
-type CogSettings = typeof cogSettings;
+type CogSettingsT = typeof cogSettings;
 
 interface Cogment {
-  createService: (cogSettings: CogSettings) => CogmentService;
+  createService: (cogSettings: CogSettingsT) => CogmentService;
 }
 
-// TODO: What other values for name and classes will there be for
-//        cogment 1.0? No support for agents is planned yet.
-type HumanActorConfig = {name: 'human'; classes: ['player']};
 type ActorConfig = {name: string; classes: string[]};
 type ActorImplementation = (session: ActorSession) => Promise<void>;
 type CogmentMessage = any;
 type MessageHandler = (message: CogmentMessage) => Promise<void>;
 
-interface StartTrialArgs {
+interface StartTrialArguments {
   config: TrialConfig;
 }
 interface StartTrialReturnType {
   actors: ActorConfig[];
   trialId: string;
 }
-interface JoinTrialArgs {
+interface JoinTrialArguments {
   actorId: 0;
   actorImplName: 'human';
   trialId: string;
@@ -52,8 +50,10 @@ interface CogmentService {
 }
 
 interface TrialController {
-  joinTrial: (args: JoinTrialArgs) => Promise<void>;
-  startTrial: (args: StartTrialArgs) => Promise<StartTrialReturnType>;
+  joinTrial: (arguments_: JoinTrialArguments) => Promise<void>;
+  startTrial: (
+    arguments_: StartTrialArguments,
+  ) => Promise<StartTrialReturnType>;
   terminateTrial: (trialId: string) => Promise<void>;
 }
 

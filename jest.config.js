@@ -17,10 +17,22 @@
 
 module.exports = {
   collectCoverage: true,
-  coverageReporters: ['json', 'lcov', 'text', 'text-summary', 'clover'],
+  coverageReporters: [
+    'clover',
+    'html-spa',
+    'json',
+    'lcov',
+    'text',
+    'text-summary',
+  ],
   coveragePathIgnorePatterns: ['/node_modules/', '/src/cogment/api'],
+  //  coverageProvider: 'v8',
   preset: 'ts-jest',
   reporters: ['default', 'jest-junit'],
   testEnvironment: 'jsdom',
   testMatch: ['<rootDir>/**/*(*.)@(test).[t]s?(x)'],
+  watchPlugins: [
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname',
+  ],
 };

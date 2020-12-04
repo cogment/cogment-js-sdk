@@ -26,6 +26,7 @@ const ORCHESTRATOR_URL = 'http://orchestrator:8088';
 
 console.log('wat!');
 
+const re = /a/;
 const transport = grpc.WebsocketTransport();
 const trialLifecycleClient = new TrialLifecycleClient(ORCHESTRATOR_URL, {
   transport,
@@ -34,18 +35,19 @@ const client = grpc.client(TrialLifecycle.Version, {
   host: ORCHESTRATOR_URL,
   transport,
 });
-client.onMessage((req) => (req: grpc.ProtobufMessage) => {
+const onMessage = (request: grpc.ProtobufMessage) => {
   console.log('Got a messagee!');
-  console.log(req);
-});
-///const grpcWebServer = transport({
-//  methodDefinition: (req: any) => {},
-//  debug: true,
-//  onChunk(chunkBytes: Uint8Array, flush: boolean | undefined): void {},
-//  onEnd(err: Error | undefined): void {},
-//  onHeaders(headers: Metadata, status: number): void {},
-//  url: '/_socket',
-//});
+  console.log(request);
+};
+client.onMessage((request) => onMessage);
+// /const grpcWebServer = transport({
+//  MethodDefinition: (req: any) => {},
+//  Debug: true,
+//  OnChunk(chunkBytes: Uint8Array, flush: boolean | undefined): void {},
+//  OnEnd(err: Error | undefined): void {},
+//  OnHeaders(headers: Metadata, status: number): void {},
+//  Url: '/_socket',
+// });
 
 const orchestratorClient = new CogmentClient(trialLifecycleClient);
 
@@ -55,6 +57,8 @@ orchestratorClient
     console.log('Got something!');
     console.log(versionInfo);
   })
-  .catch((err: Error) => {
-    console.error(err.stack);
+  .catch((error: Error) => {
+    console.error(error.stack);
   });
+
+export {CogmentClient};

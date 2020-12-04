@@ -15,7 +15,7 @@
  *
  */
 
-import * as cogment from '../../src/index';
+import * as cogment from '../../src';
 
 describe('we can import the package', () => {
   it('works', () => {

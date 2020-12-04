@@ -3,7 +3,11 @@
 /coverage/
 /docs/
 /public/
-/src/protos
-/jest.config.js
-/.eslintrc.js
-/webpack.config.js
+/src/cogment/api
+jest.config.js
+.eslintrc.js
+webpack.config.js
+package.json
+package-lock.json
+typedoc.json
+tsconfig.json

@@ -2,7 +2,7 @@
   "includeDeclarations": true,
   "includeVersion": true,
   "externalPattern": ["src/cogment/api/*"],
-  "exclude": ["src/**/*.test.*", "node_modules/**/*"],
+  "exclude": ["**/*.test.*", "node_modules/**/*"],
   "mode": "file",
   "out": "public"
 }

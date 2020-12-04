@@ -15,19 +15,54 @@
  *
  */
 
-// eslint-disable-next-line no-undef
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  parserOptions: {
+    ecmaFeatures: {
+      globalReturn: true,
+    },
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.json'],
+  },
+  plugins: [
+    '@typescript-eslint',
+    'sonarjs',
+    'unicorn',
+    'lodash',
+    'jest',
+    'jest-formatting',
+    'tsdoc',
+  ],
   env: {
     browser: true,
+    jest: true,
+    commonjs: true,
+    'shared-node-browser': true,
   },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'prettier',
     'prettier/@typescript-eslint',
     'prettier/standard',
     'plugin:compat/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
+    'plugin:sonarjs/recommended',
+    'plugin:unicorn/recommended',
+    'plugin:lodash/recommended',
+    'plugin:jest/recommended',
+    'plugin:jest/style',
+    'plugin:jest-formatting/recommended',
+    'plugin:eslint-comments/recommended',
   ],
+  rules: {
+    'unicorn/filename-case': [
+      'error',
+      {cases: {pascalCase: true, kebabCase: true}},
+    ],
+  },
+  reportUnusedDisableDirectives: true,
 };

@@ -21,6 +21,7 @@ const webpack = require('webpack');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const OUT_DIR = 'dist';
 const OUT_PATH = path.resolve(__dirname, OUT_DIR);
@@ -41,7 +42,10 @@ const baseConfig = {
       },
     ],
   },
-  plugins: [new webpack.ProgressPlugin()],
+  plugins: [
+    new webpack.ProgressPlugin(),
+    new ESLintPlugin({extensions: ['js', 'ts', '.json']}),
+  ],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },

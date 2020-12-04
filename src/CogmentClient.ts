@@ -29,11 +29,11 @@ export class CogmentClient {
     return new Promise((resolve, reject) => {
       this.trialLifecycleClient.version(
         new VersionRequest(),
-        (err: ServiceError | null, res: VersionInfo | null) => {
-          if (err || !res) {
-            return reject(err);
+        (error: ServiceError | null, response: VersionInfo | null) => {
+          if (error || !response) {
+            return reject(error);
           }
-          resolve(res.toObject());
+          resolve(response.toObject());
         },
       );
     });
