@@ -12,8 +12,8 @@
   "engines": {
     "node": ">=10"
   },
-  "main": "dist/main.bundle.js",
-  "module": "",
+  "main": "dist/cogment.js",
+  "module": "dist/cogment.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "analyze": "size-limit --why",
@@ -53,6 +53,7 @@
     "cogment-api": "gitlab:ai-r/cogment-api#v1.0.0-alpha2",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-compat": "^3.8.0",
     "google-protobuf": "^3.14.0",
     "husky": "^4.3.0",
     "jest": "^26.6.3",
@@ -76,9 +77,13 @@
     "typedoc": "^0.19.2",
     "typescript": "^4.1.2",
     "webpack": "^5.9.0",
+    "webpack-bundle-analyzer": "^4.2.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0"
   },
+  "browserslist": [
+    "defaults"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

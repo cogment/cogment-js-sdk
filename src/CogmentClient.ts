@@ -24,7 +24,8 @@ import {
 export class CogmentClient {
   constructor(private trialLifecycleClient: TrialLifecycleClient) {}
 
-  version(): Promise<VersionInfo.AsObject> {
+  async version(): Promise<VersionInfo.AsObject> {
+    // eslint-disable-next-line compat/compat
     return new Promise((resolve, reject) => {
       this.trialLifecycleClient.version(
         new VersionRequest(),

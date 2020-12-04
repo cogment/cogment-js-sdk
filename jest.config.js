@@ -17,8 +17,10 @@
 
 module.exports = {
   collectCoverage: true,
+  coverageReporters: ['json', 'lcov', 'text', 'text-summary', 'clover'],
+  coveragePathIgnorePatterns: ['/node_modules/', '/src/cogment/api'],
   preset: 'ts-jest',
   reporters: ['default', 'jest-junit'],
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   testMatch: ['<rootDir>/**/*(*.)@(test).[t]s?(x)'],
 };

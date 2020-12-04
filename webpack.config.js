@@ -19,39 +19,89 @@ const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin;
 
-module.exports = {
+const OUT_DIR = 'dist';
+const OUT_PATH = path.resolve(__dirname, OUT_DIR);
+const NODE_ENV =
+  process.env.NODE_ENV === 'production' ? 'production' : 'development';
+
+const baseConfig = {
   entry: './src/index.ts',
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  mode: NODE_ENV,
   devtool: 'source-map',
-  target: 'web',
-  devServer: {
-    port: 9000,
-  },
+  target: 'browserslist:last 2 versions',
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        loader: 'ts-loader',
-        include: [path.resolve(__dirname, 'src')],
-        exclude: [/node_modules/],
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
     ],
   },
+  plugins: [new webpack.ProgressPlugin()],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },
-  output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, 'dist'),
-    library: 'cogment',
-    libraryTarget: 'commonjs',
-  },
-  plugins: [
-    new webpack.ProgressPlugin(),
-    new CleanWebpackPlugin({verbose: true}),
-  ],
-  optimization: {
-    minimizer: [new TerserPlugin()],
-  },
 };
+
+let envConfig = {};
+
+if (NODE_ENV === 'production') {
+  envConfig = {
+    optimization: {
+      minimizer: [new TerserPlugin({sourceMap: true})],
+    },
+  };
+} else {
+  envConfig = {
+    devServer: {
+      port: 9000,
+    },
+  };
+}
+
+module.exports = [
+  {
+    name: 'lib-commonjs',
+    ...baseConfig,
+    ...envConfig,
+    output: {
+      filename: `cogment.js`,
+      path: OUT_PATH,
+      library: 'cogment',
+      libraryTarget: 'commonjs',
+      globalObject: 'this',
+    },
+  },
+  {
+    name: 'lib-umd',
+    ...baseConfig,
+    ...envConfig,
+    output: {
+      filename: `cogment.umd.js`,
+      path: OUT_PATH,
+      library: 'cogment',
+      libraryTarget: 'umd',
+      globalObject: 'this',
+    },
+  },
+  {
+    name: 'lib-esm',
+    experiments: {
+      outputModule: true,
+    },
+    ...baseConfig,
+    ...envConfig,
+    output: {
+      filename: `cogment.esm.js`,
+      path: OUT_PATH,
+      library: 'cogment',
+      libraryTarget: 'module',
+      globalObject: 'this',
+      module: true,
+    },
+  },
+];
