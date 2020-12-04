@@ -17,7 +17,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "analyze": "size-limit --why",
-    "build": "npm-run-all protos webpack",
+    "build": "npm-run-all build:protos build:webpack",
+    "build:protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
+    "build:webpack": "webpack",
     "docs": "typedoc",
     "lint": "npm-run-all lint:prettier:check lint:eslint:check",
     "lint:eslint": "eslint .",
@@ -27,14 +29,12 @@
     "lint:prettier": "prettier .",
     "lint:prettier:check": "npm run lint:prettier -- --check",
     "lint:prettier:fix": "npm run lint:prettier -- --write",
-    "protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "size": "size-limit",
     "start": "webpack serve",
     "test": "jest",
     "test:ui": "majestic --app",
     "tsc": "tsc",
-    "watch": "webpack --watch",
-    "webpack": "webpack"
+    "watch": "webpack --watch"
   },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.13.0",

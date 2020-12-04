@@ -41,8 +41,12 @@ prebuild:npm-install:
   stage: .pre
   extends:
     - .ssh
+    - .cache:protoc
+  before_script:
+    - cp -r protoc/{bin,include} /usr/local/
   script:
     - npm install
+    - npm run protos
   artifacts:
     paths:
       - node_modules
