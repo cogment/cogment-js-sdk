@@ -64,7 +64,7 @@ build:
 test:
   stage: test
   script:
-    - npm run test:post-build
+    - npm run test
   variables:
     NODE_ENV: test
   coverage: '/All files\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*\d+\s*\|\s*(\d+)\s*/'
