@@ -45,7 +45,7 @@ module.exports = {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
     library: 'cogment',
-    libraryTarget: 'umd',
+    libraryTarget: 'commonjs',
   },
   plugins: [
     new webpack.ProgressPlugin(),

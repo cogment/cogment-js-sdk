@@ -15,4 +15,10 @@
  *
  */
 
-import * as cogment from 'cogment';
+import * as cogment from '../../src/index';
+
+describe('we can import the package', () => {
+  it('works', () => {
+    expect(cogment).toBeTruthy();
+  });
+});
