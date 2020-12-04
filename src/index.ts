@@ -56,5 +56,5 @@ orchestratorClient
     console.log(versionInfo);
   })
   .catch((err: Error) => {
-    console.error(`${err}\n${err.stack}`);
+    console.error(err.stack);
   });
