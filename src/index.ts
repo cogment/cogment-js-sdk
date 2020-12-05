@@ -15,4 +15,4 @@
  *
  */
 
-export * as Cogment from './Cogment';
+export * as cogment from './Cogment';

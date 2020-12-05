@@ -3,6 +3,7 @@
 /coverage/
 /docs/
 /public/
+/examples/
 /src/cogment/api
 jest.config.js
 .eslintrc.js

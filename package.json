@@ -113,7 +113,7 @@
   "lint-staged": {
     "*.{ts,js,css,md,json,yaml,yml}": "npm run lint:prettier:check",
     "*.{ts,js,json}": "npm run lint:eslint",
-    "*.{ts}": "npm run test"
+    "*.ts": "npm run test"
   },
   "size-limit": [
     {

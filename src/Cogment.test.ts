@@ -15,4 +15,14 @@
  *
  */
 
-import {Cogment} from './Cogment';
+import {createService} from './Cogment';
+import {CogmentService} from './CogmentService';
+
+describe('Cogment', () => {
+  describe('createService', () => {
+    it('returns a CogmentService', () => {
+      const service = createService({trialParams: {}});
+      expect(service).toBeInstanceOf(CogmentService);
+    });
+  });
+});

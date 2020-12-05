@@ -15,12 +15,7 @@
  *
  */
 
-import {ActorSession} from './ActorSession';
 import {CogmentService} from './CogmentService';
 import {CogSettings} from './types/cogment';
 
-export type ActorImplementation = (session: ActorSession) => Promise<void>;
-
-export class Cogment {
-  public createService(cogSettings: CogSettings): CogmentService {}
-}
+export function createService(cogSettings: CogSettings): CogmentService {}

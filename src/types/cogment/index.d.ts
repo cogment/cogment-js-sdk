@@ -15,4 +15,6 @@
  *
  */
 
-export interface CogSettings {}
+export interface CogSettings {
+  trialParams: unknown;
+}

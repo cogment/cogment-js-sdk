@@ -15,8 +15,10 @@
  *
  */
 
-import {ActorImplementation} from './Cogment';
+import {ActorSession} from './ActorSession';
 import {ActorConfig} from './cogment/api/common_pb';
+
+export type ActorImplementation = (session: ActorSession) => Promise<void>;
 
 export class CogmentService {
   public registerActor(
