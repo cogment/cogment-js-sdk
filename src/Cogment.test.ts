@@ -15,31 +15,4 @@
  *
  */
 
-import {Event} from './Event';
-import {Reward} from './Reward';
-import {TrialActor} from './TrialActor';
-
-export class ActorSession<
-  ActionT = never,
-  ObservationT = never,
-  RewardT = never,
-  MessageT = never
-> {
-  public addFeedback(to: string[], reward: Reward<RewardT>): void {}
-
-  public doAction(action: ActionT): void {}
-
-  public eventLoop(): AsyncIterator<Event<ObservationT, RewardT, MessageT>> {}
-
-  public getActiveActors(): TrialActor[] {}
-
-  public getTickId(): number {}
-
-  public getTriaId(): string {}
-
-  public isTrialOver(): boolean {}
-
-  public sendMessage(to: string[], message: MessageT): void {}
-
-  public start(): void {}
-}
+import {Cogment} from './Cogment';

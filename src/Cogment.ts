@@ -16,18 +16,11 @@
  */
 
 import {ActorSession} from './ActorSession';
-import {ActorConfig} from './cogment/api/common_pb';
+import {CogmentService} from './CogmentService';
 import {CogSettings} from './types/cogment';
 
 export type ActorImplementation = (session: ActorSession) => Promise<void>;
 
 export class Cogment {
   public createService(cogSettings: CogSettings): CogmentService {}
-}
-
-export class CogmentService {
-  public registerActor(
-    actorConfig: ActorConfig,
-    actorImpl: ActorImplementation,
-  ): void {}
 }

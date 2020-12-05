@@ -15,7 +15,7 @@
  *
  */
 
-import {TrialConfig} from './types/cogment/api/common_pb';
+import {TrialConfig} from './cogment/api/common_pb';
 
 export type ActorConfig = {name: string; classes: string[]};
 

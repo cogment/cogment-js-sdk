@@ -15,31 +15,12 @@
  *
  */
 
-import {Event} from './Event';
-import {Reward} from './Reward';
-import {TrialActor} from './TrialActor';
+import {ActorImplementation} from './Cogment';
+import {ActorConfig} from './cogment/api/common_pb';
 
-export class ActorSession<
-  ActionT = never,
-  ObservationT = never,
-  RewardT = never,
-  MessageT = never
-> {
-  public addFeedback(to: string[], reward: Reward<RewardT>): void {}
-
-  public doAction(action: ActionT): void {}
-
-  public eventLoop(): AsyncIterator<Event<ObservationT, RewardT, MessageT>> {}
-
-  public getActiveActors(): TrialActor[] {}
-
-  public getTickId(): number {}
-
-  public getTriaId(): string {}
-
-  public isTrialOver(): boolean {}
-
-  public sendMessage(to: string[], message: MessageT): void {}
-
-  public start(): void {}
+export class CogmentService {
+  public registerActor(
+    actorConfig: ActorConfig,
+    actorImpl: ActorImplementation,
+  ): void {}
 }
