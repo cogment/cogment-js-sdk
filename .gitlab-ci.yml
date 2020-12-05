@@ -5,7 +5,6 @@ image: node:14
 
 stages:
   - build
-  - lint
   - test
   - deploy
 
@@ -59,11 +58,6 @@ build:
     paths:
       - src/cogment/api
       - dist
-
-lint:
-  stage: lint
-  script:
-    - npm run lint
 
 test:
   stage: test
