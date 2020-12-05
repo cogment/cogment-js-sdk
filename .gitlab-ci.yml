@@ -4,8 +4,8 @@ include:
 image: node:14
 
 stages:
-  - lint
   - build
+  - lint
   - test
   - deploy
 
@@ -41,20 +41,11 @@ prebuild:npm-install:
   stage: .pre
   extends:
     - .ssh
-    - .cache:protoc
-  before_script:
-    - cp -r protoc/{bin,include} /usr/local/
   script:
     - npm install
-    - npm run protos
   artifacts:
     paths:
       - node_modules
-
-lint:
-  stage: lint
-  script:
-    - npm run lint
 
 build:
   stage: build
@@ -67,6 +58,12 @@ build:
   artifacts:
     paths:
       - src/cogment/api
+      - dist
+
+lint:
+  stage: lint
+  script:
+    - npm run lint
 
 test:
   stage: test
