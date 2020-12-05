@@ -15,14 +15,25 @@
  *
  */
 
-import {
-  JoinTrialArguments,
-  StartTrialArguments,
-  StartTrialReturnType,
-  TrialController,
-} from './types/cogment';
+import {TrialConfig} from './types/cogment/api/common_pb';
 
-export class TrialControllerImpl implements TrialController {
+export type ActorConfig = {name: string; classes: string[]};
+
+export interface JoinTrialArguments {
+  actorId: 0;
+  actorImplName: 'human';
+  trialId: string;
+}
+
+export interface StartTrialArguments {
+  config: TrialConfig;
+}
+export interface StartTrialReturnType {
+  actors: ActorConfig[];
+  trialId: string;
+}
+
+export class TrialController {
   public joinTrial(options: JoinTrialArguments): Promise<void> {}
 
   public startTrial(

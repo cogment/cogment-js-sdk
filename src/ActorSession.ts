@@ -15,10 +15,33 @@
  *
  */
 
-import {ActorSession, Event, Reward, TrialActor} from './types/cogment';
+export interface TrialActor {
+  name: string;
+  class: string;
+}
 
-export class ActorSessionImpl<ActionT, ObservationT, RewardT, MessageT>
-  implements ActorSession<ActionT, ObservationT, RewardT, MessageT> {
+export interface Reward<RewardT> {
+  tickId: number;
+  value: number;
+  confidence: number;
+  data: RewardT;
+}
+
+export interface Event<ObservationT, RewardT, MessageT> {
+  observation: ObservationT;
+  reward: Reward<RewardT>;
+  message: {
+    sender: string;
+    data: MessageT;
+  };
+}
+
+export class ActorSession<
+  ActionT = never,
+  ObservationT = never,
+  RewardT = never,
+  MessageT = never
+> {
   public addFeedback(to: string[], reward: Reward<RewardT>): void {}
 
   public doAction(action: ActionT): void {}
