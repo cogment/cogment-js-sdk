@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": ["es2015", "dom"],
+    "lib": ["es2015", "dom", "es2018.asynciterable"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": false,

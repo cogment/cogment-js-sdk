@@ -29,17 +29,29 @@ export class ActorSession<
 
   public doAction(action: ActionT): void {}
 
-  public eventLoop(): AsyncIterator<Event<ObservationT, RewardT, MessageT>> {}
+  public eventLoop(): AsyncIterator<Event<ObservationT, RewardT, MessageT>> {
+    throw new Error('eventLoop() is not implemented');
+  }
 
-  public getActiveActors(): TrialActor[] {}
+  public getActiveActors(): TrialActor[] {
+    throw new Error('getActiveActors() is not implemented');
+  }
 
-  public getTickId(): number {}
+  public getTickId(): number {
+    throw new Error('getTriaId() is not implemented');
+  }
 
-  public getTriaId(): string {}
+  public getTriaId(): string {
+    throw new Error('getTriaId() is not implemented');
+  }
 
-  public isTrialOver(): boolean {}
+  public isTrialOver(): boolean {
+    throw new Error('isTrialOver() is not implemented');
+  }
 
-  public sendMessage(to: string[], message: MessageT): void {}
+  public sendMessage(to: string[], message: MessageT): void {
+    throw new Error('sendMessage() is not implemented');
+  }
 
   public start(): void {}
 }

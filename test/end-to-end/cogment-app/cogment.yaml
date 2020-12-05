@@ -1,0 +1,75 @@
+
+import:
+  proto:
+    - data.proto
+
+commands:
+  proto: cogment -v generate --python_dir=. --js_dir=clients/js
+  build: cogment -v generate --python_dir=. && docker-compose build
+  # python client
+  start: docker-compose up orchestrator env time 
+  stop: docker-compose stop orchestrator env time 
+  # web client
+  start-webui: docker-compose up orchestrator webui env time  envoy
+  stop-webui: docker-compose stop orchestrator webui env time  envoy
+  # python client with configurator
+  #start-configurator: docker-compose up orchestrator env time 
+  #stop-configurator: docker-compose stop orchestrator env time 
+  # web client with configurator
+  #start-webui-configurator: docker-compose up orchestrator webui env configurator time  envoy
+  #stop-webui-configurator: docker-compose stop orchestrator webui env configurator time  envoy
+  client: docker-compose run --rm client
+  # Log exporter with postgres
+  #create-db-volume: docker volume create postgres_database
+  #export-data: docker-compose up log_exporter
+
+
+
+environment:
+  config_type: cogment_app.EnvConfig
+
+trial:
+  config_type: cogment_app.TrialConfig
+#  pre_hooks:
+#    - grpc://configurator:9000
+
+
+# Static configuration
+actor_classes:
+  - id: client
+    action:
+      space: cogment_app.ClientAction
+    observation:
+      space: cogment_app.Observation
+
+  - id: time
+    action:
+      space: cogment_app.TimeAction
+    observation:
+      space: cogment_app.Observation
+
+
+# Dynamic configuration (could be changed by a pre-hook)
+trial_params:
+  #max_inactivity: 2
+  environment:
+    endpoint: grpc://env:9000
+    #config: {}
+
+  actors:
+    - actor_class: client
+      endpoint: human
+  
+    - actor_class: time
+      endpoint: grpc://time:9000
+  
+
+# Log exporter & postgres database
+#datalog:
+#  type: grpc
+#  url: log_exporter:9000
+
+# Log export & redis
+#datalog:
+#  type: grpc
+#  url: replaybuffer:9000

@@ -1,0 +1,17 @@
+
+syntax = "proto3";
+
+package cogment_app;
+
+message EnvConfig {
+}
+
+message TrialConfig {
+	EnvConfig env_config = 1;
+}
+
+message Observation {}
+message ClientAction {}
+
+message TimeAction {}
+

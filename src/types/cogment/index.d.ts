@@ -16,5 +16,14 @@
  */
 
 export interface CogSettings {
-  trialParams: unknown;
+  import: {
+    proto: string[];
+  };
+  commands: Record<string, string>;
+  environment: {
+    configType: string;
+  };
+  trial: {
+    config_type;
+  };
 }
