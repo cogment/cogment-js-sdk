@@ -16,8 +16,8 @@
  */
 
 import {CogmentService} from './CogmentService';
-import {CogmentYaml} from './types/cogment';
+import {CogSettingsJs} from './types/cogment';
 
-export function createService(cogSettings: CogmentYaml): CogmentService {
+export function createService(cogSettings: CogSettingsJs): CogmentService {
   throw new Error('createService() is not implemented.');
 }

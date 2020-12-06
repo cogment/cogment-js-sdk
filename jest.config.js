@@ -27,11 +27,12 @@ module.exports = {
   ],
   coveragePathIgnorePatterns: ['/node_modules/', '/src/cogment/api'],
   //  coverageProvider: 'v8',
+  displayName: 'cogment',
   preset: 'ts-jest',
+  prettierPath: './node_modules/.bin/prettier',
   reporters: ['default', 'jest-junit'],
   testEnvironment: 'jsdom',
   testMatch: ['<rootDir>/**/*(*.)@(test).[t]s?(x)'],
-  verbose: true,
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',

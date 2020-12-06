@@ -58,7 +58,7 @@
     "@webpack-cli/init": "^1.0.3",
     "clean-webpack-plugin": "^3.0.0",
     "cogment-api": "gitlab:ai-r/cogment-api#2b966db3cbe7bf270f9fe9f58cad61a06de99796",
-    "eslint": "^7.14.0",
+    "eslint": "^7.15.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-compat": "^3.8.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
@@ -72,7 +72,7 @@
     "eslint-webpack-plugin": "^2.4.1",
     "execa": "^5.0.0",
     "google-protobuf": "^3.14.0",
-    "husky": "^4.3.0",
+    "husky": "^4.3.4",
     "jest": "^26.6.3",
     "jest-junit": "^12.0.0",
     "jest-watch-typeahead": "^0.6.1",
@@ -112,8 +112,8 @@
   },
   "lint-staged": {
     "*.{ts,js,css,md,json,yaml,yml}": "npm run lint:prettier:check",
-    "*.{ts,js,json}": "npm run lint:eslint",
-    "*.ts": "npm run test"
+    "*.{ts,js,json}": "npm run lint:eslint:check",
+    "*.ts": "npm run test -- --findRelatedTests"
   },
   "size-limit": [
     {

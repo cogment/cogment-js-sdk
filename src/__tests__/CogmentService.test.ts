@@ -15,7 +15,7 @@
  *
  */
 
-import {CogmentService} from './CogmentService';
+import {CogmentService} from '../CogmentService';
 
 describe('CogmentService', () => {
   it('exists', () => {

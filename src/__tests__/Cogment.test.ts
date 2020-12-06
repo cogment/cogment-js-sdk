@@ -15,10 +15,20 @@
  *
  */
 
-import {TrialController} from './TrialController';
+import {createService} from '../Cogment';
+import {CogmentService} from '../CogmentService';
+import * as Cogment from '../Cogment';
+import cogSettings from './cog_settings';
 
-describe('TrialController', () => {
+describe('Cogment', () => {
   it('exists', () => {
-    expect(TrialController).toBeTruthy();
+    expect(Cogment).toBeTruthy();
+  });
+
+  describe('createService', () => {
+    it('returns a CogmentService', () => {
+      const service = createService(cogSettings);
+      expect(service).toBeInstanceOf(CogmentService);
+    });
   });
 });

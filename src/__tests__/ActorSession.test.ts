@@ -15,7 +15,7 @@
  *
  */
 
-import {ActorSession} from './ActorSession';
+import {ActorSession} from '../ActorSession';
 
 describe('ActorSession', () => {
   it('exists', () => {

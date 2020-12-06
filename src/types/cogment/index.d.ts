@@ -16,3 +16,4 @@
  */
 
 export * from './CogmentYaml';
+export * from './CogSettingsJs';

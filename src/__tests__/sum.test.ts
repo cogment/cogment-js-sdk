@@ -15,14 +15,10 @@
  *
  */
 
-import {createService} from './Cogment';
-import {CogmentService} from './CogmentService';
+import {sum} from '../sum';
 
-describe('Cogment', () => {
-  describe('createService', () => {
-    it('returns a CogmentService', () => {
-      const service = createService({trialParams: {}});
-      expect(service).toBeInstanceOf(CogmentService);
-    });
+describe('blah', () => {
+  it('works', () => {
+    expect(sum(1, 1)).toEqual(2);
   });
 });

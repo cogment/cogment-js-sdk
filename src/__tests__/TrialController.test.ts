@@ -15,10 +15,10 @@
  *
  */
 
-import {sum} from './sum';
+import {TrialController} from '../TrialController';
 
-describe('blah', () => {
-  it('works', () => {
-    expect(sum(1, 1)).toEqual(2);
+describe('TrialController', () => {
+  it('exists', () => {
+    expect(TrialController).toBeTruthy();
   });
 });
