@@ -9,7 +9,7 @@
 - [Design Proposal][proposal1]
 - [Changelog][changelog]
 
-[coverage]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/coverage/
+[coverage]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/coverage/report
 [repo]: https://gitlab.com/ai-r/cogment-js-sdk-1.0/
 [cogment-js-sdk]: #cogment-js-sdk
 [api-docs]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/

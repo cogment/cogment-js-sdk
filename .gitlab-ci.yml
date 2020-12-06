@@ -62,7 +62,7 @@ build:
 test:
   stage: test
   script:
-    - npm run test
+    - npm run --silent test
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'

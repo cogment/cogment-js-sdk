@@ -1,18 +1,17 @@
-
 {
   "name": "cogment_app",
   "version": "1.0.0",
   "description": "Bootstrap cogment_app Project",
+  "author": "",
+  "license": "ISC",
   "main": "main.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --host 0.0.0.0 --hot --inline"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.11.0",
-    "cogment": "^0.3.0-alpha5",
+    "cogment": "link:../..",
     "google-protobuf": "^3.7.1",
     "grpc-web": "^1.0.4",
     "ts-protoc-gen": "^0.12.0"
