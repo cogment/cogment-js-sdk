@@ -16,3 +16,9 @@
  */
 
 import {ActorSession} from './ActorSession';
+
+describe('ActorSession', () => {
+  it('exists', () => {
+    expect(ActorSession).toBeTruthy();
+  });
+});

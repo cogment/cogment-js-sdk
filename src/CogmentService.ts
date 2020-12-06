@@ -24,5 +24,7 @@ export class CogmentService {
   public registerActor(
     actorConfig: ActorConfig,
     actorImpl: ActorImplementation,
-  ): void {}
+  ): void {
+    throw new Error('registerActor() is not implemented.');
+  }
 }

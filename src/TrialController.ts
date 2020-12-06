@@ -34,11 +34,17 @@ export interface StartTrialReturnType {
 }
 
 export class TrialController {
-  public joinTrial(options: JoinTrialArguments): Promise<void> {}
+  public joinTrial(options: JoinTrialArguments): Promise<void> {
+    throw new Error('joinTrial() is not implemented.');
+  }
 
   public startTrial(
     options: StartTrialArguments,
-  ): Promise<StartTrialReturnType> {}
+  ): Promise<StartTrialReturnType> {
+    throw new Error('startTrial() is not implemented.');
+  }
 
-  public terminateTrial(trialId: string): Promise<void> {}
+  public terminateTrial(trialId: string): Promise<void> {
+    throw new Error('terminateTrial() is not implemented.');
+  }
 }

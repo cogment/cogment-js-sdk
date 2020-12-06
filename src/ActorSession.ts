@@ -25,9 +25,13 @@ export class ActorSession<
   RewardT = never,
   MessageT = never
 > {
-  public addFeedback(to: string[], reward: Reward<RewardT>): void {}
+  public addFeedback(to: string[], reward: Reward<RewardT>): void {
+    throw new Error('addFeedback() is not implemented.');
+  }
 
-  public doAction(action: ActionT): void {}
+  public doAction(action: ActionT): void {
+    throw new Error('doAction() is not implemented');
+  }
 
   public eventLoop(): AsyncIterator<Event<ObservationT, RewardT, MessageT>> {
     throw new Error('eventLoop() is not implemented');
@@ -53,5 +57,7 @@ export class ActorSession<
     throw new Error('sendMessage() is not implemented');
   }
 
-  public start(): void {}
+  public start(): void {
+    throw new Error('start() is not implemented.');
+  }
 }

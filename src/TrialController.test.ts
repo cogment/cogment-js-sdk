@@ -16,3 +16,9 @@
  */
 
 import {TrialController} from './TrialController';
+
+describe('TrialController', () => {
+  it('exists', () => {
+    expect(TrialController).toBeTruthy();
+  });
+});
