@@ -2,4 +2,5 @@ dist
 coverage
 public
 src/cogment/api
-/test/end-to-end/cogment-app
+/__tests__/end-to-end/cogment-app
+*_pb*

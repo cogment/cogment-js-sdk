@@ -15,37 +15,36 @@
  *
  */
 
-import type * as jspb from 'google-protobuf';
+import * as jspb from 'google-protobuf';
+import {applyDeltaReplace} from '../../lib/DeltaEncoding';
 
 export interface CogSettingsJsActorClass {
   id: string;
-  config_type?: jspb.Message;
-  action_space: jspb.Message;
-  observation_space: jspb.Message;
-  observation_delta: jspb.Message;
-  observation_delta_apply_fn: jspb.Message;
-  feedback_space?: jspb.Message;
-  message_space?: jspb.Message;
+  config_type?: typeof jspb.Message;
+  action_space: typeof jspb.Message;
+  observation_space: typeof jspb.Message;
+  observation_delta: typeof jspb.Message;
+  observation_delta_apply_fn: typeof applyDeltaReplace;
+  feedback_space?: typeof jspb.Message;
+  message_space?: typeof jspb.Message;
 }
 
 export interface CogSettingsJs {
   actor_classes: Record<string, CogSettingsJsActorClass>;
   trial: {
-    config_type: jspb.Message;
+    config_type: typeof jspb.Message;
   };
   environment: {
-    config_type: jspb.Message;
+    config_type: typeof jspb.Message;
   };
   env_class: {
     id: string;
-    config_type?: jspb.Message;
-    message_space?: jspb.Message;
+    config_type?: typeof jspb.Message;
+    message_space?: typeof jspb.Message;
   };
 }
 
-declare module 'cog_settings*' {
-  const source: CogSettingsJs;
-  export const source: CogSettingsJs;
-  export const cogSettings: CogSettingsJs;
-  export default source;
+declare module 'cog_settings.js' {
+  const settings: CogSettingsJs;
+  export default settings;
 }

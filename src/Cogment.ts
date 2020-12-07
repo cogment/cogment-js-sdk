@@ -16,7 +16,7 @@
  */
 
 import {CogmentService} from './CogmentService';
-import {CogSettingsJs} from './types/cogment';
+import {CogSettingsJs} from './types/cog_settings';
 
 export function createService(cogSettings: CogSettingsJs): CogmentService {
   return new CogmentService();

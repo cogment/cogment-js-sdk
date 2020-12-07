@@ -18,7 +18,7 @@
 import {createService} from '../Cogment';
 import {CogmentService} from '../CogmentService';
 import * as Cogment from '../Cogment';
-import cogSettings from './cog_settings';
+import cogSettings from './data/cog_settings.mock';
 
 describe('Cogment', () => {
   it('exists', () => {

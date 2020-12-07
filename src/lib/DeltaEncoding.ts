@@ -15,26 +15,29 @@
  *
  */
 
-import {CogSettingsJsActorClass} from '../types/cogment';
 import * as jspb from 'google-protobuf';
+import {ObservationData} from '../cogment/api/common_pb';
+import {CogSettingsJsActorClass} from '../types/cog_settings';
 
 export function applyDeltaReplace(
   observation: jspb.Message,
   delta: jspb.Message,
-) {
+): jspb.Message {
   return delta;
 }
 
 export function decodeObservationData(
   actorClass: CogSettingsJsActorClass,
-  data: jspb.Message,
+  data: ObservationData,
   previousObservation: jspb.Message,
-) {
+): jspb.Message {
   if (data.getSnapshot()) {
-    return actorClass.observation_space.deserializeBinary(data.getContent());
+    return actorClass.observation_space.deserializeBinary(
+      data.getContent_asU8(),
+    );
   } else {
-    const delta = new actorClass.observation_delta.deserializeBinary(
-      data.getContent(),
+    const delta = actorClass.observation_delta.deserializeBinary(
+      data.getContent_asU8(),
     );
     return actorClass.observation_delta_apply_fn(previousObservation, delta);
   }

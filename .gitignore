@@ -1,7 +1,4 @@
 *.map
-*_pb.*
-*_pb_*.*
-cog_settings.*
 *.log
 .DS_Store
 node_modules
@@ -12,3 +9,4 @@ junit.xml
 coverage
 public
 .eslintcache
+src/cogment/api

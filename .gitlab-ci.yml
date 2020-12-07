@@ -63,6 +63,7 @@ test:
   stage: test
   script:
     - npm run --silent test
+    - npm run --silent test:codecov
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
