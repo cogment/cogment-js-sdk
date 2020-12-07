@@ -63,6 +63,8 @@ test:
   stage: test
   script:
     - npm run --silent test
+  after_script:
+    - apt update && apt install gcov
     - npm run --silent test:codecov
   variables:
     NODE_ENV: test

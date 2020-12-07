@@ -1,4 +1,4 @@
-# [cogment-js-sdk]
+# cogment-js-sdk
 
 [![cogment](https://img.shields.io/badge/cogment-brightgreen.svg)][repo]
 [![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/ai-r/cogment-js-sdk-1.0/develop)][repo]
