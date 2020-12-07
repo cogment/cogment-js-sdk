@@ -15,9 +15,27 @@
  *
  */
 
-import {CogmentService} from './CogmentService';
-import {CogSettingsJs} from './types/cogment';
+import {CogSettingsJsActorClass} from '../types/cogment';
+import * as jspb from 'google-protobuf';
 
-export function createService(cogSettings: CogSettingsJs): CogmentService {
-  return new CogmentService();
+export function applyDeltaReplace(
+  observation: jspb.Message,
+  delta: jspb.Message,
+) {
+  return delta;
+}
+
+export function decodeObservationData(
+  actorClass: CogSettingsJsActorClass,
+  data: jspb.Message,
+  previousObservation: jspb.Message,
+) {
+  if (data.getSnapshot()) {
+    return actorClass.observation_space.deserializeBinary(data.getContent());
+  } else {
+    const delta = new actorClass.observation_delta.deserializeBinary(
+      data.getContent(),
+    );
+    return actorClass.observation_delta_apply_fn(previousObservation, delta);
+  }
 }

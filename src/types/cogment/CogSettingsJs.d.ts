@@ -23,9 +23,9 @@ export interface CogSettingsJsActorClass {
   action_space: jspb.Message;
   observation_space: jspb.Message;
   observation_delta: jspb.Message;
-  observation_delta_apply_fn: string;
-  feedback_space?: string;
-  message_space?: string;
+  observation_delta_apply_fn: jspb.Message;
+  feedback_space?: jspb.Message;
+  message_space?: jspb.Message;
 }
 
 export interface CogSettingsJs {

@@ -1,0 +1,7 @@
+codecov:
+  ci:
+    - gitlab
+
+parsers:
+  javascript:
+    enable_partials: yes
