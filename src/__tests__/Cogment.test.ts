@@ -25,7 +25,7 @@ describe('Cogment', () => {
     expect(Cogment).toBeTruthy();
   });
 
-  describe('createService', () => {
+  describe('#createService', () => {
     it('returns a CogmentService', () => {
       const service = createService(cogSettings);
       expect(service).toBeInstanceOf(CogmentService);
