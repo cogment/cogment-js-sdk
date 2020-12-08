@@ -1,18 +1,19 @@
 # cogment-js-sdk
 
 [![cogment](https://img.shields.io/badge/cogment-brightgreen.svg)][repo]
-[![Gitlab pipeline status](https://img.shields.io/gitlab/pipeline/ai-r/cogment-js-sdk-1.0/develop)][repo]
-[![Gitlab code coverage](https://img.shields.io/gitlab/coverage/ai-r/cogment-js-sdk-1.0/develop)][coverage]
+[![Gitlab pipeline status](https://gitlab.com/ai-r/cogment-js-sdk-1.0/badges/develop/pipeline.svg?private_token=-PxNqY8axtUuGoys4tGj)][repo]
+[![codecov](https://codecov.io/gl/ai-r/cogment-js-sdk-1.0/branch/develop/graph/badge.svg?token=aTpPl9c87b)][codecov]
 [![Downloads / Month](https://img.shields.io/npm/dm/cogment)][npm]
 [![License](https://img.shields.io/npm/l/cogment)][license]
 [![npm](https://img.shields.io/npm/v/cogment)][npm]
 [![npm collaborators](https://img.shields.io/npm/collaborators/cogment)][npm]
-[![codecov](https://codecov.io/gl/ai-r/cogment-js-sdk-1.0/branch/develop/graph/badge.svg?token=0P3CAHGZYW)][codecov]
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 - [Repository][repo]
+- [Design Proposal][proposal1]
 - [Coverage Report][coverage]
 - [API Documentation][api-docs]
-- [Design Proposal][proposal1]
+- [License][license]
 - [Changelog][changelog]
 
 ## Running tests

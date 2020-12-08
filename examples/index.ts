@@ -20,7 +20,7 @@ import {
   TrialLifecycle,
   TrialLifecycleClient,
 } from '../src/cogment/api/orchestrator_pb_service';
-import {CogmentClient} from '../src/CogmentClient';
+import * as cogment from '../src';
 
 const ORCHESTRATOR_URL = 'http://orchestrator:8088';
 
