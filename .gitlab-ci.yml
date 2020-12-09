@@ -64,9 +64,6 @@ test:
   stage: test
   script:
     - npm run --silent test
-  after_script:
-    - apt update && apt install -y lcov gcc
-    - npm run --silent test:codecov
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
@@ -79,7 +76,8 @@ test:
 pages:
   stage: deploy
   script:
-    - npm run docs
+    - apt update && apt install -y lcov gcc
+    - npm run --silent test:codecov
     - cp -r coverage public/coverage
   artifacts:
     paths:
