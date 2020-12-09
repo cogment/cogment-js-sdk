@@ -17,7 +17,6 @@
     "ts-protoc-gen": "^0.13.0"
   },
   "devDependencies": {
-    "cogment-api": "gitlab:ai-r/cogment-api#38b5a58f95d3e2fc5d6a6fab87500526389fe299",
     "webpack": "^5.10.0",
     "webpack-cli": "^4.2.0",
     "webpack-dev-server": "^3.11.0"

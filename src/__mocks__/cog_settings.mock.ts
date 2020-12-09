@@ -15,7 +15,7 @@
  *
  */
 
-import {applyDeltaReplace} from '../../lib/DeltaEncoding';
+import {applyDeltaReplace} from '../lib/DeltaEncoding';
 import protos from './data_pb.mock';
 
 const _client_class = {

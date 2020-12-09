@@ -4,7 +4,7 @@ version: '3.7'
 services:
   grpc-cli:
     image: namely/grpc-cli:1.28_1
-  
+
   cogment-cli:
     image: registry.gitlab.com/cogment/cogment/cli
     volumes:
@@ -12,29 +12,26 @@ services:
 
   time:
     image: registry.gitlab.com/change_me/time
-    build: 
+    build:
       context: .
       dockerfile: agents/time/Dockerfile
     volumes:
       - ./:/app
-    environment: 
+    environment:
       - COGMENT_GRPC_REFLECTION=1
       - PYTHONUNBUFFERED=1
     x-cogment:
       ports:
         - port: 9000
 
-
-
-
   env:
     image: registry.gitlab.com/change_me/env
-    build: 
+    build:
       context: .
       dockerfile: envs/Dockerfile
     volumes:
       - ./:/app
-    environment: 
+    environment:
       - COGMENT_GRPC_REFLECTION=1
       - PYTHONUNBUFFERED=1
     x-cogment:
@@ -43,7 +40,7 @@ services:
 
   orchestrator:
     image: registry.gitlab.com/change_me/orchestrator
-    build: 
+    build:
       context: .
       dockerfile: orchestrator/Dockerfile
     volumes:
@@ -55,17 +52,16 @@ services:
         - port: 9000
     depends_on:
       - env
-      
+
       - time
-      
 
   client:
-    build: 
+    build:
       context: .
       dockerfile: clients/Dockerfile
     volumes:
       - ./:/app
-    environment: 
+    environment:
       - PYTHONUNBUFFERED=1
     stdin_open: true
     tty: true
@@ -75,7 +71,7 @@ services:
 #################################
   webui:
     image: registry.gitlab.com/change_me/webui
-    build: 
+    build:
       context: .
       dockerfile: clients/js/Dockerfile
       target: dev
