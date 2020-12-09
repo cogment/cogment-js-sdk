@@ -10,5 +10,5 @@ coverage
 public
 .eslintcache
 src/cogment/api
-cogment
+/cogment
 secrets
