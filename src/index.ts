@@ -16,3 +16,4 @@
  */
 
 export * from './Cogment';
+export * from './lib/DeltaEncoding';

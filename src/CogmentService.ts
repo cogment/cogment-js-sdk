@@ -15,16 +15,29 @@
  *
  */
 
+import {CogSettings} from './@types/cogment';
 import {ActorSession} from './ActorSession';
-import {ActorConfig} from './cogment/api/common_pb';
+import {logger} from './lib/Logger';
+import {TrialActor} from './TrialActor';
+import {TrialController} from './TrialController';
 
 export type ActorImplementation = (session: ActorSession) => Promise<void>;
 
 export class CogmentService {
+  private actors: Record<string, [TrialActor, ActorImplementation]> = {};
+  constructor(private cogSettings: CogSettings) {}
   public registerActor(
-    actorConfig: ActorConfig,
+    actorConfig: TrialActor,
     actorImpl: ActorImplementation,
   ): void {
-    throw new Error('registerActor() is not implemented.');
+    if (this.actors[actorConfig.name]) {
+      logger.warn(
+        `Actor with name ${actorConfig.name} already registered, overwriting.`,
+      );
+    }
+    this.actors[actorConfig.name] = [actorConfig, actorImpl];
+  }
+  public createTrialController(): TrialController {
+    return new TrialController(this.cogSettings);
   }
 }

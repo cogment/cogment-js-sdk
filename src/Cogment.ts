@@ -15,11 +15,11 @@
  *
  */
 
+import {CogSettings} from './@types/cogment';
 import {CogmentService} from './CogmentService';
-import {CogSettingsJs} from './types/cog_settings';
-import {VersionInfo} from './cogment/api/common_pb';
+import {logger} from './lib/Logger';
 
-export function createService(cogSettings: CogSettingsJs): CogmentService {
-  const version = new VersionInfo();
-  return new CogmentService();
+export function createService(cogSettings: CogSettings): CogmentService {
+  logger.debug('Creating new service with settings %s', cogSettings);
+  return new CogmentService(cogSettings);
 }

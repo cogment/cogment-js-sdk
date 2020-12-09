@@ -59,6 +59,10 @@ const settings = {
     config_type: undefined,
     message_space: undefined,
   },
+
+  connection: {
+    backendUrl: 'http://localhost:8080',
+  },
 };
 
 export default settings;

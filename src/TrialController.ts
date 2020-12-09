@@ -15,7 +15,8 @@
  *
  */
 
-import {TrialConfig} from './cogment/api/common_pb';
+import {CogSettings} from './@types/cogment';
+import {TrialConfig, VersionInfo} from './cogment/api/common_pb';
 
 export type ActorConfig = {name: string; classes: string[]};
 
@@ -34,6 +35,7 @@ export interface StartTrialReturnType {
 }
 
 export class TrialController {
+  constructor(private cogSettings: CogSettings) {}
   public joinTrial(options: JoinTrialArguments): Promise<void> {
     throw new Error('joinTrial() is not implemented.');
   }
@@ -46,5 +48,9 @@ export class TrialController {
 
   public terminateTrial(trialId: string): Promise<void> {
     throw new Error('terminateTrial() is not implemented.');
+  }
+
+  public version(): Promise<VersionInfo> {
+    throw new Error('version() is not implemented.');
   }
 }
