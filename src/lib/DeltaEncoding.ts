@@ -16,8 +16,8 @@
  */
 
 import * as jspb from 'google-protobuf';
+import {CogSettingsJsActorClass} from '../@types/cogment';
 import {ObservationData} from '../cogment/api/common_pb';
-import {CogSettingsJsActorClass} from '../types/cog_settings';
 
 export function applyDeltaReplace(
   observation: jspb.Message,
@@ -30,7 +30,7 @@ export function decodeObservationData(
   actorClass: CogSettingsJsActorClass,
   data: ObservationData,
   previousObservation: jspb.Message,
-): jspb.Message {
+) {
   if (data.getSnapshot()) {
     return actorClass.observation_space.deserializeBinary(
       data.getContent_asU8(),
