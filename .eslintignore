@@ -9,7 +9,7 @@ __tests__
 /src/__mocks__/*.ts
 jest.config.js
 .eslintrc.js
-webpack.config.js
+webpack.*.js
 package.json
 package-lock.json
 typedoc.json

@@ -15,6 +15,9 @@
  *
  */
 
+const webpackCommon = require('./webpack.common');
+const webpackDevelopment = require('./webpack.development.js');
+const {merge} = require('webpack-merge');
 const path = require('path');
 const webpack = require('webpack');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -26,59 +29,10 @@ const OUT_PATH = path.resolve(__dirname, OUT_DIR);
 const NODE_ENV =
   process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
-const basePlugins = [
-  new webpack.ProgressPlugin(),
-  new ESLintPlugin({extensions: ['ts', 'js', '.json']}),
-];
-
-const baseConfig = {
-  mode: NODE_ENV,
-  target: 'browserslist:last 2 versions',
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.ts', '.js', '.json'],
-  },
-};
-
-const cogmentConfig = {
-  entry: {
-    cogment: './src/index.ts',
-  },
-};
-
-const cliConfig = {};
-
-let envConfig = {};
-
-if (NODE_ENV === 'production') {
-  envConfig = {
-    devtool: 'source-map',
-  };
-} else {
-  envConfig = {
-    devtool: 'inline-source-map',
-    devServer: {
-      port: 9000,
-    },
-  };
-}
-
 module.exports = [
-  {
+  merge(webpackCommon, require(`./webpack.${NODE_ENV}.js`), {
     name: 'cogment-commonjs',
-    ...baseConfig,
-    ...cogmentConfig,
-    ...envConfig,
     plugins: [
-      ...basePlugins,
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         reportFilename: '../public/webpack/cjs/index.html',
@@ -94,14 +48,10 @@ module.exports = [
       path: OUT_PATH,
       uniqueName: 'cogment-commonjs',
     },
-  },
-  {
+  }),
+  merge(webpackCommon, require(`./webpack.${NODE_ENV}.js`), {
     name: 'cogment-umd',
-    ...baseConfig,
-    ...cogmentConfig,
-    ...envConfig,
     plugins: [
-      ...basePlugins,
       new BundleAnalyzerPlugin({
         analyzerMode: 'static',
         reportFilename: '../public/webpack/umd/index.html',
@@ -118,7 +68,7 @@ module.exports = [
       path: OUT_PATH,
       uniqueName: 'cogment-umd',
     },
-  },
+  }),
   //  {
   //    name: 'cogment-esm',
   //    experiments: {
