@@ -4,8 +4,8 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "checkJs": false,
-    "declaration": true,
-    "declarationMap": true,
+    "declaration": false,
+    "declarationMap": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
@@ -14,14 +14,15 @@
     "moduleResolution": "node",
     "noEmit": false,
     "noImplicitAny": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "removeComments": true,
-    "rootDir": ".",
+    "rootDir": "src",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "es5",
     "typeRoots": ["node_modules/@types", "src/types"]
   },
-  "include": ["src", "__tests__", "tools"]
+  "include": ["src"],
+  "exclude": ["**/__tests__/*", "*.test.*"]
 }

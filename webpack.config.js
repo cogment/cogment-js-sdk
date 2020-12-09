@@ -15,23 +15,24 @@
  *
  */
 
-const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
-const ESLintPlugin = require('eslint-webpack-plugin');
 
 const OUT_DIR = 'dist';
 const OUT_PATH = path.resolve(__dirname, OUT_DIR);
 const NODE_ENV =
   process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
+const basePlugins = [
+  new webpack.ProgressPlugin(),
+  new ESLintPlugin({extensions: ['ts', 'js', '.json']}),
+];
+
 const baseConfig = {
-  entry: './src/index.ts',
   mode: NODE_ENV,
-  devtool: 'source-map',
   target: 'browserslist:last 2 versions',
   module: {
     rules: [
@@ -42,25 +43,28 @@ const baseConfig = {
       },
     ],
   },
-  plugins: [
-    new webpack.ProgressPlugin(),
-    new ESLintPlugin({extensions: ['js', 'ts', '.json']}),
-  ],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },
 };
 
+const cogmentConfig = {
+  entry: {
+    cogment: './src/index.ts',
+  },
+};
+
+const cliConfig = {};
+
 let envConfig = {};
 
 if (NODE_ENV === 'production') {
   envConfig = {
-    optimization: {
-      minimizer: [new TerserPlugin({sourceMap: true})],
-    },
+    devtool: 'source-map',
   };
 } else {
   envConfig = {
+    devtool: 'inline-source-map',
     devServer: {
       port: 9000,
     },
@@ -69,43 +73,76 @@ if (NODE_ENV === 'production') {
 
 module.exports = [
   {
-    name: 'lib-commonjs',
+    name: 'cogment-commonjs',
     ...baseConfig,
+    ...cogmentConfig,
     ...envConfig,
+    plugins: [
+      ...basePlugins,
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: '../public/webpack/cjs/index.html',
+        openAnalyzer: false,
+        generateStatsFile: true,
+        statsOptions: {preset: 'verbose'},
+        statsFilename: '../public/webpack/cjs/stats.json',
+      }),
+    ],
     output: {
       filename: `cogment.js`,
+      libraryTarget: 'commonjs2',
       path: OUT_PATH,
-      library: 'cogment',
-      libraryTarget: 'commonjs',
-      globalObject: 'this',
+      uniqueName: 'cogment-commonjs',
     },
   },
   {
-    name: 'lib-umd',
+    name: 'cogment-umd',
     ...baseConfig,
+    ...cogmentConfig,
     ...envConfig,
+    plugins: [
+      ...basePlugins,
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: '../public/webpack/umd/index.html',
+        openAnalyzer: false,
+        generateStatsFile: true,
+        statsOptions: {preset: 'verbose'},
+        statsFilename: '../public/webpack/umd/stats.json',
+      }),
+    ],
     output: {
       filename: `cogment.umd.js`,
-      path: OUT_PATH,
-      library: 'cogment',
+      globalObject: 'this',
       libraryTarget: 'umd',
-      globalObject: 'this',
-    },
-  },
-  {
-    name: 'lib-esm',
-    experiments: {
-      outputModule: true,
-    },
-    ...baseConfig,
-    ...envConfig,
-    output: {
-      filename: `cogment.esm.js`,
       path: OUT_PATH,
-      library: 'cogment',
-      libraryTarget: 'module',
-      globalObject: 'this',
-      module: true,
+      uniqueName: 'cogment-umd',
     },
   },
+  //  {
+  //    name: 'cogment-esm',
+  //    experiments: {
+  //      outputModule: true,
+  //    },
+  //    ...cogmentConfig,
+  //    ...envConfig,
+  //    plugins: [
+  //      ...basePlugins,
+  //      new BundleAnalyzerPlugin({
+  //        analyzerMode: 'static',
+  //        reportFilename: '../public/webpack/esm/index.html',
+  //        openAnalyzer: false,
+  //        generateStatsFile: true,
+  //        statsOptions: {preset: 'verbose'},
+  //        statsFilename: '../public/webpack/esm/stats.json',
+  //      }),
+  //    ],
+  //    output: {
+  //      filename: `cogment.esm.js`,
+  //      libraryTarget: 'module',
+  //      module: true,
+  //      path: OUT_PATH,
+  //      uniqueName: 'cogment-esm',
+  //    },
+  //  },
 ];

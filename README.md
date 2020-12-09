@@ -31,7 +31,7 @@ To launch the [majestic test ui][majestic] to run / watch / visualize tests:
 
 [repo]: https://gitlab.com/ai-r/cogment-js-sdk-1.0/
 [coverage]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/coverage/report
-[api-docs]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/
+[api-docs]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/api
 [proposal1]: https://docs.google.com/document/d/1K6qCuY-wGlNJzeJuEQEy6bALwJBFNDpJ6HB4LzU-Bq8/edit
 [changelog]: CHANGELOG.md
 [license]: LICENSE

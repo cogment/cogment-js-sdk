@@ -4,5 +4,5 @@
   "externalPattern": ["src/cogment/api/*"],
   "exclude": ["**/*.test.*", "node_modules/**/*"],
   "mode": "file",
-  "out": "public"
+  "out": "public/api"
 }

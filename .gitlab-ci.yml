@@ -26,7 +26,7 @@ variables:
     paths:
       - protoc
 
-prebuild:download-protoc:
+pre:download-protoc:
   stage: .pre
   extends:
     - .cache:protoc
@@ -36,7 +36,7 @@ prebuild:download-protoc:
     - curl -LSso protoc.zip "${PROTOC_URL}"
     - unzip -od protoc protoc.zip
 
-prebuild:npm-install:
+pre:npm-install:
   stage: .pre
   extends:
     - .ssh
@@ -58,6 +58,7 @@ build:
     paths:
       - src/cogment/api
       - dist
+      - public
 
 test:
   stage: test

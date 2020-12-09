@@ -5,7 +5,7 @@
 /public/
 /examples/
 /src/cogment/api
-/__tests__/end-to-end/cogment-app
+__tests__
 /src/__mocks__/*.ts
 jest.config.js
 .eslintrc.js
@@ -16,3 +16,4 @@ typedoc.json
 tsconfig.json
 cog_settings.*
 **/*_pb*
+bin

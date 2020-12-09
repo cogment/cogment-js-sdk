@@ -12,15 +12,34 @@
   "engines": {
     "node": ">=10"
   },
-  "main": "dist/cogment.js",
+  "bin": {
+    "cjs": "bin/cli"
+  },
+  "main": "dist/cogment.cjs",
   "module": "dist/cogment.esm.js",
   "types": "dist/index.d.ts",
+  "directories": {
+    "lib": "src/lib",
+    "bin": "bin",
+    "doc": "docs",
+    "example": "examples",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "analyze": "size-limit --why",
-    "build": "npm-run-all build:protos build:webpack",
-    "build:protos": "protoc -I node_modules/cogment-api node_modules/cogment-api/cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
+    "build": "npm-run-all build:clean build:install build:protos build:typings build:webpack build:docs",
+    "build:clean": "rimraf node_modules dist public cogment cogment-api.tar.gz cogment-api-*",
+    "build:docs": "typedoc",
+    "build:install": "npm install",
+    "build:protos": "npm-run-all build:protos:fetch build:protos:compile",
+    "build:protos:compile": "protoc -I . cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
+    "build:protos:fetch": "bin/cli.ts",
+    "build:typings": "tsc --declaration --declarationMap --emitDeclarationOnly --outFile dist/index.d.ts",
     "build:webpack": "webpack",
-    "docs": "typedoc",
     "lint": "npm-run-all lint:prettier:check lint:eslint:check",
     "lint:eslint": "eslint .",
     "lint:eslint:check": "npm run lint:eslint",
@@ -29,7 +48,6 @@
     "lint:prettier": "prettier .",
     "lint:prettier:check": "npm run lint:prettier -- --check",
     "lint:prettier:fix": "npm run lint:prettier -- --write",
-    "report:codecov": "",
     "size": "size-limit",
     "start": "webpack serve",
     "test": "jest",
@@ -49,20 +67,22 @@
     "@microsoft/tsdoc": "^0.12.24",
     "@microsoft/tsdoc-config": "^0.13.9",
     "@size-limit/preset-small-lib": "^4.9.0",
+    "@types/decompress": "^4.2.3",
     "@types/eslint": "^7.2.6",
     "@types/google-protobuf": "^3.7.4",
-    "@types/jest": "^26.0.16",
+    "@types/jest": "^26.0.17",
     "@types/lodash": "^4.14.165",
     "@types/long": "^4.0.1",
     "@types/node": "^14.14.10",
     "@types/semver": "^7.3.4",
-    "@typescript-eslint/eslint-plugin": "^4.9.0",
-    "@typescript-eslint/parser": "^4.9.0",
+    "@typescript-eslint/eslint-plugin": "^4.9.1",
+    "@typescript-eslint/parser": "^4.9.1",
     "@webpack-cli/init": "^1.0.3",
     "axios": "^0.21.0",
     "clean-webpack-plugin": "^3.0.0",
     "codecov": "^3.8.1",
-    "cogment-api": "gitlab:ai-r/cogment-api#2b966db3cbe7bf270f9fe9f58cad61a06de99796",
+    "cosmiconfig": "^7.0.0",
+    "decompress": "^4.2.1",
     "eslint": "^7.15.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-compat": "^3.8.0",
@@ -76,6 +96,7 @@
     "eslint-plugin-unicorn": "^23.0.0",
     "eslint-webpack-plugin": "^2.4.1",
     "execa": "^5.0.0",
+    "fs-jetpack": "^4.1.0",
     "google-protobuf": "^3.14.0",
     "husky": "^4.3.5",
     "jest": "^26.6.3",
@@ -98,6 +119,7 @@
     "tiny-warning": "^1.0.3",
     "ts-jest": "^26.4.4",
     "ts-loader": "^8.0.11",
+    "ts-node": "^9.1.1",
     "ts-protoc-gen": "^0.13.0",
     "tslib": "^2.0.3",
     "typedoc": "^0.19.2",
@@ -110,6 +132,9 @@
   "browserslist": [
     "defaults"
   ],
+  "cogment-api": {
+    "cogment_api_version": "1.0.0-alpha1"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

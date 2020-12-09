@@ -17,7 +17,9 @@
 
 import {CogmentService} from './CogmentService';
 import {CogSettingsJs} from './types/cog_settings';
+import {VersionInfo} from './cogment/api/common_pb';
 
 export function createService(cogSettings: CogSettingsJs): CogmentService {
+  const version = new VersionInfo();
   return new CogmentService();
 }
