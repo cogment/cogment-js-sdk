@@ -1,7 +1,5 @@
 version: '3.8'
 
-
-
 services:
   grpc-cli:
     image: namely/grpc-cli:1.28_1
@@ -33,4 +31,3 @@ services:
 secrets:
   cogment_api_deploy_key:
     file: ./secrets/cogment-api-deploy-key.asc
-
