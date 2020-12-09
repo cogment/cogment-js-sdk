@@ -10,21 +10,8 @@ RUN curl -LSso /tmp/protoc.zip ${PROTOC_URL} \
   && unzip -d /usr/local/ /tmp/protoc.zip \
   && rm -rf /tmp/protoc.zip
 
-#RUN --mount ls /run
-
-#RUN mkdir -pm 0700 ~/.ssh \
-# && eval $(ssh-agent -s) \
-# && ssh-add /run/secrets/cogment_api_deploy_key \
-# && ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
-
-#RUN eval $(ssh-agent -s) \
-#  && ssh-add /etc/secrets/cogment-api-deploy-key.asc \
-#  && mkdir -p ~/.ssh \
-#  && chmod 0700 ~/.ssh \
-#  && ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
-
 COPY package*.json .
-RUN --mount=type=ssh npm install
+RUN npm install
 
 COPY . .
 

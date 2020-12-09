@@ -13,21 +13,7 @@ services:
     image: registry.gitlab.com/ai-r/cogment-js-sdk-1.0/cogment-js-sdk:latest
     build:
       context: .
-    environment:
-      COMPOSE_DOCKER_CLI_BUILD: 1
-      DOCKER_BUILDKIT: 1
-    secrets:
-      - cogment_api_deploy_key
-    logging:
-      driver: json-file
     volumes:
       - .:/app
     ports:
-      - target: 4000
-        published: 4000
-        protocol: tcp
-        mode: host
-
-secrets:
-  cogment_api_deploy_key:
-    file: ./secrets/cogment-api-deploy-key.asc
+      - 4000:4000/tcp

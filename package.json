@@ -52,7 +52,7 @@
     "start": "webpack serve",
     "test": "jest",
     "test:codecov": "codecov",
-    "test:ui": "majestic --app",
+    "test:ui": "majestic --noOpen",
     "test:watch": "npm run test -- --watch",
     "tsc": "tsc",
     "watch": "webpack --watch"
@@ -135,7 +135,7 @@
     "defaults"
   ],
   "cogment-api": {
-    "cogment_api_version": "1.0.0-alpha1"
+    "cogment_api_version": "1.0.0-alpha2"
   },
   "husky": {
     "hooks": {
