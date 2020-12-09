@@ -2,10 +2,10 @@ version: '3.8'
 
 services:
   grpc-cli:
-    image: namely/grpc-cli:1.28_1
+    image: namely/grpc-cli:latest
 
   cogment-cli:
-    image: registry.gitlab.com/cogment/cogment/cli
+    image: registry.gitlab.com/cogment/cogment/cli:latest
     volumes:
       - ./:/app
 
