@@ -57,3 +57,5 @@ export class ConsoleLogger implements Logger {
     console.warn(...this.formatLog(...data));
   }
 }
+
+export const logger: Logger = new ConsoleLogger('cogment');
