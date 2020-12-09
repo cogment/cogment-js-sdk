@@ -24,9 +24,6 @@ import * as cogment from '../src';
 
 const ORCHESTRATOR_URL = 'http://orchestrator:8088';
 
-console.log('wat!');
-
-const re = /a/;
 const transport = grpc.WebsocketTransport();
 const trialLifecycleClient = new TrialLifecycleClient(ORCHESTRATOR_URL, {
   transport,
