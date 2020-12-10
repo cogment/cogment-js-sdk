@@ -16,6 +16,27 @@
  */
 
 import * as cogment from '../../src';
+import spawn from 'cross-spawn';
+import path from 'path';
+
+const BIN_PATH = path.resolve(__dirname, '../../bin');
+const START_ENV_PATH = path.resolve(BIN_PATH, 'start-end-to-end.bash');
+const END_ENV_PATH = path.resolve(BIN_PATH, 'end-end-to-end.bash');
+
+beforeAll(() => {
+  spawn.sync(START_ENV_PATH);
+});
+
+afterAll(() => {
+  spawn.sync(END_ENV_PATH);
+});
+
+describe('end-to-end environment', () => {
+  it('starts docker containers', () => {
+    const result = spawn.sync('docker', ['ps'], {stdio: 'pipe'});
+    expect(result.stdout.toString('utf8')).toMatch(/orchestrator/);
+  });
+});
 
 describe('we can import the package', () => {
   it('works', () => {
