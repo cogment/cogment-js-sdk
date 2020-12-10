@@ -1,6 +1,7 @@
 
 version: '3.7'
 
+
 services:
   grpc-cli:
     image: namely/grpc-cli:1.28_1
@@ -73,10 +74,10 @@ services:
     image: registry.gitlab.com/change_me/webui
     build:
       context: .
-      dockerfile: clients/js/Dockerfile
+      dockerfile: clients/web/Dockerfile
       target: dev
     volumes:
-      - ./clients/js:/app
+      - ./clients/web:/app
       - /app/node_modules
     ports:
       - "8080:8080"

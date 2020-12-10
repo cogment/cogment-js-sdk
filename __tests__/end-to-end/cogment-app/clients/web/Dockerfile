@@ -1,13 +1,12 @@
 
-FROM node:12.4-alpine AS dev
+FROM node:14-alpine AS dev
 
 WORKDIR /app
 
-COPY clients/js/package.json /app/
+COPY clients/web/package*.json ./
 
 RUN npm install
 
-COPY clients/js /app
+COPY clients/web /app
 
-ENTRYPOINT ["npm"]
-CMD ["start"]
+CMD ["npm", "start"]
