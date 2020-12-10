@@ -3,6 +3,11 @@ include:
 
 image: node:14
 
+default:
+  tags:
+    - ai-r
+    - docker
+
 stages:
   - build
   - test
@@ -84,6 +89,7 @@ test:
     - install -m 0755 docker-compose /usr/local/bin/docker-compose
   script:
     - npm run test
+    - npm run test:codecov
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
@@ -97,7 +103,6 @@ pages:
   stage: deploy
   script:
     - apt update && apt install -y lcov gcc
-    - npm run --silent test:codecov
     - cp -r coverage public/coverage
   artifacts:
     paths:
