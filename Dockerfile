@@ -21,6 +21,8 @@ FROM dev as build
 
 EXPOSE 4000
 
+ENV NODE_ENV=production
+
 RUN npm run build
 
-CMD npm run test:ui
+CMD npm run build:webpack:watch

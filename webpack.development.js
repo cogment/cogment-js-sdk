@@ -21,4 +21,14 @@ module.exports = {
   devServer: {
     port: 9000,
   },
+  watchOptions: {
+    ignored: [
+      '__tests__',
+      'node_modules',
+      'public',
+      'dist',
+      'coverage',
+      'cogment',
+    ],
+  },
 };

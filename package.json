@@ -38,8 +38,10 @@
     "build:protos": "npm-run-all build:protos:fetch build:protos:compile",
     "build:protos:compile": "protoc -I . cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "build:protos:fetch": "bin/cli.ts",
-    "build:typings": "tsc --declaration --declarationMap --emitDeclarationOnly --outFile dist/index.d.ts",
+    "build:tsc": "tsc",
+    "build:typings": "npm run build:tsc -- --declaration --declarationMap --emitDeclarationOnly --outFile dist/index.d.ts",
     "build:webpack": "webpack",
+    "build:webpack:watch": "npm run build:webpack -- --watch",
     "lint": "npm-run-all lint:prettier:check lint:eslint:check",
     "lint:eslint": "eslint .",
     "lint:eslint:check": "npm run lint:eslint",
@@ -53,12 +55,11 @@
     "test": "jest",
     "test:codecov": "codecov",
     "test:ui": "majestic --noOpen",
-    "test:watch": "npm run test -- --watch",
-    "tsc": "tsc",
-    "watch": "webpack --watch"
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.13.0",
+    "jest-allure": "^0.1.3",
     "lodash": "^4.17.20",
     "lodash-es": "^4.17.15"
   },

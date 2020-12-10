@@ -15,7 +15,6 @@
 ![GitHub Org's stars](https://img.shields.io/github/stars/cogment?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social)
 ![GitHub Repo stars](https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social)
-![GitHub package.json version](https://img.shields.io/github/package-json/v/cogment/cogment-js-sdk)
 
 - [cogment][cogment]
 - [Repository][repo]
@@ -24,6 +23,53 @@
 - [API Documentation][api-docs]
 - [License][license]
 - [Changelog][changelog]
+
+## Usage
+
+To install the package:
+
+```shell script
+npm install cogment
+```
+
+## Hacking
+
+Clone the repository:
+
+```shell script
+git clone https://github.com/cogment/cogment-js-sdk
+```
+
+### Local
+
+#### node.js
+
+For local hacking, a working node.js distribution is required. This repository supports [nvm][nvm] and [nodenv][nodenv] through the [.nvmrc](.nvmrc) and [.node-version](.node-version) files.
+
+A simple node.js environment install using [nvm][nvm] (note, _NO_ sudo is required!):
+
+```shell script
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+source ~/.nvm/nvm.sh
+cd /path/to/cogment-js-sdk
+nvm install
+```
+
+#### Setup
+
+Once a working node.js distribution is available, install dependencies:
+
+```shell script
+npm install
+```
+
+### Docker
+
+Local development is also supported through docker, removing the necessity for a local node.js distribution. [docker-compose][docker-compose] is used to simplify the configuration of creating containers - install before proceeding.
+
+```shell script
+docker-compose build cogment-js-sdk
+```
 
 ## Running tests
 
@@ -49,3 +95,6 @@ To launch the [majestic test ui][majestic] to run / watch / visualize tests:
 [npm]: https://www.npmjs.com/package/cogment
 [codecov]: https://codecov.io/gl/ai-r/cogment-js-sdk-1.0
 [majestic]: https://github.com/Raathigesh/majestic
+[nvm]: https://github.com/nvm-sh/nvm
+[nodenv]: https://github.com/nodenv/nodenv
+[docker-compose]: https://docs.docker.com/compose/
