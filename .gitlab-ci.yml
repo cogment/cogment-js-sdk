@@ -67,23 +67,9 @@ pre:npm-install:
     paths:
       - node_modules
 
-build:
-  stage: build
-  extends:
-    - .cache:protoc
-  before_script:
-    - cp -r protoc/{bin,include} /usr/local/
-  script:
-    - npm run build
-  artifacts:
-    paths:
-      - src/cogment/api
-      - dist
-      - public
-
 test:
   stage: test
-  image: docker:20.10.0
+  image: docker:19.03.14
   extends:
     - .cache:docker-compose
   before_script:
@@ -99,6 +85,20 @@ test:
       - coverage
     reports:
       junit: junit.xml
+
+build:
+  stage: build
+  extends:
+    - .cache:protoc
+  before_script:
+    - cp -r protoc/{bin,include} /usr/local/
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - src/cogment/api
+      - dist
+      - public
 
 pages:
   stage: deploy
