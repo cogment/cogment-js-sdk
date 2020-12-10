@@ -1,7 +1,4 @@
-include:
-  - template: Dependency-Scanning.gitlab-ci.yml
-
-image: node:14
+image: docker:19.03.14
 
 default:
   tags:
@@ -11,72 +8,13 @@ default:
 stages:
   - test
   - build
-  - deploy
-
-variables:
-  PROTOC_URL: https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protoc-3.14.0-linux-x86_64.zip
-  DOCKER_COMPOSE_URL: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
-
-.ssh:
-  before_script:
-    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$COGMENT_API_DEPLOY_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
-
-.cache:docker-compose:
-  cache:
-    key: ${DOCKER_COMPOSE_URL}
-    paths:
-      - docker-compose
-
-.cache:protoc:
-  cache:
-    key: ${PROTOC_URL}
-    paths:
-      - protoc
-
-pre:download-docker-compose:
-  stage: .pre
-  extends:
-    - .cache:docker-compose
-  script:
-    - apt-get update -y
-    - apt-get install curl unzip -y
-    - curl -LSso docker-compose ${DOCKER_COMPOSE_URL}
-
-pre:download-protoc:
-  stage: .pre
-  extends:
-    - .cache:protoc
-  script:
-    - apt-get update -y
-    - apt-get install curl unzip -y
-    - curl -LSso protoc.zip ${PROTOC_URL}
-    - unzip -od protoc protoc.zip
-
-pre:npm-install:
-  stage: .pre
-  extends:
-    - .ssh
-  script:
-    - npm install
-  artifacts:
-    paths:
-      - node_modules
+  - release
 
 test:
   stage: test
-  image: docker:19.03.14
-  extends:
-    - .cache:docker-compose
-  before_script:
-    - install -m 0755 docker-compose /usr/local/bin
   script:
-    - docker-compose build cogment-js-sdk cogment-cli
-    - docker-compose run cogment-js-sdk npm run test:ci
+    - apk add docker-compose protoc
+    - docker-compose run --build cogment-js-sdk npm run test:ci
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
@@ -88,22 +26,18 @@ test:
 
 build:
   stage: build
-  extends:
-    - .cache:protoc
   before_script:
-    - cp -r protoc/{bin,include} /usr/local/
+    - apk add docker-compose protoc
   script:
-    - npm run build
+    - docker-compose run --build cogment-js-sdk npm run build
   artifacts:
     paths:
-      - src/cogment/api
       - dist
       - public
 
 pages:
-  stage: deploy
+  stage: release
   script:
-    - apt update && apt install -y lcov gcc
     - cp -r coverage public/coverage
   artifacts:
     paths:
@@ -111,15 +45,27 @@ pages:
   only:
     - master
 
-package:npm:beta:
-  stage: deploy
+#release:gitlab:
+#  stage: release
+#  script:
+#    - npm run release
+
+release:npm:tag:
+  stage: release
+  script:
+    - echo "This job releases something from the $CI_COMMIT_BRANCH branch."
+  only:
+    - develop
+
+release:npm:beta:
+  stage: release
   script:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
   only:
     - develop
 
-package:npm:
-  stage: deploy
+release:npm:
+  stage: release
   script:
     - echo "This job deploys something from the $CI_COMMIT_BRANCH branch."
   only:
