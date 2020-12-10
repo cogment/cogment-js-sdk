@@ -14,7 +14,8 @@ test:
   stage: test
   script:
     - apk add docker-compose protoc
-    - docker-compose run --build cogment-js-sdk npm run test:ci
+    - docker-compose build cogment-js-sdk
+    - docker-compose run npm run test:ci
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
@@ -29,7 +30,8 @@ build:
   before_script:
     - apk add docker-compose protoc
   script:
-    - docker-compose run --build cogment-js-sdk npm run build
+    - docker-compose build cogment-js-sdk
+    - docker-compose run cogment-js-sdk npm run build
   artifacts:
     paths:
       - dist
