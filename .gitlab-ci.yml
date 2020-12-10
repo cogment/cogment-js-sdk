@@ -73,7 +73,7 @@ test:
   extends:
     - .cache:docker-compose
   before_script:
-    - install -m 0755 docker-compose /usr/local/bin/docker-compose
+    - install -m 0755 docker-compose /usr/local/bin
   script:
     - docker-compose build cogment-js-sdk cogment-cli
     - docker-compose run cogment-js-sdk npm run test:ci
