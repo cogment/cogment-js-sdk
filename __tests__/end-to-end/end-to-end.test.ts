@@ -34,6 +34,7 @@ afterAll(() => {
 describe('end-to-end environment', () => {
   it('starts docker containers', () => {
     const result = spawn.sync('docker', ['ps'], {stdio: 'pipe'});
+    expect(result.error).toBeNull();
     expect(result.stdout.toString('utf8')).toMatch(/orchestrator/);
   });
 });

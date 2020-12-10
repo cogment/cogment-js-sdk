@@ -10,6 +10,7 @@ stages:
 
 variables:
   PROTOC_URL: https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protoc-3.14.0-linux-x86_64.zip
+  DOCKER_COMPOSE_URL: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
 
 .ssh:
   before_script:
@@ -20,11 +21,26 @@ variables:
     - chmod 700 ~/.ssh
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
 
+.cache:docker-compose:
+  cache:
+    key: ${DOCKER_COMPOSE_URL}
+    paths:
+      - docker-compose
+
 .cache:protoc:
   cache:
     key: ${PROTOC_URL}
     paths:
       - protoc
+
+pre:download-docker-compose:
+  stage: .pre
+  extends:
+    - .cache:docker-compose
+  script:
+    - apt-get update -y
+    - apt-get install curl unzip -y
+    - curl -LSso docker-compose ${DOCKER_COMPOSE_URL}
 
 pre:download-protoc:
   stage: .pre
@@ -33,7 +49,7 @@ pre:download-protoc:
   script:
     - apt-get update -y
     - apt-get install curl unzip -y
-    - curl -LSso protoc.zip "${PROTOC_URL}"
+    - curl -LSso protoc.zip ${PROTOC_URL}
     - unzip -od protoc protoc.zip
 
 pre:npm-install:
@@ -62,8 +78,12 @@ build:
 
 test:
   stage: test
+  extends:
+    - .cache:docker-compose
+  before_script:
+    - install -m 0755 docker-compose /usr/local/bin/docker-compose
   script:
-    - npm run --silent test
+    - npm run test
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'

@@ -7,8 +7,17 @@
 [![License](https://img.shields.io/npm/l/cogment)][license]
 [![npm](https://img.shields.io/npm/v/cogment)][npm]
 [![npm collaborators](https://img.shields.io/npm/collaborators/cogment)][npm]
+[![Dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/cogment)][npm]
+[![Dependent repos (via libraries.io)](https://img.shields.io/librariesio/dependent-repos/npm/cogment)][npm]
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+![OSS Lifecycle](https://img.shields.io/osslifecycle/cogment/cogment-js-sdk)
+![GitHub followers](https://img.shields.io/github/followers/cogment?label=Follow&style=social)
+![GitHub Org's stars](https://img.shields.io/github/stars/cogment?style=social)
+![GitHub forks](https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social)
+![GitHub Repo stars](https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/cogment/cogment-js-sdk)
 
+- [cogment][cogment]
 - [Repository][repo]
 - [Design Proposal][proposal1]
 - [Coverage Report][coverage]
@@ -30,6 +39,7 @@ To launch the [majestic test ui][majestic] to run / watch / visualize tests:
 
 `npm run test:ui`
 
+[cogment]: https://cogment.ai
 [repo]: https://gitlab.com/ai-r/cogment-js-sdk-1.0/
 [coverage]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/coverage/report
 [api-docs]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/api
