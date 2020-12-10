@@ -4,3 +4,5 @@ public
 src/cogment/api
 /__tests__/end-to-end/cogment-app
 *_pb*
+/allure-report/
+/allure-results/

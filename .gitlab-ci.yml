@@ -9,8 +9,8 @@ default:
     - docker
 
 stages:
-  - build
   - test
+  - build
   - deploy
 
 variables:
@@ -83,13 +83,14 @@ build:
 
 test:
   stage: test
+  image: docker:20.10.0
   extends:
     - .cache:docker-compose
   before_script:
     - install -m 0755 docker-compose /usr/local/bin/docker-compose
   script:
-    - npm run test
-    - npm run test:codecov
+    - docker-compose build cogment-js-sdk cogment-cli
+    - docker-compose run cogment-js-sdk npm run test:ci
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'

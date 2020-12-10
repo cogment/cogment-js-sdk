@@ -52,8 +52,10 @@
     "lint:prettier:fix": "npm run lint:prettier -- --write",
     "size": "size-limit",
     "start": "webpack serve",
-    "test": "jest",
+    "test": "npm run test:jest",
+    "test:ci": "npm-run-all test:jest test:codecov",
     "test:codecov": "codecov",
+    "test:jest": "jest",
     "test:ui": "majestic --noOpen",
     "test:watch": "npm run test -- --watch"
   },

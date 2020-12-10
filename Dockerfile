@@ -17,12 +17,12 @@ COPY . .
 
 CMD npm run test
 
-FROM dev as build
-
-EXPOSE 4000
-
-ENV NODE_ENV=production
-
-RUN npm run build
-
-CMD npm run build:webpack:watch
+#FROM dev as build
+#
+#EXPOSE 4000
+#
+#ENV NODE_ENV=production
+#
+#RUN npm run build
+#
+#CMD npm run build:webpack

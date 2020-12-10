@@ -12,3 +12,5 @@ public
 src/cogment/api
 /cogment
 secrets
+/allure-report/
+/allure-results/
