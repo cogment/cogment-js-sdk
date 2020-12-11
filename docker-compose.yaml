@@ -13,7 +13,5 @@ services:
     image: registry.gitlab.com/ai-r/cogment-js-sdk-1.0/cogment-js-sdk:latest
     build:
       context: .
-    volumes:
-      - .:/app
     ports:
       - 4000:4000/tcp
