@@ -75,7 +75,7 @@ test:
   script:
     - docker-compose run cogment-js-sdk npm run test:ci
   after_script:
-    - bin/end-end-to-end.bash
+    - bin/stop-end-to-end.bash
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
