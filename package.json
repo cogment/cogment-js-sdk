@@ -4,7 +4,7 @@
   "description": "Javascript SDK for the Cogment Framework",
   "repository": {
     "type": "git",
-    "url": "https:git@gitlab.com/ai-r/cogment-js-sdk-1.0.git"
+    "url": "git@gitlab.com/ai-r/cogment-js-sdk-1.0.git"
   },
   "author": "Artificial Intelligence Redefined <dev+cogment@ai-r.com>",
   "license": "SEE LICENSE IN LICENSE",
@@ -78,6 +78,8 @@
     "@microsoft/api-extractor": "^7.12.1",
     "@microsoft/tsdoc": "^0.12.24",
     "@microsoft/tsdoc-config": "^0.13.9",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/git": "^9.0.0",
     "@size-limit/preset-small-lib": "^4.9.0",
     "@types/cross-spawn": "^6.0.2",
     "@types/decompress": "^4.2.3",
@@ -171,6 +173,32 @@
   "np": {
     "yarn": false,
     "contents": "dist"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      "@semantic-release/github"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      {
+        "path": "@semantic-release/git",
+        "assets": [
+          "package.json",
+          "package-lock.json",
+          "CHANGELOG.md"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]nn${nextRelease.notes}"
+      }
+    ]
   },
   "size-limit": [
     {
