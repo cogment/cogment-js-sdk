@@ -44,7 +44,7 @@ test:
 
 build:
   stage: build
-  environment:
+  variables:
     NODE_ENV: production
   before_script:
     - apk add docker-compose
