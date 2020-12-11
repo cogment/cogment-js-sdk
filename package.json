@@ -203,18 +203,7 @@
       ],
       [
         "@semantic-release/gitlab",
-        {
-          "assets": [
-            {
-              "path": "dist",
-              "label": "Compiled javascript"
-            },
-            {
-              "path": "src",
-              "label": "Source code"
-            }
-          ]
-        }
+        {}
       ]
     ]
   },
