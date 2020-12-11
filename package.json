@@ -176,7 +176,15 @@
     "contents": "dist"
   },
   "release": {
-    "branch": "main",
+    "branches": [
+      {
+        "name": "master"
+      },
+      {
+        "name": "main",
+        "prelease": true
+      }
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
