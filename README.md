@@ -13,6 +13,7 @@
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/cogment/cogment-js-sdk)
 ![GitHub forks](https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social)
 ![GitHub Repo stars](https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 - [cogment][cogment]
 - [Repository][repo]
