@@ -1,3 +1,19 @@
+## [1.0.3](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.0.2...v1.0.3) (2020-12-11)
+
+
+### Bug Fixes
+
+* **ci:** need git for semantic-release ([30ed5e3](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/30ed5e3cb3a4ca59269954eb46b7cc3ccc5e1912))
+* **dockerfile:** boo alpine and your weird non-gcc compiler ([256fa34](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/256fa3412bae87736278a5b84ad6c3a323920524))
+* **dockerfile:** node:14-alpine does not include curl ([4377519](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/43775195ac3c24744d040b6247fa1c9bdaa887a1))
+* **package.json:** small package.json fixes ([4b7118b](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/4b7118b4375ce572fa94d076095f72953952478d))
+* **release:** node:14-alpine comes with no git ([7f2a824](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/7f2a82438c70551355c4a0b318dc6650239d96ec))
+
+
+### Reverts
+
+* **dockerfile:** use non-alpine inside docker ([054d07d](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/054d07d1554986a99679bdd9576b6e44d3605d8c))
+
 ## [1.0.2](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.0.1...v1.0.2) (2020-12-11)
 
 ### Bug Fixes
