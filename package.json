@@ -163,7 +163,7 @@
     "hooks": {
       "prepare-commit-msg": "exec < /dev/tty && [ -z ${CI} ] && git cz --hook || true",
       "pre-commit": "lint-staged",
-      "commit-msg": "[ -z ${CI} ] || true && npx commitlint --edit \"$1\""
+      "commit-msg": "[ -z ${CI} ] && npx commitlint --edit \"$1\" || true"
     }
   },
   "lint-staged": {
