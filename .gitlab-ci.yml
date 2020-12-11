@@ -69,7 +69,7 @@ variables:
 test:
   stage: test
   before_script:
-    - apk add docker-compose protoc
+    - apk add docker-compose protoc bash
     - docker-compose build cogment-js-sdk
     - bin/start-end-to-end.bash
   script:
