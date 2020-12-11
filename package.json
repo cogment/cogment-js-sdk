@@ -12,10 +12,7 @@
   "engines": {
     "node": ">=10"
   },
-  "bin": {
-    "cogjs": "bin/cli.ts"
-  },
-  "main": "dist/cogment.cjs",
+  "main": "dist/cogment.js",
   "module": "dist/cogment.esm.js",
   "types": "dist/index.d.ts",
   "directories": {
@@ -59,7 +56,7 @@
     "test:codecov": "codecov",
     "test:jest": "jest",
     "test:ui": "majestic --noOpen",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test:jest -- --watch"
   },
   "config": {
     "commitizen": {
@@ -68,7 +65,6 @@
   },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.13.0",
-    "jest-allure": "^0.1.3",
     "lodash": "^4.17.20",
     "lodash-es": "^4.17.15"
   },
@@ -119,6 +115,7 @@
     "google-protobuf": "^3.14.0",
     "husky": "^4.3.5",
     "jest": "^26.6.3",
+    "jest-allure": "^0.1.3",
     "jest-junit": "^12.0.0",
     "jest-watch-typeahead": "^0.6.1",
     "json5": "^2.1.3",
@@ -201,10 +198,7 @@
           "path": "@semantic-release/git"
         }
       ],
-      [
-        "@semantic-release/gitlab",
-        {}
-      ]
+      "@semantic-release/gitlab"
     ]
   },
   "size-limit": [
