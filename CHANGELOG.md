@@ -1,3 +1,9 @@
+## [1.0.2](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.0.1...v1.0.2) (2020-12-11)
+
+### Bug Fixes
+
+- **semantic-release:** disable assets for gitlab release for now ([4b3071c](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/4b3071ce85d7b27e973ebf3298c56c7b838f9930))
+
 ## [1.0.1](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.0.0...v1.0.1) (2020-12-11)
 
 ### Bug Fixes
