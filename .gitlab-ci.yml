@@ -75,7 +75,7 @@ test:
     - docker-compose run cogment-js-sdk npm run build
     - bin/start-end-to-end.bash
   script:
-    - docker-compose run cogment-js-sdk npm run test:ci
+    - docker-compose run -e CODECOV_TOKEN=${CODECOV_TOKEN} cogment-js-sdk npm run test:ci
   after_script:
     - bin/stop-end-to-end.bash
   variables:
