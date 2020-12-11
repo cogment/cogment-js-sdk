@@ -1,6 +1,6 @@
 {
   "name": "cogment",
-  "version": "1.0.1-3",
+  "version": "1.0.2",
   "description": "Javascript SDK for the Cogment Framework",
   "repository": {
     "type": "git",
