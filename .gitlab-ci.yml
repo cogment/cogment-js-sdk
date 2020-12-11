@@ -69,8 +69,6 @@ variables:
 pre:install:
   stage: .pre
   image: node:14
-  before_script:
-    - apk add protoc
   script:
     - npm install
   artifacts:
