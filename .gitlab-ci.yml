@@ -70,7 +70,6 @@ test:
   stage: test
   before_script:
     - apk add docker-compose protoc bash
-    - docker pull registry.gitlab.com/ai-r/cogment-cli:latest
     - docker-compose build cogment-js-sdk
     - bin/start-end-to-end.bash
   script:

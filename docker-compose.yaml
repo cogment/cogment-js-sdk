@@ -5,7 +5,7 @@ services:
     image: namely/grpc-cli:latest
 
   cogment-cli:
-    image: registry.gitlab.com/ai-r/cogment-cli:latest
+    image: cogment/cli:v1.0.0-alpha1
     volumes:
       - ./:/cogment
 
