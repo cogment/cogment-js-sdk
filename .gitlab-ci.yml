@@ -25,6 +25,7 @@ pre:install:
 test:
   stage: test
   before_script:
+    - docker network prune -f
     - apk add docker-compose bash
     - docker-compose build cogment-js-sdk
     - docker-compose run cogment-js-sdk npm run build:protos
