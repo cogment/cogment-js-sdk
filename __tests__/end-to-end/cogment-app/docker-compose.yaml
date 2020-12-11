@@ -45,8 +45,6 @@ services:
       dockerfile: orchestrator/Dockerfile
     volumes:
       - .:/app
-    ports:
-      - "9000:9000"
     x-cogment:
       ports:
         - port: 9000
