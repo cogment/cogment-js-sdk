@@ -17,5 +17,7 @@ tsconfig.json
 cog_settings.*
 **/*_pb*
 bin
+/*.js
+/*.json
 /allure-results/
 /allure-report/
