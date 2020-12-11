@@ -42,7 +42,7 @@
     "build:typings": "npm run build:tsc -- --declaration --declarationMap --emitDeclarationOnly --outFile dist/index.d.ts",
     "build:webpack": "webpack",
     "build:webpack:watch": "npm run build:webpack -- --watch",
-    "commit": "cz",
+    "cz": "git-cz",
     "lint": "npm-run-all lint:prettier:check lint:eslint:check",
     "lint:eslint": "eslint .",
     "lint:eslint:check": "npm run lint:eslint",
