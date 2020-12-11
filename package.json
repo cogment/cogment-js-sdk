@@ -1,6 +1,6 @@
 {
   "name": "cogment",
-  "version": "0.0.0-development",
+  "version": "0.0.0",
   "description": "Javascript SDK for the Cogment Framework",
   "repository": {
     "type": "git",
@@ -169,7 +169,7 @@
   "lint-staged": {
     "*.{ts,js,css,md,json,yaml,yml}": "npm run lint:prettier:fix",
     "*.{ts,js,json}": "npm run lint:eslint:fix",
-    "*.ts": "npm run test -- --findRelatedTests"
+    "*.ts": "npm run test -- --findRelatedTests --passWithNoTests"
   },
   "np": {
     "yarn": false,
