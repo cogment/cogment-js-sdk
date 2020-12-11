@@ -163,7 +163,7 @@
     "hooks": {
       "prepare-commit-msg": "exec < /dev/tty && [ -z ${CI} ] && git cz --hook || true",
       "pre-commit": "lint-staged",
-      "commit-msg": "npx --no-install commitlint --edit $1"
+      "commit-msg": "[ -z ${CI} ] || true && npx commitlint --edit \"$1\""
     }
   },
   "lint-staged": {
@@ -198,13 +198,7 @@
       [
         "@semantic-release/git",
         {
-          "path": "@semantic-release/git",
-          "assets": [
-            "package.json",
-            "package-lock.json",
-            "CHANGELOG.md"
-          ],
-          "message": "chore(release): ${nextRelease.version} [skip ci]nn${nextRelease.notes}"
+          "path": "@semantic-release/git"
         }
       ],
       [
