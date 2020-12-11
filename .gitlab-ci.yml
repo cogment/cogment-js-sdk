@@ -73,9 +73,10 @@ release:gitlab:
 release:npm:tag:
   stage: release
   script:
-    - echo "This job releases something from the $CI_COMMIT_BRANCH branch."
+    - echo "This job releases something from the $CI_COMMIT_TAG tag."
   only:
-    - main
+    refs:
+      - /^refs\/tags\/(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
 
 release:npm:beta:
   stage: release
