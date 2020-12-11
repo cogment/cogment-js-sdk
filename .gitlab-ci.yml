@@ -78,9 +78,9 @@ pre:install:
 test:
   stage: test
   before_script:
-    - apk add docker-compose protoc bash
+    - apk add docker-compose bash
     - docker-compose build cogment-js-sdk
-    - docker-compose run cogment-js-sdk build:protos
+    - docker-compose run cogment-js-sdk npm run build:protos
     - bin/start-end-to-end.bash
   script:
     - docker-compose run -e CODECOV_TOKEN=${CODECOV_TOKEN} cogment-js-sdk npm run test:ci
