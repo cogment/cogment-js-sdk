@@ -71,6 +71,7 @@ test:
   before_script:
     - apk add docker-compose protoc bash
     - docker-compose build cogment-js-sdk
+    - docker-compose run cogment-js-sdk npm run build
     - bin/start-end-to-end.bash
   script:
     - docker-compose run cogment-js-sdk npm run test:ci
