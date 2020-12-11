@@ -18,6 +18,7 @@
 
 source bin/hack.bash
 
-docker-compose build "${ALL_SERVICES[@]}" || _err "Failed to build cogment project"
 docker-compose pull cogment-cli || _err "Failed to pull cogment-cli"
 docker-compose run cogment-cli run generate || _err "Failed to build cogment project"
+docker-compose build "${ALL_SERVICES[@]}" || _err "Failed to build cogment project"
+

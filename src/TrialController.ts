@@ -41,7 +41,7 @@ export class TrialController {
   }
 
   public startTrial(
-    options: StartTrialArguments,
+    config: StartTrialArguments,
   ): Promise<StartTrialReturnType> {
     throw new Error('startTrial() is not implemented.');
   }

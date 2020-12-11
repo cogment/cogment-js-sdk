@@ -34,6 +34,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '/__tests__/end-to-end/cogment-app',
+    '/src/__mocks__/',
     '/node_modules/',
     '/dist/',
     '/public/',

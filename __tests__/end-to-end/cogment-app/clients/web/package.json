@@ -9,15 +9,12 @@
     "build": "npm-run-all build:clean build:install build:protos build:webpack",
     "build:clean": "rimraf node_modules dist public cogment cogment-api.tar.gz cogment-api-*",
     "build:install": "npm install",
-    "build:protos": "npm-run-all build:protos:fetch build:protos:compile",
-    "build:protos:compile": "protoc -I . cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
-    "build:protos:fetch": "cogjs",
+    "build:protos": "protoc -I ../.. ../../*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "build:webpack": "webpack",
     "start": "webpack-dev-server --host 0.0.0.0 --hot --inline"
   },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.13.0",
-    "cogment": "file:../../../../..",
     "google-protobuf": "^3.14.0",
     "ts-protoc-gen": "^0.13.0"
   },

@@ -21,14 +21,26 @@ import {logger} from './lib/Logger';
 import {TrialActor} from './TrialActor';
 import {TrialController} from './TrialController';
 
-export type ActorImplementation = (session: ActorSession) => Promise<void>;
+export type ActorImplementation<
+  ActionT = never,
+  ObservationT = never,
+  RewardT = never,
+  MessageT = never
+> = (
+  session: ActorSession<ActionT, ObservationT, RewardT, MessageT>,
+) => Promise<void>;
 
 export class CogmentService {
   private actors: Record<string, [TrialActor, ActorImplementation]> = {};
   constructor(private cogSettings: CogSettings) {}
-  public registerActor(
+  public registerActor<
+    ActionT = never,
+    ObservationT = never,
+    RewardT = never,
+    MessageT = never
+  >(
     actorConfig: TrialActor,
-    actorImpl: ActorImplementation,
+    actorImpl: ActorImplementation<ActionT, ObservationT, RewardT, MessageT>,
   ): void {
     if (this.actors[actorConfig.name]) {
       logger.warn(

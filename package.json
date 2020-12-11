@@ -166,7 +166,7 @@
   "lint-staged": {
     "*.{ts,js,css,md,json,yaml,yml}": "npm run lint:prettier:fix",
     "*.{ts,js,json}": "npm run lint:eslint:fix",
-    "*.ts": "npm run test -- --findRelatedTests --passWithNoTests"
+    "*(d).ts": "npm run test -- --findRelatedTests --passWithNoTests"
   },
   "np": {
     "yarn": false,

@@ -11,7 +11,11 @@ message TrialConfig {
 }
 
 message Observation {}
+
+message Reward {}
+
 message ClientAction {}
 
 message TimeAction {}
 
+message AsyncMessage {}
