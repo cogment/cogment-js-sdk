@@ -6,7 +6,8 @@ ENV CODECOV_TOKEN=""
 
 WORKDIR /app
 
-RUN curl -LSso /tmp/protoc.zip ${PROTOC_URL} \
+RUN apk add curl \
+  && curl -LSso /tmp/protoc.zip ${PROTOC_URL} \
   && unzip -d /usr/local/ /tmp/protoc.zip \
   && rm -rf /tmp/protoc.zip
 
