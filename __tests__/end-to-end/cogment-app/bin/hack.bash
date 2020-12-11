@@ -16,5 +16,17 @@
 #
 #
 
-cd __tests__/end-to-end/cogment-app || exit
-exec bin/up.bash
+SCRIPT_NAME="$(basename "${0}")"
+# shellcheck disable=SC2034
+ALL_SERVICES=(orchestrator env time)
+
+_log() {
+  printf "%s " "${SCRIPT_NAME}:"
+  printf "%s\n" "${@}"
+}
+
+_err() {
+  _log "${@}"
+  exit 1
+}
+

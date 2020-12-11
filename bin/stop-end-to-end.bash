@@ -16,24 +16,5 @@
 #
 #
 
-SCRIPT_NAME="$(basename ${0})"
-COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
-END_TO_END_APP_PATH=${END_TO_END_APP_PATH:-__tests__/end-to-end/cogment-app}
-
-_log() {
-  printf "%s " "${SCRIPT_NAME}:"
-  printf "%s\n" "${@}"
-}
-
-_err() {
-  _log "${@}"
-  exit 1
-}
-
-if [[ ! -r "${END_TO_END_APP_PATH}/cogment.yaml" ]]; then
-  _err "Unable to find cogment application at ${END_TO_END_APP_PATH}"
-fi
-
-pushd "${END_TO_END_APP_PATH}" || _err "Unable to access ${END_TO_END_APP_PATH}"
-
-export COMPOSE_PROJECT_NAME
+cd __tests__/end-to-end/cogment-app || exit
+exec bin/down.bash

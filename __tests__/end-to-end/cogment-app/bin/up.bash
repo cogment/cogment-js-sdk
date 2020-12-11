@@ -16,6 +16,7 @@
 #
 #
 
-source bin/end-to-end.bash
+source bin/hack.bash
 
-cogment run stop
+docker-compose pull cogment-cli || _err "Failed to pull cogment-cli"
+docker-compose up -d --build "${ALL_SERVICES[@]}" || _err "Failed to bring up cogment project"

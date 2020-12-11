@@ -1,18 +1,17 @@
 
 version: '3.7'
 
-
 services:
   grpc-cli:
     image: namely/grpc-cli:1.28_1
 
   cogment-cli:
-    image: registry.gitlab.com/cogment/cogment/cli
+    image: registry.gitlab.com/ai-r/cogment-cli:latest
     volumes:
-      - ./:/app
+      - ./:/cogment
 
   time:
-    image: registry.gitlab.com/change_me/time
+    image: registry.gitlab.com/ai-r/change_me/time:latest
     build:
       context: .
       dockerfile: agents/time/Dockerfile
@@ -26,7 +25,7 @@ services:
         - port: 9000
 
   env:
-    image: registry.gitlab.com/change_me/env
+    image: registry.gitlab.com/ai-r/change_me/env:latest
     build:
       context: .
       dockerfile: envs/Dockerfile
@@ -40,7 +39,7 @@ services:
         - port: 9000
 
   orchestrator:
-    image: registry.gitlab.com/change_me/orchestrator
+    image: registry.gitlab.com/ai-r/change_me/orchestrator:latest
     build:
       context: .
       dockerfile: orchestrator/Dockerfile
@@ -53,42 +52,41 @@ services:
         - port: 9000
     depends_on:
       - env
-
       - time
 
-  client:
-    build:
-      context: .
-      dockerfile: clients/Dockerfile
-    volumes:
-      - ./:/app
-    environment:
-      - PYTHONUNBUFFERED=1
-    stdin_open: true
-    tty: true
+#  client:
+#    build:
+#      context: .
+#      dockerfile: clients/Dockerfile
+#    volumes:
+#      - ./:/app
+#    environment:
+#      - PYTHONUNBUFFERED=1
+#    stdin_open: true
+#    tty: true
 
 #################################
 # browser use
 #################################
-  webui:
-    image: registry.gitlab.com/change_me/webui
-    build:
-      context: .
-      dockerfile: clients/web/Dockerfile
-      target: dev
-    volumes:
-      - ./clients/web:/app
-      - /app/node_modules
-    ports:
-      - "8080:8080"
+#  webui:
+#    image: registry.gitlab.com/change_me/webui
+#    build:
+#      context: .
+#      dockerfile: clients/web/Dockerfile
+#      target: dev
+#    volumes:
+#      - ./clients/web:/app
+#      - /app/node_modules
+#    ports:
+#      - "8080:8080"
 
-  envoy:
-    image: envoyproxy/envoy:v1.13.0
-    volumes:
-      - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml
-    ports:
-      - "8088:8088/tcp"
-    restart: 'always'
+#  envoy:
+#    image: envoyproxy/envoy:v1.13.0
+#    volumes:
+#      - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml
+#    ports:
+#      - "8088:8088/tcp"
+#    restart: 'always'
 
 ################################
 # configurator/supervisor

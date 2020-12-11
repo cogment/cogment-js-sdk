@@ -5,11 +5,11 @@ import:
 
 commands:
   proto: cogment -v generate --python_dir=. --js_dir=clients/js
-  build: cogment -v generate --python_dir=. && docker-compose build
+  build: bin/build.bash
   generate: cogment -v generate --python_dir=. --js_dir=clients/web/src
   # python client
-  start: docker-compose up -d orchestrator env time
-  stop: docker-compose stop orchestrator env time
+  start: bin/up.bash
+  stop: bin/down.bash
   # web client
   start-webui: docker-compose up orchestrator webui env time  envoy
   stop-webui: docker-compose stop orchestrator webui env time  envoy

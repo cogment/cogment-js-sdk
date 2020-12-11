@@ -16,5 +16,6 @@
 #
 #
 
-cd __tests__/end-to-end/cogment-app || exit
-exec bin/up.bash
+source bin/hack.bash
+
+docker-compose down || _err "Failed to bring down cogment project"

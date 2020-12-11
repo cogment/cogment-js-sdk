@@ -10,12 +10,72 @@ stages:
   - build
   - release
 
+variables:
+  COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
+
+#variables:
+#  PROTOC_URL: https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protoc-3.14.0-linux-x86_64.zip
+#  DOCKER_COMPOSE_URL: https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64
+
+#.ssh:
+#  before_script:
+#    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+#    - eval $(ssh-agent -s)
+#    - echo "$COGMENT_API_DEPLOY_KEY" | tr -d '\r' | ssh-add -
+#    - mkdir -p ~/.ssh
+#    - chmod 700 ~/.ssh
+#    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+
+#.cache:docker-compose:
+#  cache:
+#    key: ${DOCKER_COMPOSE_URL}
+#    paths:
+#      - docker-compose
+
+#.cache:protoc:
+#  cache:
+#    key: ${PROTOC_URL}
+#    paths:
+#      - protoc
+
+#pre:download-docker-compose:
+#  stage: .pre
+#  extends:
+#    - .cache:docker-compose
+#  script:
+#    - apk add curl unzip
+#    - curl -LSso docker-compose ${DOCKER_COMPOSE_URL}
+#    - chmod +x docker-compose
+
+#pre:download-protoc:
+#  stage: .pre
+#  extends:
+#    - .cache:protoc
+#  script:
+#    - apk add curl unzip
+#    - curl -LSso protoc.zip ${PROTOC_URL}
+#    - unzip -od protoc protoc.zip
+
+#pre:npm-install:
+#  stage: .pre
+#  extends:
+#    - .ssh
+#  script:
+#    - npm install
+#  artifacts:
+#    paths:
+#      - node_modules
+
 test:
   stage: test
-  script:
+  before_script:
     - apk add docker-compose protoc
     - docker-compose build cogment-js-sdk
-    - docker-compose run npm run test:ci
+    - bin/start-end-to-end.bash
+  script:
+    - docker-compose run cogment-js-sdk npm run test:ci
+  after_script:
+    - bin/end-end-to-end.bash
   variables:
     NODE_ENV: test
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
@@ -27,11 +87,9 @@ test:
 
 build:
   stage: build
-  before_script:
-    - apk add docker-compose protoc
   script:
+    - apk add docker-compose
     - docker-compose build cogment-js-sdk
-    - docker-compose run cogment-js-sdk npm run build
   artifacts:
     paths:
       - dist
@@ -47,10 +105,10 @@ pages:
   only:
     - master
 
-#release:gitlab:
-#  stage: release
-#  script:
-#    - npm run release
+release:gitlab:
+  stage: release
+  script:
+    - echo "Generating a gitlab release from the $CI_COMMIT_BRANCH branch."
 
 release:npm:tag:
   stage: release
