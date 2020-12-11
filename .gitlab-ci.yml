@@ -71,16 +71,16 @@ pre:install:
   image: node:14
   script:
     - npm install
+    - npm run build:protos
   artifacts:
     paths:
       - node_modules
+      - src/cogment/api
 
 test:
   stage: test
   before_script:
     - apk add docker-compose protoc bash
-    - docker-compose build cogment-js-sdk
-    - docker-compose run cogment-js-sdk npm run build:protos
     - bin/start-end-to-end.bash
   script:
     - docker-compose run -e CODECOV_TOKEN=${CODECOV_TOKEN} cogment-js-sdk npm run test:ci
@@ -97,6 +97,8 @@ test:
 
 build:
   stage: build
+  before_script:
+    - apk add docker-compose
   script:
     - docker-compose run cogment-js-sdk npm run build
   artifacts:
