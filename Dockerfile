@@ -1,4 +1,4 @@
-FROM node:14 AS dev
+FROM node:14-alpine AS dev
 
 ARG PROTOC_URL=https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protoc-3.14.0-linux-x86_64.zip
 ENV NODE_ENV=development
