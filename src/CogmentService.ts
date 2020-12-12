@@ -15,8 +15,11 @@
  *
  */
 
+import {grpc} from '@improbable-eng/grpc-web';
+import {RpcOptions} from '@improbable-eng/grpc-web/dist/typings/client';
 import {CogSettings} from './@types/cogment';
 import {ActorSession} from './ActorSession';
+import {TrialLifecycleClient} from './cogment/api/orchestrator_pb_service';
 import {logger} from './lib/Logger';
 import {TrialActor} from './TrialActor';
 import {TrialController} from './TrialController';
@@ -32,7 +35,9 @@ export type ActorImplementation<
 
 export class CogmentService {
   private actors: Record<string, [TrialActor, ActorImplementation]> = {};
-  constructor(private cogSettings: CogSettings) {}
+
+  constructor(private readonly cogSettings: CogSettings) {}
+
   public registerActor<
     ActionT = never,
     ObservationT = never,
@@ -49,7 +54,13 @@ export class CogmentService {
     }
     this.actors[actorConfig.name] = [actorConfig, actorImpl];
   }
-  public createTrialController(): TrialController {
-    return new TrialController(this.cogSettings);
-  }
+
+  public createTrialLifecycleClient = (
+    backendUrl = this.cogSettings.connection.backendUrl,
+    transport = grpc.CrossBrowserHttpTransport({withCredentials: false}),
+  ): TrialLifecycleClient => new TrialLifecycleClient(backendUrl, {transport});
+
+  public createTrialController = (
+    trialLifecycleClient: TrialLifecycleClient = this.createTrialLifecycleClient(),
+  ): TrialController => new TrialController(trialLifecycleClient);
 }

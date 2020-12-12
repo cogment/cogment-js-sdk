@@ -15,8 +15,19 @@
  *
  */
 
-import {CogSettings} from './@types/cogment';
-import {TrialConfig, VersionInfo} from './cogment/api/common_pb';
+import * as jspb from 'google-protobuf';
+import {
+  TrialConfig,
+  VersionInfo,
+  VersionRequest,
+} from './cogment/api/common_pb';
+import {
+  TerminateTrialReply,
+  TerminateTrialRequest,
+  TrialStartReply,
+  TrialStartRequest,
+} from './cogment/api/orchestrator_pb';
+import {TrialLifecycleClient} from './cogment/api/orchestrator_pb_service';
 
 export type ActorConfig = {name: string; classes: string[]};
 
@@ -35,22 +46,48 @@ export interface StartTrialReturnType {
 }
 
 export class TrialController {
-  constructor(private cogSettings: CogSettings) {}
-  public joinTrial(options: JoinTrialArguments): Promise<void> {
-    throw new Error('joinTrial() is not implemented.');
+  constructor(private trialLifecycleClient: TrialLifecycleClient) {}
+  public async startTrial(
+    request: TrialStartRequest,
+  ): Promise<TrialStartReply> {
+    // eslint-disable-next-line compat/compat
+    return await new Promise((resolve, reject) => {
+      this.trialLifecycleClient.startTrial(request, (error, response) => {
+        if (error || response === null) {
+          return reject(error);
+        }
+        resolve(response);
+      });
+    });
   }
 
-  public startTrial(
-    config: StartTrialArguments,
-  ): Promise<StartTrialReturnType> {
-    throw new Error('startTrial() is not implemented.');
+  public async terminateTrial(
+    request: TerminateTrialRequest,
+  ): Promise<TerminateTrialReply> {
+    // eslint-disable-next-line compat/compat
+    return await new Promise((resolve, reject) => {
+      // eslint-disable-next-line sonarjs/no-identical-functions
+      this.trialLifecycleClient.terminateTrial(request, (error, response) => {
+        if (error || response === null) {
+          return reject(error);
+        }
+        resolve(response);
+      });
+    });
   }
 
-  public terminateTrial(trialId: string): Promise<void> {
-    throw new Error('terminateTrial() is not implemented.');
-  }
-
-  public version(): Promise<VersionInfo> {
-    throw new Error('version() is not implemented.');
+  public async version(
+    request: VersionRequest = new VersionRequest(),
+  ): Promise<VersionInfo> {
+    // eslint-disable-next-line compat/compat
+    return await new Promise((resolve, reject) => {
+      // eslint-disable-next-line sonarjs/no-identical-functions
+      this.trialLifecycleClient.version(request, (error, response) => {
+        if (error || response === null) {
+          return reject(error);
+        }
+        resolve(response);
+      });
+    });
   }
 }

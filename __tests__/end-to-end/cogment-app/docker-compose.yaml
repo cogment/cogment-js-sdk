@@ -78,13 +78,13 @@ services:
 #    ports:
 #      - "8080:8080"
 
-#  envoy:
-#    image: envoyproxy/envoy:v1.13.0
-#    volumes:
-#      - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml
-#    ports:
-#      - "8088:8088/tcp"
-#    restart: 'always'
+  envoy:
+    image: envoyproxy/envoy:v1.13.0
+    volumes:
+      - ./envoy/envoy.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - 8088:8088/tcp
+    restart: on-failure
 
 ################################
 # configurator/supervisor

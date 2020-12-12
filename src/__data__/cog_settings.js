@@ -15,8 +15,11 @@
  *
  */
 
-import {applyDeltaReplace} from '../lib/DeltaEncoding';
-import protos from './data_pb.mock';
+const {applyDeltaReplace} = require('../lib/DeltaEncoding');
+const protos = require('./data_pb');
+const {cosmiconfigSync} = require('cosmiconfig');
+
+const {config} = cosmiconfigSync('cogment').search();
 
 const _client_class = {
   id: 'client',
@@ -61,8 +64,8 @@ const settings = {
   },
 
   connection: {
-    backendUrl: 'http://localhost:8080',
+    backendUrl: config.connection.http,
   },
 };
 
-export default settings;
+module.exports = settings;

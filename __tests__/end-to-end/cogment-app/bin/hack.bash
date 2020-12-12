@@ -18,7 +18,7 @@
 
 SCRIPT_NAME="$(basename "${0}")"
 # shellcheck disable=SC2034
-ALL_SERVICES=(orchestrator env time)
+ALL_SERVICES=(orchestrator env time envoy)
 
 _log() {
   printf "%s " "${SCRIPT_NAME}:"

@@ -17,3 +17,5 @@
 
 export * from './Cogment';
 export * from './lib/DeltaEncoding';
+
+export {VersionRequest, VersionInfo} from './cogment/api/common_pb';

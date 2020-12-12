@@ -52,9 +52,11 @@
     "size": "size-limit",
     "start": "webpack serve",
     "test": "npm run test:jest",
-    "test:ci": "npm-run-all test:jest test:codecov",
-    "test:codecov": "codecov",
+    "test:ci": "npm-run-all test:jest test:reports",
     "test:jest": "jest",
+    "test:reports": "npm-run-all test:reports:allure test:reports:codecov",
+    "test:reports:allure": "allure generate --clean",
+    "test:reports:codecov": "codecov",
     "test:ui": "majestic --noOpen",
     "test:watch": "npm run test:jest -- --watch"
   },
@@ -71,6 +73,7 @@
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@improbable-eng/grpc-web-node-http-transport": "^0.13.0",
     "@microsoft/api-extractor": "^7.12.1",
     "@microsoft/tsdoc": "^0.12.24",
     "@microsoft/tsdoc-config": "^0.13.9",
@@ -153,6 +156,11 @@
   "browserslist": [
     "defaults"
   ],
+  "cogment": {
+    "connection": {
+      "http": "http://grpcwebproxy:8080"
+    }
+  },
   "cogment-api": {
     "cogment_api_version": "1.0.0-alpha1"
   },

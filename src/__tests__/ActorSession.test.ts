@@ -18,7 +18,7 @@
 import {ActorSession} from '../ActorSession';
 
 describe('ActorSession', () => {
-  it('exists', () => {
+  test('exists', () => {
     expect(ActorSession).toBeTruthy();
   });
 });

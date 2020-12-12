@@ -18,7 +18,7 @@
 import {sum} from '../sum';
 
 describe('blah', () => {
-  it('works', () => {
+  test('works', () => {
     expect(sum(1, 1)).toEqual(2);
   });
 });

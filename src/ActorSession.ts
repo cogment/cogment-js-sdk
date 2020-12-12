@@ -15,6 +15,7 @@
  *
  */
 
+import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
 import {Event} from './Event';
 import {Reward} from './Reward';
 import {TrialActor} from './TrialActor';
@@ -25,6 +26,7 @@ export class ActorSession<
   RewardT = never,
   MessageT = never
 > {
+  constructor(private actorEndpointClient: ActorEndpointClient) {}
   public addFeedback(to: string[], reward: Reward<RewardT>): void {
     throw new Error('addFeedback() is not implemented.');
   }

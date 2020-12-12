@@ -17,8 +17,9 @@
 
 import * as cogment from '../../src';
 
-describe('we can import the package', () => {
-  it('works', () => {
+describe('TrialController', () => {
+  test('#version', () => {
+    const request = new cogment.VersionRequest();
     expect(cogment).toBeTruthy();
   });
 });

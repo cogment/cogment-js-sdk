@@ -1,7 +1,3 @@
 
 __pycache__/
 docker-compose.override.yaml
-data_pb2.py
-data_pb2.pyi
-cog_settings.*
-*_pb*.*

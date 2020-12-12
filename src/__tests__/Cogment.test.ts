@@ -18,15 +18,15 @@
 import {createService} from '../Cogment';
 import {CogmentService} from '../CogmentService';
 import * as Cogment from '../Cogment';
-import cogSettings from '../__mocks__/cog_settings';
+import cogSettings from '../__data__/cog_settings';
 
 describe('Cogment', () => {
-  it('exists', () => {
+  test('exists', () => {
     expect(Cogment).toBeTruthy();
   });
 
   describe('#createService', () => {
-    it('returns a CogmentService', () => {
+    test('returns a CogmentService', () => {
       const service = createService(cogSettings);
       expect(service).toBeInstanceOf(CogmentService);
     });

@@ -18,7 +18,7 @@
 import {CogmentService} from '../CogmentService';
 
 describe('CogmentService', () => {
-  it('exists', () => {
+  test('exists', () => {
     expect(CogmentService).toBeTruthy();
   });
 });

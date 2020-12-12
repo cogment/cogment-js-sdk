@@ -17,3 +17,55 @@ services:
       - .:/app
     ports:
       - 4000:4000/tcp
+
+  time:
+    image: registry.gitlab.com/ai-r/change_me/time:latest
+    build:
+      context: ./__tests__/end-to-end/cogment-app/
+      dockerfile: agents/time/Dockerfile
+    volumes:
+      - ./__tests__/end-to-end/cogment-app/:/app
+    environment:
+      - COGMENT_GRPC_REFLECTION=1
+      - PYTHONUNBUFFERED=1
+    x-cogment:
+      ports:
+        - port: 9000
+
+  env:
+    image: registry.gitlab.com/ai-r/change_me/env:latest
+    build:
+      context: ./__tests__/end-to-end/cogment-app/
+      dockerfile: envs/Dockerfile
+    volumes:
+      - ./__tests__/end-to-end/cogment-app/:/app
+    environment:
+      - COGMENT_GRPC_REFLECTION=1
+      - PYTHONUNBUFFERED=1
+    x-cogment:
+      ports:
+        - port: 9000
+
+  orchestrator:
+    image: registry.gitlab.com/ai-r/change_me/orchestrator:latest
+    build:
+      context: ./__tests__/end-to-end/cogment-app/
+      dockerfile: orchestrator/Dockerfile
+    volumes:
+      - ./__tests__/end-to-end/cogment-app/.:/app
+    ports:
+      - '9000:9000'
+    x-cogment:
+      ports:
+        - port: 9000
+    depends_on:
+      - env
+      - time
+
+  grpcwebproxy:
+    build:
+      context: ./grpcwebproxy
+    ports:
+      - 8080:8080
+    depends_on:
+      - orchestrator

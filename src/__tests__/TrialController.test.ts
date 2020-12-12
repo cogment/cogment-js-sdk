@@ -15,10 +15,29 @@
  *
  */
 
+import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
+import cogSettings from '../__data__/cog_settings';
+import {createService} from '../Cogment';
+import {VersionInfo, VersionRequest} from '../cogment/api/common_pb';
 import {TrialController} from '../TrialController';
 
 describe('TrialController', () => {
-  it('exists', () => {
-    expect(TrialController).toBeTruthy();
+  test('can request a `VersionInfo` from cogment', () => {
+    const service = createService(cogSettings);
+    // const transport = grpc.CrossBrowserHttpTransport({withCredentials: false});
+    const transport = NodeHttpTransport();
+    const trialLifecycleClient = service.createTrialLifecycleClient(
+      cogSettings.connection.backendUrl,
+      transport,
+    );
+
+    const trialController = service.createTrialController(trialLifecycleClient);
+
+    const request = new VersionRequest();
+
+    return trialController.version(request).then((response) => {
+      expect(response).toBeInstanceOf(VersionInfo);
+      expect(response.getVersionsList().length).toBeGreaterThan(0);
+    });
   });
 });
