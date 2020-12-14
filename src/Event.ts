@@ -18,9 +18,9 @@
 import {Reward} from './Reward';
 
 export interface Event<ObservationT, RewardT, MessageT> {
-  observation: ObservationT;
-  reward: Reward<RewardT>;
-  message: {
+  observation?: ObservationT;
+  reward?: Reward<RewardT>;
+  message?: {
     sender: string;
     data: MessageT;
   };

@@ -16,28 +16,100 @@
  */
 
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import cogSettings from '../__data__/cog_settings';
+import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
 import {createService} from '../Cogment';
 import {VersionInfo, VersionRequest} from '../cogment/api/common_pb';
+import {
+  TerminateTrialReply,
+  TerminateTrialRequest,
+  TrialInfoRequest,
+  TrialStartReply,
+  TrialStartRequest,
+  TrialState,
+} from '../cogment/api/orchestrator_pb';
+import {config} from '../lib/Config';
+import {logger, LogLevel} from '../lib/Logger';
 import {TrialController} from '../TrialController';
 
+const COGMENT_URL = config.connection.http;
+
+logger.setLogLevel(LogLevel.fatal);
+
 describe('TrialController', () => {
-  test('can request a `VersionInfo` from cogment', () => {
+  describe('when given an invalid orchestrator url', () => {
+    test('fails to make a request to orchestrator', () => {
+      const service = createService(cogSettings);
+      // const transport = grpc.CrossBrowserHttpTransport({withCredentials: false});
+      const transport = NodeHttpTransport();
+
+      const trialLifecycleClient = service.createTrialLifecycleClient(
+        'http://example.com',
+        transport,
+      );
+      const trialController = service.createTrialController(
+        trialLifecycleClient,
+      );
+      const request = new VersionRequest();
+      return expect(trialController.version(request)).rejects.toBeInstanceOf(
+        Error,
+      );
+    });
+  });
+
+  test('can request `VersionInfo` from orchestrator', () => {
+    const service = createService(cogSettings);
+    // const transport = grpc.CrossBrowserHttpTransport({withCredentials: false});
+    const transport = NodeHttpTransport();
+
+    const trialLifecycleClient = service.createTrialLifecycleClient(
+      COGMENT_URL,
+      transport,
+    );
+    const trialController = service.createTrialController(trialLifecycleClient);
+    const request = new VersionRequest();
+    return trialController.version(request).then((response) => {
+      expect(response).toBeInstanceOf(VersionInfo);
+      expect(response.getVersionsList().length).toBeGreaterThan(0);
+    });
+  });
+
+  test('can execute a trial', () => {
+    const clientName = cogSettings.actor_classes.emma.id;
     const service = createService(cogSettings);
     // const transport = grpc.CrossBrowserHttpTransport({withCredentials: false});
     const transport = NodeHttpTransport();
     const trialLifecycleClient = service.createTrialLifecycleClient(
-      cogSettings.connection.backendUrl,
+      COGMENT_URL,
       transport,
     );
-
     const trialController = service.createTrialController(trialLifecycleClient);
 
-    const request = new VersionRequest();
+    const trialStartRequest = new TrialStartRequest();
+    trialStartRequest.setUserId(clientName);
 
-    return trialController.version(request).then((response) => {
-      expect(response).toBeInstanceOf(VersionInfo);
-      expect(response.getVersionsList().length).toBeGreaterThan(0);
+    return trialController.startTrial(trialStartRequest).then((response) => {
+      const trialId = response.getTrialId();
+
+      expect(response).toBeInstanceOf(TrialStartReply);
+      expect(trialId).toBeTruthy();
+      expect(response.toObject().actorsInTrialList).toEqual(
+        expect.arrayContaining([{actorClass: 'emma', name: 'emma'}]),
+      );
+      return trialController
+        .getTrialInfo(new TrialInfoRequest(), trialId)
+        .then((trialInfo) => {
+          expect(trialInfo.toObject().trialList).toContainEqual(
+            expect.objectContaining({
+              trialId,
+              state: TrialState.PENDING,
+            }),
+          );
+          const terminateTrialRequest = new TerminateTrialRequest();
+          return trialController.terminateTrial(terminateTrialRequest, trialId);
+        })
+        .then((response) => {
+          expect(response).toBeInstanceOf(TerminateTrialReply);
+        });
     });
   });
 });

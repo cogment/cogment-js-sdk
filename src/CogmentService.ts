@@ -16,7 +16,7 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import {RpcOptions} from '@improbable-eng/grpc-web/dist/typings/client';
+import * as jspb from 'google-protobuf';
 import {CogSettings} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {TrialLifecycleClient} from './cogment/api/orchestrator_pb_service';
@@ -25,24 +25,27 @@ import {TrialActor} from './TrialActor';
 import {TrialController} from './TrialController';
 
 export type ActorImplementation<
-  ActionT = never,
-  ObservationT = never,
-  RewardT = never,
-  MessageT = never
+  ActionT extends jspb.Message,
+  ObservationT extends jspb.Message,
+  RewardT extends jspb.Message,
+  MessageT extends jspb.Message
 > = (
   session: ActorSession<ActionT, ObservationT, RewardT, MessageT>,
 ) => Promise<void>;
 
 export class CogmentService {
-  private actors: Record<string, [TrialActor, ActorImplementation]> = {};
+  private actors: Record<
+    string,
+    [TrialActor, ActorImplementation<any, any, any, any>]
+  > = {};
 
   constructor(private readonly cogSettings: CogSettings) {}
 
   public registerActor<
-    ActionT = never,
-    ObservationT = never,
-    RewardT = never,
-    MessageT = never
+    ActionT extends jspb.Message,
+    ObservationT extends jspb.Message,
+    RewardT extends jspb.Message,
+    MessageT extends jspb.Message
   >(
     actorConfig: TrialActor,
     actorImpl: ActorImplementation<ActionT, ObservationT, RewardT, MessageT>,
