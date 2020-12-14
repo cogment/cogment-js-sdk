@@ -71,7 +71,7 @@ pages:
     paths:
       - public
   only:
-    - master
+    - main
 
 release:npm:prerelease:
   stage: release
