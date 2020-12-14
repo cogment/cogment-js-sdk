@@ -24,12 +24,8 @@ import {logger, LogLevel} from '../lib/Logger';
 logger.setLogLevel(LogLevel.fatal);
 
 describe('Cogment', () => {
-  test('exists', () => {
-    expect(Cogment).toBeTruthy();
-  });
-
-  describe('#createService', () => {
-    test('returns a CogmentService', () => {
+  describe('createService', () => {
+    test('returns a `CogmentService`', () => {
       const service = createService(cogSettings);
       expect(service).toBeInstanceOf(CogmentService);
     });
