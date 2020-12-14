@@ -16,7 +16,7 @@
  */
 
 import * as jspb from 'google-protobuf';
-import {CogSettingsJsActorClass} from '../@types/cogment';
+import {CogSettingsActorClass} from '../@types/cogment';
 import {ObservationData} from '../cogment/api/common_pb';
 
 export function applyDeltaReplace(
@@ -27,7 +27,7 @@ export function applyDeltaReplace(
 }
 
 export function decodeObservationData(
-  actorClass: CogSettingsJsActorClass,
+  actorClass: CogSettingsActorClass,
   data: ObservationData,
   previousObservation: jspb.Message,
 ) {

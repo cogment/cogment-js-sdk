@@ -20,39 +20,36 @@ import * as jspb from 'google-protobuf';
 
 export * from './CogmentYaml';
 
-export interface CogSettingsJsActorClass {
+export interface CogSettingsActorClass {
   id: string;
-  config_type?: typeof jspb.Message;
+  config_type: typeof jspb.Message | null;
   action_space: typeof jspb.Message;
   observation_space: typeof jspb.Message;
   observation_delta: typeof jspb.Message;
   observation_delta_apply_fn: typeof applyDeltaReplace;
-  feedback_space?: typeof jspb.Message;
-  message_space?: typeof jspb.Message;
+  feedback_space: typeof jspb.Message | null;
+  message_space: typeof jspb.Message | null;
 }
 
-export interface CogSettingsJs {
-  actor_classes: Record<string, CogSettingsJsActorClass>;
+export interface CogSettings {
+  actor_classes: Record<string, CogSettingsActorClass>;
   trial: {
-    config_type: typeof jspb.Message;
+    config_type: typeof jspb.Message | null;
   };
   environment: {
-    config_type: typeof jspb.Message;
+    config_type: typeof jspb.Message | null;
   };
   env_class: {
     id: string;
-    config_type?: typeof jspb.Message;
-    message_space?: typeof jspb.Message;
+    config_type: typeof jspb.Message | null;
+    message_space: typeof jspb.Message | null;
   };
-}
-
-export interface CogSettings extends CogSettingsJs {
   connection: {
-    backendUrl: string;
+    http: string;
   };
 }
 
 declare module 'cog_settings' {
-  const cogSettings: CogSettingsJs;
+  const cogSettings: CogSettings;
   export {cogSettings};
 }
