@@ -17,7 +17,12 @@
 
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {createService} from '../../src';
-import {TrialStartRequest} from '../../src/cogment/api/orchestrator_pb';
+import {
+  TerminateTrialRequest,
+  TrialStartRequest,
+} from '../../src/cogment/api/orchestrator_pb';
+import {config} from '../../src/lib/Config';
+import {logger, LogLevel} from '../../src/lib/Logger';
 
 import cogSettings from './cogment-app/clients/web/src/cog_settings';
 import {
@@ -27,9 +32,11 @@ import {
   Reward,
 } from './cogment-app/clients/web/src/data_pb';
 
+logger.setLogLevel(LogLevel.fatal);
+
 describe('a cogment-app', () => {
-  test.skip('runs', async () => {
-    const COGMENT_URL = 'http://grpcwebproxy:8080';
+  test('runs', async () => {
+    const COGMENT_URL = config.connection.http;
 
     const service = createService(cogSettings);
 
@@ -41,8 +48,7 @@ describe('a cogment-app', () => {
     const trialController = service.createTrialController(trialLifecycleClient);
 
     service.registerActor<EmmaAction, Observation, Reward, AsyncMessage>(
-      {name: 'emma', class: 'player'},
-
+      {name: 'emma', class: 'emma'},
       async (actorSession) => {
         actorSession.start();
 
@@ -66,9 +72,20 @@ describe('a cogment-app', () => {
     return trialController
       .startTrial(new TrialStartRequest())
       .then((response) => {
-        console.log(response);
+        return new Promise((resolve) =>
+          setTimeout(
+            () =>
+              resolve(
+                trialController.terminateTrial(
+                  new TerminateTrialRequest(),
+                  response.getTrialId(),
+                ),
+              ),
+            3000,
+          ),
+        );
       });
-  });
+  }, 10000);
 });
 
 // /const grpcWebServer = transport({
