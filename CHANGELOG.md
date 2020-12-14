@@ -1,3 +1,15 @@
+## [1.2.1](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.2.0...v1.2.1) (2020-12-14)
+
+
+### Bug Fixes
+
+* **dockerfile:** use more secure base image as per Snyk ([5d6d180](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/5d6d180cbd35518bded55f595bc00c45bbd808bf))
+
+
+### Reverts
+
+* **dockerfile:** revert to less secure image for now ([ae389b6](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/ae389b6006e8752946244a9afde6c7f7cc9b533a))
+
 # [1.2.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.1.0...v1.2.0) (2020-12-14)
 
 
