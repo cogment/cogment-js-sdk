@@ -1,14 +1,12 @@
 # [1.1.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.0.3...v1.1.0) (2020-12-12)
 
-
 ### Bug Fixes
 
-* **tests:** ignore .d.ts files in test commit hook ([299ee93](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/299ee93bd3c65a9100acc39b090f0e2fe4806103))
-
+- **tests:** ignore .d.ts files in test commit hook ([299ee93](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/299ee93bd3c65a9100acc39b090f0e2fe4806103))
 
 ### Features
 
-* **implementation:** scaffold out more functions, prepare to connect ([14b573e](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/14b573e82088ec0fe4b3e090fd97814169822aa0))
+- **implementation:** scaffold out more functions, prepare to connect ([14b573e](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/14b573e82088ec0fe4b3e090fd97814169822aa0))
 
 ## [1.0.3](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.0.2...v1.0.3) (2020-12-11)
 
