@@ -1,3 +1,19 @@
+# [1.2.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.1.0...v1.2.0) (2020-12-14)
+
+
+### Bug Fixes
+
+* **build:** reduce bundle size by not importing cosmiconfig in the main path ([65fbcdf](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/65fbcdf434e03f892b50d722a037d54810619316))
+* **gitlab-ci:** fix docker-compose logs syntax ([da469dc](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/da469dc1b4707de5b210850eca4fc2928f48fe4c))
+
+
+### Features
+
+* **actorsession:** first pass on event loop logic ([4188480](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/41884806ed109d21af956189eea0bfd71c01a429))
+* **config:** implement simple config module ([db8844e](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/db8844e175879ee1aac38cb6f13dea7d2a44e33b))
+* **logger:** add support for log level ([edf7eb4](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/edf7eb42fbc470587b0551c17fc189fbb92877e8))
+* **trialcontroller:** implement getTrialInfo, fix terminateTrial ([b0802b3](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/b0802b3a2ab275c23f8a5a1556eebdd2315da9ca))
+
 # [1.1.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.0.3...v1.1.0) (2020-12-12)
 
 ### Bug Fixes
