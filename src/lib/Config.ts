@@ -37,7 +37,7 @@ export class Config implements CogmentJsSdkConfig {
   private config: CogmentJsSdkConfig;
 
   constructor(private moduleName = 'cogment') {
-    this.config = cosmiconfigSync(this.moduleName)?.search()
+    this.config = cosmiconfigSync(this.moduleName).search()
       ?.config as CogmentJsSdkConfig;
     this.connection = this.config.connection;
     this.logger = this.config.logger;

@@ -14,8 +14,6 @@
  *  limitations under the License.
  *
  */
-import {config} from './Config';
-
 export type LoggerFunction = (...data: unknown[]) => void;
 
 export enum LogLevel {
@@ -39,7 +37,7 @@ export interface Logger {
 export class ConsoleLogger implements Logger {
   constructor(
     private loggerName: string,
-    private level: LogLevel = config.logger.level,
+    private level: LogLevel = LogLevel.debug,
   ) {}
 
   public debug(...data: unknown[]): void {
