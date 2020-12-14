@@ -29,8 +29,8 @@ export function applyDeltaReplace(
 export function decodeObservationData(
   actorClass: CogSettingsActorClass,
   data: ObservationData,
-  previousObservation: jspb.Message,
-) {
+  previousObservation: ObservationData,
+): jspb.Message {
   if (data.getSnapshot()) {
     return actorClass.observation_space.deserializeBinary(
       data.getContent_asU8(),
