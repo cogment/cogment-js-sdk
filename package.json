@@ -159,6 +159,9 @@
   "cogment": {
     "connection": {
       "http": "http://grpcwebproxy:8080"
+    },
+    "logger": {
+      "level": "debug"
     }
   },
   "cogment-api": {

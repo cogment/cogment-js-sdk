@@ -16,6 +16,9 @@
  */
 
 import {ActorSession} from '../ActorSession';
+import {logger, LogLevel} from '../lib/Logger';
+
+logger.setLogLevel(LogLevel.fatal);
 
 describe('ActorSession', () => {
   test('exists', () => {

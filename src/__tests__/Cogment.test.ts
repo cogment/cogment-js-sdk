@@ -19,6 +19,9 @@ import {createService} from '../Cogment';
 import {CogmentService} from '../CogmentService';
 import * as Cogment from '../Cogment';
 import cogSettings from '../__data__/cog_settings';
+import {logger, LogLevel} from '../lib/Logger';
+
+logger.setLogLevel(LogLevel.fatal);
 
 describe('Cogment', () => {
   test('exists', () => {

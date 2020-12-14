@@ -14,8 +14,18 @@
  *  limitations under the License.
  *
  */
+import {config} from './Config';
 
 export type LoggerFunction = (...data: unknown[]) => void;
+
+export enum LogLevel {
+  trace,
+  debug,
+  info,
+  warn,
+  error,
+  fatal,
+}
 
 export interface Logger {
   debug: LoggerFunction;
@@ -27,35 +37,54 @@ export interface Logger {
 }
 
 export class ConsoleLogger implements Logger {
-  constructor(private loggerName: string) {}
+  constructor(
+    private loggerName: string,
+    private level: LogLevel = config.logger.level,
+  ) {}
+
+  public debug(...data: unknown[]): void {
+    if (this.level <= LogLevel.debug) {
+      console.debug(...this.formatLog(...data));
+    }
+  }
+
+  public error(...data: unknown[]): void {
+    if (this.level <= LogLevel.error) {
+      console.error(...this.formatLog(...data));
+    }
+  }
+
+  public fatal(...data: unknown[]): void {
+    if (this.level <= LogLevel.fatal) {
+      console.error(...this.formatLog(...data));
+    }
+  }
+
+  public info(...data: unknown[]): void {
+    if (this.level <= LogLevel.info) {
+      console.log(...this.formatLog(...data));
+    }
+  }
+
+  public trace(...data: unknown[]): void {
+    if (this.level <= LogLevel.trace) {
+      console.trace(...this.formatLog(...data));
+    }
+  }
+
+  public warn(...data: unknown[]): void {
+    if (this.level <= LogLevel.warn) {
+      console.warn(...this.formatLog(...data));
+    }
+  }
+
+  public setLogLevel(level: LogLevel): void {
+    this.level = level;
+  }
 
   private formatLog(...data: unknown[]) {
     return [`${this.loggerName}:`, ...data];
   }
-
-  public debug(...data: unknown[]): void {
-    console.debug(...this.formatLog(...data));
-  }
-
-  public error(...data: unknown[]): void {
-    console.error(...this.formatLog(...data));
-  }
-
-  public fatal(...data: unknown[]): void {
-    console.error(...this.formatLog(...data));
-  }
-
-  public info(...data: unknown[]): void {
-    console.log(...this.formatLog(...data));
-  }
-
-  public trace(...data: unknown[]): void {
-    console.trace(...this.formatLog(...data));
-  }
-
-  public warn(...data: unknown[]): void {
-    console.warn(...this.formatLog(...data));
-  }
 }
 
-export const logger: Logger = new ConsoleLogger('cogment');
+export const logger = new ConsoleLogger('cogment');
