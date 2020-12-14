@@ -29,7 +29,7 @@ class Supervisor(TrialHooks):
         try:
             trial_config = trial_params.trial_config
             actors = [ns(
-                actor_class='client',
+                actor_class='emma',
                 endpoint="human",
                 config=None
             )]

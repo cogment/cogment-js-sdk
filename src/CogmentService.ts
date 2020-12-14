@@ -56,7 +56,7 @@ export class CogmentService {
   }
 
   public createTrialLifecycleClient = (
-    backendUrl = this.cogSettings.connection.backendUrl,
+    backendUrl = this.cogSettings.connection.http,
     transport = grpc.CrossBrowserHttpTransport({withCredentials: false}),
   ): TrialLifecycleClient => new TrialLifecycleClient(backendUrl, {transport});
 

@@ -14,17 +14,13 @@ RUN curl -LSso /tmp/protoc.zip ${PROTOC_URL} \
 RUN curl -LSso /tmp/allure.deb ${ALLURE_URL} \
   && apt-get update \
   && apt-get install --fix-broken -y /tmp/allure.deb \
-  && rm -rf /tmp/allure.deb
+  && rm -rf /tmp/allure.deb /var/lib/apt/lists/*
 
 COPY package*.json ./
 RUN npm install
 
-WORKDIR /app/__tests/end-to-end/cogment-app
-
-COPY package*.json ./
-RUN npm install
-
-WORKDIR /app
+COPY __tests__/end-to-end/cogment-app/clients/web/package*.json __tests__/end-to-end/cogment-app/clients/web/
+RUN cd __tests__/end-to-end/cogment-app/clients/web && npm install
 
 COPY . .
 

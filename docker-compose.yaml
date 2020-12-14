@@ -5,7 +5,7 @@ services:
     image: namely/grpc-cli:latest
 
   cogment-cli:
-    image: cogment/cli:v1.0.0-alpha1
+    image: registry.gitlab.com/cogment-cli:latest
     volumes:
       - ./:/cogment
 
@@ -64,7 +64,7 @@ services:
 
   grpcwebproxy:
     build:
-      context: ./grpcwebproxy
+      context: ./__tests__/end-to-end/cogment-app/grpcwebproxy
     ports:
       - 8080:8080
     depends_on:

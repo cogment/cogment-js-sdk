@@ -10,12 +10,19 @@ message TrialConfig {
 	EnvConfig env_config = 1;
 }
 
-message Observation {}
+message Observation {
+  float time = 1;
+}
+message EmmaAction {}
 
-message Reward {}
+message TimeAction {
+  float time = 1;
+}
 
-message ClientAction {}
+message Reward {
 
-message TimeAction {}
+}
 
-message AsyncMessage {}
+message AsyncMessage {
+
+}

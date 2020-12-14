@@ -22,7 +22,7 @@ import {TrialStartRequest} from '../../src/cogment/api/orchestrator_pb';
 import cogSettings from './cogment-app/clients/web/src/cog_settings';
 import {
   AsyncMessage,
-  ClientAction,
+  EmmaAction,
   Observation,
   Reward,
 } from './cogment-app/clients/web/src/data_pb';
@@ -31,10 +31,7 @@ describe('a cogment-app', () => {
   test.skip('runs', async () => {
     const COGMENT_URL = 'http://grpcwebproxy:8080';
 
-    const service = createService({
-      connection: {backendUrl: COGMENT_URL},
-      ...cogSettings,
-    });
+    const service = createService(cogSettings);
 
     const transport = NodeHttpTransport();
     const trialLifecycleClient = service.createTrialLifecycleClient(
@@ -43,23 +40,27 @@ describe('a cogment-app', () => {
     );
     const trialController = service.createTrialController(trialLifecycleClient);
 
-    service.registerActor<ClientAction, Observation, Reward, AsyncMessage>(
-      {name: 'human', class: 'player'},
+    service.registerActor<EmmaAction, Observation, Reward, AsyncMessage>(
+      {name: 'emma', class: 'player'},
 
       async (actorSession) => {
         actorSession.start();
 
-        // for (const {observation, message, reward} of actorSession.eventLoop()) {
-        //   if (observation != null) {
-        //     const move = await Promise.resolve();
-        //     actorSession.doAction(new ClientAction());
-        //   }
-        //   if (message != null) {
-        //   }
-        //
-        //   if (reward != null) {
-        //   }
-        // }
+        for await (const {
+          observation,
+          message,
+          reward,
+        } of actorSession.eventLoop()) {
+          if (observation != null) {
+            const move = await Promise.resolve();
+            actorSession.doAction(new EmmaAction());
+          }
+          if (message != null) {
+          }
+
+          if (reward != null) {
+          }
+        }
       },
     );
     return trialController

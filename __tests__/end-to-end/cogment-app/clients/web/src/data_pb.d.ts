@@ -42,6 +42,9 @@ export namespace TrialConfig {
 }
 
 export class Observation extends jspb.Message {
+  getTime(): number;
+  setTime(value: number): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): Observation.AsObject;
   static toObject(includeInstance: boolean, msg: Observation): Observation.AsObject;
@@ -54,6 +57,43 @@ export class Observation extends jspb.Message {
 
 export namespace Observation {
   export type AsObject = {
+    time: number,
+  }
+}
+
+export class EmmaAction extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): EmmaAction.AsObject;
+  static toObject(includeInstance: boolean, msg: EmmaAction): EmmaAction.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: EmmaAction, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): EmmaAction;
+  static deserializeBinaryFromReader(message: EmmaAction, reader: jspb.BinaryReader): EmmaAction;
+}
+
+export namespace EmmaAction {
+  export type AsObject = {
+  }
+}
+
+export class TimeAction extends jspb.Message {
+  getTime(): number;
+  setTime(value: number): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): TimeAction.AsObject;
+  static toObject(includeInstance: boolean, msg: TimeAction): TimeAction.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: TimeAction, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): TimeAction;
+  static deserializeBinaryFromReader(message: TimeAction, reader: jspb.BinaryReader): TimeAction;
+}
+
+export namespace TimeAction {
+  export type AsObject = {
+    time: number,
   }
 }
 
@@ -69,38 +109,6 @@ export class Reward extends jspb.Message {
 }
 
 export namespace Reward {
-  export type AsObject = {
-  }
-}
-
-export class ClientAction extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): ClientAction.AsObject;
-  static toObject(includeInstance: boolean, msg: ClientAction): ClientAction.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: ClientAction, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): ClientAction;
-  static deserializeBinaryFromReader(message: ClientAction, reader: jspb.BinaryReader): ClientAction;
-}
-
-export namespace ClientAction {
-  export type AsObject = {
-  }
-}
-
-export class TimeAction extends jspb.Message {
-  serializeBinary(): Uint8Array;
-  toObject(includeInstance?: boolean): TimeAction.AsObject;
-  static toObject(includeInstance: boolean, msg: TimeAction): TimeAction.AsObject;
-  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
-  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
-  static serializeBinaryToWriter(message: TimeAction, writer: jspb.BinaryWriter): void;
-  static deserializeBinary(bytes: Uint8Array): TimeAction;
-  static deserializeBinaryFromReader(message: TimeAction, reader: jspb.BinaryReader): TimeAction;
-}
-
-export namespace TimeAction {
   export type AsObject = {
   }
 }

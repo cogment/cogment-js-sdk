@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='cogment_app',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\ndata.proto\x12\x0b\x63ogment_app\"\x0b\n\tEnvConfig\"9\n\x0bTrialConfig\x12*\n\nenv_config\x18\x01 \x01(\x0b\x32\x16.cogment_app.EnvConfig\"\r\n\x0bObservation\"\x08\n\x06Reward\"\x0e\n\x0c\x43lientAction\"\x0c\n\nTimeAction\"\x0e\n\x0c\x41syncMessageb\x06proto3')
+  serialized_pb=_b('\n\ndata.proto\x12\x0b\x63ogment_app\"\x0b\n\tEnvConfig\"9\n\x0bTrialConfig\x12*\n\nenv_config\x18\x01 \x01(\x0b\x32\x16.cogment_app.EnvConfig\"\x1b\n\x0bObservation\x12\x0c\n\x04time\x18\x01 \x01(\x02\"\x0c\n\nEmmaAction\"\x1a\n\nTimeAction\x12\x0c\n\x04time\x18\x01 \x01(\x02\x62\x06proto3')
 )
 
 
@@ -87,6 +87,13 @@ _OBSERVATION = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='time', full_name='cogment_app.Observation.time', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -100,13 +107,13 @@ _OBSERVATION = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=99,
-  serialized_end=112,
+  serialized_end=126,
 )
 
 
-_REWARD = _descriptor.Descriptor(
-  name='Reward',
-  full_name='cogment_app.Reward',
+_EMMAACTION = _descriptor.Descriptor(
+  name='EmmaAction',
+  full_name='cogment_app.EmmaAction',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -123,32 +130,8 @@ _REWARD = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=114,
-  serialized_end=122,
-)
-
-
-_CLIENTACTION = _descriptor.Descriptor(
-  name='ClientAction',
-  full_name='cogment_app.ClientAction',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=124,
-  serialized_end=138,
+  serialized_start=128,
+  serialized_end=140,
 )
 
 
@@ -159,6 +142,13 @@ _TIMEACTION = _descriptor.Descriptor(
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
+    _descriptor.FieldDescriptor(
+      name='time', full_name='cogment_app.TimeAction.time', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -171,31 +161,7 @@ _TIMEACTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=140,
-  serialized_end=152,
-)
-
-
-_ASYNCMESSAGE = _descriptor.Descriptor(
-  name='AsyncMessage',
-  full_name='cogment_app.AsyncMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=154,
+  serialized_start=142,
   serialized_end=168,
 )
 
@@ -203,10 +169,8 @@ _TRIALCONFIG.fields_by_name['env_config'].message_type = _ENVCONFIG
 DESCRIPTOR.message_types_by_name['EnvConfig'] = _ENVCONFIG
 DESCRIPTOR.message_types_by_name['TrialConfig'] = _TRIALCONFIG
 DESCRIPTOR.message_types_by_name['Observation'] = _OBSERVATION
-DESCRIPTOR.message_types_by_name['Reward'] = _REWARD
-DESCRIPTOR.message_types_by_name['ClientAction'] = _CLIENTACTION
+DESCRIPTOR.message_types_by_name['EmmaAction'] = _EMMAACTION
 DESCRIPTOR.message_types_by_name['TimeAction'] = _TIMEACTION
-DESCRIPTOR.message_types_by_name['AsyncMessage'] = _ASYNCMESSAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 EnvConfig = _reflection.GeneratedProtocolMessageType('EnvConfig', (_message.Message,), dict(
@@ -230,19 +194,12 @@ Observation = _reflection.GeneratedProtocolMessageType('Observation', (_message.
   ))
 _sym_db.RegisterMessage(Observation)
 
-Reward = _reflection.GeneratedProtocolMessageType('Reward', (_message.Message,), dict(
-  DESCRIPTOR = _REWARD,
+EmmaAction = _reflection.GeneratedProtocolMessageType('EmmaAction', (_message.Message,), dict(
+  DESCRIPTOR = _EMMAACTION,
   __module__ = 'data_pb2'
-  # @@protoc_insertion_point(class_scope:cogment_app.Reward)
+  # @@protoc_insertion_point(class_scope:cogment_app.EmmaAction)
   ))
-_sym_db.RegisterMessage(Reward)
-
-ClientAction = _reflection.GeneratedProtocolMessageType('ClientAction', (_message.Message,), dict(
-  DESCRIPTOR = _CLIENTACTION,
-  __module__ = 'data_pb2'
-  # @@protoc_insertion_point(class_scope:cogment_app.ClientAction)
-  ))
-_sym_db.RegisterMessage(ClientAction)
+_sym_db.RegisterMessage(EmmaAction)
 
 TimeAction = _reflection.GeneratedProtocolMessageType('TimeAction', (_message.Message,), dict(
   DESCRIPTOR = _TIMEACTION,
@@ -250,13 +207,6 @@ TimeAction = _reflection.GeneratedProtocolMessageType('TimeAction', (_message.Me
   # @@protoc_insertion_point(class_scope:cogment_app.TimeAction)
   ))
 _sym_db.RegisterMessage(TimeAction)
-
-AsyncMessage = _reflection.GeneratedProtocolMessageType('AsyncMessage', (_message.Message,), dict(
-  DESCRIPTOR = _ASYNCMESSAGE,
-  __module__ = 'data_pb2'
-  # @@protoc_insertion_point(class_scope:cogment_app.AsyncMessage)
-  ))
-_sym_db.RegisterMessage(AsyncMessage)
 
 
 # @@protoc_insertion_point(module_scope)
