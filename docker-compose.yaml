@@ -53,8 +53,6 @@ services:
       dockerfile: orchestrator/Dockerfile
     volumes:
       - ./__tests__/end-to-end/cogment-app/.:/app
-    ports:
-      - '9000:9000'
     x-cogment:
       ports:
         - port: 9000
@@ -65,7 +63,5 @@ services:
   grpcwebproxy:
     build:
       context: ./__tests__/end-to-end/cogment-app/grpcwebproxy
-    ports:
-      - 8080:8080
     depends_on:
       - orchestrator
