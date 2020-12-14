@@ -35,7 +35,7 @@ test:
   script:
     - docker-compose run -e CODECOV_TOKEN=${CODECOV_TOKEN} cogment-js-sdk npm run test:ci
   after_script:
-    - docker-compose logs --all > docker.log
+    - docker-compose logs --tail all > docker.log
     - bin/down.bash
   variables:
     NODE_ENV: test
