@@ -1,4 +1,4 @@
-FROM node:14.15.1-buster-slim AS dev
+FROM node:14 AS dev
 
 ARG ALLURE_URL=https://github.com/allure-framework/allure2/releases/download/2.13.7/allure_2.13.7-1_all.deb
 ARG PROTOC_URL=https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protoc-3.14.0-linux-x86_64.zip
