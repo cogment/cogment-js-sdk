@@ -95,7 +95,7 @@ export class ActorSession<
     throw new Error('addFeedback() is not implemented.');
   }
 
-  public doAction(userAction: ActionT): void {
+  public sendAction(userAction: ActionT): void {
     const action = new ActionPb();
     action.setContent(userAction.serializeBinary());
     const request = new TrialActionRequest();
