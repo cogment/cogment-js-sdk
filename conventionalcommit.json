@@ -4,21 +4,29 @@
       "description": "Changes which neither fix a bug nor add a feature"
     },
     "fix": {
-      "description": "Changes which patch a bug"
+      "description": "Changes which patch a bug",
+      "scopes": {
+        "bug": {"description": "Changes that fix a code bug"},
+        "hot": {"description": "Changes that fix non-code bug"}
+      }
     },
     "feat": {
       "description": "Changes which introduce a new feature"
     },
     "build": {
-      "description": "Changes which affect the build system or external dependencies.<br/>Example scopes: gulp, broccoli, npm",
+      "description": "Changes which affect the build system or external dependencies.<br/>Example scopes: npm, gitlab, github",
       "scopes": {
         "npm": {},
-        "gulp": {},
-        "broccoli": {}
+        "gitlab": {},
+        "github": {}
       }
     },
     "chore": {
-      "description": "Changes which aren't user-facing"
+      "description": "Changes which aren't user-facing",
+      "scopes": {
+        "release": {"description": "Changes "},
+        "hot": {"description": "Changes that fix non-bug code."}
+      }
     },
     "style": {
       "description": "Changes which don't affect code logic, such as white-spaces, formatting, missing semi-colons"
@@ -33,7 +41,11 @@
       "description": "Changes which improve performance"
     },
     "ci": {
-      "description": "Changes which affect CI configuration files and scripts.<br/>Example scopes: travis, circle, browser-stack, sauce-labs"
+      "description": "Changes which affect CI configuration files and scripts.<br/>Example scopes: gitlab, github, codecov",
+      "scopes": {
+        "gitlab": {},
+        "github": {}
+      }
     },
     "revert": {
       "description": "Changes which revert a previous commit"

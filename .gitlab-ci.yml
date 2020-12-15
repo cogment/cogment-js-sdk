@@ -73,15 +73,15 @@ pages:
   only:
     - main
 
-release:npm:prerelease:
-  stage: release
-  image: node:14-alpine
-  before_script:
-    - apk add git
-  script:
-    - npm run semantic-release
-  only:
-    - main
+#release:npm:prerelease:
+#  stage: release
+#  image: node:14-alpine
+#  before_script:
+#    - apk add git
+#  script:
+#    - npm run semantic-release
+#  only:
+#    - next
 
 release:npm:
   stage: release
@@ -91,4 +91,4 @@ release:npm:
   script:
     - npm run semantic-release
   only:
-    - master
+    - main
