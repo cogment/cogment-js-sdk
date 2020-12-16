@@ -20,6 +20,7 @@ import * as jspb from 'google-protobuf';
 import concat from 'lodash/concat';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
+import {Event, Reward, TrialActor} from './@types/cogment';
 import {Reward as RewardPb} from './cogment/api/agent_pb';
 import {
   Action as ActionPb,
@@ -31,10 +32,7 @@ import {
   TrialActionRequest,
 } from './cogment/api/orchestrator_pb';
 import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
-import {Event} from './Event';
 import {logger} from './lib/Logger';
-import {Reward} from './Reward';
-import {TrialActor} from './TrialActor';
 
 export class ActorSession<
   ActionT extends jspb.Message,

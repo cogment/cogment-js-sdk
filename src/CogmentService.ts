@@ -16,12 +16,12 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import * as jspb from 'google-protobuf';
-import {CogSettings} from './@types/cogment';
+import {Message} from 'google-protobuf';
+import values from 'lodash/values';
+import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {TrialLifecycleClient} from './cogment/api/orchestrator_pb_service';
 import {logger} from './lib/Logger';
-import {TrialActor} from './TrialActor';
 import {TrialController} from './TrialController';
 
 export type ActorImplementation<

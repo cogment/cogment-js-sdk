@@ -15,39 +15,13 @@
  *
  */
 
-import {applyDeltaReplace} from '../../lib/DeltaEncoding';
-import * as jspb from 'google-protobuf';
+import {CogSettings} from './CogSettings';
 
+export * from './CogSettings';
 export * from './CogmentYaml';
-
-export interface CogSettingsActorClass {
-  id: string;
-  config_type: typeof jspb.Message | null;
-  action_space: typeof jspb.Message;
-  observation_space: typeof jspb.Message;
-  observation_delta: typeof jspb.Message;
-  observation_delta_apply_fn: typeof applyDeltaReplace;
-  feedback_space: typeof jspb.Message | null;
-  message_space: typeof jspb.Message | null;
-}
-
-export interface CogSettings {
-  actor_classes: Record<string, CogSettingsActorClass>;
-  trial: {
-    config_type: typeof jspb.Message | null;
-  };
-  environment: {
-    config_type: typeof jspb.Message | null;
-  };
-  env_class: {
-    id: string;
-    config_type: typeof jspb.Message | null;
-    message_space: typeof jspb.Message | null;
-  };
-  connection: {
-    http: string;
-  };
-}
+export * from './Event';
+export * from './Reward';
+export * from './TrialActor';
 
 declare module 'cog_settings' {
   const cogSettings: CogSettings;
