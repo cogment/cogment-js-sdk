@@ -27,9 +27,12 @@ import {
   Message as MessagePb,
   Observation as ObservationPb,
 } from './cogment/api/common_pb';
+import {ServiceError} from './cogment/api/environment_pb_service';
 import {
   TrialActionReply,
   TrialActionRequest,
+  TrialJoinReply,
+  TrialJoinRequest,
 } from './cogment/api/orchestrator_pb';
 import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
 import {logger} from './lib/Logger';
@@ -43,6 +46,7 @@ export class ActorSession<
   private running = false;
   private events: Event<ObservationPb, RewardPb, MessagePb>[] = [];
 
+  // TODO: Look at passing in cogSettings here? And trialId?
   constructor(
     private actorEndpointClient: ActorEndpointClient,
     private actionStreamClient: grpc.Client<
@@ -56,7 +60,9 @@ export class ActorSession<
   }
 
   private onActionStreamHeaders(headers: grpc.Metadata) {
-    console.log(headers);
+    logger.info(
+      `actionStream received headers: ${JSON.stringify(headers, undefined, 2)}`,
+    );
   }
 
   private onActionStreamEnd(
@@ -64,10 +70,13 @@ export class ActorSession<
     message: string,
     trailers: grpc.Metadata,
   ) {
-    console.log('on end');
-    console.log('code', code);
-    console.log('message', message);
-    console.log('trailers', trailers);
+    logger.info(
+      `actionStream received end, code: ${code}, message: ${message}, trailers: ${JSON.stringify(
+        trailers,
+        undefined,
+        2,
+      )}`,
+    );
   }
 
   private onActionStreamMessage(action: TrialActionReply) {
@@ -118,32 +127,23 @@ export class ActorSession<
     action.setContent(userAction.serializeBinary());
     const request = new TrialActionRequest();
     request.setAction(action);
-    // this.actionStreamClient.start(
-    //   new grpc.Metadata({
-    //     'trial-id': trialId,
-    //     'actor-name': 'emma',
-    //   }),
-    // );
     this.actionStreamClient.send(request);
-    this.actionStreamClient.send(request);
-    // this.actionStreamClient.finishSend();
   }
 
   public async *eventLoop(): AsyncGenerator<
     Event<ObservationPb, RewardPb, MessagePb>
   > {
-    while (true) {
-      if (!this.running) {
-        logger.error(
-          'eventLoop() running and not currently running, sleeping 200ms',
-        );
-        await new Promise((resolve) => setTimeout(resolve, 200));
-        continue;
-      }
+    while (this.running) {
+      // if (!this.running) {
+      //   logger.error(
+      //     'eventLoop() running and not currently running, sleeping 200ms',
+      //   );
+      //   await new Promise((resolve) => setTimeout(resolve, 200));
+      // }
       if (this.events[0]) {
         yield this.events.splice(0, 1)[0];
       } else {
-        logger.info('No events available, sleeping 200ms');
+        logger.trace('No events available, sleeping 200ms');
         await new Promise((resolve) => setTimeout(resolve, 200));
       }
     }
@@ -175,5 +175,20 @@ export class ActorSession<
 
   public start(): void {
     this.running = true;
+  }
+
+  public joinTrial(request: TrialJoinRequest) {
+    // eslint-disable-next-line compat/compat
+    return new Promise((resolve, reject) => {
+      this.actorEndpointClient.joinTrial(
+        request,
+        (error: ServiceError | null, response: TrialJoinReply | null) => {
+          if (error || !response) {
+            return reject(error);
+          }
+          resolve(response);
+        },
+      );
+    });
   }
 }

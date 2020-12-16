@@ -34,9 +34,10 @@ async def time_agent(actor_session):
 
     async for event in actor_session.event_loop():
         if "observation" in event:
-            next_action = data_pb2.TimeAction(time=time.time())
+            next_time = time.time()
+            next_action = data_pb2.TimeAction(time=next_time)
             logging.info(
-                "[Agent '{actor_session.name}'] reporting time of %f",
+                "[Agent '%s'] reporting time of %f",
                 actor_session.name,
                 next_action.time,
             )

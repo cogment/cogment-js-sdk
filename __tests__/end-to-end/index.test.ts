@@ -20,10 +20,12 @@ import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {createService, VersionInfo, VersionRequest} from '../../src';
 import {
   TerminateTrialRequest,
+  TrialJoinRequest,
   TrialStartRequest,
 } from '../../src/cogment/api/orchestrator_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
 import {config} from '../../src/lib/Config';
+import {logger} from '../../src/lib/Logger';
 
 import cogSettings from './cogment-app/clients/web/src/cog_settings';
 import {
@@ -69,7 +71,7 @@ describe('grpc.WebsocketTransport', () => {
   });
 });
 
-describe.skip('a cogment-app', () => {
+describe('a cogment-app', () => {
   test('runs', async () => {
     const COGMENT_URL = config.connection.http;
 
@@ -106,13 +108,16 @@ describe.skip('a cogment-app', () => {
     service.registerActor<EmmaAction, Observation, Reward, AsyncMessage>(
       {name: 'emma', class: 'emma'},
       async (actorSession) => {
-        console.log('Actor running');
+        logger.info('Actor running');
         actorSession.start();
-        console.log('Actor session started');
+        logger.info('Actor session started');
 
+        const trialJoinRequest = new TrialJoinRequest();
+        trialJoinRequest.setTrialId(trialId);
+        trialJoinRequest.setActorClass('emma');
+
+        await actorSession.joinTrial(trialJoinRequest);
         await actorSession.sendAction(new EmmaAction(), trialId);
-
-        console.log('aww yis');
 
         for await (const {
           observation,
@@ -120,14 +125,18 @@ describe.skip('a cogment-app', () => {
           reward,
         } of actorSession.eventLoop()) {
           if (observation !== null) {
+            logger.info(observation);
             const action = new EmmaAction();
             await actorSession.sendAction(action, trialId);
           }
           if (message !== null) {
+            logger.info(message);
           }
 
           if (reward !== null) {
+            logger.info(reward);
           }
+          actorSession.stop();
         }
       },
     );
@@ -139,7 +148,7 @@ describe.skip('a cogment-app', () => {
       .then((response) => {
         trialId = response.getTrialId();
         return new Promise<typeof response>((resolve) =>
-          setTimeout(() => resolve(response), 10000),
+          setTimeout(() => resolve(response), 3000),
         );
       })
       .then((response) => {
@@ -148,7 +157,7 @@ describe.skip('a cogment-app', () => {
           response.getTrialId(),
         );
       });
-  }, 20000);
+  }, 10000);
 });
 
 // /const grpcWebServer = transport({

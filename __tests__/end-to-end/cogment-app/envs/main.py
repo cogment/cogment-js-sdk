@@ -29,10 +29,12 @@ async def environment(environment_session):
     async for event in environment_session.event_loop():
         print(event)
         if "actions" in event:
-            [p1] = environment_session.get_active_actors()
-            [p1_move] = [action.move for action in event["actions"].player]
+            [emma_actor, time_actor] = environment_session.get_active_actors()
+            [emma_move, time_move] = event["actions"].all_actions()
 
-            logging.info(f"Received time of %f from '%s'", p1_move.time, p1.actor_name)
+            logging.info(
+                f"Received time of %f from '%s'", time_move.time, time_actor.actor_name
+            )
 
             # if p1_move == p2_move:
             #     logging.ingo("Draw!")
@@ -63,7 +65,7 @@ async def environment(environment_session):
             #     )
             # else:
             environment_session.produce_observations(
-                [("*", data_pb2.Observation(time=p1_move.time))]
+                [("*", data_pb2.Observation(time=time_move.time))]
             )
 
     logging.info("[Environment] trial %s over", environment_session.get_trial_id())

@@ -17,4 +17,4 @@
 
 const {logger, LogLevel} = require('./src/lib/Logger');
 
-logger.setLogLevel(LogLevel.fatal);
+logger.setLogLevel(LogLevel.debug);
