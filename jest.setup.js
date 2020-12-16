@@ -15,6 +15,6 @@
  *
  */
 
-var {registerAllure} = require('jest-allure2');
+const {logger, LogLevel} = require('./src/lib/Logger');
 
-registerAllure();
+logger.setLogLevel(LogLevel.fatal);

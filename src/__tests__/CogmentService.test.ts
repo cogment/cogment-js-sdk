@@ -16,9 +16,6 @@
  */
 
 import {CogmentService} from '../CogmentService';
-import {logger, LogLevel} from '../lib/Logger';
-
-logger.setLogLevel(LogLevel.fatal);
 
 describe('CogmentService', () => {
   test('exists', () => {

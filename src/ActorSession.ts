@@ -16,7 +16,7 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import * as jspb from 'google-protobuf';
+import {Message} from 'google-protobuf';
 import concat from 'lodash/concat';
 import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
@@ -35,10 +35,10 @@ import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
 import {logger} from './lib/Logger';
 
 export class ActorSession<
-  ActionT extends jspb.Message,
-  ObservationT extends jspb.Message,
-  RewardT extends jspb.Message,
-  MessageT extends jspb.Message
+  ActionT extends Message,
+  ObservationT extends Message,
+  RewardT extends Message,
+  MessageT extends Message
 > {
   private running = false;
   private events: Event<ObservationPb, RewardPb, MessagePb>[] = [];
@@ -51,6 +51,23 @@ export class ActorSession<
     >,
   ) {
     this.actionStreamClient.onMessage(this.onActionStreamMessage.bind(this));
+    this.actionStreamClient.onHeaders(this.onActionStreamHeaders.bind(this));
+    this.actionStreamClient.onEnd(this.onActionStreamEnd.bind(this));
+  }
+
+  private onActionStreamHeaders(headers: grpc.Metadata) {
+    console.log(headers);
+  }
+
+  private onActionStreamEnd(
+    code: grpc.Code,
+    message: string,
+    trailers: grpc.Metadata,
+  ) {
+    console.log('on end');
+    console.log('code', code);
+    console.log('message', message);
+    console.log('trailers', trailers);
   }
 
   private onActionStreamMessage(action: TrialActionReply) {
@@ -58,6 +75,9 @@ export class ActorSession<
     if (!data) {
       return logger.warn('Received an action without any data');
     }
+    logger.info(
+      `Received an action ${JSON.stringify(action.toObject(), undefined, 2)}`,
+    );
 
     // Assumes data received is all newer than the last received tickId
     const observations = sortBy(data.getObservationsList(), ({getTickId}) =>
@@ -69,7 +89,7 @@ export class ActorSession<
     const rewards = data.getRewardsList();
 
     // TODO: Do we need to worry about ordering received observations, rewards, messages by tickId?
-    concat(
+    this.events = concat(
       this.events,
       map(observations, (observation) => ({observation})),
       map(messages, (message) => ({
@@ -93,12 +113,20 @@ export class ActorSession<
     throw new Error('addFeedback() is not implemented.');
   }
 
-  public sendAction(userAction: ActionT): void {
+  public sendAction(userAction: ActionT, trialId: string): void {
     const action = new ActionPb();
     action.setContent(userAction.serializeBinary());
     const request = new TrialActionRequest();
     request.setAction(action);
+    // this.actionStreamClient.start(
+    //   new grpc.Metadata({
+    //     'trial-id': trialId,
+    //     'actor-name': 'emma',
+    //   }),
+    // );
     this.actionStreamClient.send(request);
+    this.actionStreamClient.send(request);
+    // this.actionStreamClient.finishSend();
   }
 
   public async *eventLoop(): AsyncGenerator<

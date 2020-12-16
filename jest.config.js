@@ -36,6 +36,7 @@ module.exports = {
   preset: 'ts-jest',
   prettierPath: './node_modules/.bin/prettier',
   reporters: ['default', 'jest-junit'],
+  setupFilesAfterEnv: ['./jest.setup.js', 'jest-allure/dist/setup'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '<rootDir>/__tests__/end-to-end/cogment-app',
@@ -48,6 +49,7 @@ module.exports = {
     '<rootDir>/coverage',
     'cog_settings.js',
   ],
+  verbose: true,
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname',

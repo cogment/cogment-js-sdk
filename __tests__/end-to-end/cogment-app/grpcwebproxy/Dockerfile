@@ -12,4 +12,4 @@ RUN go get github.com/improbable-eng/grpc-web/go/grpcwebproxy
 
 EXPOSE 8080
 
-CMD ["grpcwebproxy", "--backend_addr=orchestrator:9000", "--run_tls_server=false", "--allow_all_origins"]
+CMD ["grpcwebproxy", "--backend_addr=orchestrator:9000", "--run_tls_server=false", "--allow_all_origins", "--use_websockets"]

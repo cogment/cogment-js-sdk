@@ -15,14 +15,14 @@
  *
  */
 
-import * as jspb from 'google-protobuf';
+import {Message} from 'google-protobuf';
 import {CogSettingsActorClass} from '../@types/cogment';
 import {ObservationData} from '../cogment/api/common_pb';
 
 export function applyDeltaReplace(
-  observation: jspb.Message,
-  delta: jspb.Message,
-): jspb.Message {
+  observation: Message,
+  delta: Message,
+): Message {
   return delta;
 }
 
@@ -30,7 +30,7 @@ export function decodeObservationData(
   actorClass: CogSettingsActorClass,
   data: ObservationData,
   previousObservation: ObservationData,
-): jspb.Message {
+): Message {
   if (data.getSnapshot()) {
     return actorClass.observation_space.deserializeBinary(
       data.getContent_asU8(),

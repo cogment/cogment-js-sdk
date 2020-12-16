@@ -16,19 +16,36 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
+import map from 'lodash/map';
+import {TrialActor} from './@types/cogment';
+import {ActorSession} from './ActorSession';
 import {VersionInfo, VersionRequest} from './cogment/api/common_pb';
 import {
   TerminateTrialReply,
   TerminateTrialRequest,
+  TrialActionReply,
+  TrialActionRequest,
   TrialInfoReply,
   TrialInfoRequest,
   TrialStartReply,
   TrialStartRequest,
 } from './cogment/api/orchestrator_pb';
-import {TrialLifecycleClient} from './cogment/api/orchestrator_pb_service';
+import {
+  ActorEndpoint,
+  ActorEndpointClient,
+  TrialLifecycleClient,
+} from './cogment/api/orchestrator_pb_service';
+import {ActorImplementation} from './CogmentService';
+import {logger} from './lib/Logger';
 
 export class TrialController {
-  constructor(private trialLifecycleClient: TrialLifecycleClient) {}
+  constructor(
+    private trialLifecycleClient: TrialLifecycleClient,
+    private actors: [
+      TrialActor,
+      ActorImplementation<never, never, never, never>,
+    ][],
+  ) {}
   public async getTrialInfo(
     request: TrialInfoRequest,
     trialId: string,
@@ -52,7 +69,7 @@ export class TrialController {
     request: TrialStartRequest,
   ): Promise<TrialStartReply> {
     // eslint-disable-next-line compat/compat
-    return await new Promise((resolve, reject) => {
+    return new Promise<TrialStartReply>((resolve, reject) => {
       // eslint-disable-next-line sonarjs/no-identical-functions
       this.trialLifecycleClient.startTrial(request, (error, response) => {
         if (error || response === null) {
@@ -60,6 +77,44 @@ export class TrialController {
         }
         resolve(response);
       });
+    }).then((response) => {
+      logger.info(`Starting actors for trial ${response.getTrialId()}`);
+      const unaryTransport = grpc.CrossBrowserHttpTransport({
+        withCredentials: false,
+      });
+      const actorEndpointClient = new ActorEndpointClient(
+        'http://grpcwebproxy:8080',
+        {
+          transport: unaryTransport,
+        },
+      );
+      const websocketTransport = grpc.WebsocketTransport();
+      const actionStreamClient = grpc.client<
+        TrialActionRequest,
+        TrialActionReply,
+        typeof ActorEndpoint.ActionStream
+      >(ActorEndpoint.ActionStream, {
+        host: 'http://grpcwebproxy:8080',
+        transport: websocketTransport,
+      });
+      actionStreamClient.start({
+        'trial-id': response.getTrialId(),
+        'actor-name': 'emma',
+      });
+      actionStreamClient.send(new TrialActionRequest());
+      // actionStreamClient.finishSend();
+
+      // eslint-disable-next-line compat/compat
+      return Promise.all(
+        map(this.actors, ([actor, actorImpl]) => {
+          logger.info(`Starting actor ${actor.name}`);
+          const actorSession = new ActorSession(
+            actorEndpointClient,
+            actionStreamClient,
+          );
+          return actorImpl(actorSession);
+        }),
+      ).then(() => response);
     });
   }
 

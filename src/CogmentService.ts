@@ -25,10 +25,10 @@ import {logger} from './lib/Logger';
 import {TrialController} from './TrialController';
 
 export type ActorImplementation<
-  ActionT extends jspb.Message,
-  ObservationT extends jspb.Message,
-  RewardT extends jspb.Message,
-  MessageT extends jspb.Message
+  ActionT extends Message,
+  ObservationT extends Message,
+  RewardT extends Message,
+  MessageT extends Message
 > = (
   session: ActorSession<ActionT, ObservationT, RewardT, MessageT>,
 ) => Promise<void>;
@@ -42,10 +42,10 @@ export class CogmentService {
   constructor(private readonly cogSettings: CogSettings) {}
 
   public registerActor<
-    ActionT extends jspb.Message,
-    ObservationT extends jspb.Message,
-    RewardT extends jspb.Message,
-    MessageT extends jspb.Message
+    ActionT extends Message,
+    ObservationT extends Message,
+    RewardT extends Message,
+    MessageT extends Message
   >(
     actorConfig: TrialActor,
     actorImpl: ActorImplementation<ActionT, ObservationT, RewardT, MessageT>,
@@ -65,5 +65,6 @@ export class CogmentService {
 
   public createTrialController = (
     trialLifecycleClient: TrialLifecycleClient = this.createTrialLifecycleClient(),
-  ): TrialController => new TrialController(trialLifecycleClient);
+  ): TrialController =>
+    new TrialController(trialLifecycleClient, [...values(this.actors)]);
 }

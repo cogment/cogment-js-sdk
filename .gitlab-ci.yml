@@ -35,7 +35,8 @@ test:
   script:
     - docker-compose run -e CODECOV_TOKEN=${CODECOV_TOKEN} cogment-js-sdk npm run test:ci
   after_script:
-    - docker-compose logs --tail all > docker.log
+    - docker-compose logs --no-color --tail all > docker.log
+    - docker-compose logs --no-color --tail all
     - bin/down.bash
   variables:
     NODE_ENV: test
@@ -48,6 +49,7 @@ test:
       - docker.log
     reports:
       junit: junit.xml
+    when: always
 
 build:
   stage: build

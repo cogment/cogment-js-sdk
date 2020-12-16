@@ -15,13 +15,37 @@
  *
  */
 
+import {grpc} from '@improbable-eng/grpc-web';
 import {ActorSession} from '../ActorSession';
-import {logger, LogLevel} from '../lib/Logger';
+import {
+  TrialActionReply,
+  TrialActionRequest,
+} from '../cogment/api/orchestrator_pb';
+import {
+  ActorEndpoint,
+  ActorEndpointClient,
+} from '../cogment/api/orchestrator_pb_service';
+import {config} from '../lib/Config';
 
-logger.setLogLevel(LogLevel.fatal);
+const COGMENT_URL = config.connection.http;
 
 describe('ActorSession', () => {
   test('exists', () => {
-    return Promise.resolve();
+    const transport = grpc.WebsocketTransport();
+    const actorEndpointClient = new ActorEndpointClient(COGMENT_URL, {
+      transport,
+    });
+    const actionStreamClient = grpc.client<
+      TrialActionRequest,
+      TrialActionReply,
+      typeof ActorEndpoint.ActionStream
+    >(ActorEndpoint.ActionStream, {
+      host: COGMENT_URL,
+      transport,
+    });
+    const actorSession = new ActorSession(
+      actorEndpointClient,
+      actionStreamClient,
+    );
   });
 });

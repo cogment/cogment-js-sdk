@@ -15,6 +15,7 @@
  *
  */
 
+import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
 import {createService} from '../Cogment';
@@ -28,12 +29,9 @@ import {
   TrialState,
 } from '../cogment/api/orchestrator_pb';
 import {config} from '../lib/Config';
-import {logger, LogLevel} from '../lib/Logger';
 import {TrialController} from '../TrialController';
 
 const COGMENT_URL = config.connection.http;
-
-logger.setLogLevel(LogLevel.fatal);
 
 describe('TrialController', () => {
   describe('when given an invalid orchestrator url', () => {
@@ -56,20 +54,26 @@ describe('TrialController', () => {
     });
   });
 
-  test('can request `VersionInfo` from orchestrator', () => {
-    const service = createService(cogSettings);
-    // const transport = grpc.CrossBrowserHttpTransport({withCredentials: false});
-    const transport = NodeHttpTransport();
+  describe('can request `VersionInfo` from orchestrator', () => {
+    test.each([
+      ['NodeHttpTransport', NodeHttpTransport()],
+      ['WebsocketTransport', grpc.WebsocketTransport()],
+    ])('with a %s', (description, transport) => {
+      const service = createService(cogSettings);
+      // const transport = grpc.CrossBrowserHttpTransport({withCredentials: false});
 
-    const trialLifecycleClient = service.createTrialLifecycleClient(
-      COGMENT_URL,
-      transport,
-    );
-    const trialController = service.createTrialController(trialLifecycleClient);
-    const request = new VersionRequest();
-    return trialController.version(request).then((response) => {
-      expect(response).toBeInstanceOf(VersionInfo);
-      expect(response.getVersionsList().length).toBeGreaterThan(0);
+      const trialLifecycleClient = service.createTrialLifecycleClient(
+        COGMENT_URL,
+        transport,
+      );
+      const trialController = service.createTrialController(
+        trialLifecycleClient,
+      );
+      const request = new VersionRequest();
+      return trialController.version(request).then((response) => {
+        expect(response).toBeInstanceOf(VersionInfo);
+        expect(response.getVersionsList().length).toBeGreaterThan(0);
+      });
     });
   });
 
