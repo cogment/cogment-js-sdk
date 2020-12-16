@@ -21,6 +21,8 @@ import cog_settings
 import cogment
 import data_pb2
 
+logging.basicConfig(level=logging.DEBUG)
+
 
 async def time_agent(actor_session):
     actor_session.start()

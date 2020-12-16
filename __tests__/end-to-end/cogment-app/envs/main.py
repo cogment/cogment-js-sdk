@@ -13,12 +13,12 @@
 #   limitations under the License.
 #
 import logging
-
 import cogment
 import cog_settings
-
 import data_pb2
 import asyncio
+
+logging.basicConfig(level=logging.DEBUG)
 
 
 async def environment(environment_session):
