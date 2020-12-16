@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   grpc-cli:
-    image: namely/grpc-cli:latest
+    image: namely/grpc-cli:1.32_1
 
   cogment-cli:
     image: registry.gitlab.com/cogment-cli:latest
@@ -31,6 +31,7 @@ services:
     x-cogment:
       ports:
         - port: 9000
+    restart: on-failure
 
   env:
     image: registry.gitlab.com/ai-r/change_me/env:latest
@@ -45,6 +46,7 @@ services:
     x-cogment:
       ports:
         - port: 9000
+    restart: on-failure
 
   orchestrator:
     image: registry.gitlab.com/ai-r/change_me/orchestrator:latest
@@ -59,9 +61,11 @@ services:
     depends_on:
       - env
       - time
+    restart: on-failure
 
   grpcwebproxy:
     build:
       context: ./__tests__/end-to-end/cogment-app/grpcwebproxy
     depends_on:
       - orchestrator
+    restart: on-failure

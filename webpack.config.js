@@ -16,11 +16,8 @@
  */
 
 const webpackCommon = require('./webpack.common');
-const webpackDevelopment = require('./webpack.development.js');
 const {merge} = require('webpack-merge');
 const path = require('path');
-const webpack = require('webpack');
-const ESLintPlugin = require('eslint-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 
@@ -69,30 +66,28 @@ module.exports = [
       uniqueName: 'cogment-umd',
     },
   }),
-  //  {
-  //    name: 'cogment-esm',
-  //    experiments: {
-  //      outputModule: true,
-  //    },
-  //    ...cogmentConfig,
-  //    ...envConfig,
-  //    plugins: [
-  //      ...basePlugins,
-  //      new BundleAnalyzerPlugin({
-  //        analyzerMode: 'static',
-  //        reportFilename: '../public/webpack/esm/index.html',
-  //        openAnalyzer: false,
-  //        generateStatsFile: true,
-  //        statsOptions: {preset: 'verbose'},
-  //        statsFilename: '../public/webpack/esm/stats.json',
-  //      }),
-  //    ],
-  //    output: {
-  //      filename: `cogment.esm.js`,
-  //      libraryTarget: 'module',
-  //      module: true,
-  //      path: OUT_PATH,
-  //      uniqueName: 'cogment-esm',
-  //    },
-  //  },
+  // merge(webpackCommon, require(`./webpack.${NODE_ENV}.js`)),
+  // {
+  //   name: 'cogment-esm',
+  //   experiments: {
+  //     outputModule: true,
+  //   },
+  //   plugins: [
+  //     new BundleAnalyzerPlugin({
+  //       analyzerMode: 'static',
+  //       reportFilename: '../public/webpack/esm/index.html',
+  //       openAnalyzer: false,
+  //       generateStatsFile: true,
+  //       statsOptions: {preset: 'verbose'},
+  //       statsFilename: '../public/webpack/esm/stats.json',
+  //     }),
+  //   ],
+  //   output: {
+  //     filename: `cogment.mjs`,
+  //     libraryTarget: 'module',
+  //     module: true,
+  //     path: OUT_PATH,
+  //     uniqueName: 'cogment-esm',
+  //   },
+  // },
 ];

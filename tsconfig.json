@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": ["es5", "es2015", "dom", "es2018.asynciterable", "esnext"],
+    "lib": ["es5", "es2015", "dom", "es2018.asynciterable"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": false,
@@ -23,5 +23,10 @@
     "target": "es5"
   },
   "include": ["src"],
-  "exclude": ["**/__tests__/*", "*.test.*", "node_modules"]
+  "exclude": [
+    "**/__tests__/*",
+    "*.test.*",
+    "**/node_modules/*",
+    "**/__data__/*"
+  ]
 }

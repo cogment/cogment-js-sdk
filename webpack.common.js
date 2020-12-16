@@ -17,18 +17,27 @@
 
 const webpack = require('webpack');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const path = require('path');
 
 module.exports = {
   entry: {
-    cogment: './src/index.ts',
+    cogment: ['./src/index.ts'],
   },
   target: 'browserslist:last 2 versions',
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        include: [path.resolve(__dirname, 'src')],
+        exclude: [
+          /node_modules/,
+          /__tests__/,
+          /__mocks__/,
+          /__data__/,
+          /.*\.test\..*/,
+          path.resolve(__dirname, 'dist'),
+        ],
       },
     ],
   },

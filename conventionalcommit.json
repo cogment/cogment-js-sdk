@@ -1,20 +1,24 @@
 {
   "types": {
     "refactor": {
-      "description": "Changes which neither fix a bug nor add a feature"
+      "description": "Changes which neither fix a bug nor add a feature",
+      "title": "Code Refactoring"
     },
     "fix": {
       "description": "Changes which patch a bug",
+      "title": "Bug Fixes",
       "scopes": {
         "bug": {"description": "Changes that fix a code bug"},
         "hot": {"description": "Changes that fix non-code bug"}
       }
     },
     "feat": {
-      "description": "Changes which introduce a new feature"
+      "description": "Changes which introduce a new feature",
+      "title": "Features"
     },
     "build": {
       "description": "Changes which affect the build system or external dependencies.<br/>Example scopes: npm, gitlab, github",
+      "title": "Builds",
       "scopes": {
         "npm": {},
         "gitlab": {},
@@ -23,32 +27,40 @@
     },
     "chore": {
       "description": "Changes which aren't user-facing",
+      "title": "Chores",
       "scopes": {
-        "release": {"description": "Changes "},
+        "release": {"description": "Changes that create a new release "},
         "hot": {"description": "Changes that fix non-bug code."}
       }
     },
     "style": {
-      "description": "Changes which don't affect code logic, such as white-spaces, formatting, missing semi-colons"
+      "description": "Changes which don't affect code logic, such as white-spaces, formatting, missing semi-colons",
+      "title": "Styles"
     },
     "test": {
-      "description": "Changes which add missing tests or correct existing tests"
+      "description": "Changes which add missing tests or correct existing tests",
+      "title": "Tests"
     },
     "docs": {
-      "description": "Changes which affect documentation"
+      "description": "Changes which affect documentation",
+      "title": "Documentation"
     },
     "perf": {
-      "description": "Changes which improve performance"
+      "description": "Changes which improve performance",
+      "title": "Performance Improvements"
     },
     "ci": {
       "description": "Changes which affect CI configuration files and scripts.<br/>Example scopes: gitlab, github, codecov",
+      "title": "Continuous Integrations",
       "scopes": {
         "gitlab": {},
-        "github": {}
+        "github": {},
+        "codecov": {}
       }
     },
     "revert": {
-      "description": "Changes which revert a previous commit"
+      "description": "Changes which revert a previous commit",
+      "title": "Reverts"
     }
   },
   "footerTypes": [
