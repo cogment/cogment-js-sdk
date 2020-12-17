@@ -30,7 +30,7 @@ import {config} from '../lib/Config';
 const COGMENT_URL = config.connection.http;
 
 describe('ActorSession', () => {
-  test('exists', () => {
+  test.skip('exists', () => {
     const transport = grpc.WebsocketTransport();
     const actorEndpointClient = new ActorEndpointClient(COGMENT_URL, {
       transport,

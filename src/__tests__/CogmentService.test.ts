@@ -18,7 +18,7 @@
 import {CogmentService} from '../CogmentService';
 
 describe('CogmentService', () => {
-  test('exists', () => {
+  test.skip('exists', () => {
     return Promise.resolve();
   });
 });
