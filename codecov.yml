@@ -1,4 +1,5 @@
 codecov:
+  branch: next
   ci:
     - gitlab
 
