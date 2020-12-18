@@ -16,7 +16,6 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
@@ -38,20 +37,13 @@ import {
 import {ActorImplementation} from './CogmentService';
 import {logger} from './lib/Logger';
 
-export interface TrialControllerOptions {
-  trialId: string;
-  trialLifecycleClient: TrialLifecycleClient;
-  actorEndpointClient: ActorEndpointClient;
-  actionStreamClient: grpc.Client<TrialActionRequest, TrialActionReply>;
-}
-
 export class TrialController {
   private trialId?: string;
 
   /**
    *
-   * @param cogSettings - `cog_settings` generated file
-   * @param actors - An array of `[{@link TrialActor}, {@link ActorImplementation}] tuples`
+   * @param cogSettings - {@link CogSettings | `cog_settings.js`} generated file
+   * @param actors - An array of [{@link TrialActor}, {@link ActorImplementation}] tuples
    * @param trialLifecycleClient - A {@link TrialLifecycleClient | `TrialLifecycleClient`}
    * @param actorEndpointClient - An {@link ActorEndpointClient | `ActorEndpointClient`}
    * @param actionStreamClient - A grpc-web client for the {@link ActorEndpoint#ActionStream} endpoint

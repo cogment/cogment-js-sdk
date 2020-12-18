@@ -1,5 +1,6 @@
 include:
   - template: Security/SAST.gitlab-ci.yml
+  - template: Security/License-Scanning.gitlab-ci.yml
 
 image: docker:20.10.0
 
@@ -82,11 +83,12 @@ release:npm:
 
 pages:
   stage: pages
-  image: node:14-alpine
   variables:
     NODE_ENV: production
+  before_script:
+    - apk add docker-compose
   script:
-    - npm run build:docs
+    - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build:docs
     - cp -r allure-report public/allure
     - cp -r coverage public/coverage
   artifacts:

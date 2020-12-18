@@ -7,7 +7,9 @@
     "node_modules/**/*",
     "__tests__/**/*",
     "src/__tests__",
-    "src/__data__"
+    "src/__data__",
+    "cogment",
+    "cogment-api-*"
   ],
   "mode": "file",
   "out": "public/api"
