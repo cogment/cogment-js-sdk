@@ -65,18 +65,6 @@ build:
       - dist
       - public
 
-pages:
-  stage: release
-  script:
-    - mkdir -p public
-    - cp -r allure-report public/allure
-    - cp -r coverage public/coverage
-  artifacts:
-    paths:
-      - public
-  only:
-    - main
-
 #release:npm:prerelease:
 #  stage: release
 #  image: node:14-alpine
@@ -94,5 +82,22 @@ release:npm:
     - apk add git
   script:
     - npm run semantic-release
+  only:
+    - main
+
+pages:
+  stage: release
+  needs:
+    - release:npm
+  before_script:
+    - apk add docker-compose
+  script:
+    - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build:docs
+    - mkdir -p public
+    - cp -r allure-report public/allure
+    - cp -r coverage public/coverage
+  artifacts:
+    paths:
+      - public
   only:
     - main

@@ -28,7 +28,7 @@
   ],
   "scripts": {
     "analyze": "size-limit --why",
-    "build": "npm install && npm-run-all build:clean build:protos build:typings build:webpack build:docs",
+    "build": "npm install && npm-run-all build:clean build:protos build:typings build:webpack",
     "build:clean": "rimraf dist public cogment cogment-api.tar.gz cogment-api-* allure-{report,results}",
     "build:docs": "typedoc",
     "build:install": "npm install",
