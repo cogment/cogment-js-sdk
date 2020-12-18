@@ -6,3 +6,4 @@ src/cogment/api
 *_pb*
 /allure-report/
 /allure-results/
+CHANGELOG.md
