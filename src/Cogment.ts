@@ -95,5 +95,3 @@ export function createService(
     actionStreamClient,
   );
 }
-
-export const SOME_CONST = 'a';

@@ -18,7 +18,6 @@
 import {createService} from '../Cogment';
 import {CogmentService} from '../CogmentService';
 import * as Cogment from '../Cogment';
-import {SOME_CONST} from '../Cogment';
 import cogSettings from '../__data__/cog_settings';
 
 describe('Cogment', () => {
@@ -26,11 +25,6 @@ describe('Cogment', () => {
     test('returns a `CogmentService`', () => {
       const service = createService(cogSettings);
       expect(service).toBeInstanceOf(CogmentService);
-    });
-  });
-  describe('a', () => {
-    test('SOME_CONST', () => {
-      expect(SOME_CONST).toBe('a');
     });
   });
 });
