@@ -59,6 +59,7 @@ module.exports = {
     'plugin:eslint-comments/recommended',
   ],
   rules: {
+    'tsdoc/syntax': 'warn',
     'unicorn/filename-case': [
       'error',
       {cases: {pascalCase: true, kebabCase: true}},
