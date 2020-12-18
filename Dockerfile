@@ -24,4 +24,7 @@ RUN cd __tests__/end-to-end/cogment-app/clients/web && npm install
 
 COPY . .
 
+RUN npm run build:protos \
+  && rm -rf cogment cogment-api.tar.gz cogment-api-*
+
 CMD npm run build
