@@ -24,13 +24,14 @@
   - [Links](#links)
   - [Usage](#usage)
   - [Hacking](#hacking)
-    - [Local { #local-hacking }](#local-hacking)
+    - [Local Hacking](#local-hacking)
       - [node.js](#nodejs)
       - [Setup](#setup)
-    - [Docker { #docker-hacking }](#docker-hacking)
+    - [Docker Hacking](#docker-hacking)
   - [Tests](#tests)
-    - [Local { #local-tests }](#local-tests)
-    - [Docker { #docker-tests }](#docker-tests)
+    - [Local Testing](#local-testing)
+    - [Docker Testing](#docker-testing)
+
 <!-- prettier-ignore-end -->
 
 ## Links
@@ -61,14 +62,16 @@ Clone the repository:
 git clone https://github.com/cogment/cogment-js-sdk
 ```
 
-### Local { #local-hacking }
+### Local Hacking
 
 #### node.js
 
-For local hacking, a working node.js distribution is required. This repository supports [nvm]
-and [nodenv] through the [.nvmrc](.nvmrc) and [.node-version](.node-version) files.
+For local hacking, a working node.js distribution is required. This
+repository supports [nvm] and [nodenv] through the [.nvmrc](.nvmrc) and
+[.node-version](.node-version) files.
 
-A simple node.js environment install using [nvm] (note, _NO_ sudo is required!):
+A simple node.js environment install using [nvm] (note, _NO_ sudo is
+required!):
 
 ```shell script
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
@@ -79,17 +82,22 @@ nvm install
 
 #### Setup
 
-Once a working node.js distribution is available, install dependencies:
+Once a working node.js distribution is available:
 
-```shell script
-npm install
-```
+1. Install dependencies:
+   ```shell script
+   npm install
+   ```
+2. Download and compile [cogment-api] protobuf files:
+   ```shell script
+   npm run build:protos
+   ```
 
-### Docker { #docker-hacking }
+### Docker Hacking
 
-Local hacking is also supported through docker, removing the necessity for a local node.js
-distribution. [docker-compose] is used to simplify the configuration of creating
-containers - install before proceeding.
+Local hacking is also supported through docker, removing the necessity
+for a local node.js distribution. [docker-compose] is used to simplify
+the configuration of creating containers - install before proceeding.
 
 ```shell script
 docker-compose build cogment-js-sdk
@@ -97,32 +105,30 @@ docker-compose build cogment-js-sdk
 
 ## Tests
 
-Before running any tests, start the local [embedded end-to-end cogment application][cogment-app]
-docker environment:
+Before running any tests, start the local [embedded end-to-end cogment
+application][cogment-app] docker environment:
 
 ```shell script
 bin/up.bash
 ```
 
-This script may be rerun again if any changes are made to the [embedded end-to-end cogment
-application][cogment-app].
+This script may be rerun again if any changes are made to the [embedded
+end-to-end cogment application][cogment-app].
 
-If you wish to stop the [embedded end-to-end cogment application][cogment-app], use the following
-script:
+If you wish to stop the [embedded end-to-end cogment
+application][cogment-app], use the following script:
 
 ```shell script
 bin/down.bash
 ```
 
-### Local { #local-tests }
+### Local Testing
 
-<!-- prettier-ignore-start -->
-!!! note
-    By default the test environment is configured to run within a docker container.
-    [cogment-js-sdk][repo] uses [cosmiconfig] for configuration - update `cogment.connection.http`
-    in [package.json] to <localhost:8080> (or the host of the docker daemon if it is not running on
-    `localhost:8080`).
-<!-- prettier-ignore-end -->
+Note: By default the test environment is configured to run within a
+docker container. [cogment-js-sdk][repo] uses [cosmiconfig] for
+configuration - update `cogment.connection.http` in [package.json] to
+`http://localhost:8080` (or the host of the docker daemon if it is not
+running on `localhost:8080`).
 
 To run the test suite once:
 
@@ -132,19 +138,26 @@ To watch for changes and rerun tests automatically in your console:
 
 `npm run test:watch`
 
-To launch the [majestic test ui][majestic] to run / watch / visualize tests:
+To launch the [majestic test ui][majestic] to run / watch / visualize
+tests:
 
 `npm run test:ui`
 
-### Docker { #docker-tests }
+### Docker Testing
 
-To run the test suite using a docker container (necessitates the need for a local node.js
-distribution), the `cogment-js-sdk` [docker-compose][docker-compose] service
+To run the test suite using a docker container (necessitates the need
+for a local node.js distribution), the `cogment-js-sdk`
+[docker-compose][docker-compose] service can be used:
+
+```shell script
+docker-compose run cogment-js-sdk npm run test
+```
 
 [api-docs]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/api 'api-docs'
 [changelog]: CHANGELOG.md 'changelog'
 [codecov]: https://codecov.io/gl/ai-r/cogment-js-sdk-1.0 'codecov'
 [cogment-app]: __tests__/end-to-end/cogment-app 'cogment-app'
+[cogment-api]: https://github.com/cogment/cogment-api 'cogment-api'
 [cogment.ai]: https://cogment.ai 'cogment.ai'
 [cosmiconfig]: https://www.npmjs.com/package/cosmiconfig 'cosmiconfig'
 [coverage]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/coverage/lcov-report 'coverage report'
