@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 Artificial Intelligence Redefined <dev+cogment@ai-r.com>
+ *  Copyright 2020 Artificial Intelligence Redefined <dev+cogment@ai-r.com>G
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 import {createService} from '../Cogment';
 import {CogmentService} from '../CogmentService';
 import * as Cogment from '../Cogment';
+import {SOME_CONST} from '../Cogment';
 import cogSettings from '../__data__/cog_settings';
 
 describe('Cogment', () => {
@@ -25,6 +26,11 @@ describe('Cogment', () => {
     test('returns a `CogmentService`', () => {
       const service = createService(cogSettings);
       expect(service).toBeInstanceOf(CogmentService);
+    });
+  });
+  describe('a', () => {
+    test('SOME_CONST', () => {
+      expect(SOME_CONST).toBe('a');
     });
   });
 });

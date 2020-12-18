@@ -49,6 +49,7 @@ test:
   artifacts:
     expose_as: reports
     paths:
+      - src/cogment
       - coverage
       - allure-report
       - docker.log
