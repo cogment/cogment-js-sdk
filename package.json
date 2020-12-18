@@ -7,7 +7,7 @@
     "url": "git@gitlab.com:ai-r/cogment-js-sdk-1.0.git"
   },
   "author": "Artificial Intelligence Redefined <dev+cogment@ai-r.com>",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "SEE LICENSE IN LICENSE.md",
   "private": true,
   "engines": {
     "node": ">=10"
