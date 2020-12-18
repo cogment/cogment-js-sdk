@@ -1,16 +1,14 @@
 # [1.3.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.2.1...v1.3.0) (2020-12-18)
 
-
 ### Bug Fixes
 
-* **lint-staged:** arguments were not being passed to jest through npm run test ([a32d360](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/a32d360cdb99845c91f162d86a2caf89b02381c3))
-* **lint-staged:** fix .ts hook pattern to properly exclude .d.ts files ([d7ed999](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/d7ed999f3ace26e94baa7cb1dc6c56906a00caaa))
-
+- **lint-staged:** arguments were not being passed to jest through npm run test ([a32d360](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/a32d360cdb99845c91f162d86a2caf89b02381c3))
+- **lint-staged:** fix .ts hook pattern to properly exclude .d.ts files ([d7ed999](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/d7ed999f3ace26e94baa7cb1dc6c56906a00caaa))
 
 ### Features
 
-* **websocket:** we have a working websocket streaming eventLoop! ([38228ca](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/38228caaed9d0b68186f0321b406de8d516b2f7e)), closes [#16](https://gitlab.com/ai-r/cogment-js-sdk-1.0/issues/16)
-* **websocket:** wip implement websocket transport ([d7344d0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/d7344d0098bc3360b7bf0fa33486bd2395d7dba5))
+- **websocket:** we have a working websocket streaming eventLoop! ([38228ca](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/38228caaed9d0b68186f0321b406de8d516b2f7e)), closes [#16](https://gitlab.com/ai-r/cogment-js-sdk-1.0/issues/16)
+- **websocket:** wip implement websocket transport ([d7344d0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/d7344d0098bc3360b7bf0fa33486bd2395d7dba5))
 
 ## [1.2.1](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.2.0...v1.2.1) (2020-12-14)
 
