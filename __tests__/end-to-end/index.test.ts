@@ -73,32 +73,11 @@ describe('grpc.WebsocketTransport', () => {
 
 describe('a cogment-app', () => {
   test('runs', async () => {
-    const COGMENT_URL = config.connection.http;
-
-    const service = createService(cogSettings);
-
-    const unaryTransport = NodeHttpTransport();
-    const trialLifecycleClient = service.createTrialLifecycleClient(
-      COGMENT_URL,
-      unaryTransport,
+    const service = createService(
+      cogSettings,
+      NodeHttpTransport(),
+      grpc.WebsocketTransport(),
     );
-
-    // const actorEndpointClient = new ActorEndpointClient(COGMENT_URL, {
-    //   transport: unaryTransport,
-    // });
-    // const websocketTransport = grpc.WebsocketTransport();
-    // const actionStreamClient = grpc.client<
-    //   TrialActionRequest,
-    //   TrialActionReply,
-    //   typeof ActorEndpoint.ActionStream
-    // >(ActorEndpoint.ActionStream, {
-    //   host: COGMENT_URL,
-    //   transport: websocketTransport,
-    // });
-    // const actorSession = new ActorSession(
-    //   actorEndpointClient,
-    //   actionStreamClient,
-    // );
 
     // TODO: this fails if run before registerActor
     // const trialController = service.createTrialController(trialLifecycleClient);
@@ -117,7 +96,7 @@ describe('a cogment-app', () => {
         trialJoinRequest.setActorClass('emma');
 
         await actorSession.joinTrial(trialJoinRequest);
-        await actorSession.sendAction(new EmmaAction(), trialId);
+        await actorSession.sendAction(new EmmaAction());
 
         for await (const {
           observation,
@@ -127,7 +106,7 @@ describe('a cogment-app', () => {
           if (observation !== null) {
             logger.info(observation);
             const action = new EmmaAction();
-            await actorSession.sendAction(action, trialId);
+            await actorSession.sendAction(action);
           }
           if (message !== null) {
             logger.info(message);
@@ -140,7 +119,7 @@ describe('a cogment-app', () => {
         }
       },
     );
-    const trialController = service.createTrialController(trialLifecycleClient);
+    const trialController = service.createTrialController();
     const request = new TrialStartRequest();
     request.setUserId('emma');
     return trialController
@@ -159,12 +138,3 @@ describe('a cogment-app', () => {
       });
   }, 10000);
 });
-
-// /const grpcWebServer = transport({
-//  MethodDefinition: (req: any) => {},
-//  Debug: true,
-//  OnChunk(chunkBytes: Uint8Array, flush: boolean | undefined): void {},
-//  OnEnd(err: Error | undefined): void {},
-//  OnHeaders(headers: Metadata, status: number): void {},
-//  Url: '/_socket',
-// });

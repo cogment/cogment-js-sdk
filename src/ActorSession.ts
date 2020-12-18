@@ -36,6 +36,7 @@ import {
 } from './cogment/api/orchestrator_pb';
 import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
 import {logger} from './lib/Logger';
+import warning from 'tiny-warning';
 
 export class ActorSession<
   ActionT extends Message,
@@ -77,6 +78,8 @@ export class ActorSession<
         2,
       )}`,
     );
+    // TODO: should we implicitly set the trial to running here?
+    this.running = false;
   }
 
   private onActionStreamMessage(action: TrialActionReply) {
@@ -122,7 +125,7 @@ export class ActorSession<
     throw new Error('addFeedback() is not implemented.');
   }
 
-  public sendAction(userAction: ActionT, trialId: string): void {
+  public sendAction(userAction: ActionT): void {
     const action = new ActionPb();
     action.setContent(userAction.serializeBinary());
     const request = new TrialActionRequest();
@@ -133,13 +136,8 @@ export class ActorSession<
   public async *eventLoop(): AsyncGenerator<
     Event<ObservationPb, RewardPb, MessagePb>
   > {
+    warning(!this.running, 'Trial is not currently running.');
     while (this.running) {
-      // if (!this.running) {
-      //   logger.error(
-      //     'eventLoop() running and not currently running, sleeping 200ms',
-      //   );
-      //   await new Promise((resolve) => setTimeout(resolve, 200));
-      // }
       if (this.events[0]) {
         yield this.events.splice(0, 1)[0];
       } else {
@@ -177,7 +175,7 @@ export class ActorSession<
     this.running = true;
   }
 
-  public joinTrial(request: TrialJoinRequest) {
+  public joinTrial(request: TrialJoinRequest): Promise<TrialJoinReply> {
     // eslint-disable-next-line compat/compat
     return new Promise((resolve, reject) => {
       this.actorEndpointClient.joinTrial(

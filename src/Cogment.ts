@@ -15,11 +15,83 @@
  *
  */
 
+import {grpc} from '@improbable-eng/grpc-web';
 import {CogSettings} from './@types/cogment';
+import {
+  TrialActionReply,
+  TrialActionRequest,
+} from './cogment/api/orchestrator_pb';
+import {
+  ActorEndpoint,
+  ActorEndpointClient,
+  TrialLifecycleClient,
+} from './cogment/api/orchestrator_pb_service';
 import {CogmentService} from './CogmentService';
 import {logger} from './lib/Logger';
 
-export function createService(cogSettings: CogSettings): CogmentService {
+/**
+ * A library for interacting with the {@link https://cogment.ai | cogment.ai} framework.
+ *
+ * @packageDocumentation
+ */
+
+/**
+ * Creates a new {@link CogmentService | `CogmentService`} from a generated {@link CogSettings | `cog_settings.js`}.
+ * Optionally pass transports used by clients.
+ *
+ * @example
+ *
+ * ```typescript
+ * import {createService} from 'cogment';
+ * import cogSettings from 'cog_settings';
+ *
+ * const cogment = createService(cogSettings);
+ *
+ * ```
+ *
+ * @public
+ * @beta
+ * @param cogSettings - Settings loaded from the generated `cog_settings.js` file.
+ * @param unaryTransportFactory - A `grpc.TransportFactory` used to make unary (non-streaming) requests to the backend.
+ * @param streamingTransportFactory - A `grpc.TransportFactory` used to instantiate streaming connections to the backend.
+ * @returns A {@link CogmentService} configured with the given {@link CogSettings} and transports.
+ */
+export function createService(
+  cogSettings: CogSettings,
+  unaryTransportFactory: grpc.TransportFactory = grpc.CrossBrowserHttpTransport(
+    {
+      withCredentials: false,
+    },
+  ),
+  streamingTransportFactory: grpc.TransportFactory = grpc.WebsocketTransport(),
+): CogmentService {
   logger.debug('Creating new service with settings %s', cogSettings);
-  return new CogmentService(cogSettings);
+  const trialLifecycleClient: TrialLifecycleClient = new TrialLifecycleClient(
+    cogSettings.connection.http,
+    {
+      transport: unaryTransportFactory,
+    },
+  );
+  const actorEndpointClient: ActorEndpointClient = new ActorEndpointClient(
+    cogSettings.connection.http,
+    {
+      transport: streamingTransportFactory,
+    },
+  );
+
+  const actionStreamClient = grpc.client<
+    TrialActionRequest,
+    TrialActionReply,
+    typeof ActorEndpoint.ActionStream
+  >(ActorEndpoint.ActionStream, {
+    host: cogSettings.connection.http,
+    transport: streamingTransportFactory,
+  });
+
+  return new CogmentService(
+    cogSettings,
+    trialLifecycleClient,
+    actorEndpointClient,
+    actionStreamClient,
+  );
 }

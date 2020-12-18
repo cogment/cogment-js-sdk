@@ -1,16 +1,13 @@
 import {createService} from 'cogment';
 
-import cog_settings from './cog_settings';
+import cogSettings from './cog_settings';
 
-import {ROCK, PAPER, SCISSORS, TrialConfig} from './data-pb2';
+import {ROCK, PAPER, SCISSORS, TrialConfig} from './data_pb2';
 
-const service = cogment.createService({
-  settings: cog_settings,
-});
+const service = createService(cogSettings);
 
 service.registerActor(
   {name: 'human', classes: ['player']},
-
   async (actorSession) => {
     actorSession.start();
 

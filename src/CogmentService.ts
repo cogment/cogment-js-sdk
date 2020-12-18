@@ -17,10 +17,19 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
+import size from 'lodash/size';
 import values from 'lodash/values';
+import warning from 'tiny-warning';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
-import {TrialLifecycleClient} from './cogment/api/orchestrator_pb_service';
+import {
+  TrialActionReply,
+  TrialActionRequest,
+} from './cogment/api/orchestrator_pb';
+import {
+  ActorEndpointClient,
+  TrialLifecycleClient,
+} from './cogment/api/orchestrator_pb_service';
 import {logger} from './lib/Logger';
 import {TrialController} from './TrialController';
 
@@ -39,7 +48,15 @@ export class CogmentService {
     [TrialActor, ActorImplementation<any, any, any, any>]
   > = {};
 
-  constructor(private readonly cogSettings: CogSettings) {}
+  constructor(
+    private readonly cogSettings: CogSettings,
+    private trialLifecycleClient: TrialLifecycleClient,
+    private actorEndpointClient: ActorEndpointClient,
+    private actionStreamClient: grpc.Client<
+      TrialActionRequest,
+      TrialActionReply
+    >,
+  ) {}
 
   public registerActor<
     ActionT extends Message,
@@ -50,21 +67,25 @@ export class CogmentService {
     actorConfig: TrialActor,
     actorImpl: ActorImplementation<ActionT, ObservationT, RewardT, MessageT>,
   ): void {
-    if (this.actors[actorConfig.name]) {
-      logger.warn(
-        `Actor with name ${actorConfig.name} already registered, overwriting.`,
-      );
-    }
+    warning(
+      this.actors[actorConfig.name],
+      `Actor with name ${actorConfig.name} already registered, overwriting.`,
+    );
+    warning(
+      size(this.actors) > 1,
+      'Support for more than a single actor is not supported.',
+    );
+
     this.actors[actorConfig.name] = [actorConfig, actorImpl];
   }
 
-  public createTrialLifecycleClient = (
-    backendUrl = this.cogSettings.connection.http,
-    transport = grpc.CrossBrowserHttpTransport({withCredentials: false}),
-  ): TrialLifecycleClient => new TrialLifecycleClient(backendUrl, {transport});
-
-  public createTrialController = (
-    trialLifecycleClient: TrialLifecycleClient = this.createTrialLifecycleClient(),
-  ): TrialController =>
-    new TrialController(trialLifecycleClient, [...values(this.actors)]);
+  public createTrialController(): TrialController {
+    return new TrialController(
+      this.cogSettings,
+      [...values(this.actors)],
+      this.trialLifecycleClient,
+      this.actorEndpointClient,
+      this.actionStreamClient,
+    );
+  }
 }

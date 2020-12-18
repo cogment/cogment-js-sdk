@@ -16,8 +16,9 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
+import isEmpty from 'lodash/isEmpty';
 import map from 'lodash/map';
-import {TrialActor} from './@types/cogment';
+import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {VersionInfo, VersionRequest} from './cogment/api/common_pb';
 import {
@@ -31,20 +32,42 @@ import {
   TrialStartRequest,
 } from './cogment/api/orchestrator_pb';
 import {
-  ActorEndpoint,
   ActorEndpointClient,
   TrialLifecycleClient,
 } from './cogment/api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
 import {logger} from './lib/Logger';
 
+export interface TrialControllerOptions {
+  trialId: string;
+  trialLifecycleClient: TrialLifecycleClient;
+  actorEndpointClient: ActorEndpointClient;
+  actionStreamClient: grpc.Client<TrialActionRequest, TrialActionReply>;
+}
+
 export class TrialController {
+  private trialId?: string;
+
+  /**
+   *
+   * @param cogSettings - `cog_settings` generated file
+   * @param actors - An array of `[{@link TrialActor}, {@link ActorImplementation}] tuples`
+   * @param trialLifecycleClient - A {@link TrialLifecycleClient | `TrialLifecycleClient`}
+   * @param actorEndpointClient - An {@link ActorEndpointClient | `ActorEndpointClient`}
+   * @param actionStreamClient - A grpc-web client for the {@link ActorEndpoint#ActionStream} endpoint
+   */
   constructor(
-    private trialLifecycleClient: TrialLifecycleClient,
+    private cogSettings: CogSettings,
     private actors: [
       TrialActor,
       ActorImplementation<never, never, never, never>,
     ][],
+    private trialLifecycleClient: TrialLifecycleClient,
+    private actorEndpointClient: ActorEndpointClient,
+    private actionStreamClient: grpc.Client<
+      TrialActionRequest,
+      TrialActionReply
+    >,
   ) {}
   public async getTrialInfo(
     request: TrialInfoRequest,
@@ -79,38 +102,20 @@ export class TrialController {
       });
     }).then((response) => {
       logger.info(`Starting actors for trial ${response.getTrialId()}`);
-      const unaryTransport = grpc.CrossBrowserHttpTransport({
-        withCredentials: false,
-      });
-      const actorEndpointClient = new ActorEndpointClient(
-        'http://grpcwebproxy:8080',
-        {
-          transport: unaryTransport,
-        },
-      );
-      const websocketTransport = grpc.WebsocketTransport();
-      const actionStreamClient = grpc.client<
-        TrialActionRequest,
-        TrialActionReply,
-        typeof ActorEndpoint.ActionStream
-      >(ActorEndpoint.ActionStream, {
-        host: 'http://grpcwebproxy:8080',
-        transport: websocketTransport,
-      });
-      actionStreamClient.start({
-        'trial-id': response.getTrialId(),
-        'actor-name': 'emma',
-      });
-      actionStreamClient.send(new TrialActionRequest());
-      // actionStreamClient.finishSend();
+      // TODO: We currently only support a single actor client, investigate using `TrialLifecycleClient#actionStream`
+      this.trialId = response.getTrialId();
 
       // eslint-disable-next-line compat/compat
       return Promise.all(
         map(this.actors, ([actor, actorImpl]) => {
           logger.info(`Starting actor ${actor.name}`);
+          this.actionStreamClient.start({
+            'trial-id': response.getTrialId(),
+            'actor-name': actor.name,
+          });
           const actorSession = new ActorSession(
-            actorEndpointClient,
-            actionStreamClient,
+            this.actorEndpointClient,
+            this.actionStreamClient,
           );
           return actorImpl(actorSession);
         }),
@@ -120,7 +125,7 @@ export class TrialController {
 
   public async terminateTrial(
     request: TerminateTrialRequest,
-    trialId: string,
+    trialId: string = this.cogSettings.connection.http,
   ): Promise<TerminateTrialReply> {
     // eslint-disable-next-line compat/compat
     return await new Promise((resolve, reject) => {
