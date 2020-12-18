@@ -19,9 +19,6 @@ RUN curl -LSso /tmp/allure.deb ${ALLURE_URL} \
 COPY package*.json ./
 RUN npm install
 
-COPY __tests__/end-to-end/cogment-app/clients/web/package*.json __tests__/end-to-end/cogment-app/clients/web/
-RUN cd __tests__/end-to-end/cogment-app/clients/web && npm install
-
 COPY . .
 
 RUN npm run build:protos \
