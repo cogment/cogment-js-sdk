@@ -1,3 +1,10 @@
+## [1.3.1](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.3.0...v1.3.1) (2020-12-18)
+
+
+### Bug Fixes
+
+* **ci:** unable to depend on jobs from the same stage ([7da754a](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/7da754aaaa9a2afa9ea94fee479f576c8da34e9b))
+
 # [1.3.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.2.1...v1.3.0) (2020-12-18)
 
 ### Bug Fixes
