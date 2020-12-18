@@ -53,12 +53,10 @@ test:
 
 build:
   stage: build
-  variables:
-    NODE_ENV: production
   before_script:
     - apk add docker-compose
   script:
-    - docker-compose run cogment-js-sdk npm run build
+    - docker-compose run cogment-js-sdk -e NODE_ENV=production -e CI=${CI} npm run build
   artifacts:
     paths:
       - dist
