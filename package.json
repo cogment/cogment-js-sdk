@@ -92,7 +92,7 @@
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "@webpack-cli/init": "^1.0.3",
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "clean-webpack-plugin": "^3.0.0",
     "codecov": "^3.8.1",
     "commitizen": "^4.2.2",
