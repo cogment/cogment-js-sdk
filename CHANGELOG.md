@@ -1,3 +1,10 @@
+## [1.3.2](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.3.1...v1.3.2) (2020-12-24)
+
+
+### Bug Fixes
+
+* package.json & package-lock.json to reduce vulnerabilities ([ab78a0a](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/ab78a0aee3a9738bfba783a2ba6a8d2bfaf0213d))
+
 ## [1.3.1](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.3.0...v1.3.1) (2020-12-18)
 
 
