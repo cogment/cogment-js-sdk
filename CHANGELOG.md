@@ -1,3 +1,11 @@
+# [1.4.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.3.2...v1.4.0) (2020-12-25)
+
+
+### Features
+
+* **api:** deserialize internal protobuf messages into user defined types ([400186b](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/400186b30bbaeabbf4c58372b7fb2def3d225056)), closes [#17](https://gitlab.com/ai-r/cogment-js-sdk-1.0/issues/17)
+* **logger:** implement DebugLogger using the `debug` package ([78ab264](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/78ab264e72d83509e3647249d4dbfa700cae5c83))
+
 ## [1.3.2](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.3.1...v1.3.2) (2020-12-24)
 
 
