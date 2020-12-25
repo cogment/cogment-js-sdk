@@ -16,36 +16,98 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
+import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
+import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
+import {
+  AsyncMessage,
+  EmmaAction,
+  Observation,
+  Reward,
+} from '../../__tests__/end-to-end/cogment-app/clients/web/src/data_pb';
 import {ActorSession} from '../ActorSession';
+import {createService} from '../Cogment';
 import {
-  TrialActionReply,
-  TrialActionRequest,
+  TerminateTrialRequest,
+  TrialJoinRequest,
+  TrialStartRequest,
 } from '../cogment/api/orchestrator_pb';
-import {
-  ActorEndpoint,
-  ActorEndpointClient,
-} from '../cogment/api/orchestrator_pb_service';
-import {config} from '../lib/Config';
+import {getLogger} from '../lib/Logger';
 
-const COGMENT_URL = config.connection.http;
+const logger = getLogger('ActorSession');
 
 describe('ActorSession', () => {
-  test.skip('exists', () => {
-    const transport = grpc.WebsocketTransport();
-    const actorEndpointClient = new ActorEndpointClient(COGMENT_URL, {
-      transport,
-    });
-    const actionStreamClient = grpc.client<
-      TrialActionRequest,
-      TrialActionReply,
-      typeof ActorEndpoint.ActionStream
-    >(ActorEndpoint.ActionStream, {
-      host: COGMENT_URL,
-      transport,
-    });
-    const actorSession = new ActorSession(
-      actorEndpointClient,
-      actionStreamClient,
-    );
+  describe('#eventLoop', () => {
+    test('can reveive observations', () => {
+      const service = createService(
+        cogSettings,
+        NodeHttpTransport(),
+        grpc.WebsocketTransport(),
+      );
+
+      // TODO: this fails if run before registerActor
+      // const trialController = service.createTrialController(trialLifecycleClient);
+
+      let trialId: string;
+
+      service.registerActor<EmmaAction, Observation, Reward, AsyncMessage>(
+        {name: 'emma', class: 'emma'},
+        async (actorSession) => {
+          logger.info('Actor running');
+          actorSession.start();
+          logger.info('Actor session started');
+
+          setTimeout(actorSession.stop.bind(actorSession), 3000);
+
+          const trialJoinRequest = new TrialJoinRequest();
+          trialJoinRequest.setTrialId(trialId);
+          trialJoinRequest.setActorClass('emma');
+
+          await actorSession.joinTrial(trialJoinRequest);
+          await actorSession.sendAction(new EmmaAction());
+
+          for await (const {observation} of actorSession.eventLoop()) {
+            if (observation) {
+              logger.info(
+                `Received an observation for tick id ${observation.getTime()}: ${JSON.stringify(
+                  observation.toObject(),
+                  undefined,
+                  2,
+                )}`,
+              );
+              expect(observation.getTime()).not.toBe(0);
+              expect(observation.getTime()).not.toEqual('');
+              expect(
+                Math.abs(Date.now() / 1000 - observation.getTime()),
+              ).toBeLessThan(5000);
+              expect(observation.getTime() * 1000).toBeLessThanOrEqual(
+                Date.now() + 60000,
+              );
+              expect(observation.getTime() * 1000).toBeGreaterThanOrEqual(
+                Date.now() - 60000,
+              );
+              const action = new EmmaAction();
+              await actorSession.sendAction(action);
+            }
+          }
+        },
+      );
+      const trialController = service.createTrialController();
+      const request = new TrialStartRequest();
+      request.setUserId('emma');
+      return trialController
+        .startTrial(request)
+        .then((response) => {
+          trialId = response.getTrialId();
+          return new Promise<typeof response>((resolve) =>
+            setTimeout(() => resolve(response), 5000),
+          );
+        })
+        .then((response) => {
+          return trialController.terminateTrial(
+            new TerminateTrialRequest(),
+            response.getTrialId(),
+          );
+        });
+    }, 10000);
   });
 });

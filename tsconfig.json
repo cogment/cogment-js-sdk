@@ -16,6 +16,7 @@
     "noImplicitAny": true,
     "outDir": "dist",
     "removeComments": true,
+    "resolveJsonModule": true,
     "rootDir": "src",
     "skipLibCheck": true,
     "sourceMap": true,

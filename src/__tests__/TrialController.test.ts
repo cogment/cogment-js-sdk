@@ -28,10 +28,7 @@ import {
   TrialStartRequest,
   TrialState,
 } from '../cogment/api/orchestrator_pb';
-import {config} from '../lib/Config';
 import {TrialController} from '../TrialController';
-
-const COGMENT_URL = config.connection.http;
 
 describe('TrialController', () => {
   describe('when given an invalid orchestrator url', () => {

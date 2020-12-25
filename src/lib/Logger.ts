@@ -16,6 +16,8 @@
  */
 import debug from 'debug';
 
+const MODULE_NAME = 'cogment';
+
 export type LoggerFunction = (...data: unknown[]) => void;
 
 export enum LogLevel {
@@ -28,6 +30,8 @@ export enum LogLevel {
 }
 
 export interface Logger {
+  childLogger: (loggerName: string, level?: LogLevel) => Logger;
+  setLogLevel: (level: LogLevel) => void;
   debug: LoggerFunction;
   error: LoggerFunction;
   fatal: LoggerFunction;
@@ -46,7 +50,7 @@ class DebugLogger implements Logger {
   private logger: debug.Debugger;
 
   constructor(
-    private loggerName: string,
+    private loggerName: string = MODULE_NAME,
     private level: LogLevel = LogLevel.debug,
   ) {
     const logger = (this.logger = debug(loggerName));
@@ -59,8 +63,11 @@ class DebugLogger implements Logger {
     this.fatalLogger = logger.extend('fatal');
   }
 
-  public childLogger(childLoggerName: string): DebugLogger {
-    return new DebugLogger(`${this.loggerName}:${childLoggerName}`);
+  public childLogger(
+    childLoggerName: string,
+    level: LogLevel = this.level,
+  ): DebugLogger {
+    return new DebugLogger(`${this.loggerName}:${childLoggerName}`, level);
   }
 
   public setLogLevel(level: LogLevel): void {
@@ -153,6 +160,17 @@ export class ConsoleLogger implements Logger {
   private formatLog(...data: unknown[]) {
     return [`${this.loggerName}:`, ...data];
   }
+
+  public childLogger(loggerName: string, level?: LogLevel): Logger {
+    throw new Error('childLogger() is not implemented.');
+  }
 }
 
-export const logger = new DebugLogger('cogment');
+const logger: Logger = new DebugLogger(MODULE_NAME);
+
+export function getLogger(loggerName?: string): Logger {
+  if (loggerName) {
+    return logger.childLogger(loggerName);
+  }
+  return logger;
+}

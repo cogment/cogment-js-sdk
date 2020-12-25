@@ -17,9 +17,7 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import size from 'lodash/size';
 import values from 'lodash/values';
-import warning from 'tiny-warning';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {
@@ -30,8 +28,10 @@ import {
   ActorEndpointClient,
   TrialLifecycleClient,
 } from './cogment/api/orchestrator_pb_service';
-import {logger} from './lib/Logger';
+import {getLogger} from './lib/Logger';
 import {TrialController} from './TrialController';
+
+const logger = getLogger('CogmentService');
 
 export type ActorImplementation<
   ActionT extends Message,
@@ -67,14 +67,18 @@ export class CogmentService {
     actorConfig: TrialActor,
     actorImpl: ActorImplementation<ActionT, ObservationT, RewardT, MessageT>,
   ): void {
-    warning(
-      this.actors[actorConfig.name],
-      `Actor with name ${actorConfig.name} already registered, overwriting.`,
+    logger.info(
+      `Registering actor ${actorConfig.name} with class ${actorConfig.class}`,
     );
-    warning(
-      size(this.actors) > 1,
-      'Support for more than a single actor is not supported.',
-    );
+    if (this.actors[actorConfig.name]) {
+      logger.warn(
+        `Actor with name ${actorConfig.name} already registered, overwriting.`,
+      );
+    }
+    // eslint-disable-next-line lodash/prefer-lodash-method
+    if (Object.keys(this.actors).length > 1) {
+      logger.warn('Support for more than a single actor is not supported.');
+    }
 
     this.actors[actorConfig.name] = [actorConfig, actorImpl];
   }

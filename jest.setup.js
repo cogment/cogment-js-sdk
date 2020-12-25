@@ -15,6 +15,8 @@
  *
  */
 
-const {logger, LogLevel} = require('./src/lib/Logger');
+const {getLogger, LogLevel} = require('./src/lib/Logger');
+const debug = require('debug');
 
-logger.setLogLevel(LogLevel.debug);
+// getLogger('cogment').setLogLevel(LogLevel.trace);
+// debug.enable('cogment');

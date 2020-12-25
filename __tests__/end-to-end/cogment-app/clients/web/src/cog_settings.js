@@ -25,8 +25,8 @@ const _emma_class = {
   observation_space: protos.Observation,
   observation_delta: protos.Observation,
   observation_delta_apply_fn: applyDeltaReplace,
-  feedback_space: null,
-  message_space: null,
+  feedback_space: protos.Reward,
+  message_space: protos.AsyncMessage,
 };
 
 const _time_class = {
@@ -36,8 +36,8 @@ const _time_class = {
   observation_space: protos.Observation,
   observation_delta: protos.Observation,
   observation_delta_apply_fn: applyDeltaReplace,
-  feedback_space: null,
-  message_space: null,
+  feedback_space: protos.Reward,
+  message_space: protos.AsyncMessage,
 };
 
 const settings = {

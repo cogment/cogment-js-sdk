@@ -19,26 +19,40 @@ import {Message} from 'google-protobuf';
 import {CogSettingsActorClass} from '../@types/cogment';
 import {ObservationData} from '../cogment/api/common_pb';
 
-export function applyDeltaReplace(
-  observation: Message,
-  delta: Message,
-): Message {
+export function applyDeltaReplace(delta: Message): Message {
   return delta;
 }
 
-export function decodeObservationData(
+export function decodeObservationData<T extends Message>(
   actorClass: CogSettingsActorClass,
   data: ObservationData,
-  previousObservation: ObservationData,
-): Message {
+): T {
   if (data.getSnapshot()) {
     return actorClass.observation_space.deserializeBinary(
       data.getContent_asU8(),
-    );
+      // TODO: lazy hack around type system by casting here
+    ) as T;
   } else {
     const delta = actorClass.observation_delta.deserializeBinary(
       data.getContent_asU8(),
     );
-    return actorClass.observation_delta_apply_fn(previousObservation, delta);
+    // TODO: lazy hack around type system by casting here
+    return actorClass.observation_delta_apply_fn(delta) as T;
   }
+}
+
+export interface SerializableProtobuf extends Message {
+  getContent(): Uint8Array | string;
+  getContent_asU8(): Uint8Array;
+  getContent_asB64(): string;
+  setContent(value: Uint8Array | string): void;
+}
+
+export function deserializeData<T>(
+  sourcePb: SerializableProtobuf,
+  DestinationPb: typeof Message,
+): T {
+  return (DestinationPb.deserializeBinary(
+    sourcePb.getContent_asU8(),
+  ) as unknown) as T;
 }

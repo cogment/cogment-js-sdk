@@ -64,6 +64,7 @@ module.exports = {
       'error',
       {cases: {pascalCase: true, kebabCase: true}},
     ],
+    'lodash/prefer-lodash-method': 'off',
   },
   reportUnusedDisableDirectives: true,
 };

@@ -35,7 +35,9 @@ import {
   TrialLifecycleClient,
 } from './cogment/api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
-import {logger} from './lib/Logger';
+import {getLogger} from './lib/Logger';
+
+const logger = getLogger('TrialController');
 
 export class TrialController {
   private trialId?: string;
@@ -105,10 +107,15 @@ export class TrialController {
             'trial-id': response.getTrialId(),
             'actor-name': actor.name,
           });
+
           const actorSession = new ActorSession(
+            actor,
+            this.cogSettings,
             this.actorEndpointClient,
             this.actionStreamClient,
           );
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
           return actorImpl(actorSession);
         }),
       ).then(() => response);

@@ -24,9 +24,7 @@ import {
   TrialStartRequest,
 } from '../../src/cogment/api/orchestrator_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
-import {config} from '../../src/lib/Config';
-import {logger} from '../../src/lib/Logger';
-
+import {getLogger} from '../../src/lib/Logger';
 import cogSettings from './cogment-app/clients/web/src/cog_settings';
 import {
   AsyncMessage,
@@ -34,6 +32,8 @@ import {
   Observation,
   Reward,
 } from './cogment-app/clients/web/src/data_pb';
+
+const logger = getLogger('cogment').childLogger('__tests__/end-to-end');
 
 describe('grpc.WebsocketTransport', () => {
   test('is able to make a unary call to `cogment.TrialLifecycle.Version`', () => {
@@ -91,6 +91,8 @@ describe('a cogment-app', () => {
         actorSession.start();
         logger.info('Actor session started');
 
+        setTimeout(actorSession.stop.bind(actorSession), 3000);
+
         const trialJoinRequest = new TrialJoinRequest();
         trialJoinRequest.setTrialId(trialId);
         trialJoinRequest.setActorClass('emma');
@@ -103,19 +105,24 @@ describe('a cogment-app', () => {
           message,
           reward,
         } of actorSession.eventLoop()) {
-          if (observation !== null) {
-            logger.info(observation);
+          if (observation) {
+            logger.info(
+              `Received an observation: ${JSON.stringify(
+                observation.toObject(),
+                undefined,
+                2,
+              )}`,
+            );
             const action = new EmmaAction();
             await actorSession.sendAction(action);
           }
-          if (message !== null) {
+          if (message) {
             logger.info(message);
           }
 
-          if (reward !== null) {
+          if (reward) {
             logger.info(reward);
           }
-          actorSession.stop();
         }
       },
     );
@@ -127,7 +134,7 @@ describe('a cogment-app', () => {
       .then((response) => {
         trialId = response.getTrialId();
         return new Promise<typeof response>((resolve) =>
-          setTimeout(() => resolve(response), 3000),
+          setTimeout(() => resolve(response), 5000),
         );
       })
       .then((response) => {
