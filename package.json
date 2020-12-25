@@ -13,6 +13,7 @@
     "node": ">=10"
   },
   "main": "dist/cogment.js",
+  "module": "dist/cogment.esm.js",
   "types": "dist/index.d.ts",
   "directories": {
     "lib": "src/lib",

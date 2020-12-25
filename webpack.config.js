@@ -66,28 +66,27 @@ module.exports = [
       uniqueName: 'cogment-umd',
     },
   }),
-  // merge(webpackCommon, require(`./webpack.${NODE_ENV}.js`)),
-  // {
-  //   name: 'cogment-esm',
-  //   experiments: {
-  //     outputModule: true,
-  //   },
-  //   plugins: [
-  //     new BundleAnalyzerPlugin({
-  //       analyzerMode: 'static',
-  //       reportFilename: '../public/webpack/esm/index.html',
-  //       openAnalyzer: false,
-  //       generateStatsFile: true,
-  //       statsOptions: {preset: 'verbose'},
-  //       statsFilename: '../public/webpack/esm/stats.json',
-  //     }),
-  //   ],
-  //   output: {
-  //     filename: `cogment.mjs`,
-  //     libraryTarget: 'module',
-  //     module: true,
-  //     path: OUT_PATH,
-  //     uniqueName: 'cogment-esm',
-  //   },
-  // },
+  merge(webpackCommon, require(`./webpack.${NODE_ENV}.js`), {
+    name: 'cogment-esm',
+    experiments: {
+      outputModule: true,
+    },
+    plugins: [
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'static',
+        reportFilename: '../public/webpack/esm/index.html',
+        openAnalyzer: false,
+        generateStatsFile: true,
+        statsOptions: {preset: 'verbose'},
+        statsFilename: '../public/webpack/esm/stats.json',
+      }),
+    ],
+    output: {
+      filename: `cogment.esm.js`,
+      libraryTarget: 'module',
+      module: true,
+      path: OUT_PATH,
+      uniqueName: 'cogment-esm',
+    },
+  }),
 ];
