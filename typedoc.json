@@ -12,5 +12,5 @@
     "cogment-api-*"
   ],
   "mode": "file",
-  "out": "public/api"
+  "out": "docs/api"
 }

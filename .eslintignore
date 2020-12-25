@@ -5,6 +5,7 @@
 /public/
 /examples/
 /src/cogment/api
+/docs/api/
 __tests__
 /src/__mocks__/*.ts
 jest.config.js

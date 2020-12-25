@@ -92,6 +92,7 @@ pages:
     - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build:docs
     - cp -r allure-report public/allure
     - cp -r coverage public/coverage
+    - cp -r docs/api/* public/
   artifacts:
     paths:
       - public
