@@ -36,7 +36,7 @@ module.exports = {
           /__mocks__/,
           /__data__/,
           /.*\.test\..*/,
-          path.resolve(__dirname, 'dist'),
+          /dist/,
         ],
       },
     ],

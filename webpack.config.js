@@ -21,8 +21,6 @@ const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin;
 
-const OUT_DIR = 'dist';
-const OUT_PATH = path.resolve(__dirname, OUT_DIR);
 const NODE_ENV =
   process.env.NODE_ENV === 'production' ? 'production' : 'development';
 
@@ -40,10 +38,12 @@ module.exports = [
       }),
     ],
     output: {
-      filename: `cogment.js`,
-      libraryTarget: 'commonjs2',
-      path: OUT_PATH,
+      filename: `[name].js`,
       uniqueName: 'cogment-commonjs',
+      library: {
+        type: 'commonjs2',
+        name: 'cogment',
+      },
     },
   }),
   merge(webpackCommon, require(`./webpack.${NODE_ENV}.js`), {
@@ -59,11 +59,13 @@ module.exports = [
       }),
     ],
     output: {
-      filename: `cogment.umd.js`,
+      filename: `[name].umd.js`,
       globalObject: 'this',
-      libraryTarget: 'umd',
-      path: OUT_PATH,
       uniqueName: 'cogment-umd',
+      library: {
+        type: 'umd',
+        name: 'cogment',
+      },
     },
   }),
   merge(webpackCommon, require(`./webpack.${NODE_ENV}.js`), {
