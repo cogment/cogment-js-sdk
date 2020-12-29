@@ -1,3 +1,22 @@
+# [1.5.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.4.0...v1.5.0) (2020-12-29)
+
+
+### Bug Fixes
+
+* **build:** fix esm production builds ([ab38ba7](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/ab38ba7b6554d92887d33075669122b9905daeba))
+* **index:** export all the things! ([94b0ff5](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/94b0ff57574d36cb7faed9ee1a725f24db03e11e))
+
+
+### Features
+
+* **builds:** implement esm builds ([fe4ee22](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/fe4ee22821bdc1af746aad12605937c864c07d15))
+
+
+### Reverts
+
+* **build:protos:** revert to import_style=commonjs from commonjs_strict ([4c877cb](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/4c877cb8ae53c1fc6107d0af20d1a0ba30ce675f))
+* **gitlab:** need npm install stage in CI build for now ([68e780c](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/68e780cc020764d92cb2f22a9885a8c63ee0b4d7))
+
 # [1.4.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.3.2...v1.4.0) (2020-12-25)
 
 
