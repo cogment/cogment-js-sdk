@@ -40,7 +40,10 @@ export interface Logger {
   warn: LoggerFunction;
 }
 
-class DebugLogger implements Logger {
+/**
+ * Implements a {@link Logger} using the {@link debug#Debug | debug} module.
+ */
+export class DebugLogger implements Logger {
   private readonly traceLogger: debug.Debugger;
   private readonly debugLogger: debug.Debugger;
   private readonly infoLogger: debug.Debugger;
@@ -49,6 +52,11 @@ class DebugLogger implements Logger {
   private readonly fatalLogger: debug.Debugger;
   private logger: debug.Debugger;
 
+  /**
+   *
+   * @param loggerName - The logger namespace used by {@link debug#Debug}.
+   * @param level - The log level for this logger.
+   */
   constructor(
     private loggerName: string = MODULE_NAME,
     private level: LogLevel = LogLevel.debug,
@@ -168,6 +176,11 @@ export class ConsoleLogger implements Logger {
 
 const logger: Logger = new DebugLogger(MODULE_NAME);
 
+/**
+ * Returns a new logger that is optionally namespaced underneath the module name.
+ * @param loggerName - Namespace of the logger, if none is passed, the top level namespace `cogment` is used
+ * @returns A {@link Logger}
+ */
 export function getLogger(loggerName?: string): Logger {
   if (loggerName) {
     return logger.childLogger(loggerName);

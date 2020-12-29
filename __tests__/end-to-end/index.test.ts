@@ -24,7 +24,7 @@ import {
   TrialStartRequest,
 } from '../../src/cogment/api/orchestrator_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
-import {getLogger} from '../../src/lib/Logger';
+import {getLogger} from '../../src';
 import cogSettings from './cogment-app/clients/web/src/cog_settings';
 import {
   AsyncMessage,
@@ -50,13 +50,13 @@ describe('grpc.WebsocketTransport', () => {
     const mockOnMessageCb = jest.fn((message: VersionInfo) => {
       expect(message).toBeInstanceOf(VersionInfo);
     });
-    const mockOnHeadersCb = jest.fn((headers: grpc.Metadata) => {});
+    const mockOnHeadersCb = jest.fn(() => {});
 
     versionClient.onMessage(mockOnMessageCb);
     versionClient.onMessage(mockOnMessageCb);
     versionClient.onHeaders(mockOnHeadersCb);
-    return new Promise((resolve, reject) => {
-      versionClient.onEnd((code, message, trailers) => {
+    return new Promise((resolve) => {
+      versionClient.onEnd((code) => {
         expect(code).toBe(0);
         resolve(undefined);
       });

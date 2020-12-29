@@ -41,6 +41,9 @@ export function decodeObservationData<T extends Message>(
   }
 }
 
+/**
+ * A protobuf message type containing a `content` field of type bytes.
+ */
 export interface SerializableProtobuf extends Message {
   getContent(): Uint8Array | string;
   getContent_asU8(): Uint8Array;
@@ -48,11 +51,18 @@ export interface SerializableProtobuf extends Message {
   setContent(value: Uint8Array | string): void;
 }
 
-export function deserializeData<T>(
+/**
+ * Turn any protobuf message with a `content` field (implements the {@link SerializableProtobuf} interface) into a
+ * `DestinationPb` type protobuf message.
+ * @internal
+ * @typeParam T - Return protobuf message type
+ * @param sourcePb - A protobuf message that implements the {@link SerializableProtobuf} interface
+ * @param DestinationPb - A protobuf message class to deserialize into
+ * @returns A protobuf message of type `DestinationPb` with the contents of `sourcePb`
+ */
+export function deserializeData<T extends Message>(
   sourcePb: SerializableProtobuf,
   DestinationPb: typeof Message,
 ): T {
-  return (DestinationPb.deserializeBinary(
-    sourcePb.getContent_asU8(),
-  ) as unknown) as T;
+  return DestinationPb.deserializeBinary(sourcePb.getContent_asU8()) as T;
 }
