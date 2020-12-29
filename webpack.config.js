@@ -82,11 +82,14 @@ module.exports = [
       }),
     ],
     output: {
-      filename: `cogment.esm.js`,
-      libraryTarget: 'module',
-      module: true,
-      path: OUT_PATH,
+      filename: `[name].esm.js`,
+      module: false,
+      scriptType: 'module',
       uniqueName: 'cogment-esm',
+      library: {
+        type: 'module',
+        name: 'cogment',
+      },
     },
   }),
 ];
