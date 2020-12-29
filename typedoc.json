@@ -1,6 +1,13 @@
 {
-  "includeDeclarations": true,
   "includeVersion": true,
+  "entryPoints": [
+    "src/ActorSession.ts",
+    "src/Cogment.ts",
+    "src/CogmentService.ts",
+    "src/TrialController.ts",
+    "src/lib/DeltaEncoding.ts",
+    "src/lib/Logger.ts"
+  ],
   "externalPattern": ["src/cogment/api/*"],
   "exclude": [
     "**/*.test.*",
@@ -11,6 +18,6 @@
     "cogment",
     "cogment-api-*"
   ],
-  "mode": "file",
+  "categorizeByGroup": true,
   "out": "docs/api"
 }
