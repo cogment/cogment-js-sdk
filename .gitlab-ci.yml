@@ -18,15 +18,14 @@ stages:
 variables:
   COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
 
-#pre:install:
-#  stage: .pre
-#  image: node:14-alpine
-#  script:
-#    - npm install
-#  artifacts:
-#    expose_as: node_modules
-#    paths:
-#      - node_modules
+pre:install:
+  stage: .pre
+  image: node:14-alpine
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
 
 test:
   stage: test
