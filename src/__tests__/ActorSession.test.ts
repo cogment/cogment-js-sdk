@@ -37,7 +37,7 @@ const logger = getLogger('ActorSession');
 
 describe('ActorSession', () => {
   describe('#eventLoop', () => {
-    test('can reveive observations', () => {
+    test('can send and receive observations', () => {
       const service = createService(
         cogSettings,
         NodeHttpTransport(),
@@ -81,9 +81,6 @@ describe('ActorSession', () => {
               ).toBeLessThan(5000);
               expect(observation.getTime() * 1000).toBeLessThanOrEqual(
                 Date.now() + 60000,
-              );
-              expect(observation.getTime() * 1000).toBeGreaterThanOrEqual(
-                Date.now() - 60000,
               );
               const action = new EmmaAction();
               await actorSession.sendAction(action);
