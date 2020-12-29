@@ -16,9 +16,9 @@
   "module": "dist/cogment.esm.js",
   "types": "dist/index.d.ts",
   "directories": {
-    "lib": "src/lib",
+    "lib": "dist",
     "bin": "bin",
-    "doc": "public/api",
+    "doc": "docs",
     "example": "examples",
     "test": "__tests__"
   },
