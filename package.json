@@ -29,7 +29,7 @@
   ],
   "scripts": {
     "analyze": "size-limit --why",
-    "build": "npx npm-run-all build:{clean,install,protos,typings,webpack}",
+    "build": "npx npm-run-all build:{protos,typings,webpack}",
     "build:clean": "npx rimraf node_modules dist public cogment cogment-api.tar.gz cogment-api-* allure-{report,results}",
     "build:docs": "typedoc",
     "build:install": "npm install",
@@ -55,7 +55,7 @@
     "test": "npm run test:jest",
     "test:ci": "npx npm-run-all test:{jest,reports}",
     "test:jest": "jest",
-    "test:reports": "npx npm-run-all test:reports:*",
+    "test:reports": "npx npm-run-all --parallel test:reports:*",
     "test:reports:allure": "allure generate --clean",
     "test:reports:codecov": "codecov",
     "test:ui": "majestic --noOpen",
