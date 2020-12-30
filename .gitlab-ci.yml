@@ -60,8 +60,6 @@ test:
 
 build:
   stage: build
-  variables:
-    NODE_ENV: production
   before_script:
     - apk add docker-compose
   script:
@@ -72,7 +70,7 @@ build:
       - dist
       - public
 
-release:npm:
+release:
   stage: release
   image: node:14-alpine
   variables:
@@ -83,6 +81,8 @@ release:npm:
     - npm run semantic-release
   only:
     - main
+    - next
+    - beta
 
 pages:
   stage: pages

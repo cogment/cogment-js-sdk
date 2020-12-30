@@ -190,12 +190,11 @@
   },
   "release": {
     "branches": [
+      "main",
       {
-        "name": "master"
-      },
-      {
-        "name": "main",
-        "prelease": true
+        "name": "next",
+        "channel": "next",
+        "prelease": "beta"
       }
     ],
     "plugins": [
@@ -205,16 +204,30 @@
       [
         "@semantic-release/npm",
         {
+          "prepare": true,
           "npmPublish": false
         }
       ],
       [
-        "@semantic-release/git",
+        "@semantic-release/gitlab",
         {
-          "path": "@semantic-release/git"
+          "assets": [
+            {
+              "path": "dist/cogment.js",
+              "label": "CommonJS2 bundle"
+            },
+            {
+              "path": "dist/cogment.esm.js",
+              "label": "ESM bundle"
+            },
+            {
+              "path": "dist/cogment.umd.js",
+              "label": "UMD bundle"
+            }
+          ]
         }
       ],
-      "@semantic-release/gitlab"
+      "@semantic-release/git"
     ]
   },
   "size-limit": [
