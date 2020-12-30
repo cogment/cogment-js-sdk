@@ -24,6 +24,7 @@ pre:install:
   script:
     - npm install
   artifacts:
+    expire_in: 1 day
     paths:
       - node_modules
 
@@ -47,6 +48,7 @@ test:
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
     expose_as: reports
+    expire_in: 1 day
     paths:
       - src/cogment
       - coverage
@@ -65,6 +67,7 @@ build:
   script:
     - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build
   artifacts:
+    expire_in: 1 day
     paths:
       - dist
       - public
