@@ -17,8 +17,6 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import concat from 'lodash/concat';
-import map from 'lodash/map';
 import sortBy from 'lodash/sortBy';
 import {
   CogSettings,
@@ -66,7 +64,7 @@ export class ActorSession<
     this.actionStreamClient.onEnd(this.onActionStreamEnd.bind(this));
   }
 
-  public addFeedback(to: string[], reward: Reward<RewardT>): void {
+  public addFeedback(to: string[], feedback: Reward): void {
     throw new Error('addFeedback() is not implemented.');
   }
 
@@ -91,10 +89,6 @@ export class ActorSession<
         await new Promise((resolve) => setTimeout(resolve, 200));
       }
     }
-  }
-
-  public getActiveActors(): TrialActor[] {
-    throw new Error('getActiveActors() is not implemented');
   }
 
   public getTickId(): number {
@@ -132,6 +126,7 @@ export class ActorSession<
     this.actionStreamClient.send(request);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public sendMessage(to: string[], message: MessageT): void {
     throw new Error('sendMessage() is not implemented');
   }
@@ -190,9 +185,9 @@ export class ActorSession<
 
     // TODO: Do we need to worry about ordering received observations, rewards, messages by tickId?
 
-    this.events = concat(
-      this.events,
-      observations
+    this.events = [
+      ...this.events,
+      ...observations
         .filter((observation) => {
           return observation.getData()?.getContent() !== '';
         })
@@ -206,7 +201,7 @@ export class ActorSession<
             ),
           };
         }),
-      map(messages, (message) => ({
+      ...messages.map((message) => ({
         message: {
           sender: message.getSenderName(),
           data: this.actorCogSettings.message_space?.deserializeBinary(
@@ -216,16 +211,16 @@ export class ActorSession<
           ) as MessageT,
         },
       })),
-      map(rewards, (reward) => ({
+      ...rewards.map((reward) => ({
         reward: {
           tickId: reward.getFeedbacksList()[0].getTickId(),
           value: reward.getValue(),
           confidence: reward.getConfidence(),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
-          data: deserializeData(reward, this.actorCogSettings.feedback_space),
+          data: reward,
         },
       })),
-    );
+    ];
   }
 }

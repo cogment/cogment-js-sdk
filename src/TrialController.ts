@@ -16,10 +16,15 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
+import {Message} from 'google-protobuf';
 import map from 'lodash/map';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {VersionInfo, VersionRequest} from './cogment/api/common_pb';
+import {
+  MasterMessageDispatchRequest,
+  MessageDispatchReply,
+} from './cogment/api/message_pb';
 import {
   TerminateTrialReply,
   TerminateTrialRequest,
@@ -54,7 +59,7 @@ export class TrialController {
     private cogSettings: CogSettings,
     private actors: [
       TrialActor,
-      ActorImplementation<never, never, never, never>,
+      ActorImplementation<Message, Message, Message, Message>,
     ][],
     private trialLifecycleClient: TrialLifecycleClient,
     private actorEndpointClient: ActorEndpointClient,
@@ -63,6 +68,23 @@ export class TrialController {
       TrialActionReply
     >,
   ) {}
+
+  /**
+   * A list of {@link TrialActor}s associated to this trial.
+   * @returns The trial actors for this trial.
+   */
+  public getActiveActors(): TrialActor[] {
+    return this.actors.map(([trialActor]) => trialActor);
+  }
+
+  public getTickId(): number {
+    throw new Error('getTriaId() is not implemented');
+  }
+
+  public getTriaId(): string {
+    throw new Error('getTriaId() is not implemented');
+  }
+
   public async getTrialInfo(
     request: TrialInfoRequest,
     trialId: string,
@@ -82,6 +104,46 @@ export class TrialController {
     });
   }
 
+  public isTrialOver(): boolean {
+    throw new Error('isTrialOver() is not implemented');
+  }
+
+  public async sendMessage(
+    request: MasterMessageDispatchRequest,
+  ): Promise<MessageDispatchReply> {
+    // eslint-disable-next-line compat/compat
+    return new Promise<MessageDispatchReply>((resolve, reject) => {
+      // eslint-disable-next-line sonarjs/no-identical-functions
+      this.trialLifecycleClient.sendMessage(request, (error, response) => {
+        if (error || response === null) {
+          return reject(error);
+        }
+        resolve(response);
+      });
+    });
+  }
+
+  private async startActors(trialId: string) {
+    // eslint-disable-next-line compat/compat
+    return Promise.all(
+      map(this.actors, ([actor, actorImpl]) => {
+        logger.info(`Starting actor ${actor.name}`);
+        this.actionStreamClient.start({
+          'trial-id': trialId,
+          'actor-name': actor.name,
+        });
+
+        const actorSession = new ActorSession(
+          actor,
+          this.cogSettings,
+          this.actorEndpointClient,
+          this.actionStreamClient,
+        );
+        return actorImpl(actorSession);
+      }),
+    );
+  }
+
   public async startTrial(
     request: TrialStartRequest,
   ): Promise<TrialStartReply> {
@@ -95,36 +157,14 @@ export class TrialController {
         resolve(response);
       });
     }).then((response) => {
-      logger.info(`Starting actors for trial ${response.getTrialId()}`);
-      // TODO: We currently only support a single actor client, investigate using `TrialLifecycleClient#actionStream`
       this.trialId = response.getTrialId();
-
-      // eslint-disable-next-line compat/compat
-      return Promise.all(
-        map(this.actors, ([actor, actorImpl]) => {
-          logger.info(`Starting actor ${actor.name}`);
-          this.actionStreamClient.start({
-            'trial-id': response.getTrialId(),
-            'actor-name': actor.name,
-          });
-
-          const actorSession = new ActorSession(
-            actor,
-            this.cogSettings,
-            this.actorEndpointClient,
-            this.actionStreamClient,
-          );
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          return actorImpl(actorSession);
-        }),
-      ).then(() => response);
+      return this.startActors(response.getTrialId()).then(() => response);
     });
   }
 
   public async terminateTrial(
     request: TerminateTrialRequest,
-    trialId: string = this.cogSettings.connection.http,
+    trialId: string,
   ): Promise<TerminateTrialReply> {
     // eslint-disable-next-line compat/compat
     return await new Promise((resolve, reject) => {

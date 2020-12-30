@@ -55,8 +55,10 @@ const logger = getLogger();
  * @beta
  *
  * @param cogSettings - Settings loaded from the generated `cog_settings.js` file.
- * @param unaryTransportFactory - A `grpc.TransportFactory` used to make unary (non-streaming) requests to the backend. Defaults to {@link @improbable-eng/grpc-web#CrossBrowserHttpTransport}.
- * @param streamingTransportFactory - A `grpc.TransportFactory` used to instantiate streaming connections to the backend. Defaults to {@link @improbable-eng/grpc-web#WebsocketTransport}.
+ * @param unaryTransportFactory - A `grpc.TransportFactory` used to make unary (non-streaming) requests to the backend.
+ *   Defaults to {@link @improbable-eng/grpc-web#CrossBrowserHttpTransport}.
+ * @param streamingTransportFactory - A `grpc.TransportFactory` used to instantiate streaming connections to the
+ *   backend. Defaults to {@link @improbable-eng/grpc-web#WebsocketTransport}.
  * @returns A {@link CogmentService} configured with the given {@link CogSettings} and transports.
  */
 export function createService(

@@ -15,10 +15,10 @@
  *
  */
 
+import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
+import * as Cogment from '../Cogment';
 import {createService} from '../Cogment';
 import {CogmentService} from '../CogmentService';
-import * as Cogment from '../Cogment';
-import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
 
 describe('Cogment', () => {
   describe('createService', () => {

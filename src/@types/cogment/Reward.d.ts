@@ -15,9 +15,9 @@
  *
  */
 
-export interface Reward<RewardT> {
+export interface Reward {
   tickId: number;
   value: number;
   confidence: number;
-  data: RewardT;
+  data: Reward;
 }

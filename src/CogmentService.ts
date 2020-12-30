@@ -45,7 +45,7 @@ export type ActorImplementation<
 export class CogmentService {
   private actors: Record<
     string,
-    [TrialActor, ActorImplementation<any, any, any, any>]
+    [TrialActor, ActorImplementation<Message, Message, Message, Message>]
   > = {};
 
   constructor(
@@ -75,11 +75,13 @@ export class CogmentService {
         `Actor with name ${actorConfig.name} already registered, overwriting.`,
       );
     }
-    // eslint-disable-next-line lodash/prefer-lodash-method
+
     if (Object.keys(this.actors).length > 1) {
       logger.warn('Support for more than a single actor is not supported.');
     }
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.actors[actorConfig.name] = [actorConfig, actorImpl];
   }
 
