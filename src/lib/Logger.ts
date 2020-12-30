@@ -119,61 +119,6 @@ export class DebugLogger implements Logger {
   }
 }
 
-export class ConsoleLogger implements Logger {
-  constructor(
-    private loggerName: string,
-    private level: LogLevel = LogLevel.debug,
-  ) {}
-
-  public debug(...data: unknown[]): void {
-    if (this.level <= LogLevel.debug) {
-      console.debug(...this.formatLog(...data));
-    }
-  }
-
-  public error(...data: unknown[]): void {
-    if (this.level <= LogLevel.error) {
-      console.error(...this.formatLog(...data));
-    }
-  }
-
-  public fatal(...data: unknown[]): void {
-    if (this.level <= LogLevel.fatal) {
-      console.error(...this.formatLog(...data));
-    }
-  }
-
-  public info(...data: unknown[]): void {
-    if (this.level <= LogLevel.info) {
-      console.log(...this.formatLog(...data));
-    }
-  }
-
-  public trace(...data: unknown[]): void {
-    if (this.level <= LogLevel.trace) {
-      console.trace(...this.formatLog(...data));
-    }
-  }
-
-  public warn(...data: unknown[]): void {
-    if (this.level <= LogLevel.warn) {
-      console.warn(...this.formatLog(...data));
-    }
-  }
-
-  public setLogLevel(level: LogLevel): void {
-    this.level = level;
-  }
-
-  private formatLog(...data: unknown[]) {
-    return [`${this.loggerName}:`, ...data];
-  }
-
-  public childLogger(loggerName: string, level?: LogLevel): Logger {
-    throw new Error('childLogger() is not implemented.');
-  }
-}
-
 const logger: Logger = new DebugLogger(MODULE_NAME);
 
 /**
