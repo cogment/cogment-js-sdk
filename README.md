@@ -153,7 +153,7 @@ for a local node.js distribution), the `cogment-js-sdk`
 docker-compose run cogment-js-sdk npm run test
 ```
 
-[api-docs]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/api 'api-docs'
+[api-docs]: https://ai-r.gitlab.io/cogment-js-sdk-1.0 'api-docs'
 [changelog]: CHANGELOG.md 'changelog'
 [codecov]: https://codecov.io/gl/ai-r/cogment-js-sdk-1.0 'codecov'
 [cogment-app]: __tests__/end-to-end/cogment-app 'cogment-app'
