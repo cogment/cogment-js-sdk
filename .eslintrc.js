@@ -18,9 +18,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaFeatures: {
-      globalReturn: true,
-    },
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
@@ -32,6 +29,7 @@ module.exports = {
     'jest',
     'jest-formatting',
     'tsdoc',
+    'deprecation',
   ],
   env: {
     browser: true,
@@ -65,6 +63,7 @@ module.exports = {
       {cases: {pascalCase: true, kebabCase: true}},
     ],
     'lodash/prefer-lodash-method': 'off',
+    'deprecation/deprecation': 'warn',
   },
   reportUnusedDisableDirectives: true,
 };
