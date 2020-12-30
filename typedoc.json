@@ -1,22 +1,13 @@
 {
   "includeVersion": true,
-  "entryPoints": [
-    "src/ActorSession.ts",
-    "src/Cogment.ts",
-    "src/CogmentService.ts",
-    "src/TrialController.ts",
-    "src/lib/DeltaEncoding.ts",
-    "src/lib/Logger.ts"
-  ],
-  "externalPattern": ["src/cogment/api/*"],
+  "entryPoints": ["src"],
+  "externalPattern": ["src/cogment/api/*.ts"],
   "exclude": [
-    "**/*.test.*",
-    "node_modules/**/*",
-    "__tests__/**/*",
-    "src/__tests__",
-    "src/__data__",
-    "cogment",
-    "cogment-api-*"
+    "**/__{data,mocks,tests}__/**",
+    "src/cogment/api/{common,message}_pb_service.*",
+    "src/cogment/api/*.js",
+    "src/index.ts",
+    "src/@types/cogment/index.d.ts"
   ],
   "categorizeByGroup": true,
   "out": "docs/api"
