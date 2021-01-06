@@ -1,5 +1,3 @@
-
-
 #   Copyright 2021 Artificial Intelligence Redefined <dev+cogment@ai-r.com>
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,8 +17,7 @@ import traceback
 from cogment import TrialHooks, GrpcServer
 from types import SimpleNamespace as ns
 
-// endpoints
-TIME_URL = 'grpc://time:9000'
+TIME_URL = "grpc://time:9000"
 
 
 class Supervisor(TrialHooks):
@@ -30,28 +27,15 @@ class Supervisor(TrialHooks):
     def pre_trial(trial_id, user_id, trial_params):
 
         actor_settings = {
-
-            "time": ns(
-            actor_class='time',
-            end_point=TIME_URL,
-            config=None
-            ),
-
-
+            "time": ns(actor_class="time", end_point=TIME_URL, config=None),
         }
-
 
         try:
             trial_config = trial_params.trial_config
-            actors = [ns(
-                actor_class='emma',
-                endpoint="human",
-                config=None
-            )]
-
+            actors = [ns(actor_class="emma", endpoint="human", config=None)]
 
             # modify following to retrieve config info and create actors list
-            #for ??? in trial_config.env_config.???:
+            # for ??? in trial_config.env_config.???:
             #    actors.append(actor_settings[???])
 
             trial_params.actors = actors
@@ -63,6 +47,7 @@ class Supervisor(TrialHooks):
             traceback.print_exc()
             raise
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     server = GrpcServer(Configurator, cog_settings)
     server.serve()
