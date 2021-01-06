@@ -1,5 +1,5 @@
 /*
- *  Copyright 2020 Artificial Intelligence Redefined <dev+cogment@ai-r.com>
+ *  Copyright 2021 Artificial Intelligence Redefined <dev+cogment@ai-r.com>
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -13,6 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *
+ */
+
+/**
+ * A library for interacting with the {@link https://cogment.ai | cogment.ai} framework.
+ *
+ * @packageDocumentation
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
@@ -30,12 +36,6 @@ import {CogmentService} from './CogmentService';
 import {getLogger} from './lib/Logger';
 
 const logger = getLogger();
-
-/**
- * A library for interacting with the {@link https://cogment.ai | cogment.ai} framework.
- *
- * @packageDocumentation
- */
 
 /**
  * Creates a new {@link CogmentService} from a generated {@link CogSettings | cog_settings.js}.

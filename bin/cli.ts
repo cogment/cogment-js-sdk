@@ -1,6 +1,6 @@
 #!/usr/bin/env node_modules/.bin/ts-node
 /*
- *  Copyright 2020 Artificial Intelligence Redefined <dev+cogment@ai-r.com>
+ *  Copyright 2021 Artificial Intelligence Redefined <dev+cogment@ai-r.com>
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
