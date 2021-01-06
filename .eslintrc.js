@@ -30,6 +30,7 @@ module.exports = {
     'jest-formatting',
     'tsdoc',
     'deprecation',
+    'notice',
   ],
   env: {
     browser: true,
@@ -64,6 +65,14 @@ module.exports = {
     ],
     'lodash/prefer-lodash-method': 'off',
     'deprecation/deprecation': 'warn',
+    'notice/notice': [
+      'error',
+      {
+        mustMatch: `Copyright ${new Date().getFullYear()} Artificial Intelligence Redefined <dev\\+cogment@ai-r\\.com>`,
+        templateFile: 'config/copyright.js',
+        onNonMatchingHeader: 'replace',
+      },
+    ],
   },
   reportUnusedDisableDirectives: true,
 };

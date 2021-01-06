@@ -22,3 +22,4 @@ bin
 /*.json
 /allure-results/
 /allure-report/
+/config/copyright.js
