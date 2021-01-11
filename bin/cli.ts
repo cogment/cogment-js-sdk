@@ -43,8 +43,9 @@ function fetchProtos(cogmentApiVersion: string) {
       // eslint-disable-next-line compat/compat
       Promise.all([
         // eslint-disable-next-line compat/compat
-        new Promise((resolve) => {
+        new Promise((resolve, reject) => {
           response.data.on('close', resolve);
+          response.data.on('error', reject);
           response.data.pipe(jetpack.createWriteStream(tarballOutput));
         }),
         jetpack.dirAsync('cogment/api'),
