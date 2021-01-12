@@ -21,6 +21,7 @@ import map from 'lodash/map';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {VersionInfo, VersionRequest} from './cogment/api/common_pb';
+import {ServiceError} from './cogment/api/environment_pb_service';
 import {
   MasterMessageDispatchRequest,
   MessageDispatchReply,
@@ -32,6 +33,8 @@ import {
   TrialActionRequest,
   TrialInfoReply,
   TrialInfoRequest,
+  TrialJoinReply,
+  TrialJoinRequest,
   TrialStartReply,
   TrialStartRequest,
 } from './cogment/api/orchestrator_pb';
@@ -108,6 +111,23 @@ export class TrialController {
     throw new Error('isTrialOver() is not implemented');
   }
 
+  public joinTrial(request: TrialJoinRequest): Promise<TrialJoinReply> {
+    // eslint-disable-next-line compat/compat
+    return new Promise<TrialJoinReply>((resolve, reject) => {
+      this.actorEndpointClient.joinTrial(
+        request,
+        (error: ServiceError | null, response: TrialJoinReply | null) => {
+          if (error || !response) {
+            return reject(error);
+          }
+          resolve(response);
+        },
+      );
+    }).then((response) => {
+      return this.startActors(response.getTrialId()).then(() => response);
+    });
+  }
+
   public async sendMessage(
     request: MasterMessageDispatchRequest,
   ): Promise<MessageDispatchReply> {
@@ -121,27 +141,6 @@ export class TrialController {
         resolve(response);
       });
     });
-  }
-
-  private async startActors(trialId: string) {
-    // eslint-disable-next-line compat/compat
-    return Promise.all(
-      map(this.actors, ([actor, actorImpl]) => {
-        logger.info(`Starting actor ${actor.name}`);
-        this.actionStreamClient.start({
-          'trial-id': trialId,
-          'actor-name': actor.name,
-        });
-
-        const actorSession = new ActorSession(
-          actor,
-          this.cogSettings,
-          this.actorEndpointClient,
-          this.actionStreamClient,
-        );
-        return actorImpl(actorSession);
-      }),
-    );
   }
 
   public async startTrial(
@@ -158,7 +157,7 @@ export class TrialController {
       });
     }).then((response) => {
       this.trialId = response.getTrialId();
-      return this.startActors(response.getTrialId()).then(() => response);
+      return response;
     });
   }
 
@@ -195,5 +194,26 @@ export class TrialController {
         resolve(response);
       });
     });
+  }
+
+  private async startActors(trialId: string) {
+    // eslint-disable-next-line compat/compat
+    return Promise.all(
+      map(this.actors, ([actor, actorImpl]) => {
+        logger.info(`Starting actor ${actor.name}`);
+        this.actionStreamClient.start({
+          'trial-id': trialId,
+          'actor-name': actor.name,
+        });
+
+        const actorSession = new ActorSession(
+          actor,
+          this.cogSettings,
+          this.actorEndpointClient,
+          this.actionStreamClient,
+        );
+        return actorImpl(actorSession);
+      }),
+    );
   }
 }
