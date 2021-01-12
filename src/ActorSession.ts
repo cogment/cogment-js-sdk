@@ -26,12 +26,9 @@ import {
   TrialActor,
 } from './@types/cogment';
 import {Action as ActionPb} from './cogment/api/common_pb';
-import {ServiceError} from './cogment/api/environment_pb_service';
 import {
   TrialActionReply,
   TrialActionRequest,
-  TrialJoinReply,
-  TrialJoinRequest,
 } from './cogment/api/orchestrator_pb';
 import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
 import {deserializeData} from './lib/DeltaEncoding';
@@ -59,9 +56,10 @@ export class ActorSession<
     >,
   ) {
     this.actorCogSettings = cogSettings.actor_classes[actorClass.class];
-    this.actionStreamClient.onMessage(this.onActionStreamMessage.bind(this));
-    this.actionStreamClient.onHeaders(this.onActionStreamHeaders.bind(this));
-    this.actionStreamClient.onEnd(this.onActionStreamEnd.bind(this));
+
+    this.actionStreamClient.onMessage(this.onActionStreamMessage);
+    this.actionStreamClient.onHeaders(this.onActionStreamHeaders);
+    this.actionStreamClient.onEnd(this.onActionStreamEnd);
   }
 
   public addFeedback(to: string[], feedback: Reward): void {
@@ -103,21 +101,6 @@ export class ActorSession<
     throw new Error('isTrialOver() is not implemented');
   }
 
-  public joinTrial(request: TrialJoinRequest): Promise<TrialJoinReply> {
-    // eslint-disable-next-line compat/compat
-    return new Promise((resolve, reject) => {
-      this.actorEndpointClient.joinTrial(
-        request,
-        (error: ServiceError | null, response: TrialJoinReply | null) => {
-          if (error || !response) {
-            return reject(error);
-          }
-          resolve(response);
-        },
-      );
-    });
-  }
-
   public sendAction(userAction: ActionT): void {
     const action = new ActionPb();
     action.setContent(userAction.serializeBinary());
@@ -139,11 +122,11 @@ export class ActorSession<
     this.running = false;
   }
 
-  private onActionStreamEnd(
+  private onActionStreamEnd = (
     code: grpc.Code,
     message: string,
     trailers: grpc.Metadata,
-  ) {
+  ) => {
     logger.info(
       `actionStream received end, code: ${code}, message: ${message}, trailers: ${JSON.stringify(
         trailers,
@@ -153,15 +136,15 @@ export class ActorSession<
     );
     // TODO: should we implicitly set the trial to running here?
     this.running = false;
-  }
+  };
 
-  private onActionStreamHeaders(headers: grpc.Metadata) {
+  private onActionStreamHeaders = (headers: grpc.Metadata) => {
     logger.info(
       `actionStream received headers: ${JSON.stringify(headers, undefined, 2)}`,
     );
-  }
+  };
 
-  private onActionStreamMessage(action: TrialActionReply) {
+  private onActionStreamMessage = (action: TrialActionReply) => {
     const data = action.getData();
     if (!data) {
       return logger.warn('Received an action without any data');
@@ -222,5 +205,5 @@ export class ActorSession<
         },
       })),
     ];
-  }
+  };
 }
