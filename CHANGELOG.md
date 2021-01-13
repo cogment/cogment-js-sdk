@@ -1,3 +1,10 @@
+## [1.5.1](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.5.0...v1.5.1) (2021-01-13)
+
+
+### Bug Fixes
+
+* **bin/cli.ts:** fixed zlib error ([d2f3636](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/d2f36369145eb8366f945542b0eb06a5b609ee0e))
+
 # [1.5.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.4.0...v1.5.0) (2020-12-29)
 
 
