@@ -1,3 +1,10 @@
+# [1.6.0](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.5.1...v1.6.0) (2021-01-13)
+
+
+### Features
+
+* **api:** refactor API structure ([d3f5ff3](https://gitlab.com/ai-r/cogment-js-sdk-1.0/commit/d3f5ff3619eb5715b104c363656191bd2bcd858b)), closes [#19](https://gitlab.com/ai-r/cogment-js-sdk-1.0/issues/19)
+
 ## [1.5.1](https://gitlab.com/ai-r/cogment-js-sdk-1.0/compare/v1.5.0...v1.5.1) (2021-01-13)
 
 
