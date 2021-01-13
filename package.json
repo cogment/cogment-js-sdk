@@ -64,11 +64,6 @@
     "test:ui": "majestic --noOpen",
     "test:watch": "npm run test:jest -- --watch"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.13.0",
     "debug": "^4.3.1",
