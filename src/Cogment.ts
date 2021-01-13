@@ -39,9 +39,7 @@ const logger = getLogger();
 
 /**
  * Creates a new {@link CogmentService} from a generated {@link CogSettings | cog_settings.js}.
- *
  * Optionally pass transports used by clients.
- *
  * @example
  * Instantiating the `cogment` API.
  * ```typescript
@@ -50,10 +48,8 @@ const logger = getLogger();
  *
  * const cogment = createService(cogSettings);
  * ```
- *
  * @public
  * @beta
- *
  * @param cogSettings - Settings loaded from the generated `cog_settings.js` file.
  * @param unaryTransportFactory - A `grpc.TransportFactory` used to make unary (non-streaming) requests to the backend.
  *   Defaults to {@link @improbable-eng/grpc-web#CrossBrowserHttpTransport}.
