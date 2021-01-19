@@ -19,14 +19,13 @@ import {Message} from 'google-protobuf';
 import {CogSettingsActorClass} from '../@types/cogment';
 import {ObservationData} from '../cogment/api/common_pb';
 
-export function applyDeltaReplace(delta: Message): Message {
-  return delta;
-}
-
-export function decodeObservationData<T extends Message>(
-  actorClass: CogSettingsActorClass,
-  data: ObservationData,
-): T {
+export function decodeObservationData<T extends Message>({
+  actorClass,
+  data,
+}: {
+  actorClass: CogSettingsActorClass;
+  data: ObservationData;
+}): T {
   if (data.getSnapshot()) {
     return actorClass.observation_space.deserializeBinary(
       data.getContent_asU8(),
@@ -37,6 +36,7 @@ export function decodeObservationData<T extends Message>(
       data.getContent_asU8(),
     );
     // TODO: lazy hack around type system by casting here
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     return actorClass.observation_delta_apply_fn(delta) as T;
   }
 }
@@ -53,16 +53,19 @@ export interface SerializableProtobuf extends Message {
 
 /**
  * Turn any protobuf message with a `content` field (implements the {@link SerializableProtobuf} interface) into a
- * `DestinationPb` type protobuf message.
+ * `destinationPb` type protobuf message.
  * @internal
  * @typeParam T - Return protobuf message type
  * @param sourcePb - A protobuf message that implements the {@link SerializableProtobuf} interface
- * @param DestinationPb - A protobuf message class to deserialize into
- * @returns A protobuf message of type `DestinationPb` with the contents of `sourcePb`
+ * @param destinationPb - A protobuf message class to deserialize into
+ * @returns A protobuf message of type `destinationPb` with the contents of `sourcePb`
  */
-export function deserializeData<T extends Message>(
-  sourcePb: SerializableProtobuf,
-  DestinationPb: typeof Message,
-): T {
-  return DestinationPb.deserializeBinary(sourcePb.getContent_asU8()) as T;
+export function deserializeData<T extends Message>({
+  sourcePb,
+  destinationPb,
+}: {
+  sourcePb: SerializableProtobuf;
+  destinationPb: typeof Message;
+}): T {
+  return destinationPb.deserializeBinary(sourcePb.getContent_asU8()) as T;
 }

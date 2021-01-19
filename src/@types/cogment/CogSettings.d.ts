@@ -16,7 +16,6 @@
  */
 
 import {Message} from 'google-protobuf';
-import {applyDeltaReplace} from '../../lib/DeltaEncoding';
 
 export interface CogSettingsActorClass {
   id: string;
@@ -24,7 +23,7 @@ export interface CogSettingsActorClass {
   action_space: typeof Message;
   observation_space: typeof Message;
   observation_delta: typeof Message;
-  observation_delta_apply_fn: typeof applyDeltaReplace;
+  observation_delta_apply_fn: typeof function;
   feedback_space: typeof Message | null;
   message_space: typeof Message | null;
 }

@@ -176,12 +176,12 @@ export class ActorSession<
         })
         .map((observation) => {
           return {
-            observation: deserializeData<ObservationT>(
+            observation: deserializeData<ObservationT>({
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              observation.getData(),
-              this.actorCogSettings.observation_space,
-            ),
+              sourcePb: observation.getData(),
+              destinationPb: this.actorCogSettings.observation_space,
+            }),
           };
         }),
       ...messages.map((message) => ({

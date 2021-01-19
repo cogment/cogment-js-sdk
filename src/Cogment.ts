@@ -57,24 +57,29 @@ const logger = getLogger();
  *   backend. Defaults to {@link @improbable-eng/grpc-web#WebsocketTransport}.
  * @returns A {@link CogmentService} configured with the given {@link CogSettings} and transports.
  */
-export function createService(
-  cogSettings: CogSettings,
-  unaryTransportFactory: grpc.TransportFactory = grpc.CrossBrowserHttpTransport(
-    {
-      withCredentials: false,
-    },
-  ),
-  streamingTransportFactory: grpc.TransportFactory = grpc.WebsocketTransport(),
-): CogmentService {
+export function createService({
+  cogSettings,
+  // eslint-disable-next-line compat/compat
+  grpcURL = `${window.location.protocol}//${window.location.hostname}:8080`,
+  unaryTransportFactory = grpc.CrossBrowserHttpTransport({
+    withCredentials: false,
+  }),
+  streamingTransportFactory = grpc.WebsocketTransport(),
+}: {
+  cogSettings: CogSettings;
+  grpcURL?: string;
+  unaryTransportFactory?: grpc.TransportFactory;
+  streamingTransportFactory?: grpc.TransportFactory;
+}): CogmentService {
   logger.debug('Creating new service with settings %s', cogSettings);
   const trialLifecycleClient: TrialLifecycleClient = new TrialLifecycleClient(
-    cogSettings.connection.http,
+    grpcURL,
     {
       transport: unaryTransportFactory,
     },
   );
   const actorEndpointClient: ActorEndpointClient = new ActorEndpointClient(
-    cogSettings.connection.http,
+    grpcURL,
     {
       transport: streamingTransportFactory,
     },
@@ -85,7 +90,7 @@ export function createService(
     TrialActionReply,
     typeof ActorEndpoint.ActionStream
   >(ActorEndpoint.ActionStream, {
-    host: cogSettings.connection.http,
+    host: grpcURL,
     transport: streamingTransportFactory,
   });
 

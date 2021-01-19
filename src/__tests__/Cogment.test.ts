@@ -18,12 +18,16 @@
 import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
 import * as Cogment from '../Cogment';
 import {createService} from '../Cogment';
+import {config} from '../../src/lib/Config';
 import {CogmentService} from '../CogmentService';
 
 describe('Cogment', () => {
   describe('createService', () => {
     test('returns a `CogmentService`', () => {
-      const service = createService(cogSettings);
+      const service = createService({
+        cogSettings,
+        grpcURL: config.connection.http,
+      });
       expect(service).toBeInstanceOf(CogmentService);
     });
   });

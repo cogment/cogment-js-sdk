@@ -25,6 +25,7 @@ import {
 } from '../../src/cogment/api/orchestrator_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
 import {getLogger} from '../../src';
+import {config} from '../../src/lib/Config';
 import cogSettings from './cogment-app/clients/web/src/cog_settings';
 import {
   AsyncMessage,
@@ -43,7 +44,7 @@ describe('grpc.WebsocketTransport', () => {
       VersionInfo,
       typeof TrialLifecycle.Version
     >(TrialLifecycle.Version, {
-      host: 'http://grpcwebproxy:8080',
+      host: config.connection.http,
       transport: websocketTransport,
     });
 
@@ -73,11 +74,12 @@ describe('grpc.WebsocketTransport', () => {
 
 describe('a cogment-app', () => {
   test('runs', async () => {
-    const service = createService(
-      cogSettings,
-      NodeHttpTransport(),
-      grpc.WebsocketTransport(),
-    );
+    const service = createService({
+      cogSettings: cogSettings,
+      grpcURL: config.connection.http,
+      unaryTransportFactory: NodeHttpTransport(),
+      streamingTransportFactory: grpc.WebsocketTransport(),
+    });
 
     // TODO: this fails if run before registerActor
     // const trialController = service.createTrialController(trialLifecycleClient);

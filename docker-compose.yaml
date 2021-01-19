@@ -5,7 +5,7 @@ services:
     image: namely/grpc-cli:1.32_1
 
   cogment-cli:
-    image: registry.gitlab.com/cogment-cli:latest
+    image: registry.gitlab.com/ai-r/cogment-cli:latest
     volumes:
       - ./:/cogment
 
@@ -69,3 +69,5 @@ services:
     depends_on:
       - orchestrator
     restart: on-failure
+    ports:
+      - '9080:8080'

@@ -33,7 +33,7 @@ interface CogmentApiConfig {
   cogment_api_version: string;
 }
 
-function fetchProtos(cogmentApiVersion: string) {
+function fetchProtos({cogmentApiVersion}: {cogmentApiVersion: string}) {
   return axios
     .request<ReadStream>({
       url: `https://github.com/cogment/cogment-api/archive/v${cogmentApiVersion}.tar.gz`,
@@ -76,7 +76,8 @@ explorer
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const config: CogmentApiConfig = result.config;
-    return fetchProtos(config.cogment_api_version);
+    const cogmentApiVersion: string = config.cogment_api_version;
+    return fetchProtos({cogmentApiVersion});
   })
   .catch((error: Error) => {
     console.error(error.stack);

@@ -26,6 +26,7 @@ import {
 } from '../../__tests__/end-to-end/cogment-app/clients/web/src/data_pb';
 import {ActorSession} from '../ActorSession';
 import {createService} from '../Cogment';
+import {config} from '../../src/lib/Config';
 import {
   TerminateTrialRequest,
   TrialJoinRequest,
@@ -38,11 +39,12 @@ const logger = getLogger('ActorSession');
 describe('ActorSession', () => {
   describe('#eventLoop', () => {
     test('can send and receive observations', () => {
-      const service = createService(
-        cogSettings,
-        NodeHttpTransport(),
-        grpc.WebsocketTransport(),
-      );
+      const service = createService({
+        cogSettings: cogSettings,
+        grpcURL: config.connection.http,
+        unaryTransportFactory: NodeHttpTransport(),
+        streamingTransportFactory: grpc.WebsocketTransport(),
+      });
 
       // TODO: this fails if run before registerActor
       // const trialController = service.createTrialController(trialLifecycleClient);

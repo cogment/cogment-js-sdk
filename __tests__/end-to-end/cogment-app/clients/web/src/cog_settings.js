@@ -15,7 +15,6 @@
  *
  */
 
-const {applyDeltaReplace} = require('cogment/src/lib/DeltaEncoding');
 const protos = require('./data_pb');
 
 const _emma_class = {
@@ -24,7 +23,7 @@ const _emma_class = {
   action_space: protos.EmmaAction,
   observation_space: protos.Observation,
   observation_delta: protos.Observation,
-  observation_delta_apply_fn: applyDeltaReplace,
+  observation_delta_apply_fn: x => x,
   feedback_space: protos.Reward,
   message_space: protos.AsyncMessage,
 };
@@ -35,7 +34,7 @@ const _time_class = {
   action_space: protos.TimeAction,
   observation_space: protos.Observation,
   observation_delta: protos.Observation,
-  observation_delta_apply_fn: applyDeltaReplace,
+  observation_delta_apply_fn: x => x,
   feedback_space: protos.Reward,
   message_space: protos.AsyncMessage,
 };

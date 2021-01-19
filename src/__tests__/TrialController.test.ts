@@ -19,6 +19,7 @@ import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
 import {createService} from '../Cogment';
+import {config} from '../../src/lib/Config';
 import {VersionInfo, VersionRequest} from '../cogment/api/common_pb';
 import {
   TerminateTrialReply,
@@ -34,10 +35,11 @@ describe('TrialController', () => {
   describe('when given an invalid orchestrator url', () => {
     test('fails to make a request to orchestrator', () => {
       const transport = NodeHttpTransport();
-      const service = createService(
-        {...cogSettings, connection: {http: 'http://example.com'}},
-        transport,
-      );
+      const service = createService({
+        cogSettings,
+        grpcURL: 'http://example.com',
+        unaryTransportFactory: transport,
+      });
 
       const trialController = service.createTrialController();
       const request = new VersionRequest();
@@ -52,7 +54,11 @@ describe('TrialController', () => {
       ['NodeHttpTransport', NodeHttpTransport()],
       ['WebsocketTransport', grpc.WebsocketTransport()],
     ])('with a %s', (description, transport) => {
-      const service = createService(cogSettings, transport);
+      const service = createService({
+        cogSettings: cogSettings,
+        grpcURL: config.connection.http,
+        unaryTransportFactory: transport,
+      });
       const trialController = service.createTrialController();
       const request = new VersionRequest();
       return trialController.version(request).then((response) => {
@@ -65,7 +71,11 @@ describe('TrialController', () => {
   test('can execute a trial', () => {
     const clientName = cogSettings.actor_classes.emma.id;
     const transport = NodeHttpTransport();
-    const service = createService(cogSettings, transport);
+    const service = createService({
+      cogSettings: cogSettings,
+      grpcURL: config.connection.http,
+      unaryTransportFactory: transport,
+    });
 
     const trialController = service.createTrialController();
 
