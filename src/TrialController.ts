@@ -17,7 +17,6 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import map from 'lodash/map';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {VersionInfo, VersionRequest} from './cogment/api/common_pb';
@@ -199,7 +198,7 @@ export class TrialController {
   private async startActors(trialId: string) {
     // eslint-disable-next-line compat/compat
     return Promise.all(
-      map(this.actors, ([actor, actorImpl]) => {
+      this.actors.map(([actor, actorImpl]) => {
         logger.info(`Starting actor ${actor.name}`);
         this.actionStreamClient.start({
           'trial-id': trialId,

@@ -17,7 +17,6 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import values from 'lodash/values';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {
@@ -86,9 +85,10 @@ export class CogmentService {
   }
 
   public createTrialController(): TrialController {
+    const actorsList = [...Object.keys(this.actors).map(key => this.actors[key])]
     return new TrialController(
       this.cogSettings,
-      [...values(this.actors)],
+      actorsList,
       this.trialLifecycleClient,
       this.actorEndpointClient,
       this.actionStreamClient,

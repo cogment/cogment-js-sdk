@@ -17,11 +17,10 @@
  */
 
 import axios from 'axios';
-import {cosmiconfig} from 'cosmiconfig';
+import { cosmiconfig } from 'cosmiconfig';
 import decompress from 'decompress';
-import {ReadStream} from 'fs';
+import { ReadStream } from 'fs';
 import jetpack from 'fs-jetpack';
-import map from 'lodash/map';
 import path from 'path';
 
 const moduleName = 'cogment-api';
@@ -33,7 +32,7 @@ interface CogmentApiConfig {
   cogment_api_version: string;
 }
 
-function fetchProtos({cogmentApiVersion}: {cogmentApiVersion: string}) {
+function fetchProtos({ cogmentApiVersion }: { cogmentApiVersion: string }) {
   return axios
     .request<ReadStream>({
       url: `https://github.com/cogment/cogment-api/archive/v${cogmentApiVersion}.tar.gz`,
@@ -52,18 +51,18 @@ function fetchProtos({cogmentApiVersion}: {cogmentApiVersion: string}) {
       ]),
     )
     .then(() => decompress(tarballOutput, '/tmp'))
-    .then(() =>
-      map(
-        // eslint-disable-next-line lodash/prefer-lodash-method
-        jetpack.find(`/tmp/cogment-api-${cogmentApiVersion}`, {
-          matching: '*.proto',
+    .then(() => {
+
+      const files = jetpack.find(`/tmp/cogment-api-${cogmentApiVersion}`, {
+        matching: '*.proto',
+      })
+
+      files.map((file) =>
+        jetpack.move(file, `cogment/api/${path.basename(file)}`, {
+          overwrite: true,
         }),
-        (file) =>
-          jetpack.move(file, `cogment/api/${path.basename(file)}`, {
-            overwrite: true,
-          }),
-      ),
-    );
+      )
+    });
 }
 
 explorer
@@ -77,7 +76,7 @@ explorer
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const config: CogmentApiConfig = result.config;
     const cogmentApiVersion: string = config.cogment_api_version;
-    return fetchProtos({cogmentApiVersion});
+    return fetchProtos({ cogmentApiVersion });
   })
   .catch((error: Error) => {
     console.error(error.stack);

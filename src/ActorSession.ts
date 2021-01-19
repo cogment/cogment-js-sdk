@@ -17,7 +17,6 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import sortBy from 'lodash/sortBy';
 import {
   CogSettings,
   CogSettingsActorClass,
@@ -158,12 +157,16 @@ export class ActorSession<
     );
 
     // Assumes data received is all newer than the last received tickId
-    const observations = sortBy(data.getObservationsList(), ({getTickId}) =>
-      getTickId(),
-    );
-    const messages = sortBy(data.getMessagesList(), ({getTickId}) =>
-      getTickId(),
-    );
+    const observations = [...data.getObservationsList()]
+    .sort(
+      (a, b) => a.getTickId() - b.getTickId()
+    )
+
+    const messages = [...data.getMessagesList()]
+    .sort(
+      (a, b) => a.getTickId() - b.getTickId()
+    )
+
     const rewards = data.getRewardsList();
 
     // TODO: Do we need to worry about ordering received observations, rewards, messages by tickId?
