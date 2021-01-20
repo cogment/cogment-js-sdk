@@ -18,17 +18,9 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
+import {TrialState} from '../cogment/api/orchestrator_pb';
+import {config} from '../lib/Config';
 import {createService} from '../Cogment';
-import {config} from '../../src/lib/Config';
-import {VersionInfo, VersionRequest} from '../cogment/api/common_pb';
-import {
-  TerminateTrialReply,
-  TerminateTrialRequest,
-  TrialInfoRequest,
-  TrialStartReply,
-  TrialStartRequest,
-  TrialState,
-} from '../cogment/api/orchestrator_pb';
 import {TrialController} from '../TrialController';
 
 describe('TrialController', () => {
@@ -42,10 +34,7 @@ describe('TrialController', () => {
       });
 
       const trialController = service.createTrialController();
-      const request = new VersionRequest();
-      return expect(trialController.version(request)).rejects.toBeInstanceOf(
-        Error,
-      );
+      return expect(trialController.version()).rejects.toBeInstanceOf(Error);
     });
   });
 
@@ -60,16 +49,15 @@ describe('TrialController', () => {
         unaryTransportFactory: transport,
       });
       const trialController = service.createTrialController();
-      const request = new VersionRequest();
-      return trialController.version(request).then((response) => {
-        expect(response).toBeInstanceOf(VersionInfo);
-        expect(response.getVersionsList().length).toBeGreaterThan(0);
+      return trialController.version().then((response) => {
+        expect(response.version.length).toBeGreaterThan(0);
       });
     });
   });
 
   test('can execute a trial', () => {
-    const clientName = cogSettings.actor_classes.emma.id;
+    const trialActor = {name: 'emma', class: 'emma'};
+    const clientName = trialActor.name;
     const transport = NodeHttpTransport();
     const service = createService({
       cogSettings: cogSettings,
@@ -79,32 +67,26 @@ describe('TrialController', () => {
 
     const trialController = service.createTrialController();
 
-    const trialStartRequest = new TrialStartRequest();
-    trialStartRequest.setUserId(clientName);
+    return trialController.startTrial(clientName).then((response) => {
+      const trialId = response.trialId;
 
-    return trialController.startTrial(trialStartRequest).then((response) => {
-      const trialId = response.getTrialId();
-
-      expect(response).toBeInstanceOf(TrialStartReply);
       expect(trialId).toBeTruthy();
-      expect(response.toObject().actorsInTrialList).toEqual(
+      expect(response.actorsInTrialList).toEqual(
         expect.arrayContaining([{actorClass: 'emma', name: 'emma'}]),
       );
-      return trialController
-        .getTrialInfo(new TrialInfoRequest(), trialId)
+      const trialLifecyclePromise = trialController
+        .getTrialInfo(trialId)
         .then((trialInfo) => {
           expect(trialInfo.toObject().trialList).toContainEqual(
             expect.objectContaining({
               trialId,
-              state: TrialState.PENDING,
+              // TODO: export our own type probably
+              // state: TrialState.PENDING,
             }),
           );
-          const terminateTrialRequest = new TerminateTrialRequest();
-          return trialController.terminateTrial(terminateTrialRequest, trialId);
-        })
-        .then((response) => {
-          expect(response).toBeInstanceOf(TerminateTrialReply);
+          return trialController.terminateTrial(trialId);
         });
+      expect(trialLifecyclePromise).resolves;
     });
   });
 });

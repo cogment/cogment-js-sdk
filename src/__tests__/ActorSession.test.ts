@@ -24,14 +24,10 @@ import {
   Observation,
   Reward,
 } from '../../__tests__/end-to-end/cogment-app/clients/web/src/data_pb';
+import {TrialActor} from '../@types/cogment';
 import {ActorSession} from '../ActorSession';
 import {createService} from '../Cogment';
-import {config} from '../../src/lib/Config';
-import {
-  TerminateTrialRequest,
-  TrialJoinRequest,
-  TrialStartRequest,
-} from '../cogment/api/orchestrator_pb';
+import {config} from '../lib/Config';
 import {getLogger} from '../lib/Logger';
 
 const logger = getLogger('ActorSession');
@@ -49,8 +45,10 @@ describe('ActorSession', () => {
       // TODO: this fails if run before registerActor
       // const trialController = service.createTrialController(trialLifecycleClient);
 
+      const trialActor: TrialActor = {name: 'emma', class: 'emma'};
+
       service.registerActor<EmmaAction, Observation, Reward, AsyncMessage>(
-        {name: 'emma', class: 'emma'},
+        trialActor,
         async (actorSession) => {
           logger.info('Actor running');
           actorSession.start();
@@ -84,25 +82,17 @@ describe('ActorSession', () => {
         },
       );
       const trialController = service.createTrialController();
-      const request = new TrialStartRequest();
-      request.setUserId('emma');
-      return trialController.startTrial(request).then((response) => {
-        const trialId = response.getTrialId();
-        const trialJoinRequest = new TrialJoinRequest();
-        trialJoinRequest.setTrialId(trialId);
-        trialJoinRequest.setActorClass('emma');
+
+      return trialController.startTrial(trialActor.name).then(({trialId}) => {
         return trialController
-          .joinTrial(trialJoinRequest)
+          .joinTrial(trialId, trialActor)
           .then(() => {
-            return new Promise<typeof response>((resolve) =>
-              setTimeout(() => resolve(response), 5000),
+            return new Promise<{trialId: string}>((resolve) =>
+              setTimeout(() => resolve({trialId}), 5000),
             );
           })
           .then((response) => {
-            return trialController.terminateTrial(
-              new TerminateTrialRequest(),
-              response.getTrialId(),
-            );
+            return trialController.terminateTrial(response.trialId);
           });
       });
     }, 10000);

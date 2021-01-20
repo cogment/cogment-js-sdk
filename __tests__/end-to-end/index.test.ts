@@ -74,6 +74,7 @@ describe('grpc.WebsocketTransport', () => {
 
 describe('a cogment-app', () => {
   test('runs', async () => {
+    const trialActor = {name: 'emma', class: 'emma'};
     const service = createService({
       cogSettings: cogSettings,
       grpcURL: config.connection.http,
@@ -85,7 +86,7 @@ describe('a cogment-app', () => {
     // const trialController = service.createTrialController(trialLifecycleClient);
 
     service.registerActor<EmmaAction, Observation, Reward, AsyncMessage>(
-      {name: 'emma', class: 'emma'},
+      trialActor,
       async (actorSession) => {
         logger.info('Actor running');
         actorSession.start();
@@ -124,27 +125,17 @@ describe('a cogment-app', () => {
     );
 
     const trialController = service.createTrialController();
-    const request = new TrialStartRequest();
-    request.setUserId('emma');
 
-    return trialController.startTrial(request).then((response) => {
-      const trialId = response.getTrialId();
-      const trialJoinRequest = new TrialJoinRequest();
-      trialJoinRequest.setTrialId(trialId);
-      trialJoinRequest.setActorClass('emma');
-
+    return trialController.startTrial(trialActor.name).then(({trialId}) => {
       return trialController
-        .joinTrial(trialJoinRequest)
+        .joinTrial(trialId, trialActor)
         .then(() => {
-          return new Promise<typeof response>((resolve) =>
-            setTimeout(() => resolve(response), 5000),
+          return new Promise<{trialId: string}>((resolve) =>
+            setTimeout(() => resolve({trialId}), 5000),
           );
         })
         .then((response) => {
-          return trialController.terminateTrial(
-            new TerminateTrialRequest(),
-            response.getTrialId(),
-          );
+          return trialController.terminateTrial(trialId);
         });
     });
   }, 10000);
