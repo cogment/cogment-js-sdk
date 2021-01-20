@@ -35,7 +35,7 @@ module.exports = {
   displayName: 'cogment',
   preset: 'ts-jest',
   prettierPath: './node_modules/.bin/prettier',
-  reporters: ['default', 'jest-junit'],
+  reporters: ['default', 'jest-junit', 'jest-sonar'],
   setupFilesAfterEnv: ['./jest.setup.js', 'jest-allure/dist/setup'],
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: [

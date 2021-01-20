@@ -71,3 +71,52 @@ services:
     restart: on-failure
     ports:
       - '9080:8080'
+
+  sonarqube:
+    image: sonarqube:latest
+    stop_grace_period: 3600s
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    environment:
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: 'true'
+    volumes:
+      - ./sonarqube/conf:/opt/sonarqube/conf
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+    ports:
+      - 9001:9000/tcp
+    depends_on:
+      - postgres
+
+  sonarqube-scan:
+    image: sonarsource/sonar-scanner-cli:latest
+    environment:
+      SONAR_HOST_URL: http://sonarqube:9000
+      SONAR_LOGIN: 7c5ed1c4077292688ef483cd61b0bc65735c23a3
+    volumes:
+      - .:/usr/src
+    depends_on:
+      - sonarqube
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always
+
+volumes:
+  postgres:
+    driver: local
+  sonarqube_data:
+    driver: local
+  sonarqube_logs:
+    driver: local
+  sonarqube_extensions:
+    driver: local

@@ -18,7 +18,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
   plugins: [
@@ -31,6 +30,8 @@ module.exports = {
     'tsdoc',
     'deprecation',
     'notice',
+    'import',
+    'promise',
   ],
   env: {
     browser: true,
@@ -56,6 +57,7 @@ module.exports = {
     'plugin:jest/style',
     'plugin:jest-formatting/recommended',
     'plugin:eslint-comments/recommended',
+    'plugin:promise/recommended',
   ],
   rules: {
     'tsdoc/syntax': 'warn',
