@@ -133,7 +133,7 @@ export class TrialController {
     // eslint-disable-next-line compat/compat
     return new Promise<MessageDispatchReply>((resolve, reject) => {
       // eslint-disable-next-line sonarjs/no-identical-functions
-      this.trialLifecycleClient.sendMessage(request, (error, response) => {
+      this.actorEndpointClient.sendMessage(request, (error, response) => {
         if (error || response === null) {
           return reject(error);
         }
