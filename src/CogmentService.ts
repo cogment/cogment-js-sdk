@@ -85,10 +85,9 @@ export class CogmentService {
   }
 
   public createTrialController(): TrialController {
-    const actorsList = [...Object.keys(this.actors).map(key => this.actors[key])]
     return new TrialController(
       this.cogSettings,
-      actorsList,
+      Object.values(this.actors),
       this.trialLifecycleClient,
       this.actorEndpointClient,
       this.actionStreamClient,

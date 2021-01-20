@@ -157,15 +157,13 @@ export class ActorSession<
     );
 
     // Assumes data received is all newer than the last received tickId
-    const observations = [...data.getObservationsList()]
-    .sort(
-      (a, b) => a.getTickId() - b.getTickId()
-    )
+    const observations = [...data.getObservationsList()].sort(
+      (a, b) => a.getTickId() - b.getTickId(),
+    );
 
-    const messages = [...data.getMessagesList()]
-    .sort(
-      (a, b) => a.getTickId() - b.getTickId()
-    )
+    const messages = [...data.getMessagesList()].sort(
+      (a, b) => a.getTickId() - b.getTickId(),
+    );
 
     const rewards = data.getRewardsList();
 
