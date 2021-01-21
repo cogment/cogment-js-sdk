@@ -1,3 +1,3 @@
 
-cogment==1.0.0a2
+cogment==1.0.0a3
 mypy-protobuf

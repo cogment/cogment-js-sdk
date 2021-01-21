@@ -27,10 +27,6 @@ import {
 } from './cogment/api/common_pb';
 import {ServiceError} from './cogment/api/environment_pb_service';
 import {
-  MasterMessageDispatchRequest,
-  MessageDispatchReply,
-} from './cogment/api/message_pb';
-import {
   TerminateTrialRequest,
   TrialActionReply,
   TrialActionRequest,
@@ -38,6 +34,7 @@ import {
   TrialInfoRequest,
   TrialJoinReply,
   TrialJoinRequest,
+  TrialMessageReply,
   TrialMessageRequest,
   TrialStartReply,
   TrialStartRequest,
@@ -48,6 +45,7 @@ import {
 } from './cogment/api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
 import {getLogger} from './lib/Logger';
+import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 
 const logger = getLogger('TrialController');
 
@@ -143,20 +141,23 @@ export class TrialController {
 
   // TODO: WIP - See https://gitlab.com/ai-r/cogment-js-sdk-1.0/-/issues/20
   public async sendMessage(
-    messagePayload: MasterMessageDispatchRequest,
-  ): Promise<MessageDispatchReply> {
+    receiverName: string,
+    senderName: string,
+    messagePayload: AnyPb,
+  ): Promise<SendMessageReturnType> {
     const request = new TrialMessageRequest();
     const message = new CogMessage();
-    // TODO: accept messagePayload arguments
+    message.setSenderName(senderName);
+    message.setReceiverName(receiverName);
+    message.setPayload(messagePayload);
     request.addMessages(message);
     // eslint-disable-next-line compat/compat
-    return new Promise<MessageDispatchReply>((resolve, reject) => {
-      // eslint-disable-next-line sonarjs/no-identical-functions
+    return new Promise<SendMessageReturnType>((resolve, reject) => {
       this.actorEndpointClient.sendMessage(request, (error, response) => {
         if (error || response === null) {
           return reject(error);
         }
-        resolve(response);
+        resolve(response.toObject());
       });
     });
   }
@@ -245,6 +246,7 @@ export class TrialController {
   }
 }
 
+export type SendMessageReturnType = TrialMessageReply.AsObject;
 export type StartTrialReturnType = TrialStartReply.AsObject;
 
 export type JoinTrialArguments = {

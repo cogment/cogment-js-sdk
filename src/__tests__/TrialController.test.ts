@@ -18,9 +18,8 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
-import {TrialState} from '../cogment/api/orchestrator_pb';
-import {config} from '../lib/Config';
 import {createService} from '../Cogment';
+import {config} from '../lib/Config';
 import {TrialController} from '../TrialController';
 
 describe('TrialController', () => {
