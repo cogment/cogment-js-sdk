@@ -29,8 +29,8 @@
   ],
   "scripts": {
     "analyze": "size-limit --why",
-    "build": "npx npm-run-all build:{protos,typings,webpack}",
-    "build:clean": "npx rimraf node_modules dist public cogment cogment-api.tar.gz cogment-api-* allure-{report,results}",
+    "build": "npx npm-run-all build:{clean,protos,typings,webpack}",
+    "build:clean": "npx rimraf dist public cogment cogment-api.tar.gz cogment-api-* allure-{report,results} src/cogment",
     "build:docs": "typedoc",
     "build:install": "npm install",
     "build:protos": "npx npm-run-all build:protos:fetch build:protos:compile",
