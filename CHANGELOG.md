@@ -1,3 +1,13 @@
+# [1.7.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.6.0...v1.7.0) (2021-01-22)
+
+
+### Features
+
+* **api:** remove internal protobuf from public API boundaries ([6e89414](https://gitlab.com/ai-r/cogment-js-sdk/commit/6e89414def8b2c6a782e31f4c5887b3cdac04ac0)), closes [#24](https://gitlab.com/ai-r/cogment-js-sdk/issues/24)
+* **npm:** publish to gitlab's private registry ([6d18330](https://gitlab.com/ai-r/cogment-js-sdk/commit/6d18330745bae81d9d7812c13b696906c17c1356)), closes [#28](https://gitlab.com/ai-r/cogment-js-sdk/issues/28)
+* **repository:** renamed repository to cogment-js-sdk (dropping -1.0 suffix) ([a90ffbc](https://gitlab.com/ai-r/cogment-js-sdk/commit/a90ffbcf47ac1f160d4d29f0ef066499f1bd8caa)), closes [#13](https://gitlab.com/ai-r/cogment-js-sdk/issues/13)
+* **sonarqube:** integrate sonarqube for code quality reporting ([d081351](https://gitlab.com/ai-r/cogment-js-sdk/commit/d081351e059dd69ab740ebca26aa15cdbea7ad7a))
+
 # [1.6.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.5.1...v1.6.0) (2021-01-13)
 
 
