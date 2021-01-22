@@ -1,3 +1,11 @@
+## [1.7.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.0...v1.7.1) (2021-01-22)
+
+
+### Bug Fixes
+
+* **npm:** prepare for public package repository release ([432ca1c](https://gitlab.com/ai-r/cogment-js-sdk/commit/432ca1cf4c7757cd4023f98301499a921afd4a60))
+* **release:** publish package under the [@ai-r](https://gitlab.com/ai-r) scope for gitlab registry support ([a5b9647](https://gitlab.com/ai-r/cogment-js-sdk/commit/a5b9647d15f687d34e501e30ea98c6d64c2e2815))
+
 # [1.7.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.6.0...v1.7.0) (2021-01-22)
 
 
