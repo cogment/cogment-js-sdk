@@ -22,9 +22,12 @@ import decompress from 'decompress';
 import {ReadStream} from 'fs';
 import jetpack from 'fs-jetpack';
 import path from 'path';
+import process from 'process';
 
 const moduleName = 'cogment-api';
-const tarballOutput = '/tmp/cogment-api.tar.gz';
+const tarballTmpDir = jetpack.tmpDir({prefix: 'cogment-api'});
+const tarballName = 'cogment-api.tar.gz';
+const tarballPath = tarballTmpDir.path(tarballName);
 
 const explorer = cosmiconfig(moduleName);
 
@@ -45,21 +48,25 @@ function fetchProtos({cogmentApiVersion}: {cogmentApiVersion: string}) {
         new Promise((resolve, reject) => {
           response.data.on('close', resolve);
           response.data.on('error', reject);
-          response.data.pipe(jetpack.createWriteStream(tarballOutput));
+          response.data.pipe(tarballTmpDir.createWriteStream(tarballName));
         }),
         jetpack.dirAsync('cogment/api'),
       ]),
     )
-    .then(() => decompress(tarballOutput, '/tmp'))
+    .then(() => decompress(tarballPath, tarballTmpDir.cwd()))
     .then(() => {
-      const files = jetpack.find(`/tmp/cogment-api-${cogmentApiVersion}`, {
+      const files = tarballTmpDir.find(`cogment-api-${cogmentApiVersion}`, {
         matching: '*.proto',
       });
 
-      files.map((file) =>
-        jetpack.move(file, `cogment/api/${path.basename(file)}`, {
-          overwrite: true,
-        }),
+      files.forEach((file) =>
+        jetpack.move(
+          tarballTmpDir.path(file),
+          `cogment/api/${path.basename(file)}`,
+          {
+            overwrite: true,
+          },
+        ),
       );
     });
 }
@@ -69,7 +76,6 @@ explorer
   .then((result) => {
     if (!result || !result.config) {
       console.trace('No configuration provided');
-      // eslint-disable-next-line unicorn/no-process-exit
       process.exit(1);
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
