@@ -10,7 +10,7 @@ services:
       - ./:/cogment
 
   cogment-js-sdk:
-    image: registry.gitlab.com/ai-r/cogment-js-sdk-1.0/cogment-js-sdk:latest
+    image: registry.gitlab.com/ai-r/cogment-js-sdk/cogment-js-sdk:latest
     build:
       context: .
     volumes:

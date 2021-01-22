@@ -1,8 +1,8 @@
 # cogment-js-sdk
 
 [![cogment](https://img.shields.io/badge/cogment-brightgreen.svg)][repo]
-[![Gitlab pipeline status](https://gitlab.com/ai-r/cogment-js-sdk-1.0/badges/main/pipeline.svg?private_token=-PxNqY8axtUuGoys4tGj)][repo]
-[![codecov](https://codecov.io/gl/ai-r/cogment-js-sdk-1.0/branch/main/graph/badge.svg?token=aTpPl9c87b)][codecov]
+[![Gitlab pipeline status](https://gitlab.com/ai-r/cogment-js-sdk/badges/main/pipeline.svg?private_token=-PxNqY8axtUuGoys4tGj)][repo]
+[![codecov](https://codecov.io/gl/ai-r/cogment-js-sdk/branch/main/graph/badge.svg?token=aTpPl9c87b)][codecov]
 [![Downloads / Month](https://img.shields.io/npm/dm/cogment)][npm-cogment]
 [![License](https://img.shields.io/npm/l/cogment)][license]
 [![npm](https://img.shields.io/npm/v/cogment)][npm-cogment]
@@ -132,16 +132,22 @@ running on `localhost:8080`).
 
 To run the test suite once:
 
-`npm run test`
+```shell script
+npm run test`
+```
 
 To watch for changes and rerun tests automatically in your console:
 
-`npm run test:watch`
+```shell script
+npm run test:watch
+```
 
 To launch the [majestic test ui][majestic] to run / watch / visualize
 tests:
 
-`npm run test:ui`
+```shell script
+npm run test:ui
+```
 
 ### Docker Testing
 
@@ -153,14 +159,14 @@ for a local node.js distribution), the `cogment-js-sdk`
 docker-compose run cogment-js-sdk npm run test
 ```
 
-[api-docs]: https://ai-r.gitlab.io/cogment-js-sdk-1.0 'api-docs'
+[api-docs]: https://ai-r.gitlab.io/cogment-js-sdk 'api-docs'
 [changelog]: CHANGELOG.md 'changelog'
-[codecov]: https://codecov.io/gl/ai-r/cogment-js-sdk-1.0 'codecov'
+[codecov]: https://codecov.io/gl/ai-r/cogment-js-sdk 'codecov'
 [cogment-app]: __tests__/end-to-end/cogment-app 'cogment-app'
 [cogment-api]: https://github.com/cogment/cogment-api 'cogment-api'
 [cogment.ai]: https://cogment.ai 'cogment.ai'
 [cosmiconfig]: https://www.npmjs.com/package/cosmiconfig 'cosmiconfig'
-[coverage]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/coverage/lcov-report 'coverage report'
+[coverage]: https://ai-r.gitlab.io/cogment-js-sdk/coverage/lcov-report 'coverage report'
 [docker-compose]: https://docs.docker.com/compose/ 'docker-compose'
 [license]: LICENSE.md 'license'
 [majestic]: https://github.com/Raathigesh/majestic 'majestic'
@@ -169,6 +175,6 @@ docker-compose run cogment-js-sdk npm run test
 [nvm]: https://github.com/nvm-sh/nvm 'nvm'
 [package.json]: package.json 'package.json'
 [proposal]: https://docs.google.com/document/d/1K6qCuY-wGlNJzeJuEQEy6bALwJBFNDpJ6HB4LzU-Bq8/edit
-[repo]: https://gitlab.com/ai-r/cogment-js-sdk-1.0/ 'Repository'
-[tests]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/allure
-[webpack]: https://ai-r.gitlab.io/cogment-js-sdk-1.0/webpack/cjs
+[repo]: https://gitlab.com/ai-r/cogment-js-sdk/ 'Repository'
+[tests]: https://ai-r.gitlab.io/cogment-js-sdk/allure
+[webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs

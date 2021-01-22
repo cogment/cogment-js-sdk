@@ -139,7 +139,7 @@ export class TrialController {
     });
   }
 
-  // TODO: WIP - See https://gitlab.com/ai-r/cogment-js-sdk-1.0/-/issues/20
+  // TODO: WIP - See https://gitlab.com/ai-r/cogment-js-sdk/-/issues/20
   public async sendMessage(
     receiverName: string,
     senderName: string,

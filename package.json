@@ -4,7 +4,7 @@
   "description": "Javascript SDK for the Cogment Framework",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:ai-r/cogment-js-sdk-1.0.git"
+    "url": "git@gitlab.com:ai-r/cogment-js-sdk.git"
   },
   "author": "Artificial Intelligence Redefined <dev+cogment@ai-r.com>",
   "license": "SEE LICENSE IN LICENSE.md",
