@@ -1,3 +1,10 @@
+## [1.7.2](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.1...v1.7.2) (2021-01-22)
+
+
+### Bug Fixes
+
+* **npm release:** gitlab failing to update latest dist-tag ([23b7293](https://gitlab.com/ai-r/cogment-js-sdk/commit/23b7293917cecbbf927ff6d9c9ed6459f41f1293))
+
 ## [1.7.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.0...v1.7.1) (2021-01-22)
 
 
