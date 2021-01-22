@@ -60,13 +60,14 @@ module.exports = {
     'plugin:promise/recommended',
   ],
   rules: {
-    'tsdoc/syntax': 'warn',
+    'tsdoc/syntax': 'error',
     'unicorn/filename-case': [
       'error',
       {cases: {pascalCase: true, kebabCase: true}},
     ],
     'lodash/prefer-lodash-method': 'off',
     'deprecation/deprecation': 'warn',
+    'max-params': ['error', {max: 2}],
     'notice/notice': [
       'error',
       {

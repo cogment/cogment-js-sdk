@@ -47,6 +47,7 @@ export class CogmentService {
     [TrialActor, ActorImplementation<Message, Message, Message, Message>]
   > = {};
 
+  // eslint-disable-next-line max-params
   constructor(
     private readonly cogSettings: CogSettings,
     private trialLifecycleClient: TrialLifecycleClient,

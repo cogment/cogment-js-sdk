@@ -45,6 +45,7 @@ export class ActorSession<
   private events: Event<ObservationT, RewardT, MessageT>[] = [];
   private running = false;
 
+  // eslint-disable-next-line max-params
   constructor(
     private actorClass: TrialActor,
     private cogSettings: CogSettings,
@@ -125,6 +126,7 @@ export class ActorSession<
     code: grpc.Code,
     message: string,
     trailers: grpc.Metadata,
+    // eslint-disable-next-line max-params
   ) => {
     logger.info(
       `actionStream received end, code: ${code}, message: ${message}, trailers: ${JSON.stringify(

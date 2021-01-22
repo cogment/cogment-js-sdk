@@ -41,6 +41,7 @@
 - [API Documentation][api-docs]
 - [License][license]
 - [Changelog][changelog]
+- [Coding guidelines][codeguidelines]
 - [Test Report][tests]
 - [Coverage Report][coverage]
 - [Webpack Bundle Report][webpack]
@@ -162,6 +163,7 @@ docker-compose run cogment-js-sdk npm run test
 [api-docs]: https://ai-r.gitlab.io/cogment-js-sdk 'api-docs'
 [changelog]: CHANGELOG.md 'changelog'
 [codecov]: https://codecov.io/gl/ai-r/cogment-js-sdk 'codecov'
+[codeguidelines]: docs/codeguidelines.md
 [cogment-app]: __tests__/end-to-end/cogment-app 'cogment-app'
 [cogment-api]: https://github.com/cogment/cogment-api 'cogment-api'
 [cogment.ai]: https://cogment.ai 'cogment.ai'

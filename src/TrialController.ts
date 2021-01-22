@@ -60,6 +60,7 @@ export class TrialController {
    * @param actorEndpointClient - An {@link ActorEndpointClient | `ActorEndpointClient`}
    * @param actionStreamClient - A grpc-web client for the {@link ActorEndpoint#ActionStream} endpoint
    */
+  // eslint-disable-next-line max-params
   constructor(
     private cogSettings: CogSettings,
     private actors: [
@@ -135,11 +136,14 @@ export class TrialController {
         },
       );
     }).then((response) => {
+      // Nesting promises in order to do the final resolve of response
+      // eslint-disable-next-line promise/no-nesting
       return this.startActors(response.trialId).then(() => response);
     });
   }
 
   // TODO: WIP - See https://gitlab.com/ai-r/cogment-js-sdk/-/issues/20
+  // eslint-disable-next-line max-params
   public async sendMessage(
     receiverName: string,
     senderName: string,
