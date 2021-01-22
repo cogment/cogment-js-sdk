@@ -1,6 +1,6 @@
 {
   "name": "@ai-r/cogment-js-sdk",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "Javascript SDK for the Cogment Framework",
   "repository": {
     "type": "git",

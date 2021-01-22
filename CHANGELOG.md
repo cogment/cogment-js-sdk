@@ -1,3 +1,10 @@
+## [1.7.3](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.2...v1.7.3) (2021-01-22)
+
+
+### Bug Fixes
+
+* **npm release:** scope npm credentials at project level ([71c5c13](https://gitlab.com/ai-r/cogment-js-sdk/commit/71c5c135a5d5caf1f3e291dae86e8945d44ff9f9))
+
 ## [1.7.2](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.1...v1.7.2) (2021-01-22)
 
 
