@@ -182,17 +182,15 @@
     "*.{ts,js,json}": "npm run lint:eslint:fix",
     "*!(.d).ts": "npm run test:jest -- --findRelatedTests --passWithNoTests"
   },
-  "np": {
-    "yarn": false,
-    "contents": "dist"
-  },
   "release": {
     "branches": [
-      "main",
       {
-        "name": "next",
-        "channel": "next",
-        "prelease": "beta"
+        "name": "main"
+      },
+      {
+        "name": "develop",
+        "channel": "alpha",
+        "prelease": "alpha"
       }
     ],
     "plugins": [
@@ -203,7 +201,7 @@
         "@semantic-release/npm",
         {
           "prepare": true,
-          "npmPublish": false
+          "npmPublish": true
         }
       ],
       [
