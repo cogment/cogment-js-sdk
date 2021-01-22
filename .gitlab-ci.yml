@@ -82,7 +82,6 @@ release:
   only:
     - main
     - develop
-    - beta
 
 pages:
   stage: pages
