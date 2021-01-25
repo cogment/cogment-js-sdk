@@ -15,6 +15,7 @@
 ![GitHub Repo stars](https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)][code-of-conduct]
 
 <!-- prettier-ignore-start -->
 [TOC]: #
@@ -39,6 +40,7 @@
 - [cogment.ai]
 - [Repository][repo]
 - [API Documentation][api-docs]
+- [Code of Conduct][code-of-conduct]
 - [License][license]
 - [Changelog][changelog]
 - [Open Core Development][opencore-development]
@@ -173,6 +175,7 @@ docker-compose run cogment-js-sdk npm run test
 
 [api-docs]: https://ai-r.gitlab.io/cogment-js-sdk 'api-docs'
 [changelog]: CHANGELOG.md 'changelog'
+[code-of-conduct]: CODE_OF_CONDUCT.md
 [codecov]: https://codecov.io/gl/ai-r/cogment-js-sdk 'codecov'
 [codeguidelines]: docs/codeguidelines.md
 [cogjs-cli]: ./cli

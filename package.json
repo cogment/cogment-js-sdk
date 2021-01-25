@@ -48,6 +48,8 @@
     "lint:prettier": "prettier .",
     "lint:prettier:check": "npm run lint:prettier -- --check",
     "lint:prettier:fix": "npm run lint:prettier -- --write",
+    "migrate": "npx npm-run-all migrate:*",
+    "migrate:conduct": "npx covgen 'dev+cogment@ai-r.com'",
     "report:legal": "npx npm-run-all report:legal:*",
     "report:legal:legally": "npx legally -lr",
     "report:legal:tldrlegal": "npx tldrlegal",
