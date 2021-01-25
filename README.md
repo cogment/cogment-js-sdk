@@ -41,6 +41,7 @@
 - [API Documentation][api-docs]
 - [License][license]
 - [Changelog][changelog]
+- [Open Core Development][opencore-development]
 - [Coding guidelines][codeguidelines]
 - [Test Report][tests]
 - [Coverage Report][coverage]
@@ -52,7 +53,7 @@
 To install the package:
 
 ```shell script
-npm install cogment
+npm install @cogment/cogment-js
 ```
 
 ## Hacking
@@ -175,6 +176,7 @@ docker-compose run cogment-js-sdk npm run test
 [nodenv]: https://github.com/nodenv/nodenv 'nodenv'
 [npm-cogment]: https://www.npmjs.com/package/cogment 'npm-cogment'
 [nvm]: https://github.com/nvm-sh/nvm 'nvm'
+[opencore-development]: docs/opencore-development.md
 [package.json]: package.json 'package.json'
 [proposal]: https://docs.google.com/document/d/1K6qCuY-wGlNJzeJuEQEy6bALwJBFNDpJ6HB4LzU-Bq8/edit
 [repo]: https://gitlab.com/ai-r/cogment-js-sdk/ 'Repository'
