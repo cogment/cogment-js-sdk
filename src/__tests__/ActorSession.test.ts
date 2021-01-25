@@ -83,11 +83,10 @@ describe('ActorSession', () => {
       );
       const trialController = service.createTrialController();
 
-      const {trialId} = await trialController.startTrial(trialActor.name)
-      await trialController.joinTrial(trialId, trialActor)
-      await new Promise(resolve => setTimeout(resolve, 5000))
+      const {trialId} = await trialController.startTrial(trialActor.name);
+      await trialController.joinTrial(trialId, trialActor);
+      await new Promise((resolve) => setTimeout(resolve, 5000));
       return trialController.terminateTrial(trialId);
-
     }, 10000);
   });
 });

@@ -114,10 +114,7 @@ export class TrialController {
     throw new Error('isTrialOver() is not implemented');
   }
 
-  public async joinTrial(
-    trialId: string,
-    trialActor?: TrialActor,
-  ) {
+  public async joinTrial(trialId: string, trialActor?: TrialActor) {
     const request = new TrialJoinRequest();
     request.setTrialId(trialId);
     if (trialActor) {
@@ -125,17 +122,19 @@ export class TrialController {
       request.setActorClass(trialActor.class);
     }
     // eslint-disable-next-line compat/compat
-    const response = await new Promise<JoinTrialReturnType>((resolve, reject) => {
-      this.actorEndpointClient.joinTrial(
-        request,
-        (error: ServiceError | null, response: TrialJoinReply | null) => {
-          if (error || !response) {
-            return reject(error);
-          }
-          resolve(response.toObject());
-        },
-      );
-    })
+    const response = await new Promise<JoinTrialReturnType>(
+      (resolve, reject) => {
+        this.actorEndpointClient.joinTrial(
+          request,
+          (error: ServiceError | null, response: TrialJoinReply | null) => {
+            if (error || !response) {
+              return reject(error);
+            }
+            resolve(response.toObject());
+          },
+        );
+      },
+    );
 
     await this.startActors(response.trialId);
     return response;

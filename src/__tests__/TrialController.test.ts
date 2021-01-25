@@ -48,12 +48,12 @@ describe('TrialController', () => {
         unaryTransportFactory: transport,
       });
       const trialController = service.createTrialController();
-      const response = await trialController.version()
+      const response = await trialController.version();
       expect(response.version.length).toBeGreaterThan(0);
     });
   });
 
-  test('can execute a trial', async() => {
+  test('can execute a trial', async () => {
     const trialActor = {name: 'emma', class: 'emma'};
     const clientName = trialActor.name;
     const transport = NodeHttpTransport();
@@ -65,14 +65,14 @@ describe('TrialController', () => {
 
     const trialController = service.createTrialController();
 
-    const response = await trialController.startTrial(clientName)
+    const response = await trialController.startTrial(clientName);
     const trialId = response.trialId;
 
     expect(trialId).toBeTruthy();
     expect(response.actorsInTrialList).toEqual(
       expect.arrayContaining([{actorClass: 'emma', name: 'emma'}]),
     );
-    const trialInfo = await trialController.getTrialInfo(trialId)
+    const trialInfo = await trialController.getTrialInfo(trialId);
     expect(trialInfo.toObject().trialList).toContainEqual(
       expect.objectContaining({
         trialId,
@@ -80,7 +80,7 @@ describe('TrialController', () => {
         // state: TrialState.PENDING,
       }),
     );
-    const terminatePromise =  trialController.terminateTrial(trialId);
+    const terminatePromise = trialController.terminateTrial(trialId);
     expect(terminatePromise).resolves;
   }, 10000);
 });

@@ -39,8 +39,8 @@ async function fetchProtos({cogmentApiVersion}: {cogmentApiVersion: string}) {
   const response = await axios.request<ReadStream>({
     url: `https://github.com/cogment/cogment-api/archive/v${cogmentApiVersion}.tar.gz`,
     responseType: 'stream',
-  })
-    
+  });
+
   // eslint-disable-next-line compat/compat
   await Promise.all([
     // eslint-disable-next-line compat/compat
@@ -51,9 +51,8 @@ async function fetchProtos({cogmentApiVersion}: {cogmentApiVersion: string}) {
     }),
     jetpack.dirAsync('cogment/api'),
   ]),
+    await decompress(tarballPath, tarballTmpDir.cwd());
 
-  await decompress(tarballPath, tarballTmpDir.cwd())
-   
   const files = tarballTmpDir.find(`cogment-api-${cogmentApiVersion}`, {
     matching: '*.proto',
   });
