@@ -114,10 +114,10 @@ export class TrialController {
     throw new Error('isTrialOver() is not implemented');
   }
 
-  public joinTrial(
+  public async joinTrial(
     trialId: string,
     trialActor?: TrialActor,
-  ): Promise<JoinTrialReturnType> {
+  ) {
     const request = new TrialJoinRequest();
     request.setTrialId(trialId);
     if (trialActor) {
@@ -125,7 +125,7 @@ export class TrialController {
       request.setActorClass(trialActor.class);
     }
     // eslint-disable-next-line compat/compat
-    return new Promise<JoinTrialReturnType>((resolve, reject) => {
+    const response = await new Promise<JoinTrialReturnType>((resolve, reject) => {
       this.actorEndpointClient.joinTrial(
         request,
         (error: ServiceError | null, response: TrialJoinReply | null) => {
@@ -135,11 +135,10 @@ export class TrialController {
           resolve(response.toObject());
         },
       );
-    }).then((response) => {
-      // Nesting promises in order to do the final resolve of response
-      // eslint-disable-next-line promise/no-nesting
-      return this.startActors(response.trialId).then(() => response);
-    });
+    })
+
+    await this.startActors(response.trialId);
+    return response;
   }
 
   // TODO: WIP - See https://gitlab.com/ai-r/cogment-js-sdk/-/issues/20

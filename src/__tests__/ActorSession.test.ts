@@ -34,7 +34,7 @@ const logger = getLogger('ActorSession');
 
 describe('ActorSession', () => {
   describe('#eventLoop', () => {
-    test('can send and receive observations', () => {
+    test('can send and receive observations', async () => {
       const service = createService({
         cogSettings: cogSettings,
         grpcURL: config.connection.http,
@@ -83,18 +83,11 @@ describe('ActorSession', () => {
       );
       const trialController = service.createTrialController();
 
-      return trialController.startTrial(trialActor.name).then(({trialId}) => {
-        return trialController
-          .joinTrial(trialId, trialActor)
-          .then(() => {
-            return new Promise<{trialId: string}>((resolve) =>
-              setTimeout(() => resolve({trialId}), 5000),
-            );
-          })
-          .then((response) => {
-            return trialController.terminateTrial(response.trialId);
-          });
-      });
+      const {trialId} = await trialController.startTrial(trialActor.name)
+      await trialController.joinTrial(trialId, trialActor)
+      await new Promise(resolve => setTimeout(resolve, 5000))
+      return trialController.terminateTrial(trialId);
+
     }, 10000);
   });
 });

@@ -41,20 +41,19 @@ describe('TrialController', () => {
     test.each([
       ['NodeHttpTransport', NodeHttpTransport()],
       ['WebsocketTransport', grpc.WebsocketTransport()],
-    ])('with a %s', (description, transport) => {
+    ])('with a %s', async (description, transport) => {
       const service = createService({
         cogSettings: cogSettings,
         grpcURL: config.connection.http,
         unaryTransportFactory: transport,
       });
       const trialController = service.createTrialController();
-      return trialController.version().then((response) => {
-        expect(response.version.length).toBeGreaterThan(0);
-      });
+      const response = await trialController.version()
+      expect(response.version.length).toBeGreaterThan(0);
     });
   });
 
-  test('can execute a trial', () => {
+  test('can execute a trial', async() => {
     const trialActor = {name: 'emma', class: 'emma'};
     const clientName = trialActor.name;
     const transport = NodeHttpTransport();
@@ -66,26 +65,22 @@ describe('TrialController', () => {
 
     const trialController = service.createTrialController();
 
-    return trialController.startTrial(clientName).then((response) => {
-      const trialId = response.trialId;
+    const response = await trialController.startTrial(clientName)
+    const trialId = response.trialId;
 
-      expect(trialId).toBeTruthy();
-      expect(response.actorsInTrialList).toEqual(
-        expect.arrayContaining([{actorClass: 'emma', name: 'emma'}]),
-      );
-      const trialLifecyclePromise = trialController
-        .getTrialInfo(trialId)
-        .then((trialInfo) => {
-          expect(trialInfo.toObject().trialList).toContainEqual(
-            expect.objectContaining({
-              trialId,
-              // TODO: export our own type probably
-              // state: TrialState.PENDING,
-            }),
-          );
-          return trialController.terminateTrial(trialId);
-        });
-      expect(trialLifecyclePromise).resolves;
-    });
-  });
+    expect(trialId).toBeTruthy();
+    expect(response.actorsInTrialList).toEqual(
+      expect.arrayContaining([{actorClass: 'emma', name: 'emma'}]),
+    );
+    const trialInfo = await trialController.getTrialInfo(trialId)
+    expect(trialInfo.toObject().trialList).toContainEqual(
+      expect.objectContaining({
+        trialId,
+        // TODO: export our own type probably
+        // state: TrialState.PENDING,
+      }),
+    );
+    const terminatePromise =  trialController.terminateTrial(trialId);
+    expect(terminatePromise).resolves;
+  }, 10000);
 });

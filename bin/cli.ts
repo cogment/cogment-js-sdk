@@ -35,40 +35,38 @@ interface CogmentApiConfig {
   cogment_api_version: string;
 }
 
-function fetchProtos({cogmentApiVersion}: {cogmentApiVersion: string}) {
-  return axios
-    .request<ReadStream>({
-      url: `https://github.com/cogment/cogment-api/archive/v${cogmentApiVersion}.tar.gz`,
-      responseType: 'stream',
-    })
-    .then((response) =>
-      // eslint-disable-next-line compat/compat
-      Promise.all([
-        // eslint-disable-next-line compat/compat
-        new Promise((resolve, reject) => {
-          response.data.on('close', resolve);
-          response.data.on('error', reject);
-          response.data.pipe(tarballTmpDir.createWriteStream(tarballName));
-        }),
-        jetpack.dirAsync('cogment/api'),
-      ]),
-    )
-    .then(() => decompress(tarballPath, tarballTmpDir.cwd()))
-    .then(() => {
-      const files = tarballTmpDir.find(`cogment-api-${cogmentApiVersion}`, {
-        matching: '*.proto',
-      });
+async function fetchProtos({cogmentApiVersion}: {cogmentApiVersion: string}) {
+  const response = await axios.request<ReadStream>({
+    url: `https://github.com/cogment/cogment-api/archive/v${cogmentApiVersion}.tar.gz`,
+    responseType: 'stream',
+  })
+    
+  // eslint-disable-next-line compat/compat
+  await Promise.all([
+    // eslint-disable-next-line compat/compat
+    new Promise((resolve, reject) => {
+      response.data.on('close', resolve);
+      response.data.on('error', reject);
+      response.data.pipe(tarballTmpDir.createWriteStream(tarballName));
+    }),
+    jetpack.dirAsync('cogment/api'),
+  ]),
 
-      files.forEach((file) =>
-        jetpack.move(
-          tarballTmpDir.path(file),
-          `cogment/api/${path.basename(file)}`,
-          {
-            overwrite: true,
-          },
-        ),
-      );
-    });
+  await decompress(tarballPath, tarballTmpDir.cwd())
+   
+  const files = tarballTmpDir.find(`cogment-api-${cogmentApiVersion}`, {
+    matching: '*.proto',
+  });
+
+  files.forEach((file) =>
+    jetpack.move(
+      tarballTmpDir.path(file),
+      `cogment/api/${path.basename(file)}`,
+      {
+        overwrite: true,
+      },
+    ),
+  );
 }
 
 explorer

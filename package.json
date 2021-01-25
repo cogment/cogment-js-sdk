@@ -6,10 +6,12 @@
     "type": "git",
     "url": "git@gitlab.com:ai-r/cogment-js-sdk.git"
   },
-  "license": "SEE LICENSE IN LICENSE.md",
   "author": "Artificial Intelligence Redefined <dev+cogment@ai-r.com>",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "engines": {
+    "node": ">=10"
+  },
   "main": "dist/cogment.js",
-  "module": "dist/cogment.esm.js",
   "types": "dist/index.d.ts",
   "directories": {
     "lib": "dist",
@@ -60,21 +62,6 @@
     "test:ui": "npx majestic --noOpen",
     "test:watch": "npm run test:jest -- --watch"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && [ -z ${CI} ] && git cz --hook || true",
-      "commit-msg": "[ -z ${CI} ] && npx commitlint --edit \"$1\" || true"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,js,css,md,json,yaml,yml}": "npm run lint:prettier:fix",
-    "*.{ts,js,json}": "npm run lint:eslint:fix",
-    "*!(.d).ts": "npm run test:jest -- --findRelatedTests --passWithNoTests"
-  },
-  "browserslist": [
-    "defaults"
-  ],
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.13.0",
     "debug": "^4.3.1"
@@ -164,9 +151,9 @@
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.2"
   },
-  "engines": {
-    "node": ">=10"
-  },
+  "browserslist": [
+    "defaults"
+  ],
   "cogment": {
     "connection": {
       "http": "http://grpcwebproxy:8080"
@@ -177,6 +164,18 @@
   },
   "cogment-api": {
     "cogment_api_version": "1.0.0-alpha4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && [ -z ${CI} ] && git cz --hook || true",
+      "commit-msg": "[ -z ${CI} ] && npx commitlint --edit \"$1\" || true"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,js,css,md,json,yaml,yml}": "npm run lint:prettier:fix",
+    "*.{ts,js,json}": "npm run lint:eslint:fix",
+    "*!(.d).ts": "npm run test:jest -- --findRelatedTests --passWithNoTests"
   },
   "release": {
     "branches": [

@@ -37,7 +37,7 @@ import {
 const logger = getLogger('cogment').childLogger('__tests__/end-to-end');
 
 describe('grpc.WebsocketTransport', () => {
-  test('is able to make a unary call to `cogment.TrialLifecycle.Version`', () => {
+  test('is able to make a unary call to `cogment.TrialLifecycle.Version`', async () => {
     const websocketTransport = grpc.WebsocketTransport();
     const versionClient = grpc.client<
       VersionRequest,
@@ -56,7 +56,7 @@ describe('grpc.WebsocketTransport', () => {
     versionClient.onMessage(mockOnMessageCb);
     versionClient.onMessage(mockOnMessageCb);
     versionClient.onHeaders(mockOnHeadersCb);
-    return new Promise((resolve) => {
+    await new Promise((resolve) => {
       versionClient.onEnd((code) => {
         expect(code).toBe(0);
         resolve(undefined);
@@ -65,11 +65,11 @@ describe('grpc.WebsocketTransport', () => {
       versionClient.start();
       versionClient.send(new VersionRequest());
       versionClient.finishSend();
-    }).then(() => {
-      expect(mockOnMessageCb.mock.calls.length).toBe(2);
-      expect(mockOnHeadersCb.mock.calls.length).toBe(1);
-    });
-  });
+    })
+
+    expect(mockOnMessageCb.mock.calls.length).toBe(2);
+    expect(mockOnHeadersCb.mock.calls.length).toBe(1);
+  }, 10000);
 });
 
 describe('a cogment-app', () => {
@@ -126,17 +126,9 @@ describe('a cogment-app', () => {
 
     const trialController = service.createTrialController();
 
-    return trialController.startTrial(trialActor.name).then(({trialId}) => {
-      return trialController
-        .joinTrial(trialId, trialActor)
-        .then(() => {
-          return new Promise<{trialId: string}>((resolve) =>
-            setTimeout(() => resolve({trialId}), 5000),
-          );
-        })
-        .then((response) => {
-          return trialController.terminateTrial(trialId);
-        });
-    });
+    const {trialId} = await trialController.startTrial(trialActor.name)
+    await trialController.joinTrial(trialId, trialActor)
+    await new Promise(resolve => setTimeout(resolve, 5000))
+    return trialController.terminateTrial(trialId);
   }, 10000);
 });
