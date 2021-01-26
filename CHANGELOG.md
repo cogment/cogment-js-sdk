@@ -1,3 +1,11 @@
+## [1.7.4](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.3...v1.7.4) (2021-01-26)
+
+
+### Bug Fixes
+
+* removed 'module' from package.json ([016a6aa](https://gitlab.com/ai-r/cogment-js-sdk/commit/016a6aae3d6c9c63813235dc8c75f78112d374d8))
+* Removed 'module' from package.json ([b798119](https://gitlab.com/ai-r/cogment-js-sdk/commit/b798119bd2b1b3eb9de17963a58ff6c74727574b))
+
 ## [1.7.3](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.2...v1.7.3) (2021-01-22)
 
 
