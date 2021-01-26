@@ -21,6 +21,8 @@ RUN npm install
 
 COPY . .
 
+RUN cd cli && npm install && npm install -g ./
+
 RUN npm run build:protos \
   && rm -rf cogment cogment-api.tar.gz cogment-api-*
 

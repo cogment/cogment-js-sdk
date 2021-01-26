@@ -23,10 +23,12 @@ pre:install:
   image: node:14-alpine
   script:
     - npm install
+    - cd cli && npm install
   artifacts:
     expire_in: 1 day
     paths:
       - node_modules
+      - cli/node_modules
 
 test:
   stage: test

@@ -46,6 +46,7 @@
 - [Test Report][tests]
 - [Coverage Report][coverage]
 - [Webpack Bundle Report][webpack]
+- [cogjs-cli][cogjs-cli]
 - [Design Proposal][proposal]
 
 ## Usage
@@ -61,7 +62,7 @@ npm install @cogment/cogment-js
 Clone the repository:
 
 ```shell script
-git clone https://github.com/cogment/cogment-js-sdk
+git clone https://github.com/cogment/cogment-js-sdk.git
 ```
 
 ### Local Hacking
@@ -84,16 +85,13 @@ nvm install
 
 #### Setup
 
-Once a working node.js distribution is available:
+Once a working node.js distribution is available, there is a single npm
+script, `init`, that will initialize the repository for local
+development (including running `npm install`):
 
-1. Install dependencies:
-   ```shell script
-   npm install
-   ```
-2. Download and compile [cogment-api] protobuf files:
-   ```shell script
-   npm run build:protos
-   ```
+```shell script
+npm run init
+```
 
 ### Docker Hacking
 
@@ -101,19 +99,14 @@ Local hacking is also supported through docker, removing the necessity
 for a local node.js distribution. [docker-compose] is used to simplify
 the configuration of creating containers - install before proceeding.
 
-Once installed, copy the `docker-compose.override.template.yaml` to
-`docker-compose.override.yaml` ([this file is merged with
-`docker-compose.yaml`](https://docs.docker.com/compose/extends/)).
-
-```shell script
-cp docker-compose.override{.template,}.yaml
-```
-
-Then, build the docker container!
-
-```shell script
-docker-compose build cogment-js-sdk
-```
+1. Build the docker container:
+   ```shell script
+   docker-compose build cogment-js-sdk
+   ```
+2. Initialize the repository:
+   ```shell script
+   docker-compose run cogment-js-sdk npm run init
+   ```
 
 ## Tests
 
@@ -182,8 +175,8 @@ docker-compose run cogment-js-sdk npm run test
 [changelog]: CHANGELOG.md 'changelog'
 [codecov]: https://codecov.io/gl/ai-r/cogment-js-sdk 'codecov'
 [codeguidelines]: docs/codeguidelines.md
+[cogjs-cli]: ./cli
 [cogment-app]: __tests__/end-to-end/cogment-app 'cogment-app'
-[cogment-api]: https://github.com/cogment/cogment-api 'cogment-api'
 [cogment.ai]: https://cogment.ai 'cogment.ai'
 [cosmiconfig]: https://www.npmjs.com/package/cosmiconfig 'cosmiconfig'
 [coverage]: https://ai-r.gitlab.io/cogment-js-sdk/coverage/lcov-report 'coverage report'
