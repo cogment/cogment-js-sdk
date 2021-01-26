@@ -101,6 +101,16 @@ Local hacking is also supported through docker, removing the necessity
 for a local node.js distribution. [docker-compose] is used to simplify
 the configuration of creating containers - install before proceeding.
 
+Once installed, copy the `docker-compose.override.template.yaml` to
+`docker-compose.override.yaml` ([this file is merged with
+`docker-compose.yaml`](https://docs.docker.com/compose/extends/)).
+
+```shell script
+cp docker-compose.override{.template,}.yaml
+```
+
+Then, build the docker container!
+
 ```shell script
 docker-compose build cogment-js-sdk
 ```
@@ -128,14 +138,21 @@ bin/down.bash
 
 Note: By default the test environment is configured to run within a
 docker container. [cogment-js-sdk][repo] uses [cosmiconfig] for
-configuration - update `cogment.connection.http` in [package.json] to
-`http://localhost:8080` (or the host of the docker daemon if it is not
-running on `localhost:8080`).
+configuration - currently stored under the key `cogment.connection.http`
+in [package.json].
+
+The default configuration is to contact the grpc-web proxy at
+`grpcwebproxy:8080`. Either:
+
+- Change this value to `http://localhost:8080` (or the host of the
+  docker daemon if it is not running on `localhost:8080`)
+- Create an `/etc/hosts` entry that points to the appropriate docker
+  daemon
 
 To run the test suite once:
 
 ```shell script
-npm run test`
+npm run test
 ```
 
 To watch for changes and rerun tests automatically in your console:

@@ -69,8 +69,6 @@ services:
     depends_on:
       - orchestrator
     restart: on-failure
-    ports:
-      - '9080:8080'
 
   sonarqube:
     image: sonarqube:latest
