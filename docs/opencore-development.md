@@ -25,3 +25,11 @@ by:
 npm config set @ai-r:registry=https://gitlab.com/api/v4/projects/22532182/packages/npm/
 npm config set '//gitlab.example.com/api/v4/projects/22532182/packages/npm/:_authToken' "<your token>"
 ```
+
+## Release Process
+
+Releases are automated using the [semantic-release][semantic-release]
+tool. Read the [workflow][semantic-release-workflow] documentation.
+
+[semantic-release]: https://github.com/semantic-release/semantic-release
+[semantic-release-workflow]: https://github.com/semantic-release/semantic-release/blob/master/docs/usage/workflow-configuration.md
