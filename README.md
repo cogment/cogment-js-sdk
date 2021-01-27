@@ -45,6 +45,7 @@
 - [Changelog][changelog]
 - [Open Core Development][opencore-development]
 - [Coding guidelines][codeguidelines]
+- [Sentimental Versioning][sentimental-versioning]
 - [Test Report][tests]
 - [Coverage Report][coverage]
 - [Webpack Bundle Report][webpack]
@@ -193,5 +194,6 @@ docker-compose run cogment-js-sdk npm run test
 [package.json]: package.json 'package.json'
 [proposal]: https://docs.google.com/document/d/1K6qCuY-wGlNJzeJuEQEy6bALwJBFNDpJ6HB4LzU-Bq8/edit
 [repo]: https://gitlab.com/ai-r/cogment-js-sdk/ 'Repository'
+[sentimental-versioning]: http://sentimentalversioning.org/
 [tests]: https://ai-r.gitlab.io/cogment-js-sdk/allure
 [webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs
