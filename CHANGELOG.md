@@ -1,3 +1,10 @@
+## [1.8.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.8.0...v1.8.1) (2021-01-27)
+
+
+### Bug Fixes
+
+* **webpack.config.js:** import * as cogment from "@ai-r/cogment-js-sdk" now works ([96aef26](https://gitlab.com/ai-r/cogment-js-sdk/commit/96aef26c1fef58ee5da99b45a86811693c520c34))
+
 # [1.8.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.4...v1.8.0) (2021-01-27)
 
 
