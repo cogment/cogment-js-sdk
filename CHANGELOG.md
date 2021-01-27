@@ -1,3 +1,15 @@
+# [1.8.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.4...v1.8.0) (2021-01-27)
+
+
+### Bug Fixes
+
+* **ci:** fix binding already bound ports in ci environments ([2468ea5](https://gitlab.com/ai-r/cogment-js-sdk/commit/2468ea5a257a3b370180ab5f449e50e70d3a811b)), closes [#39](https://gitlab.com/ai-r/cogment-js-sdk/issues/39)
+
+
+### Features
+
+* **cli:** implement a multi command cli executable ([40b4cf4](https://gitlab.com/ai-r/cogment-js-sdk/commit/40b4cf4e8a5f05dd8ab3bde0380707b572484e6d))
+
 ## [1.7.4](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.7.3...v1.7.4) (2021-01-26)
 
 
