@@ -84,7 +84,10 @@ release:
     - npm run semantic-release
   only:
     - main
-    - develop
+    - next
+    - next-major
+    - beta
+    - alpha
 
 pages:
   stage: pages

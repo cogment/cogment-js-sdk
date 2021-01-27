@@ -185,13 +185,17 @@
   },
   "release": {
     "branches": [
+      "+([0-9])?(.{+([0-9]),x}).x",
+      "main",
+      "next",
+      "next-major",
       {
-        "name": "main"
+        "name": "beta",
+        "prerelease": true
       },
       {
-        "name": "develop",
-        "channel": "alpha",
-        "prelease": "alpha"
+        "name": "alpha",
+        "prerelease": true
       }
     ],
     "plugins": [
