@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "composite": true,
     "declaration": true,
+    "esModuleInterop": true,
     "importHelpers": true,
     "module": "commonjs",
     "outDir": "lib",

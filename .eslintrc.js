@@ -15,6 +15,8 @@
  *
  */
 
+const path = require('path');
+
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -72,7 +74,7 @@ module.exports = {
       'error',
       {
         mustMatch: `Copyright ${new Date().getFullYear()} Artificial Intelligence Redefined <dev\\+cogment@ai-r\\.com>`,
-        templateFile: 'config/copyright.js',
+        templateFile: path.resolve(__dirname, 'config/copyright.js'),
         onNonMatchingHeader: 'replace',
       },
     ],

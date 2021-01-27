@@ -114,7 +114,10 @@ export class TrialController {
     throw new Error('isTrialOver() is not implemented');
   }
 
-  public async joinTrial(trialId: string, trialActor?: TrialActor) {
+  public async joinTrial(
+    trialId: string,
+    trialActor?: TrialActor,
+  ): Promise<JoinTrialReturnType> {
     const request = new TrialJoinRequest();
     request.setTrialId(trialId);
     if (trialActor) {

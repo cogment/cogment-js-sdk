@@ -19,12 +19,16 @@ import {Command, flags} from '@oclif/command';
 import axios from 'axios';
 import {cosmiconfig} from 'cosmiconfig';
 import {CosmiconfigResult} from 'cosmiconfig/dist/types';
-import * as decompress from 'decompress';
+import decompress from 'decompress';
 import {ReadStream} from 'fs';
 import * as jetpack from 'fs-jetpack';
-import * as path from 'path';
+import path from 'path';
 
 const moduleName = 'cogment-api';
+
+interface CogmentApiConfig {
+  cogment_api_version: string;
+}
 
 export default class FetchProtos extends Command {
   static description = 'fetch cogment-api protobuf release';
@@ -41,19 +45,19 @@ export default class FetchProtos extends Command {
 
   static args = [];
 
-  async run() {
+  async run(): Promise<void> {
     const {flags} = this.parse(FetchProtos);
 
-    const tarballTmpDir = jetpack.tmpDir({prefix: 'cogment-api'});
+    const tarballTemporaryDirectory = jetpack.tmpDir({prefix: 'cogment-api'});
     const tarballName = 'cogment-api.tar.gz';
-    const tarballPath = tarballTmpDir.path(tarballName);
+    const tarballPath = tarballTemporaryDirectory.path(tarballName);
 
     const result: CosmiconfigResult = await cosmiconfig(moduleName).search();
 
     if (!result || !result.config) {
       this.error('No configuration provided', {exit: 1});
     }
-    const config = result.config;
+    const config: CogmentApiConfig = result.config as CogmentApiConfig;
     const cogmentApiVersion =
       flags.cogmentApiVersion ?? config.cogment_api_version;
     const url = `https://github.com/cogment/cogment-api/archive/v${cogmentApiVersion}.tar.gz`;
@@ -65,37 +69,48 @@ export default class FetchProtos extends Command {
         url,
         responseType: 'stream',
       });
+      // eslint-disable-next-line compat/compat
       await Promise.all([
         // eslint-disable-next-line compat/compat
         new Promise((resolve, reject) => {
           response.data.on('close', resolve);
           response.data.on('error', reject);
-          response.data.pipe(tarballTmpDir.createWriteStream(tarballName));
+          response.data.pipe(
+            tarballTemporaryDirectory.createWriteStream(tarballName),
+          );
         }),
         jetpack.dirAsync('cogment/api'),
       ]);
     } catch (error) {
-      this.error(`${error}: ${error.stack}`, {exit: 1});
+      this.error(
+        `Failed to fetch cogment-api: ${(error as Error).stack ?? ''}`,
+        {
+          exit: 1,
+        },
+      );
       throw error;
     }
 
     this.log('Download successful, decompressing tarball');
     try {
-      await decompress(tarballPath, tarballTmpDir.cwd());
+      await decompress(tarballPath, tarballTemporaryDirectory.cwd());
     } catch (error) {
-      this.error(error.stack, {exit: 1});
+      this.error(
+        `Failed to decompress cogmant-api: ${(error as Error).stack ?? ''}`,
+        {exit: 1},
+      );
     }
 
     this.log(
       'Decompression successful, copying .proto files to cogment/api/*.proto',
     );
-    tarballTmpDir
+    tarballTemporaryDirectory
       .find(`cogment-api-${cogmentApiVersion}`, {
         matching: '*.proto',
       })
       .forEach((file) =>
         jetpack.move(
-          tarballTmpDir.path(file),
+          tarballTemporaryDirectory.path(file),
           `cogment/api/${path.basename(file)}`,
           {
             overwrite: true,

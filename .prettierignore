@@ -8,3 +8,5 @@ src/cogment/api
 /allure-results/
 /docs/api/
 CHANGELOG.md
+/cli/lib
+/cli/README.md

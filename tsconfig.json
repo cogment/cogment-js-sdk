@@ -4,8 +4,9 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "checkJs": false,
-    "declaration": false,
-    "declarationMap": false,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
@@ -17,17 +18,18 @@
     "outDir": "dist",
     "removeComments": true,
     "resolveJsonModule": true,
-    "rootDir": "src",
+    "rootDirs": ["src", "cli"],
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "es5"
   },
-  "include": ["src"],
+  "include": ["src", "cli"],
   "exclude": [
     "**/__tests__/*",
     "*.test.*",
     "**/node_modules/*",
     "**/__data__/*"
-  ]
+  ],
+  "references": [{"path": "./cli"}]
 }
