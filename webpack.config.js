@@ -42,7 +42,6 @@ module.exports = [
       uniqueName: 'cogment-commonjs',
       library: {
         type: 'commonjs2',
-        name: 'cogment',
       },
     },
   }),
@@ -64,7 +63,6 @@ module.exports = [
       uniqueName: 'cogment-umd',
       library: {
         type: 'umd',
-        name: 'cogment',
       },
     },
   }),
@@ -90,7 +88,6 @@ module.exports = [
       uniqueName: 'cogment-esm',
       library: {
         type: 'module',
-        name: 'cogment',
       },
     },
   }),
