@@ -1,3 +1,10 @@
+# [1.9.0-alpha.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.8.1...v1.9.0-alpha.1) (2021-01-27)
+
+
+### Features
+
+* **git:** use semantic-release recommended workflow ([54c0743](https://gitlab.com/ai-r/cogment-js-sdk/commit/54c0743d178c2f881f2f64bb74243b15e7ac0e4c))
+
 ## [1.8.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.8.0...v1.8.1) (2021-01-27)
 
 
