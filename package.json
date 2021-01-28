@@ -172,6 +172,9 @@
   "engines": {
     "node": ">=10"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "cogment": {
     "connection": {
       "http": "http://grpcwebproxy:8080"
