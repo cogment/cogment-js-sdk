@@ -1,3 +1,10 @@
+## [1.10.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.10.0...v1.10.1) (2021-01-28)
+
+
+### Bug Fixes
+
+* **npm:** set publishConfig.access to public ([48029d6](https://gitlab.com/ai-r/cogment-js-sdk/commit/48029d621a65d0c5fa28793a3a170ac3caf55b3a))
+
 # [1.10.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.9.1...v1.10.0) (2021-01-28)
 
 
