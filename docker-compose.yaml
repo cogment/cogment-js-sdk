@@ -71,7 +71,7 @@ services:
     restart: on-failure
 
   sonarqube:
-    image: sonarqube:latest
+    image: sonarqube:developer
     stop_grace_period: 3600s
     ulimits:
       memlock:
@@ -84,16 +84,25 @@ services:
       - sonarqube_data:/opt/sonarqube/data
       - sonarqube_logs:/opt/sonarqube/logs
       - sonarqube_extensions:/opt/sonarqube/extensions
-    ports:
-      - 9001:9000/tcp
     depends_on:
       - postgres
+
+  sonarqube-nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - 9443:443
+    volumes:
+      - ./sonarqube-nginx/templates:/etc/nginx/templates
+      - ./tls:/etc/nginx/tls
+    depends_on:
+      - sonarqube
 
   sonarqube-scan:
     image: sonarsource/sonar-scanner-cli:latest
     environment:
       SONAR_HOST_URL: http://sonarqube:9000
-      SONAR_LOGIN: 7c5ed1c4077292688ef483cd61b0bc65735c23a3
+      SONAR_LOGIN: f11ae17e5c21e4e3df7d563c8c810b2c6f6cfd19
     volumes:
       - .:/usr/src
     depends_on:
@@ -105,8 +114,6 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgres:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
     restart: always
 
 volumes:

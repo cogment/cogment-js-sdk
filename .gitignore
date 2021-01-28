@@ -16,3 +16,6 @@ secrets
 /allure-results/
 /docs/api/
 docker-compose.override.yaml
+eslint.json
+dependency-check-*.*
+tls

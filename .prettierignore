@@ -10,3 +10,5 @@ src/cogment/api
 CHANGELOG.md
 /cli/lib
 /cli/README.md
+tls
+dependency-check-*.*

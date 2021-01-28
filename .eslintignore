@@ -24,3 +24,5 @@ bin
 /allure-report/
 /config/copyright.js
 cli/lib/**/*
+tls
+dependency-check-*.*
