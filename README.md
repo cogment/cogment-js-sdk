@@ -2,13 +2,12 @@
 
 [![cogment](https://img.shields.io/badge/cogment-brightgreen.svg)][repo]
 [![Gitlab pipeline status](https://gitlab.com/ai-r/cogment-js-sdk/badges/main/pipeline.svg?private_token=-PxNqY8axtUuGoys4tGj)][repo]
-[![codecov](https://codecov.io/gl/ai-r/cogment-js-sdk/branch/main/graph/badge.svg?token=aTpPl9c87b)][codecov]
-[![Downloads / Month](https://img.shields.io/npm/dm/cogment)][npm-cogment]
-[![License](https://img.shields.io/npm/l/cogment)][license]
-[![npm](https://img.shields.io/npm/v/cogment)][npm-cogment]
-[![npm collaborators](https://img.shields.io/npm/collaborators/cogment)][npm-cogment]
-[![Dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/cogment)][npm-cogment]
-[![Dependent repos (via libraries.io)](https://img.shields.io/librariesio/dependent-repos/npm/cogment)][npm-cogment]
+[![Downloads / Month](https://img.shields.io/npm/dm/@cogment/cogment-js-sdk)][npm-cogment]
+[![License](https://img.shields.io/npm/l/@cogment/cogment-js-sdk)][license]
+[![npm](https://img.shields.io/npm/v/@cogment/cogment-js-sdk)][npm-cogment]
+[![npm collaborators](https://img.shields.io/npm/collaborators/@cogment/cogment-js-sdk)][npm-cogment]
+[![Dependents (via libraries.io)](https://img.shields.io/librariesio/dependents/npm/@cogment/cogment-js-sdk)][npm-cogment]
+[![Dependent repos (via libraries.io)](https://img.shields.io/librariesio/dependent-repos/npm/@cogment/cogment-js-sdk)][npm-cogment]
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/cogment/cogment-js-sdk)
 ![GitHub forks](https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social)
@@ -50,7 +49,7 @@
 - [Coverage Report][coverage]
 - [Webpack Bundle Report][webpack]
 - [cogjs-cli][cogjs-cli]
-- [Design Proposal][proposal]
+- [Semantic Versioning][semver.org]
 
 ## Usage
 
@@ -177,7 +176,6 @@ docker-compose run cogment-js-sdk npm run test
 [api-docs]: https://ai-r.gitlab.io/cogment-js-sdk 'api-docs'
 [changelog]: CHANGELOG.md 'changelog'
 [code-of-conduct]: CODE_OF_CONDUCT.md
-[codecov]: https://codecov.io/gl/ai-r/cogment-js-sdk 'codecov'
 [codeguidelines]: docs/codeguidelines.md
 [cogjs-cli]: ./cli
 [cogment-app]: __tests__/end-to-end/cogment-app 'cogment-app'
@@ -192,8 +190,8 @@ docker-compose run cogment-js-sdk npm run test
 [nvm]: https://github.com/nvm-sh/nvm 'nvm'
 [opencore-development]: docs/opencore-development.md
 [package.json]: package.json 'package.json'
-[proposal]: https://docs.google.com/document/d/1K6qCuY-wGlNJzeJuEQEy6bALwJBFNDpJ6HB4LzU-Bq8/edit
 [repo]: https://gitlab.com/ai-r/cogment-js-sdk/ 'Repository'
 [sentimental-versioning]: http://sentimentalversioning.org/
 [tests]: https://ai-r.gitlab.io/cogment-js-sdk/allure
 [webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs
+[semver.org]: https://semver.org

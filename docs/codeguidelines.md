@@ -1,14 +1,36 @@
 # Javascript Code Guide
 
+For maximum advantage of automated tooling described below, such as
+ESLint and prettier, using an editor/IDE plugin is essential. A good
+plugin should:
+
+- Highlight code detected as failing formatting/linting rules
+- Offer the ability to either fix the problem automatically, or to add
+  an ignore pragma (eg: `Alt+Enter` on IntelliJ will offer automatic
+  fixes and apply them when available or offer to silence the rule with
+  an appropriate pragma).
+
 ## Code Formatting
 
 prettier for code formatting wherever supported. This removes the space
 for opinion on formatting related comments, reducing development
 iteration time.
 
+A list of supported editors and their
+[plugins](https://prettier.io/docs/en/editors.html).
+
+To format code manually with prettier:
+
+```shell script
+npm run lint:prettier:fix
+```
+
 ## Code Style
 
 All the ESLint. Here is our [configuration](.eslintrc.js).
+
+A list of supported editors and their
+[plugins](https://eslint.org/docs/user-guide/integrations#editors).
 
 Any rules / plugins that are desired to be disabled/removed or
 enabled/added will go through a normal peer review process, giving some
@@ -21,18 +43,9 @@ Plus, ESLint is magic!: Current plugins include:
 - Browser compatibility.
 - Test formatting, style
 - Copyright as file headers (including updating copyright year with
-  --fix)
+  `--fix`)
 - Comment formatting for automated documentation generation
 - Typescript/Javascript best practices
-
-For maximum advantage of these helpers, using an editor/IDE plugin is
-essential. A good plugin should:
-
-- Highlight code detected as failing linting rules
-- Offer the ability to either fix the problem automatically, or to add
-  an eslint-ignore pragma (eg: Alt+Enter on IntelliJ will offer
-  automatic fixes and apply them when available or silence the rule with
-  the rule appropriate pragma).
 
 Disabling of rules should be done on a statement-per-statement basis.
 
@@ -40,6 +53,13 @@ Disabling for an entire file is ignoring the code style.
 
 When changing an eslint rule, the commit must include all necessary
 changes so linting passes.
+
+ESLint is able to automatically fix some problems, to do so, the
+following `npm script` is provided:
+
+```shell script
+npm run lint:eslint:fix
+```
 
 ### const / let
 
