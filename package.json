@@ -12,7 +12,6 @@
   "types": "dist/index.d.ts",
   "directories": {
     "lib": "dist",
-    "bin": "bin",
     "doc": "docs",
     "example": "examples",
     "test": "__tests__"
