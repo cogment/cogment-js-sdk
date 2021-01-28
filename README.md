@@ -1,8 +1,10 @@
 # cogment-js-sdk
 
 [![cogment](https://img.shields.io/badge/cogment-brightgreen.svg)][repo]
-[![Gitlab pipeline status](https://gitlab.com/ai-r/cogment-js-sdk/badges/main/pipeline.svg?private_token=-PxNqY8axtUuGoys4tGj)][repo]
-[![Downloads / Month](https://img.shields.io/npm/dm/@cogment/cogment-js-sdk)][npm-cogment]
+[![Gitlab pipeline status](https://gitlab.com/ai-r/cogment-js-sdk/badges/develop/pipeline.svg?private_token=-PxNqY8axtUuGoys4tGj)][repo]
+[![Gitlab coverage report](https://gitlab.com/ai-r/cogment-js-sdk/badges/develop/coverage.svg)](https://gitlab.com/ai-r/cogment-js-sdk/-/commits/develop)
+[![npm](https://img.shields.io/npm/dw/@cogment/cogment-js-sdk)][npm-cogment]
+[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@cogment/cogment-js-sdk)][npm-cogment]
 [![License](https://img.shields.io/npm/l/@cogment/cogment-js-sdk)][license]
 [![npm](https://img.shields.io/npm/v/@cogment/cogment-js-sdk)][npm-cogment]
 [![npm collaborators](https://img.shields.io/npm/collaborators/@cogment/cogment-js-sdk)][npm-cogment]
@@ -56,7 +58,7 @@
 To install the package:
 
 ```shell script
-npm install @cogment/cogment-js
+npm install @cogment/cogment-js-sdk
 ```
 
 ## Hacking
