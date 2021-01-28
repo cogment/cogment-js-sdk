@@ -1,3 +1,10 @@
+## [1.10.2](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.10.1...v1.10.2) (2021-01-28)
+
+
+### Bug Fixes
+
+* **docs:** correct npm package name ([d7db03a](https://gitlab.com/ai-r/cogment-js-sdk/commit/d7db03a3b5d9b0e2d74bc96d39fc722d683f1743))
+
 ## [1.10.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.10.0...v1.10.1) (2021-01-28)
 
 
