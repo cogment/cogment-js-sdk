@@ -1,3 +1,10 @@
+## [1.9.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.9.0...v1.9.1) (2021-01-28)
+
+
+### Bug Fixes
+
+* **release:** figuring out semantic-release strategy ([c9e9d0f](https://gitlab.com/ai-r/cogment-js-sdk/commit/c9e9d0fa2699eec0ad23968906c4fa1e5494e40d))
+
 # [1.9.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.8.1...v1.9.0) (2021-01-27)
 
 
