@@ -1,3 +1,11 @@
+# [1.10.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.9.1...v1.10.0) (2021-01-28)
+
+
+### Features
+
+* **#8:** upload package to npm ([a98a396](https://gitlab.com/ai-r/cogment-js-sdk/commit/a98a39642b16ef2ab6058acc024f5d939cff0a5b)), closes [#8](https://gitlab.com/ai-r/cogment-js-sdk/issues/8) [#8](https://gitlab.com/ai-r/cogment-js-sdk/issues/8)
+* **sonarqube:** tighter scm integration, ssl/tls for oauth ([d2e9c6b](https://gitlab.com/ai-r/cogment-js-sdk/commit/d2e9c6b0bc819149613ebe1d1bac3e6cabb99c73))
+
 ## [1.9.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.9.0...v1.9.1) (2021-01-28)
 
 
