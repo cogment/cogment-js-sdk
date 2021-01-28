@@ -31,5 +31,41 @@ npm config set '//gitlab.example.com/api/v4/projects/22532182/packages/npm/:_aut
 Releases are automated using the [semantic-release][semantic-release]
 tool. Read the [workflow][semantic-release-workflow] documentation.
 
+A general proposed workflow is:
+
+The `develop` branch acts as the default branch for the repository. All
+merge requests will target this branch by default.
+
+This repository follows semantic versioning as well as
+[commitizen][commitizen] for commit style.
+
+A release originates from the creation of a new tag on the main
+repository. This tag is used as a reference to generate "releases" of
+build artifacts of a single commit from the CI process. These "releases"
+are sent to multiple targets: gitlab (origin) releases, github
+(downstream) releases, npm, gitlab's private registry, etc.
+
+When a release is ready to be made, there are a few rules of thumb:
+
+- Each time a release is made, `semantic-release` will analyze the
+  commit messages since the last commit, looking for commits of type
+  `fix` or `feat`, or any commit with `BREAKING CHANGE` in the message.
+  The commit will result in a patch, minor, or major version bump,
+  respectively.
+- The `next` branch will generate releases on the `next` channel. This
+  should be reserved primarily for breaking changes / major releases
+  that are ready for public consumption but are still not the "latest"
+  version.
+- The `main` branch will generate releases on the `latest` channel. All
+  non-breaking-change type commits should land here.
+- The `alpha` branch will generate prerelease releases on the alpha
+  channel. The release will be a major or minor version bump along with
+  an `-alpha1` suffix. Each addition to this branch will increment the
+  suffix by one. If the release is a breaking change, this branch could
+  be used to fast forward `next`. Alternatively, this branch could be
+  used to fast forward `main`. This depends on the nature of the changes
+  made in the `alpha` release.
+
+[commitizen]: https://commitizen-tools.github.io/commitizen/
 [semantic-release]: https://github.com/semantic-release/semantic-release
 [semantic-release-workflow]: https://github.com/semantic-release/semantic-release/blob/master/docs/usage/workflow-configuration.md
