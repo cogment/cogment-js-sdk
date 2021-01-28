@@ -1,3 +1,11 @@
+## [1.10.3](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.10.2...v1.10.3) (2021-01-28)
+
+
+### Bug Fixes
+
+* trigger release on latest ([0868ac2](https://gitlab.com/ai-r/cogment-js-sdk/commit/0868ac26a1d996767c4f9864a99ef5da7756de00))
+* **npm:** package install failing on chmod of bin ([7aefc86](https://gitlab.com/ai-r/cogment-js-sdk/commit/7aefc86915c0c767ae9219dc3cc275b9202ba35a))
+
 ## [1.10.3-alpha.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.10.2...v1.10.3-alpha.1) (2021-01-28)
 
 
