@@ -103,4 +103,4 @@ pages:
     paths:
       - public
   only:
-    - next
+    - develop
