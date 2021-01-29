@@ -93,7 +93,6 @@
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@semantic-release/github": "^7.2.0",
-    "@semantic-release/gitlab": "^6.0.9",
     "@size-limit/preset-small-lib": "^4.9.0",
     "@types/cross-spawn": "^6.0.2",
     "@types/debug": "^4.1.5",
@@ -210,25 +209,6 @@
         {
           "prepare": true,
           "npmPublish": true
-        }
-      ],
-      [
-        "@semantic-release/gitlab",
-        {
-          "assets": [
-            {
-              "path": "dist/cogment.js",
-              "label": "CommonJS2 bundle"
-            },
-            {
-              "path": "dist/cogment.esm.js",
-              "label": "ESM bundle"
-            },
-            {
-              "path": "dist/cogment.umd.js",
-              "label": "UMD bundle"
-            }
-          ]
         }
       ],
       [
