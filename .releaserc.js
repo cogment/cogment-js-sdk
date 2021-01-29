@@ -79,5 +79,6 @@ module.exports = {
         ],
       },
     ],
+    '@semantic-release/git',
   ],
 };
