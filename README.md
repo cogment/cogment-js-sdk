@@ -190,7 +190,7 @@ docker-compose run cogment-js-sdk npm run test
 [nvm]: https://github.com/nvm-sh/nvm 'nvm'
 [opencore-development]: docs/opencore-development.md
 [package.json]: package.json 'package.json'
-[repo]: https://gitlab.com/ai-r/cogment-js-sdk/ 'Repository'
+[repo]: https://github.com/cogment/cogment-js-sdk/ 'Repository'
 [sentimental-versioning]: http://sentimentalversioning.org/
 [tests]: https://ai-r.gitlab.io/cogment-js-sdk/allure
 [webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs
