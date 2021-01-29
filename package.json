@@ -2,9 +2,10 @@
   "name": "@cogment/cogment-js-sdk",
   "version": "1.10.3",
   "description": "Javascript SDK for the Cogment Framework",
+  "homepage": "https://github.com/cogment/cogment-js-sdk",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:ai-r/cogment-js-sdk.git"
+    "url": "git@github.com:ai-r/cogment-js-sdk.git"
   },
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Artificial Intelligence Redefined <dev+cogment@ai-r.com>",
