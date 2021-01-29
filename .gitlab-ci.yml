@@ -81,8 +81,6 @@ release:
     - apk add git
   script:
     - npm run semantic-release
-    - git remote add downstream git@github.com:cogment/cogment-js-sdk.git
-    - git push downstream ${CI_COMMIT_BRANCH}
   only:
     - main
     - next
