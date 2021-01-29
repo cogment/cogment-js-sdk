@@ -6,7 +6,7 @@
   "bugs": "https://github.com/cogment/cogment-js-sdk/issues",
   "repository": {
     "type": "git",
-    "url": "git@github.com:cogment/cogment-js-sdk.git"
+    "url": "git@gitlab.com:ai-r/cogment-js-sdk.git"
   },
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Artificial Intelligence Redefined <dev+cogment@ai-r.com>",
