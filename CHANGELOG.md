@@ -1,3 +1,12 @@
+## [1.11.2](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.11.1...v1.11.2) (2021-01-29)
+
+
+### Bug Fixes
+
+* **ci:** release to just gitlab for now ([8ba408a](https://gitlab.com/ai-r/cogment-js-sdk/commit/8ba408afb5cc74dfd3c0d947b4aad7ab5f5a30aa))
+* **cogment-app:** update to cogment==1.0.0-alpha4 ([071a449](https://gitlab.com/ai-r/cogment-js-sdk/commit/071a4496310a4e6a74e0b98d2a6568571b448b04))
+* **semantic-release:** add git plugin back, removed by accident ([3ba1f0c](https://gitlab.com/ai-r/cogment-js-sdk/commit/3ba1f0cf448d829cd9407fa63c5f24838c934c7e))
+
 ## [1.10.4](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.10.3...v1.10.4) (2021-01-29)
 
 
