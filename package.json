@@ -64,18 +64,6 @@
     "test:ui": "npx majestic --noOpen",
     "test:watch": "npm run test:jest -- --watch"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "prepare-commit-msg": "exec < /dev/tty && [ -z ${CI} ] && git cz --hook || true",
-      "commit-msg": "[ -z ${CI} ] && npx commitlint --edit \"$1\" || true"
-    }
-  },
-  "lint-staged": {
-    "*.{ts,js,css,md,json,yaml,yml}": "npm run lint:prettier:fix",
-    "*.{ts,js,json}": "npm run lint:eslint:fix",
-    "*!(.d).ts": "npm run test:jest -- --findRelatedTests --passWithNoTests"
-  },
   "browserslist": [
     "defaults"
   ],
@@ -174,73 +162,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "cogment": {
-    "connection": {
-      "http": "http://grpcwebproxy:8080"
-    },
-    "logger": {
-      "level": "debug"
-    }
-  },
-  "cogment-api": {
-    "cogment_api_version": "1.0.0-alpha4"
-  },
-  "release": {
-    "branches": [
-      "+([0-9])?(.{+([0-9]),x}).x",
-      "main",
-      "next",
-      "next-major",
-      {
-        "name": "beta",
-        "prerelease": true
-      },
-      {
-        "name": "alpha",
-        "prerelease": true
-      }
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      [
-        "@semantic-release/npm",
-        {
-          "prepare": true,
-          "npmPublish": true
-        }
-      ],
-      [
-        "@semantic-release/gitlab",
-        {
-          "assets": [
-            {
-              "path": "dist/cogment.js",
-              "label": "CommonJS2 bundle"
-            },
-            {
-              "path": "dist/cogment.esm.js",
-              "label": "ESM bundle"
-            },
-            {
-              "path": "dist/cogment.umd.js",
-              "label": "UMD bundle"
-            }
-          ]
-        }
-      ]
-    ]
-  },
-  "size-limit": [
-    {
-      "path": "dist/cogment.js",
-      "limit": "300 KB"
-    },
-    {
-      "path": "dist/cogment.umd.js",
-      "limit": "300 KB"
-    }
-  ]
+  }
 }
