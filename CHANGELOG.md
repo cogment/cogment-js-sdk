@@ -1,3 +1,12 @@
+## [1.10.4-alpha.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.10.3...v1.10.4-alpha.1) (2021-01-29)
+
+
+### Bug Fixes
+
+* **npm:** fix link to repository ([1d015de](https://gitlab.com/ai-r/cogment-js-sdk/commit/1d015de89cb530e160fcad2e25121a4ad836392c))
+* **npm:** fix more links, do not distribute unnecessary files ([d236a78](https://gitlab.com/ai-r/cogment-js-sdk/commit/d236a784e2f67e53eae91fca8ffc9cba890b720c))
+* **revert:** semantic-release uses repository.url from package.json ([892e4fa](https://gitlab.com/ai-r/cogment-js-sdk/commit/892e4fac4bb08d5782c27b0f4053b4647098afc9))
+
 ## [1.10.3](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.10.2...v1.10.3) (2021-01-28)
 
 
