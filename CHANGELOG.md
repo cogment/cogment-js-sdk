@@ -1,3 +1,11 @@
+## [1.11.3](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.11.2...v1.11.3) (2021-01-30)
+
+
+### Bug Fixes
+
+* **tests:** fix import statements ([07b9395](https://gitlab.com/ai-r/cogment-js-sdk/commit/07b939538cbfecd61c346785d56ca36fdd855b97))
+* remove exports of internal api modules ([b0611b4](https://gitlab.com/ai-r/cogment-js-sdk/commit/b0611b456456ade1ea3474dd6a5b1b26e4c661d9))
+
 ## [1.11.2](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.11.1...v1.11.2) (2021-01-29)
 
 
