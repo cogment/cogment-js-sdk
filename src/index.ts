@@ -21,5 +21,3 @@ export * from './CogmentService';
 export * from './TrialController';
 export * from './lib/DeltaEncoding';
 export * from './lib/Logger';
-
-export {VersionRequest, VersionInfo} from './cogment/api/common_pb';
