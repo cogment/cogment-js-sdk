@@ -78,6 +78,7 @@ module.exports = {
         onNonMatchingHeader: 'replace',
       },
     ],
+    'unicorn/no-array-for-each': 'off',
   },
   reportUnusedDisableDirectives: true,
 };
