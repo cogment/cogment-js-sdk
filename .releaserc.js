@@ -42,25 +42,6 @@ module.exports = {
       },
     ],
     [
-      '@semantic-release/gitlab',
-      {
-        assets: [
-          {
-            path: 'dist/cogment.js',
-            label: 'CommonJS2 bundle',
-          },
-          {
-            path: 'dist/cogment.esm.js',
-            label: 'ESM bundle',
-          },
-          {
-            path: 'dist/cogment.umd.js',
-            label: 'UMD bundle',
-          },
-        ],
-      },
-    ],
-    [
       '@semantic-release/github',
       {
         assets: [
