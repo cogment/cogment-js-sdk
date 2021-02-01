@@ -1,3 +1,10 @@
+## [1.16.2-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.3...v1.16.2-alpha.4) (2021-02-01)
+
+
+### Performance Improvements
+
+* **package-lock.json:** reduce package size ([c92f9f8](https://github.com/cogment/cogment-js-sdk/commit/c92f9f82d018728cc97a4f4fb55b14ee5d69df41))
+
 ## [1.16.2-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.2...v1.16.2-alpha.3) (2021-02-01)
 
 
