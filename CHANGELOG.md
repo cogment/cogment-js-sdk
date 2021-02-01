@@ -1,3 +1,12 @@
+## [1.12.6](https://github.com/cogment/cogment-js-sdk/compare/v1.12.5...v1.12.6) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** back to the drawing board ([9cf117b](https://github.com/cogment/cogment-js-sdk/commit/9cf117b3b7d49094026ac7ed7dca6ae8be8a6d4e))
+* **semantic-release:** use correct cli argument ([1e2b161](https://github.com/cogment/cogment-js-sdk/commit/1e2b161df3043412461a5a48e86b6f06af83e794))
+* **semantic-release:** working locally ([e7076cb](https://github.com/cogment/cogment-js-sdk/commit/e7076cb6469b3221883f85e1114927f6a028234f))
+
 ## [1.12.6](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.5...v1.12.6) (2021-02-01)
 
 
