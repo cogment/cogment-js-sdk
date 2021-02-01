@@ -1,3 +1,10 @@
+## [1.12.6](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.5...v1.12.6) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** use correct cli argument ([1e2b161](https://gitlab.com/ai-r/cogment-js-sdk/commit/1e2b161df3043412461a5a48e86b6f06af83e794))
+
 ## [1.12.5](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.4...v1.12.5) (2021-02-01)
 
 
