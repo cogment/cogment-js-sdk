@@ -1,3 +1,18 @@
+# [1.12.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.11.3...v1.12.0) (2021-02-01)
+
+
+### Bug Fixes
+
+* **eslint:** disable new unicorn/no-array-for-each rule ([6198558](https://gitlab.com/ai-r/cogment-js-sdk/commit/619855801eeebd9252ffdae4f0576e7740895c66))
+* **package.json:** use https url for repository ([cb6cc67](https://gitlab.com/ai-r/cogment-js-sdk/commit/cb6cc6763ad266438a0ec8c573ba1a85d0538733))
+* **semantic-release:** remove .git extension from repository url ([49d16a8](https://gitlab.com/ai-r/cogment-js-sdk/commit/49d16a89292a58e1de09bb5fad2b3bcd26642053))
+* need to create a new commit ([971002f](https://gitlab.com/ai-r/cogment-js-sdk/commit/971002f0c488170595e8c69deee4cddc50edfb8a))
+
+
+### Features
+
+* **semantic-release:** release to both gitlab and github ([da16326](https://gitlab.com/ai-r/cogment-js-sdk/commit/da16326aab87c869d9a279fd718695559011306f))
+
 # [1.12.0-alpha.2](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.0-alpha.1...v1.12.0-alpha.2) (2021-02-01)
 
 
