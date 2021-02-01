@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 #
 #  Copyright 2021 Artificial Intelligence Redefined <dev+cogment@ai-r.com>
 #
