@@ -1,3 +1,10 @@
+## [1.16.2-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.2...v1.16.2-alpha.3) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** fix syntax, tag sync ([3dbc0f2](https://github.com/cogment/cogment-js-sdk/commit/3dbc0f2bcd9c6aa33b16bd0dadaebbff7ef81c92))
+
 ## [1.16.2-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.1...v1.16.2-alpha.2) (2021-02-01)
 
 
