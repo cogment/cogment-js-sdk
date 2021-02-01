@@ -1,3 +1,16 @@
+# [1.13.0](https://github.com/cogment/cogment-js-sdk/compare/v1.12.6...v1.13.0) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** back to the drawing board ([9cf117b](https://github.com/cogment/cogment-js-sdk/commit/9cf117b3b7d49094026ac7ed7dca6ae8be8a6d4e))
+* **semantic-release:** working locally ([e7076cb](https://github.com/cogment/cogment-js-sdk/commit/e7076cb6469b3221883f85e1114927f6a028234f))
+
+
+### Features
+
+* **semantic-release:** publish to github for now ([8c6b6a4](https://github.com/cogment/cogment-js-sdk/commit/8c6b6a4e7311fbcc4eb11c859b7cdc78c0c21e0f))
+
 ## [1.12.6](https://github.com/cogment/cogment-js-sdk/compare/v1.12.5...v1.12.6) (2021-02-01)
 
 
