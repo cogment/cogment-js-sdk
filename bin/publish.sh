@@ -20,9 +20,10 @@ set -xe
 
 BRANCH="${CI_COMMIT_BRANCH}"
 
-git remote -v
-
 git remote add upstream https://github.com/cogment/cogment-js-sdk.git
+git remote set-url origin git@gitlab.com:ai-r/cogment-js-sdk.git
+
+git remote -v
 
 git checkout origin/"${BRANCH}"
 

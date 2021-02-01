@@ -81,6 +81,7 @@ release:
     - apk add git
   script:
     - npm run semantic-release
+    - bin/publish.sh
   only:
     - main
     - next
