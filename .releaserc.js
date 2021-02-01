@@ -44,6 +44,7 @@ module.exports = {
     [
       '@semantic-release/gitlab',
       {
+        gitlabUrl: 'https://gitlab.com',
         assets: [
           {
             path: 'dist/cogment.js',
@@ -63,6 +64,7 @@ module.exports = {
     [
       '@semantic-release/github',
       {
+        githubUrl: 'https://github.com',
         assets: [
           {
             path: 'dist/cogment.js',
