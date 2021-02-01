@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/cogment/cogment-js-sdk/compare/v1.14.0...v1.15.0) (2021-02-01)
+
+
+### Features
+
+* **ci:** automate git flow ([e3042b3](https://github.com/cogment/cogment-js-sdk/commit/e3042b393492cc56dd9b48a79f3f1f9b9b8c9c20))
+
 # [1.14.0](https://github.com/cogment/cogment-js-sdk/compare/v1.13.0...v1.14.0) (2021-02-01)
 
 
