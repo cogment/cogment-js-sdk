@@ -1,3 +1,10 @@
+## [1.12.1](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.0...v1.12.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** remove .git extension from https repository url ([09657ca](https://gitlab.com/ai-r/cogment-js-sdk/commit/09657ca02afdc86efdf08fb3e6feda1602be797c))
+
 # [1.12.0](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.11.3...v1.12.0) (2021-02-01)
 
 
