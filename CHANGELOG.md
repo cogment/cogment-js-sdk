@@ -1,3 +1,10 @@
+## [1.12.5](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.4...v1.12.5) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** run only the github plugin ([ebd0ce8](https://gitlab.com/ai-r/cogment-js-sdk/commit/ebd0ce8fcbace9038f314028c5ff164b82a9f4c2))
+
 ## [1.12.4](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.3...v1.12.4) (2021-02-01)
 
 
