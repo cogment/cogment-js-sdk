@@ -32,11 +32,7 @@ module.exports = {
   ],
   plugins: [
     '@semantic-release/commit-analyzer',
-    [
-      '@semantic-release/release-notes-generator',
-      {parserOpts: {repoUrl: 'https://gitlab.com/ai-r/cogment-js-sdk'}},
-      {writerOpts: {repoUrl: 'https://gitlab.com/ai-r/cogment-js-sdk'}},
-    ],
+    '@semantic-release/release-notes-generator',
     '@semantic-release/changelog',
     [
       '@semantic-release/npm',
@@ -48,7 +44,6 @@ module.exports = {
     [
       '@semantic-release/gitlab',
       {
-        gitlabUrl: 'https://gitlab.com',
         assets: [
           {
             path: 'dist/cogment.js',
@@ -68,7 +63,6 @@ module.exports = {
     [
       '@semantic-release/github',
       {
-        githubUrl: 'https://github.com',
         assets: [
           {
             path: 'dist/cogment.js',
