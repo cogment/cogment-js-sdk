@@ -1,3 +1,10 @@
+## [1.16.2-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.1...v1.16.2-alpha.2) (2021-02-01)
+
+
+### Bug Fixes
+
+* **release:** trigger release ([22fa2ef](https://github.com/cogment/cogment-js-sdk/commit/22fa2ef1ef90c910b4301cf11143b0cc45517a58))
+
 ## [1.16.2-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.16.1...v1.16.2-alpha.1) (2021-02-01)
 
 
