@@ -32,7 +32,11 @@ module.exports = {
   ],
   plugins: [
     '@semantic-release/commit-analyzer',
-    '@semantic-release/release-notes-generator',
+    [
+      '@semantic-release/release-notes-generator',
+      {parserOpts: {repoUrl: 'https://gitlab.com/ai-r/cogment-js-sdk'}},
+      {writerOpts: {repoUrl: 'https://gitlab.com/ai-r/cogment-js-sdk'}},
+    ],
     '@semantic-release/changelog',
     [
       '@semantic-release/npm',
