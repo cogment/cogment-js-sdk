@@ -24,7 +24,7 @@ git remote -v
 
 git remote add upstream https://github.com/cogment/cogment-js-sdk.git
 
-git checkout origin "${BRANCH}"
+git checkout origin/"${BRANCH}"
 
 git pull origin "${BRANCH}"
 git pull upstream "${BRANCH}"
@@ -32,4 +32,6 @@ git pull upstream "${BRANCH}"
 git status
 
 git push origin "${BRANCH}"
+
+git fetch upstream --tags
 git push origin --tags
