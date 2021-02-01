@@ -21,4 +21,6 @@ git remote -v
 git remote add upstream https://gitlab.com/ai-r/cogment-js-sdk.git
 
 git pull origin
-git push upstream
+git pull upstream
+
+git status
