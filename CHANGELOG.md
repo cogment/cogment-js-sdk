@@ -1,3 +1,10 @@
+## [1.16.1](https://github.com/cogment/cogment-js-sdk/compare/v1.16.0...v1.16.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** need to checkout appropriate branch ([814dfef](https://github.com/cogment/cogment-js-sdk/commit/814dfef6c83fb9c6877ac171e8646dbc5d769c60))
+
 # [1.16.0](https://github.com/cogment/cogment-js-sdk/compare/v1.15.0...v1.16.0) (2021-02-01)
 
 
