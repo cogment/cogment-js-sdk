@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/cogment/cogment-js-sdk/compare/v1.15.0...v1.16.0) (2021-02-01)
+
+
+### Features
+
+* **semantic-release:** publish changes back upstream ([60c4a55](https://github.com/cogment/cogment-js-sdk/commit/60c4a55207a46bf88f1ec385b6e3badb42163448))
+
 # [1.15.0](https://github.com/cogment/cogment-js-sdk/compare/v1.14.0...v1.15.0) (2021-02-01)
 
 
