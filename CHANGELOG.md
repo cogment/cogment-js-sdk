@@ -1,3 +1,10 @@
+## [1.12.4](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.3...v1.12.4) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** specify repository url for generating release notes ([a07ef4b](https://gitlab.com/ai-r/cogment-js-sdk/commit/a07ef4b2b64beade98e609cecab5c736a2e47a70))
+
 ## [1.12.3](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.2...v1.12.3) (2021-02-01)
 
 
