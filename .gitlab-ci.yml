@@ -80,8 +80,7 @@ release:
   before_script:
     - apk add git
   script:
-    - npm run semantic-release -- --plugins @semantic-release/commit-analyzer,@semantic-release/release-notes-generator,@semantic-release/changelog,@semantic-release/npm,@semantic-release/gitlab,@semantic-release/git
-    - npm run semantic-release -- --repository-url https://github.com/cogment/cogment-js-sdk --plugins @semantic-release/github
+    - npm run semantic-release
   only:
     - main
     - next
