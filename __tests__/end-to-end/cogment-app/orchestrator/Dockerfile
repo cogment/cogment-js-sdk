@@ -1,5 +1,5 @@
 
-FROM registry.gitlab.com/ai-r/cogment-orchestrator:v1.0.0-alpha2
+FROM registry.gitlab.com/ai-r/cogment-orchestrator:v1.0.0-alpha3
 
 ADD cogment.yaml .
 ADD *.proto .
