@@ -63,7 +63,7 @@ module.exports = {
     [
       '@semantic-release/exec',
       {
-        publishCmd: 'bin/publish.bash',
+        publishCmd: 'bin/publish.bash ${options.branch}',
       },
     ],
     '@semantic-release/git',

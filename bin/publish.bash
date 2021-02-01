@@ -16,9 +16,13 @@
 #
 #
 
+BRANCH="${1}"
+
 git remote -v
 
 git remote add upstream https://github.com/cogment/cogment-js-sdk.git
+
+git checkout "${BRANCH}"
 
 git pull origin
 git pull upstream
