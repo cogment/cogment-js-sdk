@@ -1,3 +1,10 @@
+## [1.16.2-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.16.1...v1.16.2-alpha.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** debug publish script ([6425248](https://github.com/cogment/cogment-js-sdk/commit/6425248ed1a22fc98891431218161bc6fc855ae5))
+
 ## [1.16.1](https://github.com/cogment/cogment-js-sdk/compare/v1.16.0...v1.16.1) (2021-02-01)
 
 
