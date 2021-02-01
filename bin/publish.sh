@@ -18,7 +18,7 @@
 
 set -xe
 
-BRANCH="${1}"
+BRANCH="${CI_COMMIT_BRANCH}"
 
 git remote -v
 
