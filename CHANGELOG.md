@@ -1,3 +1,10 @@
+## [1.12.3](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.2...v1.12.3) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** is it possible to release to gitlab and github? ([6351acf](https://gitlab.com/ai-r/cogment-js-sdk/commit/6351acfe43cf18d3c236fba9835d991a615d47d9))
+
 ## [1.12.2](https://gitlab.com/ai-r/cogment-js-sdk/compare/v1.12.1...v1.12.2) (2021-02-01)
 
 
