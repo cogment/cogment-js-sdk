@@ -22,11 +22,15 @@ merge requests will target this branch by default. No releases are
 generated from this branch, it can be used to stage commits while
 preparing a release.
 
-A release originates from the creation of a new tag on the 'origin'
+A release originates from the creation of a new tag on the `origin`
 repository. This tag is used as a reference to generate "releases" of
 build artifacts of a single commit from the CI process. These "releases"
 are sent to multiple targets: gitlab (`origin`) releases, github
 (`downstream`) releases, npm, gitlab's private registry, etc.
+
+Caveats:
+
+- [Use --no-ff when merging between semantic-release branches!](https://github.com/semantic-release/git#merging-between-semantic-release-branches)
 
 When a release is ready to be made, there are a few rules of thumb:
 
