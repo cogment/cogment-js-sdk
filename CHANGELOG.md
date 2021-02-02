@@ -1,3 +1,10 @@
+# [1.17.0-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.3...v1.17.0-alpha.4) (2021-02-02)
+
+
+### Bug Fixes
+
+* **semantic-release:** do not shell out for an already interpreted script ([b4417c5](https://github.com/cogment/cogment-js-sdk/commit/b4417c523445f232f9681b3eefb6626fafafe94a))
+
 # [1.17.0-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.2...v1.17.0-alpha.3) (2021-02-02)
 
 
