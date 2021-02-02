@@ -1,3 +1,10 @@
+# [1.17.0-alpha.5](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.4...v1.17.0-alpha.5) (2021-02-02)
+
+
+### Bug Fixes
+
+* **publish.sh:** do not rely on bash being available in the environment ([efbcf52](https://github.com/cogment/cogment-js-sdk/commit/efbcf52a28b30aa0a330007b46e154e87abceb49))
+
 # [1.17.0-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.3...v1.17.0-alpha.4) (2021-02-02)
 
 
