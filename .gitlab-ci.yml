@@ -42,7 +42,7 @@ test:
     - docker-compose run cogment-js-sdk npm run build:protos
     - bin/up.bash
   script:
-    - docker-compose run -e CODECOV_TOKEN=${CODECOV_TOKEN} -e NODE_ENV=test cogment-js-sdk npm run test:ci
+    - docker-compose run -e NODE_ENV=test cogment-js-sdk npm run test:ci
   after_script:
     - docker-compose logs --no-color --tail all > docker.log
     - cat docker.log
