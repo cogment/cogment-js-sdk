@@ -1,3 +1,10 @@
+# [1.17.0-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.2...v1.17.0-alpha.3) (2021-02-02)
+
+
+### Bug Fixes
+
+* **semantic-release:** run publish.bash withg semantic-release's exec plugin ([47a5ab5](https://github.com/cogment/cogment-js-sdk/commit/47a5ab5df9e6b896545576a6a21a335982e75d6a))
+
 # [1.17.0-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.1...v1.17.0-alpha.2) (2021-02-02)
 
 
