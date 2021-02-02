@@ -18,7 +18,7 @@
 
 set -xe
 
-BRANCH="${BRANCH:-CI_COMMIT_BRANCH}"
+BRANCH="${BRANCH:-${CI_COMMIT_BRANCH}}"
 
 git remote add upstream https://github.com/cogment/cogment-js-sdk.git
 
