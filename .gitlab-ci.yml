@@ -81,7 +81,6 @@ release:
     - apk add git openssh-client
   script:
     - npm run semantic-release
-    - bin/publish.sh
   only:
     - main
     - next

@@ -60,6 +60,13 @@ module.exports = {
         ],
       },
     ],
+    [
+      '@semantic-release/exec',
+      {
+        publishCmd: 'bin/publish.sh',
+        shell: true,
+      },
+    ],
     '@semantic-release/git',
   ],
 };
