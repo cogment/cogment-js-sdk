@@ -49,11 +49,10 @@ When a release is ready to be made, there are a few rules of thumb:
   channel. The release will be a version bump along with an `-alpha1`
   suffix. Each addition to this branch will increment the suffix by one.
   If the release is a breaking change, this branch could be used to
-  fast-forward `next`. Alternatively, this branch could be used to
-  fast-forward `main`. This depends on the nature of the changes made in
-  the `alpha` release. It may be desirable to fast-forward both `next`
-  and `main` if merging a `fix` commit while there is ongoing work in
-  the `next` branch.
+  merge `next`. Alternatively, this branch could be merged into `main`.
+  This depends on the nature of the changes made in the `alpha` release.
+  It may be desirable to merge into both `next` and `main` if merging a
+  `fix` commit while there is ongoing work in the `next` branch.
 
 [commitizen]: https://commitizen-tools.github.io/commitizen/
 [semantic-release-workflow]: https://github.com/semantic-release/semantic-release/blob/master/docs/usage/workflow-configuration.md
