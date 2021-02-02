@@ -49,6 +49,7 @@
 - [Code of Conduct][code-of-conduct]
 - [License][license]
 - [Changelog][changelog]
+- [Contributing][contributing]
 - [Open Core Development][opencore-development]
 - [Coding guidelines][codeguidelines]
 - [Sentimental Versioning][sentimental-versioning]
@@ -181,24 +182,25 @@ docker-compose run cogment-js-sdk npm run test
 ```
 
 [api-docs]: https://ai-r.gitlab.io/cogment-js-sdk 'api-docs'
-[changelog]: CHANGELOG.md 'changelog'
-[code-of-conduct]: CODE_OF_CONDUCT.md
-[codeguidelines]: docs/codeguidelines.md
-[cogjs-cli]: ./cli
-[cogment-app]: __tests__/end-to-end/cogment-app 'cogment-app'
+[changelog]: /CHANGELOG.md 'changelog'
+[code-of-conduct]: /CODE_OF_CONDUCT.md
+[codeguidelines]: /docs/codeguidelines.md
+[cogjs-cli]: /cli
+[cogment-app]: /__tests__/end-to-end/cogment-app 'cogment-app'
 [cogment.ai]: https://cogment.ai 'cogment.ai'
+[contributing]: /CONTRIBUTING.md
 [cosmiconfig]: https://www.npmjs.com/package/cosmiconfig 'cosmiconfig'
 [coverage]: https://ai-r.gitlab.io/cogment-js-sdk/coverage/lcov-report 'coverage report'
 [docker-compose]: https://docs.docker.com/compose/ 'docker-compose'
-[license]: LICENSE.md 'license'
+[license]: /LICENSE.md 'license'
 [majestic]: https://github.com/Raathigesh/majestic 'majestic'
 [nodenv]: https://github.com/nodenv/nodenv 'nodenv'
 [npm-cogment]: https://www.npmjs.com/package/cogment 'npm-cogment'
 [nvm]: https://github.com/nvm-sh/nvm 'nvm'
-[opencore-development]: docs/opencore-development.md
-[package.json]: package.json 'package.json'
+[opencore-development]: /docs/opencore-development.md
+[package.json]: /package.json 'package.json'
 [repo]: https://github.com/cogment/cogment-js-sdk/ 'Repository'
+[semver.org]: https://semver.org
 [sentimental-versioning]: http://sentimentalversioning.org/
 [tests]: https://ai-r.gitlab.io/cogment-js-sdk/allure
 [webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs
-[semver.org]: https://semver.org
