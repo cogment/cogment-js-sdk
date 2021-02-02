@@ -1,3 +1,10 @@
+# [1.17.0-alpha.7](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.6...v1.17.0-alpha.7) (2021-02-02)
+
+
+### Bug Fixes
+
+* **ci:** variable interpolation ([0dcef90](https://github.com/cogment/cogment-js-sdk/commit/0dcef904d0eba791c2df662538ebe00f8eeeebec))
+
 # [1.17.0-alpha.6](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.5...v1.17.0-alpha.6) (2021-02-02)
 
 
