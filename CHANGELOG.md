@@ -1,3 +1,14 @@
+# [1.17.0-alpha.6](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.5...v1.17.0-alpha.6) (2021-02-02)
+
+
+### Bug Fixes
+
+* **ci:** fix fussy command invocation ([b271116](https://github.com/cogment/cogment-js-sdk/commit/b271116e92647b4b210b4ee8d42302131cdd9a0d))
+* **ci:** fix shell syntax, git checkout strategy ([b7c9f8f](https://github.com/cogment/cogment-js-sdk/commit/b7c9f8f776e6a2e9557a789e4ebf71ceeba1be4f))
+* **ci:** load git key failing ([a489da7](https://github.com/cogment/cogment-js-sdk/commit/a489da74b0ff49ba5810ce70fcae76cdf5d373dd))
+* **ci:** ssh key in wrong format? ([4e96adb](https://github.com/cogment/cogment-js-sdk/commit/4e96adba65587271d3a9cf26f969ca6de61af6e6))
+* **semantic-release:** publish back upstream using ssh ([397fd73](https://github.com/cogment/cogment-js-sdk/commit/397fd736220d222eee8c02d060bf5fa5c1d32083))
+
 # [1.17.0-alpha.5](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.4...v1.17.0-alpha.5) (2021-02-02)
 
 
