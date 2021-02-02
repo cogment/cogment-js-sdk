@@ -30,7 +30,7 @@ git pull upstream "${BRANCH}"
 
 git status
 
-git push origin "${BRANCH}"
+git push git@gitlab.com:ai-r/cogment-js-sdk.git "${BRANCH}"
 
 git fetch upstream --tags
-git push origin --tags
+git push git@gitlab.com:ai-r/cogment-js-sdk.git --tags

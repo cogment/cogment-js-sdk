@@ -79,6 +79,10 @@ release:
     NODE_ENV: production
   before_script:
     - apk add git openssh-client
+    - mkdir -pm 0700 ~/.ssh
+    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$GIT_SSH_PRIVATE_KEY")
   script:
     - npm run semantic-release
   only:
