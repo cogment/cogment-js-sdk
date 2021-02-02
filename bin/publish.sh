@@ -18,13 +18,13 @@
 
 set -xe
 
-BRANCH="${CI_COMMIT_BRANCH}"
+BRANCH="${BRANCH:-CI_COMMIT_BRANCH}"
 
 git remote add upstream https://github.com/cogment/cogment-js-sdk.git
 
 git remote -v
 
-git checkout origin/"${BRANCH}"
+git checkout "${BRANCH}"
 
 git pull upstream "${BRANCH}"
 
