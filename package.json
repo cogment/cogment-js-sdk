@@ -52,7 +52,7 @@
     "report:legal": "npx npm-run-all report:legal:*",
     "report:legal:legally": "npx legally -lr",
     "report:legal:tldrlegal": "npx tldrlegal",
-    "semantic-release": "semantic-release",
+    "semantic-release": "npx semantic-release",
     "size": "npx size-limit",
     "start": "webpack serve",
     "test": "npm run test:jest",
