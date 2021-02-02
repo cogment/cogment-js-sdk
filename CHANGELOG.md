@@ -1,3 +1,10 @@
+# [1.17.0-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.1...v1.17.0-alpha.2) (2021-02-02)
+
+
+### Bug Fixes
+
+* **ci:** release stage needs ssh available to publish to origin ([03c5f17](https://github.com/cogment/cogment-js-sdk/commit/03c5f1749882179c8426b2c2d808d4fc0b3c1ad3))
+
 # [1.17.0-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.4...v1.17.0-alpha.1) (2021-02-02)
 
 
