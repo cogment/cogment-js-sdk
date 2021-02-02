@@ -16,17 +16,21 @@
 #
 #
 
-BRANCH="${1}"
+set -xe
 
-git remote -v
+BRANCH="${BRANCH:-${CI_COMMIT_BRANCH}}"
 
 git remote add upstream https://github.com/cogment/cogment-js-sdk.git
 
+git remote -v
+
 git checkout "${BRANCH}"
 
-git pull origin
-git pull upstream
+git pull upstream "${BRANCH}"
 
 git status
 
-git push
+git push git@gitlab.com:ai-r/cogment-js-sdk.git "${BRANCH}"
+
+git fetch upstream --tags
+git push git@gitlab.com:ai-r/cogment-js-sdk.git --tags

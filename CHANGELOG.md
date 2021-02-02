@@ -1,3 +1,77 @@
+# [1.17.0-alpha.6](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.5...v1.17.0-alpha.6) (2021-02-02)
+
+
+### Bug Fixes
+
+* **ci:** fix fussy command invocation ([b271116](https://github.com/cogment/cogment-js-sdk/commit/b271116e92647b4b210b4ee8d42302131cdd9a0d))
+* **ci:** fix shell syntax, git checkout strategy ([b7c9f8f](https://github.com/cogment/cogment-js-sdk/commit/b7c9f8f776e6a2e9557a789e4ebf71ceeba1be4f))
+* **ci:** load git key failing ([a489da7](https://github.com/cogment/cogment-js-sdk/commit/a489da74b0ff49ba5810ce70fcae76cdf5d373dd))
+* **ci:** ssh key in wrong format? ([4e96adb](https://github.com/cogment/cogment-js-sdk/commit/4e96adba65587271d3a9cf26f969ca6de61af6e6))
+* **semantic-release:** publish back upstream using ssh ([397fd73](https://github.com/cogment/cogment-js-sdk/commit/397fd736220d222eee8c02d060bf5fa5c1d32083))
+
+# [1.17.0-alpha.5](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.4...v1.17.0-alpha.5) (2021-02-02)
+
+
+### Bug Fixes
+
+* **publish.sh:** do not rely on bash being available in the environment ([efbcf52](https://github.com/cogment/cogment-js-sdk/commit/efbcf52a28b30aa0a330007b46e154e87abceb49))
+
+# [1.17.0-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.3...v1.17.0-alpha.4) (2021-02-02)
+
+
+### Bug Fixes
+
+* **semantic-release:** do not shell out for an already interpreted script ([b4417c5](https://github.com/cogment/cogment-js-sdk/commit/b4417c523445f232f9681b3eefb6626fafafe94a))
+
+# [1.17.0-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.2...v1.17.0-alpha.3) (2021-02-02)
+
+
+### Bug Fixes
+
+* **semantic-release:** run publish.bash withg semantic-release's exec plugin ([47a5ab5](https://github.com/cogment/cogment-js-sdk/commit/47a5ab5df9e6b896545576a6a21a335982e75d6a))
+
+# [1.17.0-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0-alpha.1...v1.17.0-alpha.2) (2021-02-02)
+
+
+### Bug Fixes
+
+* **ci:** release stage needs ssh available to publish to origin ([03c5f17](https://github.com/cogment/cogment-js-sdk/commit/03c5f1749882179c8426b2c2d808d4fc0b3c1ad3))
+
+# [1.17.0-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.4...v1.17.0-alpha.1) (2021-02-02)
+
+
+### Features
+
+* **ci:** sync remotes directly from ci ([a74ed40](https://github.com/cogment/cogment-js-sdk/commit/a74ed40a7c157c52014b0b9e8d67655c6a514216))
+
+## [1.16.2-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.3...v1.16.2-alpha.4) (2021-02-01)
+
+
+### Performance Improvements
+
+* **package-lock.json:** reduce package size ([c92f9f8](https://github.com/cogment/cogment-js-sdk/commit/c92f9f82d018728cc97a4f4fb55b14ee5d69df41))
+
+## [1.16.2-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.2...v1.16.2-alpha.3) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** fix syntax, tag sync ([3dbc0f2](https://github.com/cogment/cogment-js-sdk/commit/3dbc0f2bcd9c6aa33b16bd0dadaebbff7ef81c92))
+
+## [1.16.2-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.1...v1.16.2-alpha.2) (2021-02-01)
+
+
+### Bug Fixes
+
+* **release:** trigger release ([22fa2ef](https://github.com/cogment/cogment-js-sdk/commit/22fa2ef1ef90c910b4301cf11143b0cc45517a58))
+
+## [1.16.2-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.16.1...v1.16.2-alpha.1) (2021-02-01)
+
+
+### Bug Fixes
+
+* **semantic-release:** debug publish script ([6425248](https://github.com/cogment/cogment-js-sdk/commit/6425248ed1a22fc98891431218161bc6fc855ae5))
+
 ## [1.16.1](https://github.com/cogment/cogment-js-sdk/compare/v1.16.0...v1.16.1) (2021-02-01)
 
 
