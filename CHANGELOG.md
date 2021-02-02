@@ -1,3 +1,10 @@
+# [1.17.0-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.4...v1.17.0-alpha.1) (2021-02-02)
+
+
+### Features
+
+* **ci:** sync remotes directly from ci ([a74ed40](https://github.com/cogment/cogment-js-sdk/commit/a74ed40a7c157c52014b0b9e8d67655c6a514216))
+
 ## [1.16.2-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.16.2-alpha.3...v1.16.2-alpha.4) (2021-02-01)
 
 
