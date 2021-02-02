@@ -18,11 +18,11 @@ services:
     ports:
       - 4000:4000/tcp
 
-  time:
-    image: registry.gitlab.com/ai-r/change_me/time:latest
+  echo:
+    image: registry.gitlab.com/ai-r/change_me/echo:latest
     build:
-      context: ./__tests__/end-to-end/cogment-app/
-      dockerfile: agents/time/Dockerfile
+      context: ./__tests__/end-to-end/cogment-app/echo
+      dockerfile: ../py_service.dockerfile
     volumes:
       - ./__tests__/end-to-end/cogment-app/:/app
     environment:
@@ -33,11 +33,11 @@ services:
         - port: 9000
     restart: on-failure
 
-  env:
-    image: registry.gitlab.com/ai-r/change_me/env:latest
+  environment:
+    image: registry.gitlab.com/ai-r/change_me/environment:latest
     build:
-      context: ./__tests__/end-to-end/cogment-app/
-      dockerfile: envs/Dockerfile
+      context: ./__tests__/end-to-end/cogment-app/environment
+      dockerfile: ../py_service.dockerfile
     volumes:
       - ./__tests__/end-to-end/cogment-app/:/app
     environment:
@@ -59,8 +59,8 @@ services:
       ports:
         - port: 9000
     depends_on:
-      - env
-      - time
+      - environment
+      - echo
     restart: on-failure
 
   grpcwebproxy:

@@ -1,4 +1,3 @@
-
 syntax = "proto3";
 
 package cogment_app;
@@ -11,18 +10,15 @@ message TrialConfig {
 }
 
 message Observation {
-  float time = 1;
+  uint64 timestamp = 1;
+  string request = 2;
+  string response = 3;
 }
-message EmmaAction {}
-
-message TimeAction {
-  float time = 1;
-}
-
-message Reward {
-
+message ClientAction {
+  string request = 1;
 }
 
-message AsyncMessage {
-
+message EchoAction {
+  string response = 1;
 }
+

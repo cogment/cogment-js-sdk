@@ -21,13 +21,13 @@ import {createService, getLogger} from '../../src';
 import {VersionInfo, VersionRequest} from '../../src/cogment/api/common_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
 import {config} from '../../src/lib/Config';
-import cogSettings from './cogment-app/clients/web/src/cog_settings';
+import cogSettings from './cogment-app/clients/webapp/src/cog_settings';
 import {
   AsyncMessage,
   EmmaAction,
   Observation,
   Reward,
-} from './cogment-app/clients/web/src/data_pb';
+} from './cogment-app/clients/webapp/src/data_pb';
 
 const logger = getLogger('cogment').childLogger('__tests__/end-to-end');
 
