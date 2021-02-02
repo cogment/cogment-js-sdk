@@ -82,7 +82,7 @@ release:
     - mkdir -pm 0700 ~/.ssh
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
     - eval $(ssh-agent -s)
-    - ssh-add - < "${GIT_SSH_PRIVATE_KEY}"
+    - echo "${GIT_SSH_PRIVATE_KEY}" | ssh-add -
   script:
     - npm run semantic-release
   only:
