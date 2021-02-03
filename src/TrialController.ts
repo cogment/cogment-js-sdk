@@ -122,7 +122,7 @@ export class TrialController {
     request.setTrialId(trialId);
     if (trialActor) {
       request.setActorName(trialActor.name);
-      request.setActorClass(trialActor.class);
+      request.setActorClass(trialActor.actorClass);
     }
     // eslint-disable-next-line compat/compat
     const response = await new Promise<JoinTrialReturnType>(

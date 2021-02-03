@@ -18,16 +18,16 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {createService, getLogger} from '../../src';
-import {VersionInfo, VersionRequest} from '../../src/cogment/api/common_pb';
+import {TrialActor} from '../../src/@types/cogment';
+import {
+  Message,
+  VersionInfo,
+  VersionRequest,
+} from '../../src/cogment/api/common_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
 import {config} from '../../src/lib/Config';
-import cogSettings from './cogment-app/clients/webapp/src/cog_settings';
-import {
-  AsyncMessage,
-  EmmaAction,
-  Observation,
-  Reward,
-} from './cogment-app/clients/webapp/src/data_pb';
+import cogSettings from './cogment-app/webapp/src/cog_settings';
+import {ClientAction, Observation} from './cogment-app/webapp/src/data_pb';
 
 const logger = getLogger('cogment').childLogger('__tests__/end-to-end');
 
@@ -69,7 +69,7 @@ describe('grpc.WebsocketTransport', () => {
 
 describe('a cogment-app', () => {
   test('runs', async () => {
-    const trialActor = {name: 'emma', class: 'emma'};
+    const trialActor: TrialActor = {name: 'client_actor', actorClass: 'client'};
     const service = createService({
       cogSettings: cogSettings,
       grpcURL: config.connection.http,
@@ -80,7 +80,7 @@ describe('a cogment-app', () => {
     // TODO: this fails if run before registerActor
     // const trialController = service.createTrialController(trialLifecycleClient);
 
-    service.registerActor<EmmaAction, Observation, Reward, AsyncMessage>(
+    service.registerActor<ClientAction, Observation, never, Message>(
       trialActor,
       async (actorSession) => {
         logger.info('Actor running');
@@ -90,7 +90,7 @@ describe('a cogment-app', () => {
         setTimeout(actorSession.stop.bind(actorSession), 3000);
 
         // TODO: if noop required, hide under the hood
-        await actorSession.sendAction(new EmmaAction());
+        await actorSession.sendAction(new ClientAction());
 
         for await (const {
           observation,
@@ -105,7 +105,7 @@ describe('a cogment-app', () => {
                 2,
               )}`,
             );
-            const action = new EmmaAction();
+            const action = new ClientAction();
             await actorSession.sendAction(action);
           }
           if (message) {

@@ -3,14 +3,17 @@ import:
     - data.proto
 
 commands:
-  generate: >
-    cogment generate --python_dir=./environment &&
-    cogment generate --python_dir=./echo &&
+  generate:python: |
+    cogment generate --python_dir=./environment
+    cogment generate --python_dir=./echo
     cogment generate --python_dir=./client
-  web-client:generate: >
+  generate:web-client: |
     cogment generate --js_dir=./webapp/src
     cd webapp
     npm run build:protos
+  generate: |
+    cogment run generate:python
+    cogment run generate:web-client
   build: docker-compose build
   # Start and stop services
   start: docker-compose up orchestrator environment echo

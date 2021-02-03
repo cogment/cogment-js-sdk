@@ -109,3 +109,43 @@ export namespace EchoAction {
   }
 }
 
+export class ClientMessage extends jspb.Message {
+  getRequest(): string;
+  setRequest(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): ClientMessage.AsObject;
+  static toObject(includeInstance: boolean, msg: ClientMessage): ClientMessage.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: ClientMessage, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): ClientMessage;
+  static deserializeBinaryFromReader(message: ClientMessage, reader: jspb.BinaryReader): ClientMessage;
+}
+
+export namespace ClientMessage {
+  export type AsObject = {
+    request: string,
+  }
+}
+
+export class EchoMessage extends jspb.Message {
+  getResponse(): string;
+  setResponse(value: string): void;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): EchoMessage.AsObject;
+  static toObject(includeInstance: boolean, msg: EchoMessage): EchoMessage.AsObject;
+  static extensions: {[key: number]: jspb.ExtensionFieldInfo<jspb.Message>};
+  static extensionsBinary: {[key: number]: jspb.ExtensionFieldBinaryInfo<jspb.Message>};
+  static serializeBinaryToWriter(message: EchoMessage, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): EchoMessage;
+  static deserializeBinaryFromReader(message: EchoMessage, reader: jspb.BinaryReader): EchoMessage;
+}
+
+export namespace EchoMessage {
+  export type AsObject = {
+    response: string,
+  }
+}
+

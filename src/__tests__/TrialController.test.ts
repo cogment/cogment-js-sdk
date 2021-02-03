@@ -17,7 +17,8 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
+import cogSettings from '../../__tests__/end-to-end/cogment-app/webapp/src/cog_settings';
+import {TrialActor} from '../@types/cogment';
 import {createService} from '../Cogment';
 import {config} from '../lib/Config';
 import {TrialController} from '../TrialController';
@@ -54,7 +55,7 @@ describe('TrialController', () => {
   });
 
   test('can execute a trial', async () => {
-    const trialActor = {name: 'emma', class: 'emma'};
+    const trialActor: TrialActor = {name: 'client_actor', actorClass: 'client'};
     const clientName = trialActor.name;
     const transport = NodeHttpTransport();
     const service = createService({
@@ -70,7 +71,7 @@ describe('TrialController', () => {
 
     expect(trialId).toBeTruthy();
     expect(response.actorsInTrialList).toEqual(
-      expect.arrayContaining([{actorClass: 'emma', name: 'emma'}]),
+      expect.arrayContaining([trialActor]),
     );
     const trialInfo = await trialController.getTrialInfo(trialId);
     expect(trialInfo.toObject().trialList).toContainEqual(
@@ -81,6 +82,7 @@ describe('TrialController', () => {
       }),
     );
     const terminatePromise = trialController.terminateTrial(trialId);
+    // noinspection BadExpressionStatementJS
     expect(terminatePromise).resolves;
   }, 10000);
 });

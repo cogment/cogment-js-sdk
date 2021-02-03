@@ -1,5 +1,8 @@
 import cog_settings
-from data_pb2 import EchoAction
+from data_pb2 import (
+    EchoAction,
+    EchoMessage,
+)
 
 import cogment
 
@@ -23,6 +26,7 @@ async def echo(actor_session):
             print(
                 f"{actor_session.name} received a message - {msg} from sender {sender}"
             )
+            actor_session.send_message(EchoMessage(response=msg.request), sender)
 
 
 async def main():

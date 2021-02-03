@@ -17,13 +17,12 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import cogSettings from '../../__tests__/end-to-end/cogment-app/clients/web/src/cog_settings';
+import cogSettings from '../../__tests__/end-to-end/cogment-app/webapp/src/cog_settings';
 import {
-  AsyncMessage,
-  EmmaAction,
+  ClientMessage,
+  ClientAction,
   Observation,
-  Reward,
-} from '../../__tests__/end-to-end/cogment-app/clients/web/src/data_pb';
+} from '../../__tests__/end-to-end/cogment-app/webapp/src/data_pb';
 import {TrialActor} from '../@types/cogment';
 import {ActorSession} from '../ActorSession';
 import {createService} from '../Cogment';
@@ -45,9 +44,12 @@ describe('ActorSession', () => {
       // TODO: this fails if run before registerActor
       // const trialController = service.createTrialController(trialLifecycleClient);
 
-      const trialActor: TrialActor = {name: 'emma', class: 'emma'};
+      const trialActor: TrialActor = {
+        name: 'client_actor',
+        actorClass: 'client',
+      };
 
-      service.registerActor<EmmaAction, Observation, Reward, AsyncMessage>(
+      service.registerActor<ClientAction, Observation, never, ClientMessage>(
         trialActor,
         async (actorSession) => {
           logger.info('Actor running');
@@ -56,26 +58,26 @@ describe('ActorSession', () => {
 
           setTimeout(actorSession.stop.bind(actorSession), 3000);
 
-          await actorSession.sendAction(new EmmaAction());
+          await actorSession.sendAction(new ClientAction());
 
           for await (const {observation} of actorSession.eventLoop()) {
             if (observation) {
               logger.info(
-                `Received an observation for tick id ${observation.getTime()}: ${JSON.stringify(
+                `Received an observation for tick id ${observation.getTimestamp()}: ${JSON.stringify(
                   observation.toObject(),
                   undefined,
                   2,
                 )}`,
               );
-              expect(observation.getTime()).not.toBe(0);
-              expect(observation.getTime()).not.toEqual('');
+              expect(observation.getTimestamp()).not.toBe(0);
+              expect(observation.getTimestamp()).not.toEqual('');
               expect(
-                Math.abs(Date.now() / 1000 - observation.getTime()),
+                Math.abs(Date.now() / 1000 - observation.getTimestamp()),
               ).toBeLessThan(5000);
-              expect(observation.getTime() * 1000).toBeLessThanOrEqual(
+              expect(observation.getTimestamp() * 1000).toBeLessThanOrEqual(
                 Date.now() + 60000,
               );
-              const action = new EmmaAction();
+              const action = new ClientAction();
               await actorSession.sendAction(action);
             }
           }

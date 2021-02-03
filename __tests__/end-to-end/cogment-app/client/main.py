@@ -1,5 +1,8 @@
 import cog_settings
-from data_pb2 import ClientAction
+from data_pb2 import (
+    ClientAction,
+    ClientMessage,
+)
 from data_pb2 import TrialConfig
 
 import cogment
@@ -30,6 +33,10 @@ async def client_actor_impl(actor_session):
             print(
                 f"{actor_session.name} received a message - {msg} from sender {sender}"
             )
+
+        if not counter % 10:
+            message = ClientMessage(request=f"oh hai! {counter}")
+            actor_session.send_message(message, "echo")
 
 
 async def main():

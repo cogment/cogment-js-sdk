@@ -55,7 +55,7 @@ export class ActorSession<
       TrialActionReply
     >,
   ) {
-    this.actorCogSettings = cogSettings.actor_classes[actorClass.class];
+    this.actorCogSettings = cogSettings.actor_classes[actorClass.actorClass];
 
     this.actionStreamClient.onMessage(this.onActionStreamMessage);
     this.actionStreamClient.onHeaders(this.onActionStreamHeaders);

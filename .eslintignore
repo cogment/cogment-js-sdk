@@ -26,3 +26,4 @@ bin
 cli/lib/**/*
 tls
 dependency-check-*.*
+/schemas/

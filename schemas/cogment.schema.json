@@ -1,19 +1,63 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "ActorClass": {
+      "type": "object",
+      "title": "Actor Class",
+      "description": "Actor Class static configuration",
+      "required": ["id", "action", "observation"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "title": "ID",
+          "description": "ID of this actor class (must be unique)"
+        },
+        "action": {
+          "type": "object",
+          "title": "Actor Action Configuration",
+          "description": "Static configuration for this actors actions",
+          "properties": {
+            "space": {
+              "type": "string",
+              "title": "Action Space",
+              "description": "Fully qualified protobuf name representing the actor's action space"
+            }
+          }
+        },
+        "observation": {
+          "type": "object",
+          "title": "Actor Observation Configuration",
+          "description": "Static configuration for this actors observation",
+          "properties": {
+            "space": {
+              "type": "string",
+              "title": "Observation Space",
+              "description": "Fully qualified protobuf name representing the actor's observation space"
+            }
+          }
+        },
+        "message": {
+          "type": "object",
+          "title": "Actor Message Configuration",
+          "description": "Static configuration for this actors messages",
+          "properties": {
+            "space": {
+              "type": "string",
+              "title": "Message Space",
+              "description": "Fully qualified protobuf name representing the actor's message space"
+            }
+          }
+        }
+      }
+    },
     "Commands": {
       "type": "object",
       "title": "Commands",
       "description": "cogment run <command>",
       "items": {
-        "type": "array",
+        "type": "string",
         "title": "Command",
-        "description": "Shell command to run",
-        "items": {
-          "type": "string",
-          "title": "Command",
-          "description": "Command"
-        }
+        "description": "Shell command to run"
       }
     },
     "Environment": {
@@ -64,6 +108,11 @@
               "title": "Trial gRPC URI",
               "description": "The gRPC URI of the environment microservice",
               "format": "uri"
+            },
+            "config": {
+              "type": "object",
+              "title": "TrialParams config override",
+              "description": "Override trial_params properties with this config object"
             }
           }
         },
@@ -141,7 +190,14 @@
     "trial": {
       "$ref": "#/definitions/Trial"
     },
-    "actor_classes": {},
+    "actor_classes": {
+      "type": "array",
+      "title": "Actor Classes",
+      "description": "Actor Classes Static Configuration",
+      "items": {
+        "$ref": "#/definitions/ActorClass"
+      }
+    },
     "trial_params": {
       "$ref": "#/definitions/TrialParams"
     }

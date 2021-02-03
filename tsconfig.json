@@ -24,12 +24,7 @@
     "strict": true,
     "target": "es5"
   },
-  "include": ["src", "cli"],
-  "exclude": [
-    "**/__tests__/*",
-    "*.test.*",
-    "**/node_modules/*",
-    "**/__data__/*"
-  ],
+  "include": ["src", "cli", "__tests__"],
+  "exclude": ["**/node_modules/*", "**/__data__/*"],
   "references": [{"path": "./cli"}]
 }

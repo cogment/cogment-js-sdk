@@ -23,7 +23,7 @@ export interface CogSettingsActorClass {
   action_space: typeof Message;
   observation_space: typeof Message;
   observation_delta: typeof Message;
-  observation_delta_apply_fn: typeof function;
+  observation_delta_apply_fn: (x) => x;
   feedback_space: typeof Message | null;
   message_space: typeof Message | null;
 }
@@ -40,8 +40,5 @@ export interface CogSettings {
     id: string;
     config_type: typeof Message | null;
     message_space: typeof Message | null;
-  };
-  connection: {
-    http: string;
   };
 }
