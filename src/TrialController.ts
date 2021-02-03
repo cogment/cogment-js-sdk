@@ -167,20 +167,28 @@ export class TrialController {
     });
   }
 
+  /**
+   * Start a new trial.
+   * @param actorClass - The name of an actor_class corresponding to `cogment.yaml`
+   * @param trialConfig - A TrialConfig protobuf that will merge with `trial_params.trial_config` from `cogment.yaml`
+   * @returns A trial start response
+   */
   public async startTrial(
-    userId: string,
+    // TODO: what does the backend do with TrialStartRequest#user_id? This should be optional if we are to be able to
+    //  start trials without joining them.
+    actorClass: string,
     trialConfig?: Message,
   ): Promise<StartTrialReturnType> {
     // eslint-disable-next-line compat/compat
     return new Promise<StartTrialReturnType>((resolve, reject) => {
       const request = new TrialStartRequest();
-      if (userId) {
-        request.setUserId(userId);
+      if (actorClass) {
+        request.setUserId(actorClass);
       }
       if (trialConfig && this.cogSettings.trial.config_type) {
-        const trialConfig = new TrialConfig();
-        trialConfig.setContent(trialConfig.serializeBinary());
-        request.setConfig(trialConfig);
+        const trialConfigInternal = new TrialConfig();
+        trialConfigInternal.setContent(trialConfig.serializeBinary());
+        request.setConfig(trialConfigInternal);
       } else if (trialConfig) {
         // TODO: should we throw here?
         logger.warn(
