@@ -29,4 +29,5 @@
   "references": [
     {"path": "./cli"},
     {"path": "__tests__/end-to-end/cogment-app/webapp"}
+  ]
 }

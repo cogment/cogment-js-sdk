@@ -27,3 +27,4 @@ cli/lib/**/*
 tls
 dependency-check-*.*
 /schemas/
+/cli/
