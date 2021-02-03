@@ -18,13 +18,15 @@
     "outDir": "dist",
     "removeComments": true,
     "resolveJsonModule": true,
-    "rootDirs": ["src", "cli"],
+    "rootDir": "src",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "es5"
   },
-  "include": ["src", "cli", "__tests__"],
+  "include": ["src"],
   "exclude": ["**/node_modules/*", "**/__data__/*"],
-  "references": [{"path": "./cli"}]
+  "references": [
+    {"path": "./cli"},
+    {"path": "__tests__/end-to-end/cogment-app/webapp"}
 }

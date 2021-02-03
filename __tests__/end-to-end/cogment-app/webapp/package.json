@@ -11,6 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "ts-protoc-gen": "^0.14.0"
+    "ts-protoc-gen": "^0.14.0",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3"
   }
 }
