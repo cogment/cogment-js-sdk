@@ -10,7 +10,7 @@ message TrialConfig {
 }
 
 message Observation {
-  float timestamp = 1;
+  uint64 timestamp = 1;
   string request = 2;
   string response = 3;
 }

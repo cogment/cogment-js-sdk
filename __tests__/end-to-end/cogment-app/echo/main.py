@@ -15,7 +15,10 @@ async def echo(actor_session):
     async for event in actor_session.event_loop():
         if "observation" in event:
             observation = event["observation"]
-            print(f"{actor_session.name} received {observation.request}")
+            print(
+                f"{actor_session.name} received observation '{observation.request}' with "
+                f"timestamp {observation.timestamp}"
+            )
             action = EchoAction(response=observation.request)
             actor_session.do_action(action)
         if "reward" in event:

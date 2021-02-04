@@ -73,15 +73,14 @@ export class ActorSession<
       logger.warn('Trial is not currently running.');
     }
     while (this.running) {
-      if (this.events[0]) {
+      const event = this.events.shift();
+      if (event) {
         logger.debug(
-          `Dispatching event ${JSON.stringify(
-            this.events[0].observation?.toObject(),
-            undefined,
-            2,
-          )}`,
+          `Dispatching event for tick id ${
+            event.tickId?.toString() ?? ''
+          } ${JSON.stringify(event, undefined, 2)}`,
         );
-        yield this.events.splice(0, 1)[0];
+        yield event;
       } else {
         logger.trace('No events available, sleeping 200ms');
         await new Promise((resolve) => setTimeout(resolve, 200));
@@ -179,6 +178,8 @@ export class ActorSession<
         })
         .map((observation) => {
           return {
+            tickId: observation.getTickId(),
+            timestamp: observation.getTimestamp(),
             observation: deserializeData<ObservationT>({
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
@@ -188,7 +189,9 @@ export class ActorSession<
           };
         }),
       ...messages.map((message) => ({
+        tickId: message.getTickId(),
         message: {
+          receiver: message.getReceiverName(),
           sender: message.getSenderName(),
           data: this.actorCogSettings.message_space?.deserializeBinary(
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -198,8 +201,8 @@ export class ActorSession<
         },
       })),
       ...rewards.map((reward) => ({
+        tickId: reward.getFeedbacksList()[0].getTickId(),
         reward: {
-          tickId: reward.getFeedbacksList()[0].getTickId(),
           value: reward.getValue(),
           confidence: reward.getConfidence(),
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment

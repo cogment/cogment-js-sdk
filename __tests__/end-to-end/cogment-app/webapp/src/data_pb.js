@@ -452,7 +452,7 @@ proto.cogment_app.Observation.prototype.toObject = function(opt_includeInstance)
  */
 proto.cogment_app.Observation.toObject = function(includeInstance, msg) {
   var f, obj = {
-    timestamp: jspb.Message.getFloatingPointFieldWithDefault(msg, 1, 0.0),
+    timestamp: jspb.Message.getFieldWithDefault(msg, 1, 0),
     request: jspb.Message.getFieldWithDefault(msg, 2, ""),
     response: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
@@ -492,7 +492,7 @@ proto.cogment_app.Observation.deserializeBinaryFromReader = function(msg, reader
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readFloat());
+      var value = /** @type {number} */ (reader.readUint64());
       msg.setTimestamp(value);
       break;
     case 2:
@@ -533,8 +533,8 @@ proto.cogment_app.Observation.prototype.serializeBinary = function() {
 proto.cogment_app.Observation.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
   f = message.getTimestamp();
-  if (f !== 0.0) {
-    writer.writeFloat(
+  if (f !== 0) {
+    writer.writeUint64(
       1,
       f
     );
@@ -557,11 +557,11 @@ proto.cogment_app.Observation.serializeBinaryToWriter = function(message, writer
 
 
 /**
- * optional float timestamp = 1;
+ * optional uint64 timestamp = 1;
  * @return {number}
  */
 proto.cogment_app.Observation.prototype.getTimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFloatingPointFieldWithDefault(this, 1, 0.0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
 };
 
 
@@ -570,7 +570,7 @@ proto.cogment_app.Observation.prototype.getTimestamp = function() {
  * @return {!proto.cogment_app.Observation} returns this
  */
 proto.cogment_app.Observation.prototype.setTimestamp = function(value) {
-  return jspb.Message.setProto3FloatField(this, 1, value);
+  return jspb.Message.setProto3IntField(this, 1, value);
 };
 
 

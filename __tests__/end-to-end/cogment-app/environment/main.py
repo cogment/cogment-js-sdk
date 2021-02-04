@@ -1,25 +1,25 @@
-import cog_settings
-from data_pb2 import Observation
+import asyncio
+import time
 
 import cogment
 
-import asyncio
+import cog_settings
+from data_pb2 import Observation
 
 
 async def environment(environment_session):
     print("environment starting")
-    # Create the initial observaton
-    observation = Observation()
 
     # Start the trial and send that observation to all actors
-    environment_session.start([("*", observation)])
+    environment_session.start([("*", Observation(timestamp=int(time.time() * 1000)))])
 
     async for event in environment_session.event_loop():
         if "actions" in event:
             actions = event["actions"]
             print(f"environment received actions")
+            observation = Observation(timestamp=int(time.time() * 1000))
             for actor, action in zip(environment_session.get_active_actors(), actions):
-                print(f" actor '{actor.actor_name}' did action '{action}'")
+                print(f"actor '{actor.actor_name}' did action '{action}'")
 
                 if hasattr(action, "request"):
                     observation.request = action.request
@@ -28,7 +28,6 @@ async def environment(environment_session):
                 else:
                     print(f"Unknown action, expecting request or response properties")
 
-            observation = Observation()
             environment_session.produce_observations([("*", observation)])
         if "message" in event:
             (msg, sender) = event["message"]

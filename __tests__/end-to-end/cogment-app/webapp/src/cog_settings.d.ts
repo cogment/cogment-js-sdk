@@ -1,4 +1,4 @@
-import * as data_pb from './data_pb.js';
+import * as data_pb from './data_pb';
 declare const settings: {
     actor_classes: {
         client: {

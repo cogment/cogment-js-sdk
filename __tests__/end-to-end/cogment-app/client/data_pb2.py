@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ndata.proto\x12\x0b\x63ogment_app\"\x0b\n\tEnvConfig\"9\n\x0bTrialConfig\x12*\n\nenv_config\x18\x01 \x01(\x0b\x32\x16.cogment_app.EnvConfig\"C\n\x0bObservation\x12\x11\n\ttimestamp\x18\x01 \x01(\x02\x12\x0f\n\x07request\x18\x02 \x01(\t\x12\x10\n\x08response\x18\x03 \x01(\t\"\x1f\n\x0c\x43lientAction\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1e\n\nEchoAction\x12\x10\n\x08response\x18\x01 \x01(\t\" \n\rClientMessage\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1f\n\x0b\x45\x63hoMessage\x12\x10\n\x08response\x18\x01 \x01(\tb\x06proto3'
+  serialized_pb=b'\n\ndata.proto\x12\x0b\x63ogment_app\"\x0b\n\tEnvConfig\"9\n\x0bTrialConfig\x12*\n\nenv_config\x18\x01 \x01(\x0b\x32\x16.cogment_app.EnvConfig\"C\n\x0bObservation\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07request\x18\x02 \x01(\t\x12\x10\n\x08response\x18\x03 \x01(\t\"\x1f\n\x0c\x43lientAction\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1e\n\nEchoAction\x12\x10\n\x08response\x18\x01 \x01(\t\" \n\rClientMessage\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1f\n\x0b\x45\x63hoMessage\x12\x10\n\x08response\x18\x01 \x01(\tb\x06proto3'
 )
 
 
@@ -92,8 +92,8 @@ _OBSERVATION = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='timestamp', full_name='cogment_app.Observation.timestamp', index=0,
-      number=1, type=2, cpp_type=6, label=1,
-      has_default_value=False, default_value=float(0),
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),

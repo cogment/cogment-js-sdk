@@ -56,7 +56,9 @@ describe('ActorSession', () => {
 
           setTimeout(actorSession.stop.bind(actorSession), 3000);
 
-          await actorSession.sendAction(new ClientAction());
+          const action = new ClientAction();
+          action.setRequest('ping');
+          await actorSession.sendAction(action);
 
           for await (const {observation} of actorSession.eventLoop()) {
             if (observation) {
@@ -69,13 +71,14 @@ describe('ActorSession', () => {
               );
               expect(observation.getTimestamp()).not.toBe(0);
               expect(observation.getTimestamp()).not.toEqual('');
-              expect(
-                Math.abs(Date.now() / 1000 - observation.getTimestamp()),
-              ).toBeLessThan(5000);
-              expect(observation.getTimestamp() * 1000).toBeLessThanOrEqual(
-                Date.now() + 60000,
+              expect(Date.now() - observation.getTimestamp()).toBeGreaterThan(
+                0,
+              );
+              expect(observation.getTimestamp()).toBeLessThanOrEqual(
+                Date.now(),
               );
               const action = new ClientAction();
+              action.setRequest('pong');
               await actorSession.sendAction(action);
             }
           }

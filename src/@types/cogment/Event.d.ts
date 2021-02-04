@@ -23,6 +23,8 @@ export interface Event<
   FeedbackT extends Message,
   MessageT extends Message
 > {
+  timestamp?: float;
+  tickId?: number;
   observation?: ObservationT;
   reward?: Reward<FeedbackT>;
   message?: {

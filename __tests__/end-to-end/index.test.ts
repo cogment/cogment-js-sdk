@@ -89,8 +89,9 @@ describe('a cogment-app', () => {
 
         setTimeout(actorSession.stop.bind(actorSession), 3000);
 
-        // TODO: if noop required, hide under the hood
-        await actorSession.sendAction(new ClientAction());
+        const action = new ClientAction();
+        action.setRequest('ping');
+        await actorSession.sendAction(action);
 
         for await (const {
           observation,
@@ -106,6 +107,7 @@ describe('a cogment-app', () => {
               )}`,
             );
             const action = new ClientAction();
+            action.setRequest('ping');
             await actorSession.sendAction(action);
           }
           if (message) {
