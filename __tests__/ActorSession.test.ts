@@ -17,17 +17,15 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import cogSettings from '../../__tests__/end-to-end/cogment-app/webapp/src/cog_settings';
+import {ActorSession, createService, getLogger} from '../src';
+import {TrialActor} from '../src/@types/cogment';
+import {config} from '../src/lib/Config';
+import cogSettings from './end-to-end/cogment-app/webapp/src/cog_settings';
 import {
-  ClientMessage,
   ClientAction,
+  ClientMessage,
   Observation,
-} from '../../__tests__/end-to-end/cogment-app/webapp/src/data_pb';
-import {TrialActor} from '../@types/cogment';
-import {ActorSession} from '../ActorSession';
-import {createService} from '../Cogment';
-import {config} from '../lib/Config';
-import {getLogger} from '../lib/Logger';
+} from './end-to-end/cogment-app/webapp/src/data_pb';
 
 const logger = getLogger('ActorSession');
 

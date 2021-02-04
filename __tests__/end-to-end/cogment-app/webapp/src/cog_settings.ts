@@ -15,7 +15,7 @@
  *
  */
 
-import * as data_pb from './data_pb.js';
+import * as data_pb from './data_pb';
 
 const _client_class = {
   id: 'client',
@@ -23,9 +23,9 @@ const _client_class = {
   action_space: data_pb.ClientAction,
   observation_space: data_pb.Observation,
   observation_delta: data_pb.Observation,
-  observation_delta_apply_fn: (x : any) => x,
+  observation_delta_apply_fn: (x: any) => x,
   feedback_space: null,
-  message_space: null
+  message_space: null,
 };
 
 const _echo_class = {
@@ -34,12 +34,10 @@ const _echo_class = {
   action_space: data_pb.EchoAction,
   observation_space: data_pb.Observation,
   observation_delta: data_pb.Observation,
-  observation_delta_apply_fn: (x : any) => x,
+  observation_delta_apply_fn: (x: any) => x,
   feedback_space: null,
-  message_space: null
+  message_space: null,
 };
-
-
 
 const settings = {
   actor_classes: {
@@ -58,9 +56,8 @@ const settings = {
   env_class: {
     id: 'env',
     config_type: null,
-    message_space: null
-  }
-
+    message_space: null,
+  },
 };
 
 export default settings;

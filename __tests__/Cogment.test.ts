@@ -15,10 +15,18 @@
  *
  */
 
-import {CogmentService} from '../CogmentService';
+import {CogmentService, createService} from '../src';
+import {config} from '../src/lib/Config';
+import cogSettings from './end-to-end/cogment-app/webapp/src/cog_settings';
 
-describe('CogmentService', () => {
-  test.skip('exists', () => {
-    return Promise.resolve();
+describe('Cogment', () => {
+  describe('createService', () => {
+    test('returns a `CogmentService`', () => {
+      const service = createService({
+        cogSettings,
+        grpcURL: config.connection.http,
+      });
+      expect(service).toBeInstanceOf(CogmentService);
+    });
   });
 });

@@ -20,7 +20,12 @@ const path = require('path');
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['./tsconfig.json'],
+    project: [
+      './tsconfig.json',
+      './cli/tsconfig.json',
+      './__tests__/tsconfig.json',
+      './__tests__/end-to-end/cogment-app/webapp/tsconfig.json',
+    ],
   },
   plugins: [
     '@typescript-eslint',

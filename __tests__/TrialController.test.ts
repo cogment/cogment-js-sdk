@@ -17,11 +17,10 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import cogSettings from '../../__tests__/end-to-end/cogment-app/webapp/src/cog_settings';
-import {TrialActor} from '../@types/cogment';
-import {createService} from '../Cogment';
-import {config} from '../lib/Config';
-import {TrialController} from '../TrialController';
+import {createService, TrialController} from '../src';
+import {TrialActor} from '../src/@types/cogment';
+import {config} from '../src/lib/Config';
+import cogSettings from './end-to-end/cogment-app/webapp/src/cog_settings';
 
 describe('TrialController', () => {
   describe('when given an invalid orchestrator url', () => {
