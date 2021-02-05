@@ -25,12 +25,13 @@ import {
   ClientAction,
   ClientMessage,
   Observation,
+  TrialConfig,
 } from './end-to-end/cogment-app/webapp/src/data_pb';
 
 const logger = getLogger('ActorSession');
 
 describe('ActorSession', () => {
-  const TEST_MESSAGE = 'oh you must be foo';
+  const TEST_MESSAGE = 'foo';
 
   describe('#eventLoop', () => {
     beforeAll(async () => {
@@ -71,6 +72,7 @@ describe('ActorSession', () => {
                   2,
                 )}`,
               );
+
               const action = new ClientAction();
               action.setRequest(TEST_MESSAGE);
               actorSession.sendAction(action);
@@ -92,14 +94,19 @@ describe('ActorSession', () => {
         },
       );
       const trialController = service.createTrialController();
+      const trialConfig = new TrialConfig();
+      trialConfig.setSuffix(' bar');
 
-      const {trialId} = await trialController.startTrial(trialActor.name);
+      const {trialId} = await trialController.startTrial(
+        trialActor.name,
+        trialConfig,
+      );
       await trialController.joinTrial(trialId, trialActor);
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return trialController.terminateTrial(trialId);
     }, 5000);
 
-    // TODO: Have CogSettings.d.ts emit types for Observation
+    // TODO: Use types from CogSettings.d.ts - although almost why bother, type completion in editors is good enough
     let observationPromise: Promise<Observation>;
     let timestampPromise: Promise<number>;
     let responsePromise: Promise<string>;
@@ -112,11 +119,12 @@ describe('ActorSession', () => {
       await expect(timestampPromise).resolves.not.toEqual('');
       await expect(timestampPromise).resolves.toBeLessThanOrEqual(Date.now());
     });
-    test('receives an incrementing tickId', async () => {
+    test('receives an incrementing tickId from the cogment framework', async () => {
       await expect(tickIdPromise).resolves.toBeGreaterThan(0);
     }, 5000);
     test('receives an echo response from the echo server', async () => {
       await expect(responsePromise).resolves.toEqual(TEST_MESSAGE);
     }, 5000);
   });
+  // TODO: Write a test that detects the suffix set on trialConfig when starting a trial
 });

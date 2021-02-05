@@ -17,27 +17,76 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import {createService, TrialController} from '../src';
+import {createService, StartTrialReturnType, TrialController} from '../src';
 import {TrialActor} from '../src/@types/cogment';
+import {TrialInfoReply} from '../src/cogment/api/orchestrator_pb';
 import {config} from '../src/lib/Config';
 import cogSettings from './end-to-end/cogment-app/webapp/src/cog_settings';
 
 describe('TrialController', () => {
-  describe('when given an invalid orchestrator url', () => {
-    test('fails to make a request to orchestrator', () => {
-      const transport = NodeHttpTransport();
-      const service = createService({
-        cogSettings,
-        grpcURL: 'http://example.com',
-        unaryTransportFactory: transport,
-      });
+  const TRIAL_ACTOR: TrialActor = {
+    name: 'client_actor',
+    actorClass: 'client',
+  };
 
-      const trialController = service.createTrialController();
-      return expect(trialController.version()).rejects.toBeInstanceOf(Error);
+  let isTrialOverBeforeTerminateTrialPromise: Promise<boolean>;
+  let isTrialOverAfterTerminateTrialPromise: Promise<boolean>;
+  let trialReturnPromise: Promise<StartTrialReturnType>;
+  let trialInfoPromise: Promise<TrialInfoReply.AsObject>;
+  let terminateTrialPromise: Promise<void>;
+
+  beforeAll(async () => {
+    const clientName = TRIAL_ACTOR.name;
+    const transport = NodeHttpTransport();
+    const service = createService({
+      cogSettings: cogSettings,
+      grpcURL: config.connection.http,
+      unaryTransportFactory: transport,
+      streamingTransportFactory: grpc.WebsocketTransport(),
+    });
+
+    const trialController = service.createTrialController();
+
+    isTrialOverBeforeTerminateTrialPromise = Promise.resolve(
+      trialController.isTrialOver(),
+    );
+
+    trialReturnPromise = trialController.startTrial(clientName);
+
+    const {trialId} = await trialReturnPromise;
+
+    trialInfoPromise = trialController
+      .getTrialInfo(trialId)
+      .then((trialInfo) => trialInfo.toObject());
+
+    terminateTrialPromise = trialController.terminateTrial(trialId);
+    isTrialOverAfterTerminateTrialPromise = Promise.resolve(
+      trialController.isTrialOver(),
+    );
+  });
+
+  describe('#isTrialOver()', () => {
+    test('is false before a trial starts', async () => {
+      await expect(isTrialOverBeforeTerminateTrialPromise).resolves.toBe(false);
+    });
+    test('is true after a trial ends', async () => {
+      await expect(isTrialOverAfterTerminateTrialPromise).resolves.toBe(true);
     });
   });
 
-  describe('can request `VersionInfo` from orchestrator', () => {
+  describe('#startTrial', () => {
+    test('response includes a trialId', async () => {
+      await expect(trialReturnPromise).resolves.toHaveProperty('trialId');
+    });
+
+    test('response.actorsInTrialList contains our trialActor', async () => {
+      await expect(trialReturnPromise).resolves.toMatchObject({
+        actorsInTrialList: expect.arrayContaining([TRIAL_ACTOR]),
+      });
+    });
+  });
+
+  describe('#version()', () => {
     test.each([
       ['NodeHttpTransport', NodeHttpTransport()],
       ['WebsocketTransport', grpc.WebsocketTransport()],
@@ -46,46 +95,11 @@ describe('TrialController', () => {
         cogSettings: cogSettings,
         grpcURL: config.connection.http,
         unaryTransportFactory: transport,
+        streamingTransportFactory: grpc.WebsocketTransport(),
       });
       const trialController = service.createTrialController();
       const response = await trialController.version();
       expect(response.version.length).toBeGreaterThan(0);
     });
   });
-
-  test('can execute a trial', async () => {
-    const trialActor: TrialActor = {name: 'client_actor', actorClass: 'client'};
-    const clientName = trialActor.name;
-    const transport = NodeHttpTransport();
-    const service = createService({
-      cogSettings: cogSettings,
-      grpcURL: config.connection.http,
-      unaryTransportFactory: transport,
-    });
-
-    const trialController = service.createTrialController();
-
-    expect(trialController.isTrialOver()).toBe(false);
-
-    const response = await trialController.startTrial(clientName);
-    const trialId = response.trialId;
-
-    expect(trialId).toBeTruthy();
-    expect(response.actorsInTrialList).toEqual(
-      expect.arrayContaining([trialActor]),
-    );
-    const trialInfo = await trialController.getTrialInfo(trialId);
-    expect(trialInfo.toObject().trialList).toContainEqual(
-      expect.objectContaining({
-        trialId,
-        // TODO: export our own type probably
-        // state: TrialState.PENDING,
-      }),
-    );
-
-    const terminatePromise = trialController.terminateTrial(trialId);
-    // noinspection BadExpressionStatementJS
-    expect(terminatePromise).resolves;
-    expect(trialController.isTrialOver()).toBe(true);
-  }, 10000);
 });

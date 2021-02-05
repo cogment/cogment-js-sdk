@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ndata.proto\x12\x0b\x63ogment_app\"\x0b\n\tEnvConfig\"9\n\x0bTrialConfig\x12*\n\nenv_config\x18\x01 \x01(\x0b\x32\x16.cogment_app.EnvConfig\"C\n\x0bObservation\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07request\x18\x02 \x01(\t\x12\x10\n\x08response\x18\x03 \x01(\t\"\x1f\n\x0c\x43lientAction\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1e\n\nEchoAction\x12\x10\n\x08response\x18\x01 \x01(\t\" \n\rClientMessage\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1f\n\x0b\x45\x63hoMessage\x12\x10\n\x08response\x18\x01 \x01(\tb\x06proto3'
+  serialized_pb=b'\n\ndata.proto\x12\x0b\x63ogment_app\"\x0b\n\tEnvConfig\"I\n\x0bTrialConfig\x12*\n\nenv_config\x18\x01 \x01(\x0b\x32\x16.cogment_app.EnvConfig\x12\x0e\n\x06suffix\x18\x02 \x01(\t\"C\n\x0bObservation\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07request\x18\x02 \x01(\t\x12\x10\n\x08response\x18\x03 \x01(\t\"\x1f\n\x0c\x43lientAction\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1e\n\nEchoAction\x12\x10\n\x08response\x18\x01 \x01(\t\" \n\rClientMessage\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1f\n\x0b\x45\x63hoMessage\x12\x10\n\x08response\x18\x01 \x01(\tb\x06proto3'
 )
 
 
@@ -65,6 +65,13 @@ _TRIALCONFIG = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='suffix', full_name='cogment_app.TrialConfig.suffix', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
   ],
   extensions=[
   ],
@@ -78,7 +85,7 @@ _TRIALCONFIG = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=40,
-  serialized_end=97,
+  serialized_end=113,
 )
 
 
@@ -123,8 +130,8 @@ _OBSERVATION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=99,
-  serialized_end=166,
+  serialized_start=115,
+  serialized_end=182,
 )
 
 
@@ -155,8 +162,8 @@ _CLIENTACTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=168,
-  serialized_end=199,
+  serialized_start=184,
+  serialized_end=215,
 )
 
 
@@ -187,8 +194,8 @@ _ECHOACTION = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=201,
-  serialized_end=231,
+  serialized_start=217,
+  serialized_end=247,
 )
 
 
@@ -219,8 +226,8 @@ _CLIENTMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=233,
-  serialized_end=265,
+  serialized_start=249,
+  serialized_end=281,
 )
 
 
@@ -251,8 +258,8 @@ _ECHOMESSAGE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=267,
-  serialized_end=298,
+  serialized_start=283,
+  serialized_end=314,
 )
 
 _TRIALCONFIG.fields_by_name['env_config'].message_type = _ENVCONFIG

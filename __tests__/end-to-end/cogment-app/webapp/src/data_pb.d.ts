@@ -25,6 +25,9 @@ export class TrialConfig extends jspb.Message {
   getEnvConfig(): EnvConfig | undefined;
   setEnvConfig(value?: EnvConfig): void;
 
+  getSuffix(): string;
+  setSuffix(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): TrialConfig.AsObject;
   static toObject(includeInstance: boolean, msg: TrialConfig): TrialConfig.AsObject;
@@ -38,6 +41,7 @@ export class TrialConfig extends jspb.Message {
 export namespace TrialConfig {
   export type AsObject = {
     envConfig?: EnvConfig.AsObject,
+    suffix: string,
   }
 }
 
