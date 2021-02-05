@@ -6,7 +6,6 @@
 /examples/
 /src/cogment/api
 /docs/api/
-__tests__
 /src/__mocks__/*.ts
 jest.config.js
 .eslintrc.js
@@ -26,3 +25,4 @@ bin
 cli/lib/**/*
 tls
 dependency-check-*.*
+/__tests__/

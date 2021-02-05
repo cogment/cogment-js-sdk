@@ -24,6 +24,7 @@ import cogSettings from './end-to-end/cogment-app/webapp/src/cog_settings';
 import {
   ClientAction,
   ClientMessage,
+  EnvConfig as EnvironmentConfig,
   Observation,
   TrialConfig,
 } from './end-to-end/cogment-app/webapp/src/data_pb';
@@ -33,6 +34,7 @@ const logger = getLogger('ActorSession');
 describe('ActorSession', () => {
   const TEST_MESSAGE = 'foo';
 
+  // eslint-disable-next-line sonarjs/cognitive-complexity
   describe('#eventLoop', () => {
     // TODO: Use types from CogSettings.d.ts - although almost why bother, type completion in editors is good enough
     let lastObservation: Observation;
@@ -67,7 +69,7 @@ describe('ActorSession', () => {
 
           const action = new ClientAction();
           action.setRequest(TEST_MESSAGE);
-          await actorSession.sendAction(action);
+          actorSession.sendAction(action);
 
           for await (const {observation} of actorSession.eventLoop()) {
             if (observation) {
@@ -97,14 +99,18 @@ describe('ActorSession', () => {
         },
       );
       const trialController = service.createTrialController();
+
       const trialConfig = new TrialConfig();
-      trialConfig.setSuffix(' bar');
+      const environmentConfig = new EnvironmentConfig();
+      environmentConfig.setSuffix(' bar');
+      trialConfig.setEnvConfig(environmentConfig);
 
       const {trialId} = await trialController.startTrial(
         trialActor.name,
         trialConfig,
       );
       await trialController.joinTrial(trialId, trialActor);
+      // eslint-disable-next-line compat/compat
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return trialController.terminateTrial(trialId);
     }, 5000);
@@ -112,14 +118,17 @@ describe('ActorSession', () => {
     test('receives observations', () => {
       expect(lastObservation).toBeInstanceOf(Observation);
     }, 5000);
+
     test('we are receiving a timestamp from the environment', () => {
       expect(lastTimestamp).not.toBe(0);
       expect(lastTimestamp).not.toEqual('');
       expect(lastTimestamp).toBeLessThanOrEqual(Date.now());
     }, 5000);
+
     test('receives an incrementing tickId from the cogment framework', () => {
       expect(lastTickId).toBeGreaterThan(0);
     }, 5000);
+
     test('receives an echo response from the echo server', () => {
       expect(lastResponse).toEqual(TEST_MESSAGE);
     }, 5000);

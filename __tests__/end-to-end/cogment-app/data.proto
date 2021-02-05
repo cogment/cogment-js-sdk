@@ -3,11 +3,11 @@ syntax = "proto3";
 package cogment_app;
 
 message EnvConfig {
+  string suffix = 1;
 }
 
 message TrialConfig {
 	EnvConfig env_config = 1;
-	string suffix = 2;
 }
 
 message Observation {

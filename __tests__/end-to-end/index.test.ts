@@ -43,18 +43,20 @@ describe('grpc.WebsocketTransport', () => {
       transport: websocketTransport,
     });
 
-    const mockOnMessageCb = jest.fn((message: VersionInfo) => {
+    const mockOnMessageCallback = jest.fn((message: VersionInfo) => {
       expect(message).toBeInstanceOf(VersionInfo);
     });
-    const mockOnHeadersCb = jest.fn(() => {});
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    const mockOnHeadersCallback = jest.fn(() => {});
 
-    versionClient.onMessage(mockOnMessageCb);
-    versionClient.onMessage(mockOnMessageCb);
-    versionClient.onHeaders(mockOnHeadersCb);
-    await new Promise((resolve) => {
+    versionClient.onMessage(mockOnMessageCallback);
+    versionClient.onMessage(mockOnMessageCallback);
+    versionClient.onHeaders(mockOnHeadersCallback);
+    // eslint-disable-next-line compat/compat
+    await new Promise<void>((resolve) => {
       versionClient.onEnd((code) => {
         expect(code).toBe(0);
-        resolve(undefined);
+        resolve();
       });
 
       versionClient.start();
@@ -62,9 +64,9 @@ describe('grpc.WebsocketTransport', () => {
       versionClient.finishSend();
     });
 
-    expect(mockOnMessageCb.mock.calls.length).toBe(2);
-    expect(mockOnHeadersCb.mock.calls.length).toBe(1);
-  }, 10000);
+    expect(mockOnMessageCallback.mock.calls).toHaveLength(2);
+    expect(mockOnHeadersCallback.mock.calls).toHaveLength(1);
+  }, 5000);
 });
 
 describe('a cogment-app', () => {
@@ -91,7 +93,7 @@ describe('a cogment-app', () => {
 
         const action = new ClientAction();
         action.setRequest('ping');
-        await actorSession.sendAction(action);
+        actorSession.sendAction(action);
 
         for await (const {
           observation,
@@ -108,7 +110,7 @@ describe('a cogment-app', () => {
             );
             const action = new ClientAction();
             action.setRequest('ping');
-            await actorSession.sendAction(action);
+            actorSession.sendAction(action);
           }
           if (message) {
             logger.info(message);
@@ -125,7 +127,8 @@ describe('a cogment-app', () => {
 
     const {trialId} = await trialController.startTrial(trialActor.name);
     await trialController.joinTrial(trialId, trialActor);
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    // eslint-disable-next-line compat/compat
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return trialController.terminateTrial(trialId);
-  }, 10000);
+  }, 5000);
 });

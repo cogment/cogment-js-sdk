@@ -43,7 +43,8 @@ actor_classes:
 trial_params:
   environment:
     endpoint: grpc://environment:9000
-    #config: {}
+    config:
+      suffix: ''
   actors:
     - name: client_actor
       actor_class: client

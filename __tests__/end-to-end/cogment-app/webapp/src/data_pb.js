@@ -200,7 +200,7 @@ proto.cogment_app.EnvConfig.prototype.toObject = function(opt_includeInstance) {
  */
 proto.cogment_app.EnvConfig.toObject = function(includeInstance, msg) {
   var f, obj = {
-
+    suffix: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -237,6 +237,10 @@ proto.cogment_app.EnvConfig.deserializeBinaryFromReader = function(msg, reader) 
     }
     var field = reader.getFieldNumber();
     switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setSuffix(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -266,6 +270,31 @@ proto.cogment_app.EnvConfig.prototype.serializeBinary = function() {
  */
 proto.cogment_app.EnvConfig.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getSuffix();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string suffix = 1;
+ * @return {string}
+ */
+proto.cogment_app.EnvConfig.prototype.getSuffix = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.cogment_app.EnvConfig} returns this
+ */
+proto.cogment_app.EnvConfig.prototype.setSuffix = function(value) {
+  return jspb.Message.setProto3StringField(this, 1, value);
 };
 
 
@@ -301,8 +330,7 @@ proto.cogment_app.TrialConfig.prototype.toObject = function(opt_includeInstance)
  */
 proto.cogment_app.TrialConfig.toObject = function(includeInstance, msg) {
   var f, obj = {
-    envConfig: (f = msg.getEnvConfig()) && proto.cogment_app.EnvConfig.toObject(includeInstance, f),
-    suffix: jspb.Message.getFieldWithDefault(msg, 2, "")
+    envConfig: (f = msg.getEnvConfig()) && proto.cogment_app.EnvConfig.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -344,10 +372,6 @@ proto.cogment_app.TrialConfig.deserializeBinaryFromReader = function(msg, reader
       reader.readMessage(value,proto.cogment_app.EnvConfig.deserializeBinaryFromReader);
       msg.setEnvConfig(value);
       break;
-    case 2:
-      var value = /** @type {string} */ (reader.readString());
-      msg.setSuffix(value);
-      break;
     default:
       reader.skipField();
       break;
@@ -383,13 +407,6 @@ proto.cogment_app.TrialConfig.serializeBinaryToWriter = function(message, writer
       1,
       f,
       proto.cogment_app.EnvConfig.serializeBinaryToWriter
-    );
-  }
-  f = message.getSuffix();
-  if (f.length > 0) {
-    writer.writeString(
-      2,
-      f
     );
   }
 };
@@ -429,24 +446,6 @@ proto.cogment_app.TrialConfig.prototype.clearEnvConfig = function() {
  */
 proto.cogment_app.TrialConfig.prototype.hasEnvConfig = function() {
   return jspb.Message.getField(this, 1) != null;
-};
-
-
-/**
- * optional string suffix = 2;
- * @return {string}
- */
-proto.cogment_app.TrialConfig.prototype.getSuffix = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.cogment_app.TrialConfig} returns this
- */
-proto.cogment_app.TrialConfig.prototype.setSuffix = function(value) {
-  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

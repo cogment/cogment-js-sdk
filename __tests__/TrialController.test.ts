@@ -32,16 +32,15 @@ describe('TrialController', () => {
   let isTrialOverBeforeTerminateTrial: boolean;
   let isTrialOverAfterTerminateTrial: boolean;
   let startTrialPromise: Promise<StartTrialReturnType>;
-  let trialInfoPromise: Promise<TrialInfoReply.AsObject>;
+  let trialInfoPromise: Promise<TrialInfoReply>;
   let terminateTrialPromise: Promise<void>;
 
   beforeAll(async () => {
     const clientName = TRIAL_ACTOR.name;
-    const transport = NodeHttpTransport();
     const service = createService({
       cogSettings: cogSettings,
       grpcURL: config.connection.http,
-      unaryTransportFactory: transport,
+      unaryTransportFactory: NodeHttpTransport(),
       streamingTransportFactory: grpc.WebsocketTransport(),
     });
 
@@ -51,29 +50,27 @@ describe('TrialController', () => {
 
     const {trialId} = await startTrialPromise;
 
+    trialInfoPromise = trialController.getTrialInfo(trialId);
+
     isTrialOverBeforeTerminateTrial = await trialController.isTrialOver(
       trialId,
     );
 
-    trialInfoPromise = trialController
-      .getTrialInfo(trialId)
-      .then((trialInfo) => trialInfo.toObject());
-
-    await trialInfoPromise;
+    // eslint-disable-next-line compat/compat
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     terminateTrialPromise = trialController.terminateTrial(trialId);
 
     await terminateTrialPromise;
 
-    isTrialOverBeforeTerminateTrial = await trialController.isTrialOver(
-      trialId,
-    );
+    isTrialOverAfterTerminateTrial = await trialController.isTrialOver(trialId);
   });
 
   describe('#isTrialOver()', () => {
     test('is false before a trial starts', () => {
       expect(isTrialOverBeforeTerminateTrial).toBe(false);
-    });
+    }, 10000);
+
     test('is true after a trial ends', () => {
       expect(isTrialOverAfterTerminateTrial).toBe(true);
     });
@@ -82,13 +79,14 @@ describe('TrialController', () => {
   describe('#startTrial', () => {
     test('response includes a trialId', async () => {
       await expect(startTrialPromise).resolves.toHaveProperty('trialId');
-    });
+    }, 10000);
 
     test('response.actorsInTrialList contains our trialActor', async () => {
       await expect(startTrialPromise).resolves.toMatchObject({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         actorsInTrialList: expect.arrayContaining([TRIAL_ACTOR]),
       });
-    });
+    }, 10000);
   });
 
   describe('#version()', () => {

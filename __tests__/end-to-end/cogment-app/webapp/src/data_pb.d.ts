@@ -4,6 +4,9 @@
 import * as jspb from "google-protobuf";
 
 export class EnvConfig extends jspb.Message {
+  getSuffix(): string;
+  setSuffix(value: string): void;
+
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): EnvConfig.AsObject;
   static toObject(includeInstance: boolean, msg: EnvConfig): EnvConfig.AsObject;
@@ -16,6 +19,7 @@ export class EnvConfig extends jspb.Message {
 
 export namespace EnvConfig {
   export type AsObject = {
+    suffix: string,
   }
 }
 
@@ -24,9 +28,6 @@ export class TrialConfig extends jspb.Message {
   clearEnvConfig(): void;
   getEnvConfig(): EnvConfig | undefined;
   setEnvConfig(value?: EnvConfig): void;
-
-  getSuffix(): string;
-  setSuffix(value: string): void;
 
   serializeBinary(): Uint8Array;
   toObject(includeInstance?: boolean): TrialConfig.AsObject;
@@ -41,7 +42,6 @@ export class TrialConfig extends jspb.Message {
 export namespace TrialConfig {
   export type AsObject = {
     envConfig?: EnvConfig.AsObject,
-    suffix: string,
   }
 }
 
