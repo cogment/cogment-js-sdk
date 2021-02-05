@@ -107,7 +107,7 @@ export class ActorSession<
   }
 
   public isTrialOver(): boolean {
-    return typeof this.tickId === 'undefined';
+    return typeof this.tickId !== 'undefined';
   }
 
   public sendAction(userAction: ActionT): void {
@@ -167,7 +167,7 @@ export class ActorSession<
       )}`,
     );
 
-    // TODO: We need to define an order here, preferably merge all objects of the same tickId into a single event
+    // TODO: We need to define an order here, preferably merge all objects of the same tickId into a single event?
     //       Assumes data received is all newer than the last received tickId
     const observations = [...data.getObservationsList()]
       .sort((a, b) => a.getTickId() - b.getTickId())
@@ -219,8 +219,11 @@ export class ActorSession<
     ].sort(
       ({tickId: tickIdA}, {tickId: tickIdB}) => (tickIdA ?? 0) - (tickIdB ?? 0),
     );
-    this.tickId = this.events[0]?.tickId;
+
     if (this.events[0]) {
+      if (this.events[0]?.tickId) {
+        this.tickId = this.events[0]?.tickId;
+      }
       if (this.nextEventResolve) {
         this.nextEventResolve();
       }
