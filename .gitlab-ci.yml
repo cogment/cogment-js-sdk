@@ -80,7 +80,8 @@ release:
     - eval $(ssh-agent -s)
     - echo "${GIT_SSH_PRIVATE_KEY}" | ssh-add -
   script:
-    - git push git@github.com:cogment/cogment-js-sdk.git "${CI_COMMIT_BRANCH}"
+    - git remote add downstream git@github.com:cogment/cogment-js-sdk.git
+    - git push downstream ${CI_COMMIT_BRANCH}
     - npm run semantic-release
   only:
     - main
