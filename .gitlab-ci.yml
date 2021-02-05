@@ -41,7 +41,6 @@ test:
     - docker-compose run -e NODE_ENV=test cogment-js-sdk npm run test:ci
   after_script:
     - docker-compose logs --no-color --tail all > docker.log
-    - cat docker.log
     - bin/down.bash
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
