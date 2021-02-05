@@ -17,13 +17,14 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
+import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {
+  Message as CogMessage,
   TrialConfig,
   VersionInfo,
   VersionRequest,
-  Message as CogMessage,
 } from './cogment/api/common_pb';
 import {ServiceError} from './cogment/api/environment_pb_service';
 import {
@@ -38,6 +39,7 @@ import {
   TrialMessageRequest,
   TrialStartReply,
   TrialStartRequest,
+  TrialState,
 } from './cogment/api/orchestrator_pb';
 import {
   ActorEndpointClient,
@@ -45,7 +47,6 @@ import {
 } from './cogment/api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
 import {getLogger} from './lib/Logger';
-import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 
 const logger = getLogger('TrialController');
 
@@ -110,8 +111,21 @@ export class TrialController {
     });
   }
 
-  public isTrialOver(): boolean {
-    return !!this.trialId;
+  // TODO: this causes an orchestrator crash, guessing header related in getTrialInfo call
+  public async isTrialOverBroken(trialId: string): Promise<boolean> {
+    return this.getTrialInfo(trialId).then((trialInfoReply) => {
+      return !!trialInfoReply.getTrialList()?.find((trialInfo) => {
+        return (
+          trialInfo.getTrialId() === trialId &&
+          trialInfo.getState() === TrialState.RUNNING
+        );
+      });
+    });
+  }
+
+  public async isTrialOver(trialId: string): Promise<boolean> {
+    // eslint-disable-next-line compat/compat
+    return Promise.resolve(!this.trialId);
   }
 
   public async joinTrial(
@@ -183,9 +197,7 @@ export class TrialController {
     // eslint-disable-next-line compat/compat
     return new Promise<StartTrialReturnType>((resolve, reject) => {
       const request = new TrialStartRequest();
-      if (actorClass) {
-        request.setUserId(actorClass);
-      }
+      request.setUserId(actorClass);
       if (trialConfig && this.cogSettings.trial.config_type) {
         const trialConfigInternal = new TrialConfig();
         trialConfigInternal.setContent(trialConfig.serializeBinary());

@@ -18,5 +18,5 @@
 const {getLogger, LogLevel} = require('./src/lib/Logger');
 const debug = require('debug');
 
-// getLogger('cogment').setLogLevel(LogLevel.trace);
-// debug.enable('cogment');
+// getLogger('*').setLogLevel(LogLevel.trace);
+// debug.enable('*');

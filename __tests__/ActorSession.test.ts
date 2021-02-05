@@ -34,6 +34,12 @@ describe('ActorSession', () => {
   const TEST_MESSAGE = 'foo';
 
   describe('#eventLoop', () => {
+    // TODO: Use types from CogSettings.d.ts - although almost why bother, type completion in editors is good enough
+    let lastObservation: Observation;
+    let lastTimestamp: number;
+    let lastResponse: string;
+    let lastTickId: number;
+
     beforeAll(async () => {
       const service = createService({
         cogSettings: cogSettings,
@@ -65,30 +71,27 @@ describe('ActorSession', () => {
 
           for await (const {observation} of actorSession.eventLoop()) {
             if (observation) {
-              logger.info(
-                `Received an observation for tick id ${observation.getTimestamp()}: ${JSON.stringify(
-                  observation.toObject(),
-                  undefined,
-                  2,
-                )}`,
-              );
-
               const action = new ClientAction();
               action.setRequest(TEST_MESSAGE);
               actorSession.sendAction(action);
               const timestamp = observation.getTimestamp();
               const tickId = actorSession.getTickId();
               const response = observation.getResponse();
+              logger.info(
+                `Received an observation for tick id ${
+                  tickId ?? ''
+                }: ${JSON.stringify(observation.toObject(), undefined, 2)}`,
+              );
               if (timestamp) {
-                timestampPromise = Promise.resolve(timestamp);
+                lastTimestamp = timestamp;
               }
               if (tickId) {
-                tickIdPromise = Promise.resolve(tickId);
+                lastTickId = tickId;
               }
               if (response) {
-                responsePromise = Promise.resolve(response);
+                lastResponse = response;
               }
-              observationPromise = Promise.resolve(observation);
+              lastObservation = observation;
             }
           }
         },
@@ -106,24 +109,19 @@ describe('ActorSession', () => {
       return trialController.terminateTrial(trialId);
     }, 5000);
 
-    // TODO: Use types from CogSettings.d.ts - although almost why bother, type completion in editors is good enough
-    let observationPromise: Promise<Observation>;
-    let timestampPromise: Promise<number>;
-    let responsePromise: Promise<string>;
-    let tickIdPromise: Promise<number>;
-    test('receives observations', async () => {
-      await expect(observationPromise).resolves.toBeInstanceOf(Observation);
-    });
-    test('we are receiving a timestamp from the environment', async () => {
-      await expect(timestampPromise).resolves.not.toBe(0);
-      await expect(timestampPromise).resolves.not.toEqual('');
-      await expect(timestampPromise).resolves.toBeLessThanOrEqual(Date.now());
-    });
-    test('receives an incrementing tickId from the cogment framework', async () => {
-      await expect(tickIdPromise).resolves.toBeGreaterThan(0);
+    test('receives observations', () => {
+      expect(lastObservation).toBeInstanceOf(Observation);
     }, 5000);
-    test('receives an echo response from the echo server', async () => {
-      await expect(responsePromise).resolves.toEqual(TEST_MESSAGE);
+    test('we are receiving a timestamp from the environment', () => {
+      expect(lastTimestamp).not.toBe(0);
+      expect(lastTimestamp).not.toEqual('');
+      expect(lastTimestamp).toBeLessThanOrEqual(Date.now());
+    }, 5000);
+    test('receives an incrementing tickId from the cogment framework', () => {
+      expect(lastTickId).toBeGreaterThan(0);
+    }, 5000);
+    test('receives an echo response from the echo server', () => {
+      expect(lastResponse).toEqual(TEST_MESSAGE);
     }, 5000);
   });
   // TODO: Write a test that detects the suffix set on trialConfig when starting a trial

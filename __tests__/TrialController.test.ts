@@ -29,9 +29,9 @@ describe('TrialController', () => {
     actorClass: 'client',
   };
 
-  let isTrialOverBeforeTerminateTrialPromise: Promise<boolean>;
-  let isTrialOverAfterTerminateTrialPromise: Promise<boolean>;
-  let trialReturnPromise: Promise<StartTrialReturnType>;
+  let isTrialOverBeforeTerminateTrial: boolean;
+  let isTrialOverAfterTerminateTrial: boolean;
+  let startTrialPromise: Promise<StartTrialReturnType>;
   let trialInfoPromise: Promise<TrialInfoReply.AsObject>;
   let terminateTrialPromise: Promise<void>;
 
@@ -47,40 +47,45 @@ describe('TrialController', () => {
 
     const trialController = service.createTrialController();
 
-    isTrialOverBeforeTerminateTrialPromise = Promise.resolve(
-      trialController.isTrialOver(),
+    startTrialPromise = trialController.startTrial(clientName);
+
+    const {trialId} = await startTrialPromise;
+
+    isTrialOverBeforeTerminateTrial = await trialController.isTrialOver(
+      trialId,
     );
-
-    trialReturnPromise = trialController.startTrial(clientName);
-
-    const {trialId} = await trialReturnPromise;
 
     trialInfoPromise = trialController
       .getTrialInfo(trialId)
       .then((trialInfo) => trialInfo.toObject());
 
+    await trialInfoPromise;
+
     terminateTrialPromise = trialController.terminateTrial(trialId);
-    isTrialOverAfterTerminateTrialPromise = Promise.resolve(
-      trialController.isTrialOver(),
+
+    await terminateTrialPromise;
+
+    isTrialOverBeforeTerminateTrial = await trialController.isTrialOver(
+      trialId,
     );
   });
 
   describe('#isTrialOver()', () => {
-    test('is false before a trial starts', async () => {
-      await expect(isTrialOverBeforeTerminateTrialPromise).resolves.toBe(false);
+    test('is false before a trial starts', () => {
+      expect(isTrialOverBeforeTerminateTrial).toBe(false);
     });
-    test('is true after a trial ends', async () => {
-      await expect(isTrialOverAfterTerminateTrialPromise).resolves.toBe(true);
+    test('is true after a trial ends', () => {
+      expect(isTrialOverAfterTerminateTrial).toBe(true);
     });
   });
 
   describe('#startTrial', () => {
     test('response includes a trialId', async () => {
-      await expect(trialReturnPromise).resolves.toHaveProperty('trialId');
+      await expect(startTrialPromise).resolves.toHaveProperty('trialId');
     });
 
     test('response.actorsInTrialList contains our trialActor', async () => {
-      await expect(trialReturnPromise).resolves.toMatchObject({
+      await expect(startTrialPromise).resolves.toMatchObject({
         actorsInTrialList: expect.arrayContaining([TRIAL_ACTOR]),
       });
     });

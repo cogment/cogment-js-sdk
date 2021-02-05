@@ -148,6 +148,10 @@
               }
             }
           }
+        },
+        "trial_config": {
+          "type": "object",
+          "title": "Trial Configuration"
         }
       }
     }
