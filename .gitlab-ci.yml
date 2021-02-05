@@ -86,8 +86,6 @@ release:
   only:
     - main
     - next
-    - next-major
-    - beta
     - alpha
 
 pages:
