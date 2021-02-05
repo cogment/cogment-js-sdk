@@ -80,6 +80,7 @@ release:
     - eval $(ssh-agent -s)
     - echo "${GIT_SSH_PRIVATE_KEY}" | ssh-add -
   script:
+    - git checkout "${CI_COMMIT_BRANCH}"
     - git remote add downstream git@github.com:cogment/cogment-js-sdk.git
     - git fetch downstream ${CI_COMMIT_BRANCH}
     - git push downstream ${CI_COMMIT_BRANCH}
