@@ -1,3 +1,22 @@
+# [1.18.0-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0...v1.18.0-alpha.1) (2021-02-05)
+
+
+### Bug Fixes
+
+* **api:** do not assign tickId when undefined (in the case of an empty event queue) ([10ede4a](https://github.com/cogment/cogment-js-sdk/commit/10ede4a2b7dd6128d9e0c8e80509c4cef6b5e969))
+* **build:** restructure project to fix eslint + typescript conflicts ([cc491c0](https://github.com/cogment/cogment-js-sdk/commit/cc491c0784c0fd7a198cabb2466983aea2a2a264))
+* **style:** eslint + tsconfig bug for cli project ([24ad1c3](https://github.com/cogment/cogment-js-sdk/commit/24ad1c3a4e0e6d77e208dde97810387d35fe6b06))
+* **trialcontroller.ts:** optional trialConfig was not being sent along with the StartTrialRequest ([cbda616](https://github.com/cogment/cogment-js-sdk/commit/cbda61637aaca9503f99e05f9ef4487f9efb76a9)), closes [#46](https://github.com/cogment/cogment-js-sdk/issues/46)
+* **tsconfig.json:** syntax error :O ([9abe06b](https://github.com/cogment/cogment-js-sdk/commit/9abe06b097ae08b899cd856a036bfdd7ffc18bc3))
+
+
+### Features
+
+* **actrosession:** implement message passing tests ([e1096bf](https://github.com/cogment/cogment-js-sdk/commit/e1096bf7258fe9903b5c4bee22f031b28431ebf6))
+* **eventloop:** refactor eventLoop to use promises, removing the need for sleeps ([ecf93f3](https://github.com/cogment/cogment-js-sdk/commit/ecf93f31adec0225e3d185ef354b88feb389195c))
+* fill out some meta functionality, improve tests ([b1d7058](https://github.com/cogment/cogment-js-sdk/commit/b1d70589581ddd0eee1ac8f6f02d01436078a81a))
+* **tests:** update to cogment-cli@aa511eafd163b868d68e84e9516dbd36066f80d4 ([fc8c8c5](https://github.com/cogment/cogment-js-sdk/commit/fc8c8c55fb5b8e45283efb86549d91a99b510522)), closes [#15](https://github.com/cogment/cogment-js-sdk/issues/15)
+
 # [1.17.0](https://github.com/cogment/cogment-js-sdk/compare/v1.16.1...v1.17.0) (2021-02-02)
 
 
