@@ -113,25 +113,25 @@ describe('ActorSession', () => {
       // eslint-disable-next-line compat/compat
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return trialController.terminateTrial(trialId);
-    }, 5000);
+    });
 
     test('receives observations', () => {
       expect(lastObservation).toBeInstanceOf(Observation);
-    }, 5000);
+    });
 
     test('we are receiving a timestamp from the environment', () => {
       expect(lastTimestamp).not.toBe(0);
       expect(lastTimestamp).not.toEqual('');
       expect(lastTimestamp).toBeLessThanOrEqual(Date.now());
-    }, 5000);
+    });
 
     test('receives an incrementing tickId from the cogment framework', () => {
       expect(lastTickId).toBeGreaterThan(0);
-    }, 5000);
+    });
 
     test('receives an echo response from the echo server', () => {
       expect(lastResponse).toEqual(TEST_MESSAGE);
-    }, 5000);
+    });
   });
   // TODO: Write a test that detects the suffix set on trialConfig when starting a trial
 });

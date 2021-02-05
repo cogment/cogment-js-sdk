@@ -69,7 +69,7 @@ describe('TrialController', () => {
   describe('#isTrialOver()', () => {
     test('is false before a trial starts', () => {
       expect(isTrialOverBeforeTerminateTrial).toBe(false);
-    }, 10000);
+    });
 
     test('is true after a trial ends', () => {
       expect(isTrialOverAfterTerminateTrial).toBe(true);
@@ -79,14 +79,14 @@ describe('TrialController', () => {
   describe('#startTrial', () => {
     test('response includes a trialId', async () => {
       await expect(startTrialPromise).resolves.toHaveProperty('trialId');
-    }, 10000);
+    });
 
     test('response.actorsInTrialList contains our trialActor', async () => {
       await expect(startTrialPromise).resolves.toMatchObject({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         actorsInTrialList: expect.arrayContaining([TRIAL_ACTOR]),
       });
-    }, 10000);
+    });
   });
 
   describe('#version()', () => {
