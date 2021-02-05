@@ -83,13 +83,14 @@ describe('ActorSession', () => {
               action.setRequest(TEST_MESSAGE);
               actorSession.sendAction(action);
               const tickId = actorSession.getTickId();
+              const response = observation.getResponse();
               if (tickId) {
                 tickIdPromise = Promise.resolve(tickId);
               }
-              const response = observation.getResponse();
               if (response) {
                 responsePromise = Promise.resolve(response);
               }
+              observationPromise = Promise.resolve(observation);
             }
           }
         },
@@ -102,8 +103,13 @@ describe('ActorSession', () => {
       return trialController.terminateTrial(trialId);
     }, 5000);
 
+    // TODO: Have CogSettings.d.ts emit types for Observation
+    let observationPromise: Promise<Observation>;
     let responsePromise: Promise<string>;
     let tickIdPromise: Promise<number>;
+    test('receives observations', async () => {
+      await expect(observationPromise).resolves.toBeInstanceOf(Observation);
+    });
     test('receives an incrementing tickId', async () => {
       await expect(tickIdPromise).resolves.toBeGreaterThan(0);
     }, 5000);
