@@ -1,3 +1,20 @@
+# [1.18.0-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0-alpha.2...v1.18.0-alpha.3) (2021-02-05)
+
+
+### Bug Fixes
+
+* **ci:** checkout local branch ([36486ca](https://github.com/cogment/cogment-js-sdk/commit/36486ca49dc08693497080986e8b995c45611466))
+* **ci:** need to sync downstream first? ([4cf0f70](https://github.com/cogment/cogment-js-sdk/commit/4cf0f704f26e6a17fdb44054b1cd8b1d845e4976))
+* **ci:** to push without first pulling, a remote ([34dc807](https://github.com/cogment/cogment-js-sdk/commit/34dc80774bcd953897a91a4da83720f12f391c01))
+* **ci:** use remotes instead of messing with ref specs ([9ec0e8d](https://github.com/cogment/cogment-js-sdk/commit/9ec0e8d8ef786dcaa300a08db9b4e1853995a90a))
+* **ci:** works locally, whats up gitlab ([1519556](https://github.com/cogment/cogment-js-sdk/commit/15195565e9fb1fb33aac18e2fc7039a1e937c727))
+* **tests:** set default test timeout to 10 seconds ([db39b9d](https://github.com/cogment/cogment-js-sdk/commit/db39b9d1dbe4233c6bab01d3a89ac5c68524a703))
+
+
+### Features
+
+* **ci:** push release branch code downstream automatically ([fc1a1e0](https://github.com/cogment/cogment-js-sdk/commit/fc1a1e0abf42636781e218f196b7e86fc15a7453))
+
 # [1.18.0-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0-alpha.1...v1.18.0-alpha.2) (2021-02-05)
 
 
