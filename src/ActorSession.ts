@@ -45,6 +45,9 @@ export class ActorSession<
   private events: Event<ObservationT, RewardT, MessageT>[] = [];
   private running = false;
 
+  private tickId?: number;
+  private lastObservation?: ObservationT;
+
   // eslint-disable-next-line max-params
   constructor(
     private actorClass: TrialActor,
@@ -80,6 +83,9 @@ export class ActorSession<
             event.tickId?.toString() ?? ''
           } ${JSON.stringify(event, undefined, 2)}`,
         );
+        if (event.observation) {
+          this.lastObservation = event.observation;
+        }
         yield event;
       } else {
         logger.trace('No events available, sleeping 200ms');
@@ -88,16 +94,12 @@ export class ActorSession<
     }
   }
 
-  public getTickId(): number {
-    throw new Error('getTriaId() is not implemented');
-  }
-
-  public getTriaId(): string {
-    throw new Error('getTriaId() is not implemented');
+  public getTickId(): number | undefined {
+    return this.tickId;
   }
 
   public isTrialOver(): boolean {
-    throw new Error('isTrialOver() is not implemented');
+    return typeof this.tickId === 'undefined';
   }
 
   public sendAction(userAction: ActionT): void {
@@ -157,38 +159,29 @@ export class ActorSession<
       )}`,
     );
 
-    // Assumes data received is all newer than the last received tickId
-    const observations = [...data.getObservationsList()].sort(
-      (a, b) => a.getTickId() - b.getTickId(),
-    );
+    // TODO: We need to define an order here, preferably merge all objects of the same tickId into a single event
+    //       Assumes data received is all newer than the last received tickId
+    const observations = [...data.getObservationsList()]
+      .sort((a, b) => a.getTickId() - b.getTickId())
+      .filter((observation) => {
+        return observation.getData()?.getContent() !== '';
+      })
+      .map((observation) => {
+        return {
+          tickId: observation.getTickId(),
+          timestamp: observation.getTimestamp(),
+          observation: deserializeData<ObservationT>({
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            sourcePb: observation.getData(),
+            destinationPb: this.actorCogSettings.observation_space,
+          }),
+        };
+      });
 
-    const messages = [...data.getMessagesList()].sort(
-      (a, b) => a.getTickId() - b.getTickId(),
-    );
-
-    const rewards = data.getRewardsList();
-
-    // TODO: Do we need to worry about ordering received observations, rewards, messages by tickId?
-
-    this.events = [
-      ...this.events,
-      ...observations
-        .filter((observation) => {
-          return observation.getData()?.getContent() !== '';
-        })
-        .map((observation) => {
-          return {
-            tickId: observation.getTickId(),
-            timestamp: observation.getTimestamp(),
-            observation: deserializeData<ObservationT>({
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              sourcePb: observation.getData(),
-              destinationPb: this.actorCogSettings.observation_space,
-            }),
-          };
-        }),
-      ...messages.map((message) => ({
+    const messages = [...data.getMessagesList()]
+      .sort((a, b) => a.getTickId() - b.getTickId())
+      .map((message) => ({
         tickId: message.getTickId(),
         message: {
           receiver: message.getReceiverName(),
@@ -199,17 +192,25 @@ export class ActorSession<
             message?.getPayload()?.getValue_asU8(),
           ) as MessageT,
         },
-      })),
-      ...rewards.map((reward) => ({
-        tickId: reward.getFeedbacksList()[0].getTickId(),
-        reward: {
-          value: reward.getValue(),
-          confidence: reward.getConfidence(),
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          data: reward,
-        },
-      })),
-    ];
+      }));
+
+    const rewards = data.getRewardsList().map((reward) => ({
+      tickId: reward.getFeedbacksList()[0].getTickId(),
+      reward: {
+        value: reward.getValue(),
+        confidence: reward.getConfidence(),
+        data: reward,
+      },
+    }));
+
+    this.events = [
+      ...this.events,
+      ...observations,
+      ...messages,
+      ...rewards,
+    ].sort(
+      ({tickId: tickIdA}, {tickId: tickIdB}) => (tickIdA ?? 0) - (tickIdB ?? 0),
+    );
+    this.tickId = this.events[0]?.tickId;
   };
 }

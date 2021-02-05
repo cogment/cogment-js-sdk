@@ -65,6 +65,8 @@ describe('TrialController', () => {
 
     const trialController = service.createTrialController();
 
+    expect(trialController.isTrialOver()).toBe(false);
+
     const response = await trialController.startTrial(clientName);
     const trialId = response.trialId;
 
@@ -80,8 +82,10 @@ describe('TrialController', () => {
         // state: TrialState.PENDING,
       }),
     );
+
     const terminatePromise = trialController.terminateTrial(trialId);
     // noinspection BadExpressionStatementJS
     expect(terminatePromise).resolves;
+    expect(trialController.isTrialOver()).toBe(true);
   }, 10000);
 });

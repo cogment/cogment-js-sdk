@@ -31,22 +31,23 @@ const logger = getLogger('ActorSession');
 
 describe('ActorSession', () => {
   describe('#eventLoop', () => {
+    const service = createService({
+      cogSettings: cogSettings,
+      grpcURL: config.connection.http,
+      unaryTransportFactory: NodeHttpTransport(),
+      streamingTransportFactory: grpc.WebsocketTransport(),
+    });
+
+    // TODO: this fails if run before registerActor
+    // const trialController = service.createTrialController(trialLifecycleClient);
+
+    const trialActor: TrialActor = {
+      name: 'client_actor',
+      actorClass: 'client',
+    };
+
     test('can send and receive observations', async () => {
-      const service = createService({
-        cogSettings: cogSettings,
-        grpcURL: config.connection.http,
-        unaryTransportFactory: NodeHttpTransport(),
-        streamingTransportFactory: grpc.WebsocketTransport(),
-      });
-
-      // TODO: this fails if run before registerActor
-      // const trialController = service.createTrialController(trialLifecycleClient);
-
-      const trialActor: TrialActor = {
-        name: 'client_actor',
-        actorClass: 'client',
-      };
-
+      let lastTickId = 0;
       service.registerActor<ClientAction, Observation, never, ClientMessage>(
         trialActor,
         async (actorSession) => {
@@ -71,15 +72,13 @@ describe('ActorSession', () => {
               );
               expect(observation.getTimestamp()).not.toBe(0);
               expect(observation.getTimestamp()).not.toEqual('');
-              expect(Date.now() - observation.getTimestamp()).toBeGreaterThan(
-                0,
-              );
               expect(observation.getTimestamp()).toBeLessThanOrEqual(
                 Date.now(),
               );
               const action = new ClientAction();
               action.setRequest('pong');
               await actorSession.sendAction(action);
+              lastTickId = actorSession.getTickId() ?? 0;
             }
           }
         },
@@ -89,6 +88,7 @@ describe('ActorSession', () => {
       const {trialId} = await trialController.startTrial(trialActor.name);
       await trialController.joinTrial(trialId, trialActor);
       await new Promise((resolve) => setTimeout(resolve, 5000));
+      expect(lastTickId).not.toBe(0);
       return trialController.terminateTrial(trialId);
     }, 10000);
   });

@@ -83,10 +83,10 @@ export class TrialController {
     return this.actors.map(([trialActor]) => trialActor);
   }
 
-  public getTickId(): number {
-    throw new Error('getTickId() is not implemented');
-  }
-
+  /**
+   * The trialId of any started or joined trial.
+   * @returns The trial id
+   */
   public getTriaId(): string {
     if (!this.trialId) {
       throw new Error('No trial currently running');
@@ -111,7 +111,7 @@ export class TrialController {
   }
 
   public isTrialOver(): boolean {
-    throw new Error('isTrialOver() is not implemented');
+    return !!this.trialId;
   }
 
   public async joinTrial(
@@ -133,6 +133,7 @@ export class TrialController {
             if (error || !response) {
               return reject(error);
             }
+            this.trialId = response.getTrialId();
             resolve(response.toObject());
           },
         );
