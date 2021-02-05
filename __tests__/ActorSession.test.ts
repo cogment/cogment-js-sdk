@@ -30,24 +30,25 @@ import {
 const logger = getLogger('ActorSession');
 
 describe('ActorSession', () => {
+  const TEST_MESSAGE = 'oh you must be foo';
+
   describe('#eventLoop', () => {
-    const service = createService({
-      cogSettings: cogSettings,
-      grpcURL: config.connection.http,
-      unaryTransportFactory: NodeHttpTransport(),
-      streamingTransportFactory: grpc.WebsocketTransport(),
-    });
+    beforeAll(async () => {
+      const service = createService({
+        cogSettings: cogSettings,
+        grpcURL: config.connection.http,
+        unaryTransportFactory: NodeHttpTransport(),
+        streamingTransportFactory: grpc.WebsocketTransport(),
+      });
 
-    // TODO: this fails if run before registerActor
-    // const trialController = service.createTrialController(trialLifecycleClient);
+      // TODO: this fails if run before registerActor
+      // const trialController = service.createTrialController(trialLifecycleClient);
 
-    const trialActor: TrialActor = {
-      name: 'client_actor',
-      actorClass: 'client',
-    };
+      const trialActor: TrialActor = {
+        name: 'client_actor',
+        actorClass: 'client',
+      };
 
-    test('can send and receive observations', async () => {
-      let lastTickId = 0;
       service.registerActor<ClientAction, Observation, never, ClientMessage>(
         trialActor,
         async (actorSession) => {
@@ -58,7 +59,7 @@ describe('ActorSession', () => {
           setTimeout(actorSession.stop.bind(actorSession), 3000);
 
           const action = new ClientAction();
-          action.setRequest('ping');
+          action.setRequest(TEST_MESSAGE);
           await actorSession.sendAction(action);
 
           for await (const {observation} of actorSession.eventLoop()) {
@@ -70,15 +71,25 @@ describe('ActorSession', () => {
                   2,
                 )}`,
               );
+              /*
+               Test that we are receiving an observation from the environment, see cogment-app/environment/main.py
+               */
               expect(observation.getTimestamp()).not.toBe(0);
               expect(observation.getTimestamp()).not.toEqual('');
               expect(observation.getTimestamp()).toBeLessThanOrEqual(
                 Date.now(),
               );
               const action = new ClientAction();
-              action.setRequest('pong');
-              await actorSession.sendAction(action);
-              lastTickId = actorSession.getTickId() ?? 0;
+              action.setRequest(TEST_MESSAGE);
+              actorSession.sendAction(action);
+              const tickId = actorSession.getTickId();
+              if (tickId) {
+                tickIdPromise = Promise.resolve(tickId);
+              }
+              const response = observation.getResponse();
+              if (response) {
+                responsePromise = Promise.resolve(response);
+              }
             }
           }
         },
@@ -87,9 +98,17 @@ describe('ActorSession', () => {
 
       const {trialId} = await trialController.startTrial(trialActor.name);
       await trialController.joinTrial(trialId, trialActor);
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-      expect(lastTickId).not.toBe(0);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       return trialController.terminateTrial(trialId);
-    }, 10000);
+    }, 5000);
+
+    let responsePromise: Promise<string>;
+    let tickIdPromise: Promise<number>;
+    test('receives an incrementing tickId', async () => {
+      await expect(tickIdPromise).resolves.toBeGreaterThan(0);
+    }, 5000);
+    test('receives an echo response from the echo server', async () => {
+      await expect(responsePromise).resolves.toEqual(TEST_MESSAGE);
+    }, 5000);
   });
 });
