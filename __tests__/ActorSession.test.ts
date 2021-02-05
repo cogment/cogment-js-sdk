@@ -71,19 +71,15 @@ describe('ActorSession', () => {
                   2,
                 )}`,
               );
-              /*
-               Test that we are receiving an observation from the environment, see cogment-app/environment/main.py
-               */
-              expect(observation.getTimestamp()).not.toBe(0);
-              expect(observation.getTimestamp()).not.toEqual('');
-              expect(observation.getTimestamp()).toBeLessThanOrEqual(
-                Date.now(),
-              );
               const action = new ClientAction();
               action.setRequest(TEST_MESSAGE);
               actorSession.sendAction(action);
+              const timestamp = observation.getTimestamp();
               const tickId = actorSession.getTickId();
               const response = observation.getResponse();
+              if (timestamp) {
+                timestampPromise = Promise.resolve(timestamp);
+              }
               if (tickId) {
                 tickIdPromise = Promise.resolve(tickId);
               }
@@ -105,10 +101,16 @@ describe('ActorSession', () => {
 
     // TODO: Have CogSettings.d.ts emit types for Observation
     let observationPromise: Promise<Observation>;
+    let timestampPromise: Promise<number>;
     let responsePromise: Promise<string>;
     let tickIdPromise: Promise<number>;
     test('receives observations', async () => {
       await expect(observationPromise).resolves.toBeInstanceOf(Observation);
+    });
+    test('we are receiving a timestamp from the environment', async () => {
+      await expect(timestampPromise).resolves.not.toBe(0);
+      await expect(timestampPromise).resolves.not.toEqual('');
+      await expect(timestampPromise).resolves.toBeLessThanOrEqual(Date.now());
     });
     test('receives an incrementing tickId', async () => {
       await expect(tickIdPromise).resolves.toBeGreaterThan(0);
