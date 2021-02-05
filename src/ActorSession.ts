@@ -48,6 +48,9 @@ export class ActorSession<
   private tickId?: number;
   private lastObservation?: ObservationT;
 
+  private nextEventPromise?: Promise<void>;
+  private nextEventResolve?: () => void;
+
   // eslint-disable-next-line max-params
   constructor(
     private actorClass: TrialActor,
@@ -63,6 +66,11 @@ export class ActorSession<
     this.actionStreamClient.onMessage(this.onActionStreamMessage);
     this.actionStreamClient.onHeaders(this.onActionStreamHeaders);
     this.actionStreamClient.onEnd(this.onActionStreamEnd);
+
+    // eslint-disable-next-line compat/compat
+    this.nextEventPromise = new Promise((resolve) => {
+      this.nextEventResolve = resolve;
+    });
   }
 
   public addFeedback(to: string[], feedback: Reward): void {
@@ -88,8 +96,8 @@ export class ActorSession<
         }
         yield event;
       } else {
-        logger.trace('No events available, sleeping 200ms');
-        await new Promise((resolve) => setTimeout(resolve, 200));
+        logger.trace('No events available');
+        await this.nextEventPromise;
       }
     }
   }
@@ -212,5 +220,13 @@ export class ActorSession<
       ({tickId: tickIdA}, {tickId: tickIdB}) => (tickIdA ?? 0) - (tickIdB ?? 0),
     );
     this.tickId = this.events[0]?.tickId;
+    if (this.events[0]) {
+      if (this.nextEventResolve) {
+        this.nextEventResolve();
+      }
+      this.nextEventPromise = new Promise((resolve) => {
+        this.nextEventResolve = resolve;
+      });
+    }
   };
 }
