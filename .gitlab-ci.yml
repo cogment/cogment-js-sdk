@@ -81,8 +81,8 @@ release:
     - echo "${GIT_SSH_PRIVATE_KEY}" | ssh-add -
   script:
     - git remote add downstream git@github.com:cogment/cogment-js-sdk.git
-    - git fetch downstream
-    - git push downstream refs/heads/${CI_COMMIT_BRANCH}
+    - git fetch downstream ${CI_COMMIT_BRANCH}
+    - git push downstream ${CI_COMMIT_BRANCH}
     - npm run semantic-release
   only:
     - main
