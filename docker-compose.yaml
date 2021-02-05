@@ -26,8 +26,8 @@ services:
     volumes:
       - ./__tests__/end-to-end/cogment-app/:/app
     environment:
-      - COGMENT_GRPC_REFLECTION=1
-      - PYTHONUNBUFFERED=1
+      COGMENT_GRPC_REFLECTION: 1
+      PYTHONUNBUFFERED: 1
     x-cogment:
       ports:
         - port: 9000
@@ -41,8 +41,23 @@ services:
     volumes:
       - ./__tests__/end-to-end/cogment-app/:/app
     environment:
-      - COGMENT_GRPC_REFLECTION=1
-      - PYTHONUNBUFFERED=1
+      COGMENT_GRPC_REFLECTION: 1
+      PYTHONUNBUFFERED: 1
+    x-cogment:
+      ports:
+        - port: 9000
+    restart: on-failure
+
+  configurator:
+    image: registry.gitlab.com/ai-r/change_me/configurator:latest
+    build:
+      context: ./__tests__/end-to-end/cogment-app/configurator
+      dockerfile: ../py_service.dockerfile
+    volumes:
+      - ./__tests__/end-to-end/cogment-app/:/app
+    environment:
+      COGMENT_GRPC_REFLECTION: 1
+      PYTHONUNBUFFERED: 1
     x-cogment:
       ports:
         - port: 9000
@@ -53,14 +68,13 @@ services:
     build:
       context: ./__tests__/end-to-end/cogment-app/
       dockerfile: orchestrator/Dockerfile
-    volumes:
-      - ./__tests__/end-to-end/cogment-app/.:/app
     x-cogment:
       ports:
         - port: 9000
     depends_on:
       - environment
       - echo
+      - configurator
     restart: on-failure
 
   grpcwebproxy:

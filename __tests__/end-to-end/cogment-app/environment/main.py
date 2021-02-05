@@ -9,13 +9,17 @@ from data_pb2 import Observation
 
 async def environment(environment_session):
     print("environment starting")
-    print(environment_session.config)
-    print("wat", environment_session.config.suffix)
+    print("environment_session.config", environment_session.config)
+    print("environment_session.config.suffix", environment_session.config.suffix)
 
     # Start the trial and send that observation to all actors
     environment_session.start([("*", Observation(timestamp=int(time.time() * 1000)))])
 
+    suffix = environment_session.config.suffix or ""
+
     async for event in environment_session.event_loop():
+        print("environment_session.config", environment_session.config)
+
         if "actions" in event:
             actions = event["actions"]
             print(f"environment received actions")
@@ -26,7 +30,7 @@ async def environment(environment_session):
                 if hasattr(action, "request"):
                     observation.request = action.request
                 elif hasattr(action, "response"):
-                    observation.response = action.response
+                    observation.response = f"{action.response}{suffix}"
                 else:
                     print(f"Unknown action, expecting request or response properties")
 

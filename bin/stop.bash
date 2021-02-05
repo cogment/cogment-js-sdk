@@ -16,16 +16,6 @@
 #
 #
 
-SCRIPT_NAME="$(basename "${0}")"
-# shellcheck disable=SC2034
-ALL_SERVICES=(orchestrator environment echo grpcwebproxy configurator)
+source bin/hack.bash
 
-_log() {
-  printf "%s " "${SCRIPT_NAME}:"
-  printf "%s\n" "${@}"
-}
-
-_err() {
-  _log "${@}"
-  exit 1
-}
+docker-compose stop "${ALL_SERVICES[@]}" || _err "Failed to stop cogment project"

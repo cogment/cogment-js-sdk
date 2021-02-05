@@ -7,6 +7,7 @@ commands:
     cogment generate --python_dir=./environment
     cogment generate --python_dir=./echo
     cogment generate --python_dir=./client
+    cogment generate --python_dir=./configurator
   generate:web-client: |
     cogment generate --js_dir=./webapp/src
     cd webapp
@@ -25,6 +26,8 @@ environment:
 
 trial:
   config_type: cogment_app.TrialConfig
+  pre_hooks:
+    - grpc://configurator:9000
 
 # Static configuration
 actor_classes:

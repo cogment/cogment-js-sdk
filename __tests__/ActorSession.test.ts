@@ -33,6 +33,7 @@ const logger = getLogger('ActorSession');
 
 describe('ActorSession', () => {
   const TEST_MESSAGE = 'foo';
+  const SUFFIX = ' bar';
 
   // eslint-disable-next-line sonarjs/cognitive-complexity
   describe('#eventLoop', () => {
@@ -102,7 +103,7 @@ describe('ActorSession', () => {
 
       const trialConfig = new TrialConfig();
       const environmentConfig = new EnvironmentConfig();
-      environmentConfig.setSuffix(' bar');
+      environmentConfig.setSuffix(SUFFIX);
       trialConfig.setEnvConfig(environmentConfig);
 
       const {trialId} = await trialController.startTrial(
@@ -130,7 +131,11 @@ describe('ActorSession', () => {
     });
 
     test('receives an echo response from the echo server', () => {
-      expect(lastResponse).toEqual(TEST_MESSAGE);
+      expect(lastResponse).toMatch(new RegExp(`^${TEST_MESSAGE}`));
+    });
+
+    test('trialConfig is passed to the backend', () => {
+      expect(lastResponse).toEqual(`${TEST_MESSAGE}${SUFFIX}`);
     });
   });
   // TODO: Write a test that detects the suffix set on trialConfig when starting a trial
