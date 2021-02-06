@@ -1,3 +1,10 @@
+# [1.18.0-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0-alpha.3...v1.18.0-alpha.4) (2021-02-06)
+
+
+### Features
+
+* **test:** complete implementation of trialConfig test ([240db09](https://github.com/cogment/cogment-js-sdk/commit/240db095573da545a190340aaea254c32708f7e8))
+
 # [1.18.0-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0-alpha.2...v1.18.0-alpha.3) (2021-02-05)
 
 
