@@ -1,3 +1,10 @@
+## [1.18.1](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0...v1.18.1) (2021-02-06)
+
+
+### Bug Fixes
+
+* **github:** remove unused ci workflows ([e29152c](https://github.com/cogment/cogment-js-sdk/commit/e29152c2df1dc04a2aa549a56f3a99e91a8ed694))
+
 # [1.18.0](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0...v1.18.0) (2021-02-06)
 
 
