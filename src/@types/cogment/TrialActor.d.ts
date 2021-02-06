@@ -17,5 +17,5 @@
 
 export interface TrialActor {
   name: string;
-  class: string;
+  actorClass: string;
 }

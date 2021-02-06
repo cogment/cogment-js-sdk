@@ -18,16 +18,16 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {createService, getLogger} from '../../src';
-import {VersionInfo, VersionRequest} from '../../src/cogment/api/common_pb';
+import {TrialActor} from '../../src/@types/cogment';
+import {
+  Message,
+  VersionInfo,
+  VersionRequest,
+} from '../../src/cogment/api/common_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
 import {config} from '../../src/lib/Config';
-import cogSettings from './cogment-app/clients/web/src/cog_settings';
-import {
-  AsyncMessage,
-  EmmaAction,
-  Observation,
-  Reward,
-} from './cogment-app/clients/web/src/data_pb';
+import cogSettings from './cogment-app/webapp/src/cog_settings';
+import {ClientAction, Observation} from './cogment-app/webapp/src/data_pb';
 
 const logger = getLogger('cogment').childLogger('__tests__/end-to-end');
 
@@ -43,18 +43,20 @@ describe('grpc.WebsocketTransport', () => {
       transport: websocketTransport,
     });
 
-    const mockOnMessageCb = jest.fn((message: VersionInfo) => {
+    const mockOnMessageCallback = jest.fn((message: VersionInfo) => {
       expect(message).toBeInstanceOf(VersionInfo);
     });
-    const mockOnHeadersCb = jest.fn(() => {});
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    const mockOnHeadersCallback = jest.fn(() => {});
 
-    versionClient.onMessage(mockOnMessageCb);
-    versionClient.onMessage(mockOnMessageCb);
-    versionClient.onHeaders(mockOnHeadersCb);
-    await new Promise((resolve) => {
+    versionClient.onMessage(mockOnMessageCallback);
+    versionClient.onMessage(mockOnMessageCallback);
+    versionClient.onHeaders(mockOnHeadersCallback);
+    // eslint-disable-next-line compat/compat
+    await new Promise<void>((resolve) => {
       versionClient.onEnd((code) => {
         expect(code).toBe(0);
-        resolve(undefined);
+        resolve();
       });
 
       versionClient.start();
@@ -62,14 +64,14 @@ describe('grpc.WebsocketTransport', () => {
       versionClient.finishSend();
     });
 
-    expect(mockOnMessageCb.mock.calls.length).toBe(2);
-    expect(mockOnHeadersCb.mock.calls.length).toBe(1);
-  }, 10000);
+    expect(mockOnMessageCallback.mock.calls).toHaveLength(2);
+    expect(mockOnHeadersCallback.mock.calls).toHaveLength(1);
+  }, 5000);
 });
 
 describe('a cogment-app', () => {
   test('runs', async () => {
-    const trialActor = {name: 'emma', class: 'emma'};
+    const trialActor: TrialActor = {name: 'client_actor', actorClass: 'client'};
     const service = createService({
       cogSettings: cogSettings,
       grpcURL: config.connection.http,
@@ -80,7 +82,7 @@ describe('a cogment-app', () => {
     // TODO: this fails if run before registerActor
     // const trialController = service.createTrialController(trialLifecycleClient);
 
-    service.registerActor<EmmaAction, Observation, Reward, AsyncMessage>(
+    service.registerActor<ClientAction, Observation, never, Message>(
       trialActor,
       async (actorSession) => {
         logger.info('Actor running');
@@ -89,8 +91,9 @@ describe('a cogment-app', () => {
 
         setTimeout(actorSession.stop.bind(actorSession), 3000);
 
-        // TODO: if noop required, hide under the hood
-        await actorSession.sendAction(new EmmaAction());
+        const action = new ClientAction();
+        action.setRequest('ping');
+        actorSession.sendAction(action);
 
         for await (const {
           observation,
@@ -105,8 +108,9 @@ describe('a cogment-app', () => {
                 2,
               )}`,
             );
-            const action = new EmmaAction();
-            await actorSession.sendAction(action);
+            const action = new ClientAction();
+            action.setRequest('ping');
+            actorSession.sendAction(action);
           }
           if (message) {
             logger.info(message);
@@ -123,7 +127,8 @@ describe('a cogment-app', () => {
 
     const {trialId} = await trialController.startTrial(trialActor.name);
     await trialController.joinTrial(trialId, trialActor);
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    // eslint-disable-next-line compat/compat
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return trialController.terminateTrial(trialId);
-  }, 10000);
+  }, 5000);
 });

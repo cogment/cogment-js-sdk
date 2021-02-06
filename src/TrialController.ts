@@ -17,13 +17,14 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
+import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {
+  Message as CogMessage,
   TrialConfig,
   VersionInfo,
   VersionRequest,
-  Message as CogMessage,
 } from './cogment/api/common_pb';
 import {ServiceError} from './cogment/api/environment_pb_service';
 import {
@@ -38,6 +39,7 @@ import {
   TrialMessageRequest,
   TrialStartReply,
   TrialStartRequest,
+  TrialState,
 } from './cogment/api/orchestrator_pb';
 import {
   ActorEndpointClient,
@@ -45,7 +47,6 @@ import {
 } from './cogment/api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
 import {getLogger} from './lib/Logger';
-import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 
 const logger = getLogger('TrialController');
 
@@ -83,10 +84,10 @@ export class TrialController {
     return this.actors.map(([trialActor]) => trialActor);
   }
 
-  public getTickId(): number {
-    throw new Error('getTickId() is not implemented');
-  }
-
+  /**
+   * The trialId of any started or joined trial.
+   * @returns The trial id
+   */
   public getTriaId(): string {
     if (!this.trialId) {
       throw new Error('No trial currently running');
@@ -110,8 +111,21 @@ export class TrialController {
     });
   }
 
-  public isTrialOver(): boolean {
-    throw new Error('isTrialOver() is not implemented');
+  // TODO: this causes an orchestrator crash, guessing header related in getTrialInfo call
+  public async isTrialOverBroken(trialId: string): Promise<boolean> {
+    return this.getTrialInfo(trialId).then((trialInfoReply) => {
+      return !!trialInfoReply.getTrialList()?.find((trialInfo) => {
+        return (
+          trialInfo.getTrialId() === trialId &&
+          trialInfo.getState() === TrialState.RUNNING
+        );
+      });
+    });
+  }
+
+  public async isTrialOver(trialId: string): Promise<boolean> {
+    // eslint-disable-next-line compat/compat
+    return Promise.resolve(!this.trialId);
   }
 
   public async joinTrial(
@@ -122,7 +136,7 @@ export class TrialController {
     request.setTrialId(trialId);
     if (trialActor) {
       request.setActorName(trialActor.name);
-      request.setActorClass(trialActor.class);
+      request.setActorClass(trialActor.actorClass);
     }
     // eslint-disable-next-line compat/compat
     const response = await new Promise<JoinTrialReturnType>(
@@ -133,6 +147,7 @@ export class TrialController {
             if (error || !response) {
               return reject(error);
             }
+            this.trialId = response.getTrialId();
             resolve(response.toObject());
           },
         );
@@ -167,20 +182,26 @@ export class TrialController {
     });
   }
 
+  /**
+   * Start a new trial.
+   * @param actorClass - The name of an actor_class corresponding to `cogment.yaml`
+   * @param trialConfig - A TrialConfig protobuf that will merge with `trial_params.trial_config` from `cogment.yaml`
+   * @returns A trial start response
+   */
   public async startTrial(
-    userId: string,
+    // TODO: what does the backend do with TrialStartRequest#user_id? This should be optional if we are to be able to
+    //  start trials without joining them.
+    actorClass: string,
     trialConfig?: Message,
   ): Promise<StartTrialReturnType> {
     // eslint-disable-next-line compat/compat
     return new Promise<StartTrialReturnType>((resolve, reject) => {
       const request = new TrialStartRequest();
-      if (userId) {
-        request.setUserId(userId);
-      }
+      request.setUserId(actorClass);
       if (trialConfig && this.cogSettings.trial.config_type) {
-        const trialConfig = new TrialConfig();
-        trialConfig.setContent(trialConfig.serializeBinary());
-        request.setConfig(trialConfig);
+        const trialConfigInternal = new TrialConfig();
+        trialConfigInternal.setContent(trialConfig.serializeBinary());
+        request.setConfig(trialConfigInternal);
       } else if (trialConfig) {
         // TODO: should we throw here?
         logger.warn(

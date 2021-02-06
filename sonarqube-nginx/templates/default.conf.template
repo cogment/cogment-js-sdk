@@ -1,6 +1,6 @@
 server {
   listen       443 ssl http2;
-  server_name  sonarqube.ai-r.com:9443;
+  server_name  sonarqube.ai-r.com;
 
   ssl_certificate /etc/nginx/tls/config/live/ai-r.com/fullchain.pem;
   ssl_certificate_key /etc/nginx/tls/config/live/ai-r.com/privkey.pem;
@@ -10,6 +10,7 @@ server {
 
   location / {
     proxy_pass http://sonarqube:9000;
+    proxy_redirect http://sonarqube.ai-r.com https://sonarqube.ai-r.com:9443;
     proxy_set_header Host $host;
     proxy_set_header X-Forwarded-For $remote_addr;
     proxy_set_header X-Forwarded-Proto https;

@@ -1,7 +1,3 @@
-include:
-  - template: Security/SAST.gitlab-ci.yml
-  - template: Security/License-Scanning.gitlab-ci.yml
-
 image: docker:20.10.0
 
 default:
@@ -45,7 +41,6 @@ test:
     - docker-compose run -e NODE_ENV=test cogment-js-sdk npm run test:ci
   after_script:
     - docker-compose logs --no-color --tail all > docker.log
-    - cat docker.log
     - bin/down.bash
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
@@ -81,15 +76,18 @@ release:
     - apk add git openssh-client
     - mkdir -pm 0700 ~/.ssh
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
+    - ssh-keyscan github.com >> ~/.ssh/known_hosts
     - eval $(ssh-agent -s)
     - echo "${GIT_SSH_PRIVATE_KEY}" | ssh-add -
   script:
+    - git checkout "${CI_COMMIT_BRANCH}"
+    - git remote add downstream git@github.com:cogment/cogment-js-sdk.git
+    - git fetch downstream ${CI_COMMIT_BRANCH}
+    - git push downstream ${CI_COMMIT_BRANCH}
     - npm run semantic-release
   only:
     - main
     - next
-    - next-major
-    - beta
     - alpha
 
 pages:

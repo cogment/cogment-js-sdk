@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "checkJs": false,
+    "composite": true,
+    "declaration": false,
+    "declarationMap": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": true,
+    "lib": ["es5", "es2015", "dom", "es2018.asynciterable"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noImplicitAny": true,
+    "removeComments": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": false,
+    "strict": true,
+    "target": "es5"
+  },
+  "references": [
+    {
+      "path": ".."
+    },
+    {
+      "path": "end-to-end/cogment-app/webapp"
+    }
+  ],
+  "include": ["."],
+  "exclude": ["end-to-end/cogment-app"]
+}

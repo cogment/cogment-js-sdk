@@ -12,42 +12,25 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+import asyncio
+import cogment
 
-import traceback
-from cogment import TrialHooks, GrpcServer
-from types import SimpleNamespace as ns
-
-TIME_URL = "grpc://time:9000"
+import cog_settings
 
 
-class Supervisor(TrialHooks):
-    VERSIONS = {"poker": "1.0.0"}
+async def pre_trial_hook(session):
+    if session.trial_config:
+        session.environment_config.suffix = session.trial_config.env_config.suffix
+    return session
 
-    @staticmethod
-    def pre_trial(trial_id, user_id, trial_params):
 
-        actor_settings = {
-            "time": ns(actor_class="time", end_point=TIME_URL, config=None),
-        }
+async def main():
+    cog_context = cogment.Context(cog_settings=cog_settings, user_id="configurator")
+    cog_context.register_pre_trial_hook(pre_trial_hook)
+    cogment_done = asyncio.create_task(cog_context.serve_all_registered(port=9000))
 
-        try:
-            trial_config = trial_params.trial_config
-            actors = [ns(actor_class="emma", endpoint="human", config=None)]
-
-            # modify following to retrieve config info and create actors list
-            # for ??? in trial_config.env_config.???:
-            #    actors.append(actor_settings[???])
-
-            trial_params.actors = actors
-
-            trial_params.environment.config = trial_config.env_config
-
-            return trial_params
-        except Exception:
-            traceback.print_exc()
-            raise
+    await asyncio.gather(cogment_done)
 
 
 if __name__ == "__main__":
-    server = GrpcServer(Configurator, cog_settings)
-    server.serve()
+    asyncio.run(main())

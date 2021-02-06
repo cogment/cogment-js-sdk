@@ -20,13 +20,17 @@ const path = require('path');
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['./tsconfig.json'],
+    project: [
+      './tsconfig.json',
+      './cli/tsconfig.json',
+      './__tests__/tsconfig.json',
+      './__tests__/end-to-end/cogment-app/webapp/tsconfig.json',
+    ],
   },
   plugins: [
     '@typescript-eslint',
     'sonarjs',
     'unicorn',
-    'lodash',
     'jest',
     'jest-formatting',
     'tsdoc',
@@ -54,7 +58,6 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:sonarjs/recommended',
     'plugin:unicorn/recommended',
-    'plugin:lodash/recommended',
     'plugin:jest/recommended',
     'plugin:jest/style',
     'plugin:jest-formatting/recommended',
@@ -67,7 +70,6 @@ module.exports = {
       'error',
       {cases: {pascalCase: true, kebabCase: true}},
     ],
-    'lodash/prefer-lodash-method': 'off',
     'deprecation/deprecation': 'warn',
     'max-params': ['error', {max: 2}],
     'notice/notice': [

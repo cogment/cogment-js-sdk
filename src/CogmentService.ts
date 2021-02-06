@@ -68,7 +68,7 @@ export class CogmentService {
     actorImpl: ActorImplementation<ActionT, ObservationT, RewardT, MessageT>,
   ): void {
     logger.info(
-      `Registering actor ${actorConfig.name} with class ${actorConfig.class}`,
+      `Registering actor ${actorConfig.name} with class ${actorConfig.actorClass}`,
     );
     if (this.actors[actorConfig.name]) {
       logger.warn(

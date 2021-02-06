@@ -1,3 +1,53 @@
+# [1.18.0-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0-alpha.3...v1.18.0-alpha.4) (2021-02-06)
+
+
+### Features
+
+* **test:** complete implementation of trialConfig test ([240db09](https://github.com/cogment/cogment-js-sdk/commit/240db095573da545a190340aaea254c32708f7e8))
+
+# [1.18.0-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0-alpha.2...v1.18.0-alpha.3) (2021-02-05)
+
+
+### Bug Fixes
+
+* **ci:** checkout local branch ([36486ca](https://github.com/cogment/cogment-js-sdk/commit/36486ca49dc08693497080986e8b995c45611466))
+* **ci:** need to sync downstream first? ([4cf0f70](https://github.com/cogment/cogment-js-sdk/commit/4cf0f704f26e6a17fdb44054b1cd8b1d845e4976))
+* **ci:** to push without first pulling, a remote ([34dc807](https://github.com/cogment/cogment-js-sdk/commit/34dc80774bcd953897a91a4da83720f12f391c01))
+* **ci:** use remotes instead of messing with ref specs ([9ec0e8d](https://github.com/cogment/cogment-js-sdk/commit/9ec0e8d8ef786dcaa300a08db9b4e1853995a90a))
+* **ci:** works locally, whats up gitlab ([1519556](https://github.com/cogment/cogment-js-sdk/commit/15195565e9fb1fb33aac18e2fc7039a1e937c727))
+* **tests:** set default test timeout to 10 seconds ([db39b9d](https://github.com/cogment/cogment-js-sdk/commit/db39b9d1dbe4233c6bab01d3a89ac5c68524a703))
+
+
+### Features
+
+* **ci:** push release branch code downstream automatically ([fc1a1e0](https://github.com/cogment/cogment-js-sdk/commit/fc1a1e0abf42636781e218f196b7e86fc15a7453))
+
+# [1.18.0-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0-alpha.1...v1.18.0-alpha.2) (2021-02-05)
+
+
+### Bug Fixes
+
+* **release:** trigger manual release ([4c32dbd](https://github.com/cogment/cogment-js-sdk/commit/4c32dbdb8b6e050ea6b92343fdbd7cfcbd65586f))
+
+# [1.18.0-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.17.0...v1.18.0-alpha.1) (2021-02-05)
+
+
+### Bug Fixes
+
+* **api:** do not assign tickId when undefined (in the case of an empty event queue) ([10ede4a](https://github.com/cogment/cogment-js-sdk/commit/10ede4a2b7dd6128d9e0c8e80509c4cef6b5e969))
+* **build:** restructure project to fix eslint + typescript conflicts ([cc491c0](https://github.com/cogment/cogment-js-sdk/commit/cc491c0784c0fd7a198cabb2466983aea2a2a264))
+* **style:** eslint + tsconfig bug for cli project ([24ad1c3](https://github.com/cogment/cogment-js-sdk/commit/24ad1c3a4e0e6d77e208dde97810387d35fe6b06))
+* **trialcontroller.ts:** optional trialConfig was not being sent along with the StartTrialRequest ([cbda616](https://github.com/cogment/cogment-js-sdk/commit/cbda61637aaca9503f99e05f9ef4487f9efb76a9)), closes [#46](https://github.com/cogment/cogment-js-sdk/issues/46)
+* **tsconfig.json:** syntax error :O ([9abe06b](https://github.com/cogment/cogment-js-sdk/commit/9abe06b097ae08b899cd856a036bfdd7ffc18bc3))
+
+
+### Features
+
+* **actrosession:** implement message passing tests ([e1096bf](https://github.com/cogment/cogment-js-sdk/commit/e1096bf7258fe9903b5c4bee22f031b28431ebf6))
+* **eventloop:** refactor eventLoop to use promises, removing the need for sleeps ([ecf93f3](https://github.com/cogment/cogment-js-sdk/commit/ecf93f31adec0225e3d185ef354b88feb389195c))
+* fill out some meta functionality, improve tests ([b1d7058](https://github.com/cogment/cogment-js-sdk/commit/b1d70589581ddd0eee1ac8f6f02d01436078a81a))
+* **tests:** update to cogment-cli@aa511eafd163b868d68e84e9516dbd36066f80d4 ([fc8c8c5](https://github.com/cogment/cogment-js-sdk/commit/fc8c8c55fb5b8e45283efb86549d91a99b510522)), closes [#15](https://github.com/cogment/cogment-js-sdk/issues/15)
+
 # [1.17.0](https://github.com/cogment/cogment-js-sdk/compare/v1.16.1...v1.17.0) (2021-02-02)
 
 

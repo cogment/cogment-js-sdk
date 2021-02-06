@@ -1,0 +1,18 @@
+{
+  "name": "@ai-r/cogment-app",
+  "version": "1.0.0",
+  "description": "This is a sample bootstraping project for the Cogment python SDK.",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "build:protos": "protoc -I .. ../*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "ts-protoc-gen": "^0.14.0",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3"
+  }
+}
