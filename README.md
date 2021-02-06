@@ -14,8 +14,8 @@
 [![License](https://img.shields.io/npm/l/@cogment/cogment-js-sdk)][license]
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/cogment/cogment-js-sdk)
 
-![GitHub forks](https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social)
-![GitHub Repo stars](https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social)
+[![GitHub forks](https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social)][repo]
+[![GitHub Repo stars](https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social)][repo]
 
 <!-- prettier-ignore-start -->
 [TOC]: #
