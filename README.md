@@ -6,16 +6,22 @@
 [![npm collaborators](https://img.shields.io/npm/collaborators/@cogment/cogment-js-sdk)][npm-cogment]
 [![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@cogment/cogment-js-sdk)][npm-cogment]
 
+[![GitHub commit activity](https://img.shields.io/github/commit-activity/w/cogment/cogment-js-sdk?style=social&logo=github)][repo]
+[![GitHub forks](https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social)][repo]
+[![GitHub Repo stars](https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social)][repo]
+[![GitHub contributors](https://img.shields.io/github/contributors/cogment/cogment-js-sdk?style=social&logo=github)][repo]
+
+[![License](https://img.shields.io/npm/l/@cogment/cogment-js-sdk)][license]
+![OSS Lifecycle](https://img.shields.io/osslifecycle/cogment/cogment-js-sdk)
+
+![node-current (scoped)](https://img.shields.io/node/v/@cogment/cogment-js-sdk)
+
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)][code-of-conduct]
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-[![License](https://img.shields.io/npm/l/@cogment/cogment-js-sdk)][license]
-![OSS Lifecycle](https://img.shields.io/osslifecycle/cogment/cogment-js-sdk)
-
-[![GitHub forks](https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social)][repo]
-[![GitHub Repo stars](https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social)][repo]
+![Discord](https://img.shields.io/discord/739822842450935963?label=Discord&logo=Discord&style=plastic)
 
 <!-- prettier-ignore-start -->
 [TOC]: #

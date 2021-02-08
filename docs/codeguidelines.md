@@ -5,8 +5,8 @@ ESLint and prettier, using an editor/IDE plugin is essential. A good
 plugin should:
 
 - Highlight code detected as failing formatting/linting rules
-- Offer the ability to either fix the problem automatically, or to add
-  an ignore pragma (eg: `Alt+Enter` on IntelliJ will offer automatic
+- Offer the ability to either fix the problem automatically, or insert
+  an ignore-pragma (eg: `Alt+Enter` on IntelliJ will offer automatic
   fixes and apply them when available or offer to silence the rule with
   an appropriate pragma).
 
@@ -27,7 +27,7 @@ npm run lint:prettier:fix
 
 ## Code Style
 
-All the ESLint. Here is our [configuration](.eslintrc.js).
+All the ESLint. Here is our [configuration](/.eslintrc.js).
 
 A list of supported editors and their
 [plugins](https://eslint.org/docs/user-guide/integrations#editors).
