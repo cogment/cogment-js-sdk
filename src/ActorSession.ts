@@ -17,6 +17,7 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
+import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 import {
   CogSettings,
   CogSettingsActorClass,
@@ -24,14 +25,19 @@ import {
   Reward,
   TrialActor,
 } from './@types/cogment';
-import {Action as ActionPb} from './cogment/api/common_pb';
+import {
+  Action as ActionPb,
+  Message as CogMessage,
+} from './cogment/api/common_pb';
 import {
   TrialActionReply,
   TrialActionRequest,
+  TrialMessageRequest,
 } from './cogment/api/orchestrator_pb';
 import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
 import {deserializeData} from './lib/DeltaEncoding';
 import {getLogger} from './lib/Logger';
+import {SendMessageReturnType} from './TrialController';
 
 const logger = getLogger('ActorSession');
 
@@ -43,13 +49,11 @@ export class ActorSession<
 > {
   private actorCogSettings: CogSettingsActorClass;
   private events: Event<ObservationT, RewardT, MessageT>[] = [];
-  private running = false;
-
-  private tickId?: number;
   private lastObservation?: ObservationT;
-
   private nextEventPromise?: Promise<void>;
   private nextEventResolve?: () => void;
+  private running = false;
+  private tickId?: number;
 
   // eslint-disable-next-line max-params
   constructor(
@@ -73,6 +77,7 @@ export class ActorSession<
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public addFeedback(to: string[], feedback: Reward): void {
     throw new Error('addFeedback() is not implemented.');
   }
@@ -91,6 +96,7 @@ export class ActorSession<
             event.tickId?.toString() ?? ''
           } ${JSON.stringify(event, undefined, 2)}`,
         );
+        // TODO: think through the logic on this one
         if (event.observation) {
           this.lastObservation = event.observation;
         }
@@ -118,9 +124,33 @@ export class ActorSession<
     this.actionStreamClient.send(request);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public sendMessage(to: string[], message: MessageT): void {
-    throw new Error('sendMessage() is not implemented');
+  public async sendMessage<PayloadT extends Message>({
+    from,
+    to,
+    payload,
+    trialId,
+    actorName,
+  }: SendMessageOptions<PayloadT>): Promise<SendMessageReturnType> {
+    const request = new TrialMessageRequest();
+    const message = new CogMessage();
+
+    message.setPayload(AnyPb.deserializeBinary(payload.serializeBinary()));
+    message.setSenderName(from);
+    message.setReceiverName(to);
+    request.addMessages(message);
+    // eslint-disable-next-line compat/compat
+    return new Promise<SendMessageReturnType>((resolve, reject) => {
+      this.actorEndpointClient.sendMessage(
+        request,
+        new grpc.Metadata({'trial-id': trialId, 'actor-name': actorName}),
+        (error, response) => {
+          if (error || response === null) {
+            return reject(error);
+          }
+          resolve(response.toObject());
+        },
+      );
+    });
   }
 
   public start(): void {
@@ -167,10 +197,9 @@ export class ActorSession<
       )}`,
     );
 
-    // TODO: We need to define an order here, preferably merge all objects of the same tickId into a single event?
-    //       Assumes data received is all newer than the last received tickId
+    // copy the protobuf array to prevent mutation
     const observations = [...data.getObservationsList()]
-      .sort((a, b) => a.getTickId() - b.getTickId())
+      // TODO: is this necessary?
       .filter((observation) => {
         return observation.getData()?.getContent() !== '';
       })
@@ -187,22 +216,22 @@ export class ActorSession<
         };
       });
 
-    const messages = [...data.getMessagesList()]
-      .sort((a, b) => a.getTickId() - b.getTickId())
-      .map((message) => ({
-        tickId: message.getTickId(),
-        message: {
-          receiver: message.getReceiverName(),
-          sender: message.getSenderName(),
-          data: this.actorCogSettings.message_space?.deserializeBinary(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            /// @ts-ignore-next-line
-            message?.getPayload()?.getValue_asU8(),
-          ) as MessageT,
-        },
-      }));
+    // copy the protobuf array to prevent mutation
+    const messages = [...data.getMessagesList()].map((message) => ({
+      tickId: message.getTickId(),
+      message: {
+        receiver: message.getReceiverName(),
+        sender: message.getSenderName(),
+        data: this.actorCogSettings.message_space?.deserializeBinary(
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          /// @ts-ignore-next-line
+          message?.getPayload()?.getValue_asU8(),
+        ) as MessageT,
+      },
+    }));
 
-    const rewards = data.getRewardsList().map((reward) => ({
+    // copy the protobuf array to prevent mutation
+    const rewards = [...data.getRewardsList()].map((reward) => ({
       tickId: reward.getFeedbacksList()[0].getTickId(),
       reward: {
         value: reward.getValue(),
@@ -211,6 +240,7 @@ export class ActorSession<
       },
     }));
 
+    // sort all events by tickId - if an event object does not have a tickId, it gets placed at the front of the queue
     this.events = [
       ...this.events,
       ...observations,
@@ -232,4 +262,12 @@ export class ActorSession<
       });
     }
   };
+}
+
+export interface SendMessageOptions<PayloadT extends Message> {
+  actorName: string;
+  from: string;
+  payload: PayloadT;
+  to: string;
+  trialId: string;
 }

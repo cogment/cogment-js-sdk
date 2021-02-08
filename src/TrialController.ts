@@ -17,11 +17,9 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {
-  Message as CogMessage,
   TrialConfig,
   VersionInfo,
   VersionRequest,
@@ -36,7 +34,6 @@ import {
   TrialJoinReply,
   TrialJoinRequest,
   TrialMessageReply,
-  TrialMessageRequest,
   TrialStartReply,
   TrialStartRequest,
   TrialState,
@@ -156,30 +153,6 @@ export class TrialController {
 
     await this.startActors(response.trialId);
     return response;
-  }
-
-  // TODO: WIP - See https://gitlab.com/ai-r/cogment-js-sdk/-/issues/20
-  // eslint-disable-next-line max-params
-  public async sendMessage(
-    receiverName: string,
-    senderName: string,
-    messagePayload: AnyPb,
-  ): Promise<SendMessageReturnType> {
-    const request = new TrialMessageRequest();
-    const message = new CogMessage();
-    message.setSenderName(senderName);
-    message.setReceiverName(receiverName);
-    message.setPayload(messagePayload);
-    request.addMessages(message);
-    // eslint-disable-next-line compat/compat
-    return new Promise<SendMessageReturnType>((resolve, reject) => {
-      this.actorEndpointClient.sendMessage(request, (error, response) => {
-        if (error || response === null) {
-          return reject(error);
-        }
-        resolve(response.toObject());
-      });
-    });
   }
 
   /**

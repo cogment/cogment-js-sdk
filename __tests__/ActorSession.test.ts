@@ -42,6 +42,7 @@ describe('ActorSession', () => {
     let lastTimestamp: number;
     let lastResponse: string;
     let lastTickId: number;
+    let lastMessage;
 
     beforeAll(async () => {
       const service = createService({
@@ -66,20 +67,20 @@ describe('ActorSession', () => {
           actorSession.start();
           logger.info('Actor session started');
 
-          setTimeout(actorSession.stop.bind(actorSession), 3000);
+          setTimeout(actorSession.stop.bind(actorSession), 500);
 
           const action = new ClientAction();
           action.setRequest(TEST_MESSAGE);
           actorSession.sendAction(action);
 
-          for await (const {observation} of actorSession.eventLoop()) {
+          for await (const {
+            observation,
+            message,
+            tickId,
+          } of actorSession.eventLoop()) {
             if (observation) {
-              const action = new ClientAction();
-              action.setRequest(TEST_MESSAGE);
-              actorSession.sendAction(action);
-              const timestamp = observation.getTimestamp();
-              const tickId = actorSession.getTickId();
               const response = observation.getResponse();
+              const timestamp = observation.getTimestamp();
               logger.info(
                 `Received an observation for tick id ${
                   tickId ?? ''
@@ -90,11 +91,33 @@ describe('ActorSession', () => {
               }
               if (tickId) {
                 lastTickId = tickId;
+                if (tickId > 10 && false) {
+                  const clientMessage = new ClientMessage();
+                  clientMessage.setRequest('oh hai!');
+                  await actorSession.sendMessage<ClientMessage>({
+                    actorName: 'client_actor',
+                    from: trialActor.name,
+                    payload: clientMessage,
+                    to: 'echo_echo_1',
+                    trialId,
+                  });
+                }
               }
               if (response) {
                 lastResponse = response;
               }
               lastObservation = observation;
+              const action = new ClientAction();
+              action.setRequest(TEST_MESSAGE);
+              actorSession.sendAction(action);
+            }
+            if (message) {
+              logger.info(
+                `Received a message for tick id ${
+                  tickId ?? ''
+                }: ${JSON.stringify(message, undefined, 2)}`,
+              );
+              lastMessage = message;
             }
           }
         },

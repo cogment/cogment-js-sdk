@@ -99,6 +99,7 @@ describe('a cogment-app', () => {
           observation,
           message,
           reward,
+          tickId,
         } of actorSession.eventLoop()) {
           if (observation) {
             logger.info(
@@ -119,6 +120,10 @@ describe('a cogment-app', () => {
           if (reward) {
             logger.info(reward);
           }
+
+          if (tickId ?? 0 > 10) {
+            actorSession.stop();
+          }
         }
       },
     );
@@ -130,5 +135,5 @@ describe('a cogment-app', () => {
     // eslint-disable-next-line compat/compat
     await new Promise((resolve) => setTimeout(resolve, 1000));
     return trialController.terminateTrial(trialId);
-  }, 5000);
+  });
 });
