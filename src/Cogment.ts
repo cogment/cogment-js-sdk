@@ -94,3 +94,10 @@ export function createService({
     actionStreamClient,
   );
 }
+
+export interface CreateServiceOptions {
+  cogSettings: CogSettings;
+  grpcURL?: string;
+  unaryTransportFactory?: grpc.TransportFactory;
+  streamingTransportFactory?: grpc.TransportFactory;
+}
