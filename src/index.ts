@@ -21,4 +21,4 @@
  * @packageDocumentation
  */
 
-export * as cogment from './cogment';
+export {createService} from './cogment';
