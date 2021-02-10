@@ -16,7 +16,7 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import {CogSettings} from './@types/cogment';
+import {CogSettings} from './types/cogment';
 import {
   TrialActionReply,
   TrialActionRequest,

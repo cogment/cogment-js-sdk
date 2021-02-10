@@ -18,7 +18,7 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {createService, getLogger} from '../../src';
-import {TrialActor} from '../../src/@types/cogment';
+import {TrialActor} from '../../src/types/cogment';
 import {
   Message,
   VersionInfo,

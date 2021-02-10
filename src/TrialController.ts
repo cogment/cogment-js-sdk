@@ -17,7 +17,6 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import {CogSettings, TrialActor} from './@types/cogment';
 import {ActorSession} from './ActorSession';
 import {
   TrialConfig,
@@ -44,6 +43,7 @@ import {
 } from './cogment/api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
 import {getLogger} from './lib/Logger';
+import {CogSettings, TrialActor} from './types/cogment';
 
 const logger = getLogger('TrialController');
 

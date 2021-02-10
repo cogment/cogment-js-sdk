@@ -19,13 +19,6 @@ import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
 import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 import {
-  CogSettings,
-  CogSettingsActorClass,
-  Event,
-  Reward,
-  TrialActor,
-} from './@types/cogment';
-import {
   Action as ActionPb,
   Message as CogMessage,
 } from './cogment/api/common_pb';
@@ -38,6 +31,13 @@ import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
 import {deserializeData} from './lib/DeltaEncoding';
 import {getLogger} from './lib/Logger';
 import {SendMessageReturnType} from './TrialController';
+import {
+  CogSettings,
+  CogSettingsActorClass,
+  Event,
+  Reward,
+  TrialActor,
+} from './types/cogment';
 
 const logger = getLogger('ActorSession');
 

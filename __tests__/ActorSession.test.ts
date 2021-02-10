@@ -23,9 +23,9 @@ import {
   getLogger,
   SendMessageReturnType,
 } from '../src';
-import {TrialActor} from '../src/@types/cogment';
 import {TrialMessageReply} from '../src/cogment/api/orchestrator_pb';
 import {config} from '../src/lib/Config';
+import {TrialActor} from '../src/types/cogment';
 import cogSettings from './end-to-end/cogment-app/webapp/src/cog_settings';
 import {
   ClientAction,
