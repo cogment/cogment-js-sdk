@@ -34,6 +34,18 @@ Before you begin:
 - Have you read the [code-of-conduct]?
 - [Cogment Documentation][cogment-doc]
 - [Project's WiKi Pages][cogment-js-sdk-wiki]
+- [Sign a Contributer License Agreement (CLA)](/CONTRIBUTING.md#cla)
+
+### CLA
+
+Whenever a non-Airite wants to submit a patch to a Cogment open source
+project, they must first sign a Contributor License Agreement (CLA).
+This allows the contributor to retain their ownership in the code
+submitted while granting Artificial Intelligence Redefined the necessary
+legal rights to use that contribution. The CLA only needs to be signed
+once, and it covers all Cogment projects.
+
+To obtain and sign a CLA, please email dev+cla@ai-r.com.
 
 ### Guidelines
 
