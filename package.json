@@ -24,7 +24,7 @@
   "scripts": {
     "analyze": "npx size-limit --why",
     "build": "npx npm-run-all build:{clean,protos,typings,webpack}",
-    "build:clean": "npx rimraf dist public cogment cogment-api.tar.gz cogment-api-* allure-{report,results} src/cogment",
+    "build:clean": "npx rimraf dist public cogment cogment-api.tar.gz cogment-api-* src/cogment/air",
     "build:docs": "typedoc",
     "build:install": "npm install",
     "build:protos": "npx npm-run-all build:protos:fetch build:protos:compile",
@@ -89,7 +89,7 @@
     "@types/eslint": "^7.2.6",
     "@types/google-protobuf": "^3.7.4",
     "@types/jest": "^26.0.20",
-    "@types/lodash": "^4.14.167",
+    "@types/lodash": "^4.14.168",
     "@types/long": "^4.0.1",
     "@types/node": "^14.14.25",
     "@types/semver": "^7.3.4",
@@ -125,11 +125,16 @@
     "husky": "^4.3.7",
     "jest": "^26.6.3",
     "jest-allure": "^0.1.3",
+    "jest-chain": "^1.1.5",
+    "jest-extended": "^0.11.5",
     "jest-junit": "^12.0.0",
+    "jest-runner-eslint": "^0.10.0",
+    "jest-runner-prettier": "^0.3.6",
     "jest-sonar": "^0.2.11",
     "jest-watch-typeahead": "^0.6.1",
     "json5": "^2.2.0",
     "lint-staged": "^10.5.4",
+    "lodash": "^4.17.20",
     "npm-merge-driver": "^2.3.6",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.0",
@@ -148,6 +153,7 @@
     "ts-protoc-gen": "^0.14.0",
     "tslib": "^2.1.0",
     "typedoc": "^0.20.23",
+    "typedoc-neo-theme": "^1.1.0",
     "typescript": "^4.1.3",
     "webpack": "^5.21.2",
     "webpack-bundle-analyzer": "^4.3.0",
@@ -160,5 +166,15 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "jest-junit": {
+    "suiteName": "cogment",
+    "outputDirectory": ".",
+    "outputName": "junit.xml",
+    "uniqueOutputName": true,
+    "classNameTemplate": "{filename}",
+    "titleTemplate": "{filename}-{title}",
+    "ancestorSeparator": " › ",
+    "usePathForSuiteName": "true"
   }
 }
