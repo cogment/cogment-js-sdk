@@ -80,8 +80,8 @@ git clone https://github.com/cogment/cogment-js-sdk.git
 #### node.js
 
 For local hacking, a working node.js distribution is required. This
-repository supports [nvm] and [nodenv] through the [.nvmrc](.nvmrc) and
-[.node-version](.node-version) files.
+repository supports [nvm] and [nodenv] through the [.nvmrc](/.nvmrc) and
+[.node-version](/.node-version) files.
 
 A simple node.js environment install using [nvm] (note, _NO_ sudo is
 required!):
