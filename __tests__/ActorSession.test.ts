@@ -17,11 +17,11 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import {SendMessageReturnType} from '../dist/cogment/TrialController';
-import {createService} from '../src/cogment';
+import {createService} from '../src';
 import {TrialMessageReply} from '../src/cogment/api/orchestrator_pb';
 import {config} from '../src/cogment/lib/Config';
 import {getLogger} from '../src/cogment/lib/Logger';
+import {SendMessageReturnType} from '../src/cogment/TrialController';
 import {TrialActor} from '../src/types/cogment';
 import cogSettings from './end-to-end/cogment-app/webapp/src/cog_settings';
 import {
