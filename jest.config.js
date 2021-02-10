@@ -19,7 +19,6 @@ const {defaultsDeep} = require('lodash');
 
 const commonConfig = {
   prettierPath: './node_modules/.bin/prettier',
-  name: 'cogment',
   preset: 'ts-jest',
   setupFilesAfterEnv: [
     './jest.setup.js',
@@ -64,18 +63,8 @@ module.exports = {
   projects: [
     defaultsDeep(
       {
-        preset: 'ts-jest',
-        displayName: '__tests__',
-        name: '__tests__',
-        testMatch: ['<rootDir>/__tests__/**/*.test.*'],
-      },
-      commonConfig,
-    ),
-    defaultsDeep(
-      {
         displayName: 'lint:prettier',
         testMatch: ['<rootDir>/src/**/*.ts'],
-        name: 'prettier',
         runner: 'prettier',
       },
       commonConfig,
@@ -83,9 +72,16 @@ module.exports = {
     defaultsDeep(
       {
         displayName: 'lint:eslint',
-        name: 'eslint',
         testMatch: ['<rootDir>/src/**/*.ts'],
         runner: 'eslint',
+      },
+      commonConfig,
+    ),
+    defaultsDeep(
+      {
+        preset: 'ts-jest',
+        displayName: '__tests__',
+        testMatch: ['<rootDir>/__tests__/**/*.test.*'],
       },
       commonConfig,
     ),
