@@ -45,8 +45,8 @@ USAGE
   $ cogjs-cli fetch-protos
 
 OPTIONS
-  -h, --help                                 show CLI help
-  -r, --cogmentApiVersion=cogmentApiVersion  cogment-api release version, uses cosmiconfig
+  -h, --help                   show CLI help
+  -r, --releaseUrl=releaseUrl  cogment-api release version, uses cosmiconfig
 
 EXAMPLE
   $ cogjs-cli fetch-protos
