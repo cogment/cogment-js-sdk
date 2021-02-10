@@ -23,7 +23,7 @@ export interface CogSettingsActorClass {
   action_space: typeof Message;
   observation_space: typeof Message;
   observation_delta: typeof Message;
-  observation_delta_apply_fn: (x) => x;
+  observation_delta_apply_fn: (x: unknown) => unknown;
   feedback_space: typeof Message | null;
   message_space: typeof Message | null;
 }

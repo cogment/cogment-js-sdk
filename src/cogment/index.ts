@@ -15,11 +15,4 @@
  *
  */
 
-import {CogmentService} from '../src';
-
-describe('CogmentService', () => {
-  test.skip('exists', () => {
-    // eslint-disable-next-line compat/compat
-    return Promise.resolve();
-  });
-});
+export {createService} from './Cogment';

@@ -17,13 +17,10 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
+import {CogSettings, TrialActor} from '../types/cogment';
 import {ActorSession} from './ActorSession';
-import {
-  TrialConfig,
-  VersionInfo,
-  VersionRequest,
-} from './cogment/api/common_pb';
-import {ServiceError} from './cogment/api/environment_pb_service';
+import {TrialConfig, VersionInfo, VersionRequest} from './api/common_pb';
+import {ServiceError} from './api/environment_pb_service';
 import {
   TerminateTrialRequest,
   TrialActionReply,
@@ -36,14 +33,13 @@ import {
   TrialStartReply,
   TrialStartRequest,
   TrialState,
-} from './cogment/api/orchestrator_pb';
+} from './api/orchestrator_pb';
 import {
   ActorEndpointClient,
   TrialLifecycleClient,
-} from './cogment/api/orchestrator_pb_service';
+} from './api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
 import {getLogger} from './lib/Logger';
-import {CogSettings, TrialActor} from './types/cogment';
 
 const logger = getLogger('TrialController');
 
@@ -120,6 +116,7 @@ export class TrialController {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async isTrialOver(trialId: string): Promise<boolean> {
     // eslint-disable-next-line compat/compat
     return Promise.resolve(!this.trialId);

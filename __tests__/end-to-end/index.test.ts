@@ -17,15 +17,16 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import {createService, getLogger} from '../../src';
-import {TrialActor} from '../../src/types/cogment';
+import {createService} from '../../src/cogment';
 import {
   Message,
   VersionInfo,
   VersionRequest,
 } from '../../src/cogment/api/common_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
-import {config} from '../../src/lib/Config';
+import {config} from '../../src/cogment/lib/Config';
+import {getLogger} from '../../src/cogment/lib/Logger';
+import {TrialActor} from '../../src/types/cogment';
 import cogSettings from './cogment-app/webapp/src/cog_settings';
 import {ClientAction, Observation} from './cogment-app/webapp/src/data_pb';
 
@@ -66,7 +67,7 @@ describe('grpc.WebsocketTransport', () => {
 
     expect(mockOnMessageCallback.mock.calls).toHaveLength(2);
     expect(mockOnHeadersCallback.mock.calls).toHaveLength(1);
-  }, 5000);
+  });
 });
 
 describe('a cogment-app', () => {
@@ -133,7 +134,7 @@ describe('a cogment-app', () => {
     const {trialId} = await trialController.startTrial(trialActor.name);
     await trialController.joinTrial(trialId, trialActor);
     // eslint-disable-next-line compat/compat
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     return trialController.terminateTrial(trialId);
   });
 });

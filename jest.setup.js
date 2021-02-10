@@ -15,7 +15,7 @@
  *
  */
 
-const {getLogger, LogLevel} = require('./src/lib/Logger');
+const {getLogger, LogLevel} = require('./src/cogment/lib/Logger');
 const debug = require('debug');
 
 jest.setTimeout(10000);
