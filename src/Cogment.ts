@@ -15,12 +15,6 @@
  *
  */
 
-/**
- * A library for interacting with the {@link https://cogment.ai | cogment.ai} framework.
- *
- * @packageDocumentation
- */
-
 import {grpc} from '@improbable-eng/grpc-web';
 import {CogSettings} from './@types/cogment';
 import {
@@ -38,36 +32,35 @@ import {getLogger} from './lib/Logger';
 const logger = getLogger();
 
 /**
- * Creates a new {@link CogmentService} from a generated {@link CogSettings | cog_settings.js}.
- * Optionally pass transports used by clients.
- * @example
- * Instantiating the `cogment` API.
+ * Creates a new {@link CogmentService} from a generated {@link CogSettings | 'cog_settings.ts'}. Optionally pass transports used by clients.
+ *
+ * @example Instantiating the `cogment` API.
  * ```typescript
  * import {createService} from 'cogment';
  * import cogSettings from 'cog_settings';
  *
  * const cogment = createService(cogSettings);
  * ```
+ *
+ * @param cogSettings - Settings loaded from the generated `cog_settings.js` file.
+ * @param grpcURL - HTTP(S) url of grpc-web reverse proxy to orchestrator.
+ * @param unaryTransportFactory - A `grpc.TransportFactory` used to make unary (non-streaming) requests to the backend.
+ * @param streamingTransportFactory - A `grpc.TransportFactory` used to instantiate streaming connections to the backend.
+ *
  * @public
  * @beta
- * @param cogSettings - Settings loaded from the generated `cog_settings.js` file.
- * @param unaryTransportFactory - A `grpc.TransportFactory` used to make unary (non-streaming) requests to the backend.
- *   Defaults to {@link @improbable-eng/grpc-web#CrossBrowserHttpTransport}.
- * @param streamingTransportFactory - A `grpc.TransportFactory` used to instantiate streaming connections to the
- *   backend. Defaults to {@link @improbable-eng/grpc-web#WebsocketTransport}.
- * @returns A {@link CogmentService} configured with the given {@link CogSettings} and transports.
  */
 export function createService({
   cogSettings,
   // eslint-disable-next-line compat/compat
-  grpcURL = `${window.location.protocol}//${window.location.hostname}:8080`,
+  grpcURL = `//${window.location.hostname}:8080`,
   unaryTransportFactory = grpc.CrossBrowserHttpTransport({
     withCredentials: false,
   }),
   streamingTransportFactory = grpc.WebsocketTransport(),
 }: {
   cogSettings: CogSettings;
-  grpcURL?: string;
+  grpcURL: string;
   unaryTransportFactory?: grpc.TransportFactory;
   streamingTransportFactory?: grpc.TransportFactory;
 }): CogmentService {

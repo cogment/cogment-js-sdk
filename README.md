@@ -1,4 +1,4 @@
-# cogment-js-sdk
+# @cogment/cogment-js-sdk
 
 [![cogment](https://img.shields.io/badge/npm-%40cogment%2Fcogment--js--sdk-brightgreen)][npm-cogment]
 [![npm](https://img.shields.io/npm/dw/@cogment/cogment-js-sdk)][npm-cogment]
@@ -21,7 +21,7 @@
 [TOC]: #
 
 ## Table of Contents
-- [cogment-js-sdk](#cogment-js-sdk)
+- [@cogment/cogment-js-sdk](#cogmentcogment-js-sdk)
   - [Links](#links)
   - [Usage](#usage)
   - [Hacking](#hacking)

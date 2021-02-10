@@ -1,14 +1,21 @@
 {
   "includeVersion": true,
-  "entryPoints": ["src"],
-  "externalPattern": ["src/cogment/api/*.ts"],
+  "entryPoints": ["src/index.ts"],
+  "externalPattern": ["src/cogment/api/*.ts", "src/@types"],
+  "excludeExternals": false,
   "exclude": [
-    "**/__{data,mocks,tests}__/**",
+    "./node_modules",
     "src/cogment/api/{common,message}_pb_service.*",
-    "src/cogment/api/*.js",
-    "src/index.ts",
-    "src/@types/cogment/index.d.ts"
+    "src/cogment/api/*.js"
   ],
   "categorizeByGroup": true,
-  "out": "docs/api"
+  "out": "docs/api",
+  "gitRemote": "https://github.com/cogment/cogment-js-sdk",
+  "gitRevision": "main",
+  "source": [
+    {
+      "path": "https://github.com/cogment/cogment-js-sdk/blob/main/",
+      "line": "L"
+    }
+  ]
 }
