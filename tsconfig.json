@@ -11,7 +11,7 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
     "lib": ["es5", "es2015", "dom", "es2018.asynciterable"],
-    "module": "es6",
+    "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": false,
     "noImplicitAny": true,
