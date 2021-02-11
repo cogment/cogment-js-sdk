@@ -24,7 +24,7 @@
   "scripts": {
     "analyze": "npx size-limit --why",
     "build": "npx npm-run-all build:{clean,protos,typings,webpack}",
-    "build:clean": "npx rimraf dist public cogment cogment-api.tar.gz cogment-api-* src/cogment/air",
+    "build:clean": "npx rimraf dist public cogment cogment-api.tar.gz cogment-api-* src/cogment/api",
     "build:docs": "typedoc",
     "build:install": "npm install",
     "build:protos": "npx npm-run-all build:protos:fetch build:protos:compile",
@@ -172,6 +172,9 @@
     "outputDirectory": ".",
     "outputName": "junit.xml",
     "uniqueOutputName": true,
+    "classNameTemplate": "{classname} {title}",
+    "titleTemplate": "{title}",
+    "suiteNameTemplate": "{title}",
     "ancestorSeparator": " › ",
     "usePathForSuiteName": "true"
   }
