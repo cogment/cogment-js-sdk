@@ -1,3 +1,22 @@
+# [1.19.0-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.18.1...v1.19.0-alpha.1) (2021-02-11)
+
+
+### Bug Fixes
+
+* **build:** webpack was clobbering tsc type definitions ([62f920e](https://github.com/cogment/cogment-js-sdk/commit/62f920ef1e43401b1a0c2d9847c200897cd92307))
+* **cli:** fetch-protos now uses github pages for cogment-api tarball releases ([21787c5](https://github.com/cogment/cogment-js-sdk/commit/21787c51bfe32d093dca603994b74f6c49cb01e0))
+* **package:** fix double namespace ([b7ac326](https://github.com/cogment/cogment-js-sdk/commit/b7ac32684851e2f239791cfe077f5027e8a5757c))
+* **package.json:** build:clean targeted wrong directory, junit is annoying ([be3e2b2](https://github.com/cogment/cogment-js-sdk/commit/be3e2b25454df2d5bf495d5c99d8deff7d900a28))
+* **test:** fix import path ([a36e986](https://github.com/cogment/cogment-js-sdk/commit/a36e986cee04560247af3fe4326682b4bea0fb80))
+* **typescript:** module commonjs ([c071602](https://github.com/cogment/cogment-js-sdk/commit/c0716027c8bf203ef98df3144f04bd5d23f23334))
+
+
+### Features
+
+* **build:** include .d.ts, .map, .LICENSE.txt in github releases ([abc1409](https://github.com/cogment/cogment-js-sdk/commit/abc1409e78f00e8ebc8107017d6303d76fdf75a2))
+* **refactor:** internal api structure better matches module layout ([9e64107](https://github.com/cogment/cogment-js-sdk/commit/9e64107629c29cbea2e3f61de28d400c1b95c6a5))
+* implement message passing / handling ([457e024](https://github.com/cogment/cogment-js-sdk/commit/457e02497393d5272ff139f0bcf66f237aa794a0)), closes [#20](https://github.com/cogment/cogment-js-sdk/issues/20)
+
 ## [1.18.1](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0...v1.18.1) (2021-02-06)
 
 
