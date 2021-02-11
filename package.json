@@ -23,7 +23,7 @@
   ],
   "scripts": {
     "analyze": "npx size-limit --why",
-    "build": "npx npm-run-all build:{clean,protos,typings,webpack}",
+    "build": "npx npm-run-all build:clean build:protos build:webpack build:typings",
     "build:clean": "npx rimraf dist public cogment cogment-api.tar.gz cogment-api-* src/cogment/api",
     "build:docs": "typedoc",
     "build:install": "npm install",
