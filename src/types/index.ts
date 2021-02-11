@@ -15,15 +15,8 @@
  *
  */
 
-import {CogSettings} from './CogSettings';
-
 export * from './CogSettings';
 export * from './CogmentYaml';
 export * from './Event';
 export * from './Reward';
 export * from './TrialActor';
-
-declare module 'cog_settings' {
-  const cogSettings: CogSettings;
-  export {cogSettings};
-}

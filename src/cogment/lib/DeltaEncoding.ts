@@ -16,7 +16,7 @@
  */
 
 import {Message} from 'google-protobuf';
-import {CogSettingsActorClass} from '../../types/cogment';
+import {CogSettingsActorClass} from '../../types';
 import {ObservationData} from '../api/common_pb';
 
 export function decodeObservationData<T extends Message>({

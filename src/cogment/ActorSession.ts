@@ -24,7 +24,7 @@ import {
   Event,
   Reward,
   TrialActor,
-} from '../types/cogment';
+} from '../types';
 import {Action as ActionPb, Message as CogMessage} from './api/common_pb';
 import {
   TrialActionReply,
@@ -238,6 +238,8 @@ export class ActorSession<
     }));
 
     // sort all events by tickId - if an event object does not have a tickId, it gets placed at the front of the queue
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.events = [
       ...this.events,
       ...observations,

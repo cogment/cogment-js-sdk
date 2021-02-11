@@ -22,7 +22,7 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import {CogSettings} from '../types/cogment';
+import {CogSettings} from '../types';
 import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
 import {
   ActorEndpoint,

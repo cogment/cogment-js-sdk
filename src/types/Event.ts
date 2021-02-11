@@ -16,17 +16,16 @@
  */
 
 import {Message} from 'google-protobuf';
-import {Reward} from './Reward';
 
 export interface Event<
   ObservationT extends Message,
   FeedbackT extends Message,
   MessageT extends Message
 > {
-  timestamp?: float;
+  timestamp?: number;
   tickId?: number;
   observation?: ObservationT;
-  reward?: Reward<FeedbackT>;
+  reward?: FeedbackT;
   message?: {
     sender: string;
     data: MessageT;
