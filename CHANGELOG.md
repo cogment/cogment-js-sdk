@@ -1,3 +1,10 @@
+# [1.19.0-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.2...v1.19.0-alpha.3) (2021-02-11)
+
+
+### Bug Fixes
+
+* **semantic-release:** npm plugin output is in .tgz format ([a378c83](https://github.com/cogment/cogment-js-sdk/commit/a378c835d29a51e7463254d669ffb246165d0c70))
+
 # [1.19.0-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.1...v1.19.0-alpha.2) (2021-02-11)
 
 
