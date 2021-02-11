@@ -43,7 +43,6 @@ module.exports = {
         assets: [
           {
             path: 'cogment-cogment-js-sdk-*.*.*.tgz',
-            label: 'Release tarball',
           },
         ],
       },
