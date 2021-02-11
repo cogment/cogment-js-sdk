@@ -15,6 +15,13 @@
  *
  */
 
+const COMMON_DIST_FILES = ['index.d.ts', 'index.d.ts.map'];
+
+const gatherDistFiles = (distFiles) => [...distFiles, ...COMMON_DIST_FILES];
+
+const generateDistGlob = (distFiles) =>
+  `dist/{${gatherDistFiles(distFiles).join(',')}}`;
+
 module.exports = {
   branches: [
     '+([0-9])?(.{+([0-9]),x}).x',
@@ -41,15 +48,27 @@ module.exports = {
       {
         assets: [
           {
-            path: 'dist/cogment.js',
+            path: generateDistGlob([
+              'cogment.js',
+              'cogment.js.map',
+              'cogment.js.LICENSE.txt',
+            ]),
             label: 'CommonJS2 bundle',
           },
           {
-            path: 'dist/cogment.esm.js',
+            path: generateDistGlob([
+              'cogment.esm.js',
+              'cogment.esm.js.map',
+              'cogment.esm.js.LICENSE.txt',
+            ]),
             label: 'ESM bundle',
           },
           {
-            path: 'dist/cogment.umd.js',
+            path: generateDistGlob([
+              'cogment.umd.js',
+              'cogment.umd.js.map',
+              'cogment.umd.js.LICENSE.txt',
+            ]),
             label: 'UMD bundle',
           },
         ],
