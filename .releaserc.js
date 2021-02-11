@@ -42,7 +42,7 @@ module.exports = {
       {
         assets: [
           {
-            path: 'cogment-cogment-js-sdk-v*.*.*.tar.gz',
+            path: 'cogment-cogment-js-sdk-*.*.*.tgz',
             label: 'cogment-js-sdk-{nextRelease.gitTag}',
             name: 'cogment-js-sdk-{nextRelease.gitTag}.tar.gz',
           },
