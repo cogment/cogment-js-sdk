@@ -9,6 +9,7 @@
     "src/cogment/api/*.js"
   ],
   "categorizeByGroup": true,
+  "emit": false,
   "out": "docs/api",
   "gitRemote": "https://github.com/cogment/cogment-js-sdk",
   "gitRevision": "main",

@@ -15,13 +15,6 @@
  *
  */
 
-const COMMON_DIST_FILES = ['index.d.ts', 'index.d.ts.map'];
-
-const gatherDistFiles = (distFiles) => [...distFiles, ...COMMON_DIST_FILES];
-
-const generateDistGlob = (distFiles) =>
-  `dist/{${gatherDistFiles(distFiles).join(',')}}`;
-
 module.exports = {
   branches: [
     '+([0-9])?(.{+([0-9]),x}).x',
@@ -41,6 +34,7 @@ module.exports = {
       {
         prepare: true,
         npmPublish: true,
+        tarballDir: '.',
       },
     ],
     [
@@ -48,28 +42,9 @@ module.exports = {
       {
         assets: [
           {
-            path: generateDistGlob([
-              'cogment.js',
-              'cogment.js.map',
-              'cogment.js.LICENSE.txt',
-            ]),
-            label: 'CommonJS2 bundle',
-          },
-          {
-            path: generateDistGlob([
-              'cogment.esm.js',
-              'cogment.esm.js.map',
-              'cogment.esm.js.LICENSE.txt',
-            ]),
-            label: 'ESM bundle',
-          },
-          {
-            path: generateDistGlob([
-              'cogment.umd.js',
-              'cogment.umd.js.map',
-              'cogment.umd.js.LICENSE.txt',
-            ]),
-            label: 'UMD bundle',
+            path: 'cogment-cogment-js-sdk-v*.*.*.tar.gz',
+            label: 'cogment-js-sdk-{nextRelease.gitTag}',
+            name: 'cogment-js-sdk-{nextRelease.gitTag}.tar.gz',
           },
         ],
       },
