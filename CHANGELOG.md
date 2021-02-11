@@ -1,3 +1,10 @@
+# [1.19.0-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.1...v1.19.0-alpha.2) (2021-02-11)
+
+
+### Features
+
+* **semantic-release:** use npm plugin output as input to github release ([5d56f49](https://github.com/cogment/cogment-js-sdk/commit/5d56f4997a936d9fed34fdd4d263bf2d2753fae0))
+
 # [1.19.0-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.18.1...v1.19.0-alpha.1) (2021-02-11)
 
 
