@@ -34,6 +34,9 @@ const commonConfig = {
     '<rootDir>/public/',
     '<rootDir>/coverage/',
     '<rootDir>/cli/',
+    '<rootDir>/CHANGELOG.md',
+    '<rootDir>/.gitlab/',
+    '<rootDir>/.github/',
   ],
 };
 
@@ -74,6 +77,14 @@ module.exports = {
         displayName: 'lint:eslint',
         testMatch: ['<rootDir>/src/**/*.ts'],
         runner: 'eslint',
+      },
+      commonConfig,
+    ),
+    defaultsDeep(
+      {
+        displayName: 'lint:remark',
+        testMatch: ['<rootDir>/**/*.md'],
+        preset: 'jest-runner-remark',
       },
       commonConfig,
     ),

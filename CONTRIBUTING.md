@@ -1,27 +1,22 @@
 # Contributing
 
-<!-- prettier-ignore-start -->
-[TOC]: #
-
 ## Table of Contents
-- [Contributing](#contributing)
-  - [Getting Started](#getting-started)
-    - [CLA](#cla)
-    - [Guidelines](#guidelines)
-      - [Support questions](#support-questions)
-      - [Contributions](#contributions)
-  - [Ground Rules](#ground-rules)
-    - [Responsibilities](#responsibilities)
-    - [Your First Contribution](#your-first-contribution)
-    - [Coding guidelines](#coding-guidelines)
-    - [Commit conventions](#commit-conventions)
-  - [How to report a bug](#how-to-report-a-bug)
-    - [Security disclosures](#security-disclosures)
-    - [Filing a bug report](#filing-a-bug-report)
-  - [Code review process](#code-review-process)
-  - [Community](#community)
 
-<!-- prettier-ignore-end -->
+- [Getting Started](#getting-started)
+  - [CLA](#cla)
+  - [Guidelines](#guidelines)
+    - [Support questions](#support-questions)
+    - [Contributions](#contributions)
+- [Ground Rules](#ground-rules)
+  - [Responsibilities](#responsibilities)
+  - [Your First Contribution](#your-first-contribution)
+  - [Coding guidelines](#coding-guidelines)
+  - [Commit conventions](#commit-conventions)
+- [How to report a bug](#how-to-report-a-bug)
+  - [Security disclosures](#security-disclosures)
+  - [Filing a bug report](#filing-a-bug-report)
+- [Code review process](#code-review-process)
+- [Community](#community)
 
 ## Getting Started
 
@@ -31,7 +26,7 @@ how to ask questions and how to work on something.
 
 Before you begin:
 
-- Have you read the [code-of-conduct]?
+- Have you read the [code-of-conduct][code-of-conduct]?
 - [Cogment Documentation][cogment-doc]
 - [Project's WiKi Pages][cogment-js-sdk-wiki]
 - [Sign a Contributer License Agreement (CLA)](/CONTRIBUTING.md#cla)
@@ -63,11 +58,12 @@ asking a question:
 
 #### Contributions
 
-[cogment-js-sdk] is an open source project and we love to
-receive contributions from our community — you! There are many ways to
-contribute, from writing tutorials or blog posts, improving the
-documentation, submitting bug reports and feature requests or writing
-code which can be incorporated into [cogment-js-sdk] itself.
+[@cogment/cogment-js-sdk][cogment-js-sdk] is an open source project and
+we love to receive contributions from our community — you! There are
+many ways to contribute, from writing tutorials or blog posts, improving
+the documentation, submitting bug reports and feature requests or
+writing code which can be incorporated into
+[@cogment/cogment-js-sdk][cogment-js-sdk] itself.
 
 ## Ground Rules
 
@@ -92,10 +88,10 @@ code which can be incorporated into [cogment-js-sdk] itself.
   comments. While not perfect, number of comments is a reasonable proxy
   for impact a given change will have.
 
-1.  Create your own fork of the code
-2.  Do the changes in your fork
-3.  If you like the change and think the project could use it, create a
-    pull request to the [github repository][cogment-js-sdk]
+1. Create your own fork of the code
+2. Do the changes in your fork
+3. If you like the change and think the project could use it, create a
+   pull request to the [github repository][cogment-js-sdk]
 
 ### Coding guidelines
 
@@ -103,8 +99,8 @@ Make sure to read the [coding guidelines][codeguidelines]!
 
 ### Commit conventions
 
-This repository uses [commitizen] style commit messages to automate
-several processes.
+This repository uses [commitizen][commitizen] style commit messages to
+automate several processes.
 
 ## How to report a bug
 

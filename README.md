@@ -1,4 +1,4 @@
-# @cogment/cogment-js-sdk
+# [**@cogment/cogment-js-sdk**](https://github.com/cogment/cogment-js-sdk)
 
 [![cogment](https://img.shields.io/badge/npm-%40cogment%2Fcogment--js--sdk-brightgreen)][npm-cogment]
 [![npm](https://img.shields.io/npm/dw/@cogment/cogment-js-sdk)][npm-cogment]
@@ -23,27 +23,22 @@
 
 ![Discord](https://img.shields.io/discord/739822842450935963?label=Discord&logo=Discord&style=plastic)
 
-<!-- prettier-ignore-start -->
-[TOC]: #
-
 ## Table of Contents
-- [@cogment/cogment-js-sdk](#cogmentcogment-js-sdk)
-  - [Links](#links)
-  - [Usage](#usage)
-  - [Hacking](#hacking)
-    - [Local Hacking](#local-hacking)
-      - [node.js](#nodejs)
-      - [Setup](#setup)
-    - [Docker Hacking](#docker-hacking)
-  - [Tests](#tests)
-    - [Local Testing](#local-testing)
-    - [Docker Testing](#docker-testing)
 
-<!-- prettier-ignore-end -->
+- [Links](#links)
+- [Usage](#usage)
+- [Hacking](#hacking)
+  - [Local Hacking](#local-hacking)
+    - [node.js](#nodejs)
+    - [Setup](#setup)
+  - [Docker Hacking](#docker-hacking)
+- [Tests](#tests)
+  - [Local Testing](#local-testing)
+  - [Docker Testing](#docker-testing)
 
 ## Links
 
-- [cogment.ai]
+- [cogment.ai][cogment.ai]
 - [Repository][repo]
 - [API Documentation][api-docs]
 - [Code of Conduct][code-of-conduct]
@@ -80,11 +75,11 @@ git clone https://github.com/cogment/cogment-js-sdk.git
 #### node.js
 
 For local hacking, a working node.js distribution is required. This
-repository supports [nvm] and [nodenv] through the [.nvmrc](/.nvmrc) and
-[.node-version](/.node-version) files.
+repository supports [nvm][nvm] and [nodenv][nodenv] through the
+[.nvmrc](/.nvmrc) and [.node-version](/.node-version) files.
 
-A simple node.js environment install using [nvm] (note, _NO_ sudo is
-required!):
+A simple node.js environment install using [nvm][nvm] (note, _NO_ sudo
+is required!):
 
 ```shell script
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
@@ -106,8 +101,9 @@ npm run init
 ### Docker Hacking
 
 Local hacking is also supported through docker, removing the necessity
-for a local node.js distribution. [docker-compose] is used to simplify
-the configuration of creating containers - install before proceeding.
+for a local node.js distribution. [docker-compose][docker-compose] is
+used to simplify the configuration of creating containers - install
+before proceeding.
 
 1. Build the docker container:
    ```shell script
@@ -140,9 +136,9 @@ bin/down.bash
 ### Local Testing
 
 Note: By default the test environment is configured to run within a
-docker container. [cogment-js-sdk][repo] uses [cosmiconfig] for
-configuration - currently stored under the key `cogment.connection.http`
-in [package.json].
+docker container. [cogment-js-sdk][repo] uses [cosmiconfig][cosmiconfig]
+for configuration - currently stored under the key
+`cogment.connection.http` in [package.json][package.json].
 
 The default configuration is to contact the grpc-web proxy at
 `grpcwebproxy:8080`. Either:

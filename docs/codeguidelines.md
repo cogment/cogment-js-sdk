@@ -25,6 +25,11 @@ To format code manually with prettier:
 npm run lint:prettier:fix
 ```
 
+```typescript
+const a = 1;
+a = 2;
+```
+
 ## Code Style
 
 All the ESLint. Here is our [configuration](/.eslintrc.js).
