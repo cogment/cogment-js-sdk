@@ -1,3 +1,10 @@
+# [1.19.0-alpha.5](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.4...v1.19.0-alpha.5) (2021-02-11)
+
+
+### Bug Fixes
+
+* **package.json:** correct paths to include in npm pack ([1ebef8c](https://github.com/cogment/cogment-js-sdk/commit/1ebef8ca287a4cfb92d8b800f97a8595e80b2af0))
+
 # [1.19.0-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.3...v1.19.0-alpha.4) (2021-02-11)
 
 
