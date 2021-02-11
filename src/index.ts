@@ -21,10 +21,4 @@
  * @packageDocumentation
  */
 
-export * from './ActorSession';
-export * from './CogmentService';
-export * from './TrialController';
-export * from './lib/DeltaEncoding';
-export * from './lib/Logger';
-
-export {createService} from './Cogment';
+export {createService} from './cogment';

@@ -16,19 +16,29 @@
  */
 
 import {Message} from 'google-protobuf';
-import {Reward} from './Reward';
 
-export interface Event<
-  ObservationT extends Message,
-  FeedbackT extends Message,
-  MessageT extends Message
-> {
-  timestamp?: float;
-  tickId?: number;
-  observation?: ObservationT;
-  reward?: Reward<FeedbackT>;
-  message?: {
-    sender: string;
-    data: MessageT;
+export interface CogSettingsActorClass {
+  id: string;
+  config_type: typeof Message | null;
+  action_space: typeof Message;
+  observation_space: typeof Message;
+  observation_delta: typeof Message;
+  observation_delta_apply_fn: (x: unknown) => unknown;
+  feedback_space: typeof Message | null;
+  message_space: typeof Message | null;
+}
+
+export interface CogSettings {
+  actor_classes: Record<string, CogSettingsActorClass>;
+  trial: {
+    config_type: typeof Message | null;
+  };
+  environment: {
+    config_type: typeof Message | null;
+  };
+  env_class: {
+    id: string;
+    config_type: typeof Message | null;
+    message_space: typeof Message | null;
   };
 }

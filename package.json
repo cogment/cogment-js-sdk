@@ -1,6 +1,6 @@
 {
   "name": "@cogment/cogment-js-sdk",
-  "version": "1.18.1",
+  "version": "1.19.0-alpha.5",
   "description": "Javascript SDK for the Cogment Framework",
   "homepage": "https://github.com/cogment/cogment-js-sdk",
   "bugs": "https://github.com/cogment/cogment-js-sdk/issues",
@@ -19,11 +19,14 @@
     "test": "__tests__"
   },
   "files": [
-    "dist"
+    "dist/index.{d.ts,t.ts.map}",
+    "dist/cogment.{js,js.mapi,js.LICENSE.txt}",
+    "dist/cogment.umd.{js,js.map,js.LICENSE.txt}",
+    "dist/cogment.esm.{js,js.map,js.LICENSE.txt}"
   ],
   "scripts": {
     "analyze": "npx size-limit --why",
-    "build": "npx npm-run-all build:{clean,protos,typings,webpack}",
+    "build": "npx npm-run-all build:clean build:protos build:webpack build:typings",
     "build:clean": "npx rimraf dist public cogment cogment-api.tar.gz cogment-api-* src/cogment/api",
     "build:docs": "typedoc",
     "build:install": "npm install",

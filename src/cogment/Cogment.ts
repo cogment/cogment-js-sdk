@@ -1,3 +1,9 @@
+/**
+ * A library for interacting with the {@link https://cogment.ai | cogment.ai} framework.
+ *
+ * @packageDocumentation
+ */
+
 /*
  *  Copyright 2021 Artificial Intelligence Redefined <dev+cogment@ai-r.com>
  *
@@ -16,16 +22,13 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import {CogSettings} from './@types/cogment';
-import {
-  TrialActionReply,
-  TrialActionRequest,
-} from './cogment/api/orchestrator_pb';
+import {CogSettings} from '../types';
+import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
 import {
   ActorEndpoint,
   ActorEndpointClient,
   TrialLifecycleClient,
-} from './cogment/api/orchestrator_pb_service';
+} from './api/orchestrator_pb_service';
 import {CogmentService} from './CogmentService';
 import {getLogger} from './lib/Logger';
 

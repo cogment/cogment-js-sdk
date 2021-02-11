@@ -17,15 +17,12 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import {
-  ActorSession,
-  createService,
-  getLogger,
-  SendMessageReturnType,
-} from '../src';
-import {TrialActor} from '../src/@types/cogment';
+import {createService} from '../src';
 import {TrialMessageReply} from '../src/cogment/api/orchestrator_pb';
-import {config} from '../src/lib/Config';
+import {config} from '../src/cogment/lib/Config';
+import {getLogger} from '../src/cogment/lib/Logger';
+import {SendMessageReturnType} from '../src/cogment/TrialController';
+import {TrialActor} from '../src/types';
 import cogSettings from './end-to-end/cogment-app/webapp/src/cog_settings';
 import {
   ClientAction,

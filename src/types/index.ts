@@ -15,11 +15,8 @@
  *
  */
 
-import {CogmentService} from '../src';
-
-describe('CogmentService', () => {
-  test.skip('exists', () => {
-    // eslint-disable-next-line compat/compat
-    return Promise.resolve();
-  });
-});
+export * from './CogSettings';
+export * from './CogmentYaml';
+export * from './Event';
+export * from './Reward';
+export * from './TrialActor';

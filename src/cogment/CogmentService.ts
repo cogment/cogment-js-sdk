@@ -17,16 +17,13 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import {CogSettings, TrialActor} from './@types/cogment';
+import {CogSettings, TrialActor} from '../types';
 import {ActorSession} from './ActorSession';
-import {
-  TrialActionReply,
-  TrialActionRequest,
-} from './cogment/api/orchestrator_pb';
+import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
 import {
   ActorEndpointClient,
   TrialLifecycleClient,
-} from './cogment/api/orchestrator_pb_service';
+} from './api/orchestrator_pb_service';
 import {getLogger} from './lib/Logger';
 import {TrialController} from './TrialController';
 

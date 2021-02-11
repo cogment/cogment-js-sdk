@@ -24,17 +24,14 @@ import {
   Event,
   Reward,
   TrialActor,
-} from './@types/cogment';
-import {
-  Action as ActionPb,
-  Message as CogMessage,
-} from './cogment/api/common_pb';
+} from '../types';
+import {Action as ActionPb, Message as CogMessage} from './api/common_pb';
 import {
   TrialActionReply,
   TrialActionRequest,
   TrialMessageRequest,
-} from './cogment/api/orchestrator_pb';
-import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
+} from './api/orchestrator_pb';
+import {ActorEndpointClient} from './api/orchestrator_pb_service';
 import {deserializeData} from './lib/DeltaEncoding';
 import {getLogger} from './lib/Logger';
 import {SendMessageReturnType} from './TrialController';
@@ -241,6 +238,8 @@ export class ActorSession<
     }));
 
     // sort all events by tickId - if an event object does not have a tickId, it gets placed at the front of the queue
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     this.events = [
       ...this.events,
       ...observations,
