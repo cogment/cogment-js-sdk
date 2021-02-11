@@ -1,3 +1,10 @@
+# [1.19.0-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.3...v1.19.0-alpha.4) (2021-02-11)
+
+
+### Bug Fixes
+
+* **semantic-release:** fix github release asset label and name ([ecf6018](https://github.com/cogment/cogment-js-sdk/commit/ecf60182d32f922b6ec6cbdfff21ad8ba259325e))
+
 # [1.19.0-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.2...v1.19.0-alpha.3) (2021-02-11)
 
 
