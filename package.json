@@ -19,9 +19,10 @@
     "test": "__tests__"
   },
   "files": [
-    "dist/cogment.{js,js.map.js.LICENSE.txt}",
-    "dist/cogment.umd.{js,js.map.js.LICENSE.txt}",
-    "dist/cogment.esm.{js,js.map.js.LICENSE.txt}"
+    "dist/index.{d.ts,t.ts.map}",
+    "dist/cogment.{js,js.mapi,js.LICENSE.txt}",
+    "dist/cogment.umd.{js,js.map,js.LICENSE.txt}",
+    "dist/cogment.esm.{js,js.map,js.LICENSE.txt}"
   ],
   "scripts": {
     "analyze": "npx size-limit --why",
