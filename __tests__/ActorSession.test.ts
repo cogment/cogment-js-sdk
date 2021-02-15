@@ -47,7 +47,7 @@ describe('ActorSession', () => {
   let sendInvalidMessagePromise: Promise<SendMessageReturnType>;
 
   beforeAll(async () => {
-    const service = createService({
+    const cogmentService = createService({
       cogSettings: cogSettings,
       grpcURL: config.connection.http,
       unaryTransportFactory: NodeHttpTransport(),
@@ -62,84 +62,86 @@ describe('ActorSession', () => {
       actorClass: 'client',
     };
 
-    service.registerActor<ClientAction, Observation, never, ClientMessage>(
-      trialActor,
-      async (actorSession) => {
-        logger.info('Actor running');
-        actorSession.start();
-        logger.info('Actor session started');
+    cogmentService.registerActor<
+      ClientAction,
+      Observation,
+      never,
+      ClientMessage
+    >(trialActor, async (actorSession) => {
+      logger.info('Actor running');
+      actorSession.start();
+      logger.info('Actor session started');
 
-        setTimeout(actorSession.stop.bind(actorSession), 500);
+      setTimeout(actorSession.stop.bind(actorSession), 500);
 
-        const action = new ClientAction();
-        action.setRequest(TEST_MESSAGE);
-        actorSession.sendAction(action);
+      const action = new ClientAction();
+      action.setRequest(TEST_MESSAGE);
+      actorSession.sendAction(action);
 
-        for await (const {
-          observation,
-          message,
-          tickId,
-        } of actorSession.eventLoop()) {
-          if (observation) {
-            const response = observation.getResponse();
-            const timestamp = observation.getTimestamp();
-            logger.info(
-              `Received an observation for tick id ${
-                tickId ?? ''
-              }: ${JSON.stringify(observation.toObject(), undefined, 2)}`,
-            );
-            if (timestamp) {
-              lastTimestamp = timestamp;
-            }
-            if (response) {
-              lastResponse = response;
-            }
-            lastObservation = observation;
-            const action = new ClientAction();
-            action.setRequest(TEST_MESSAGE);
-            actorSession.sendAction(action);
+      for await (const {
+        observation,
+        message,
+        tickId,
+      } of actorSession.eventLoop()) {
+        if (observation) {
+          const response = observation.getResponse();
+          const timestamp = observation.getTimestamp();
+          logger.info(
+            `Received an observation for tick id ${
+              tickId ?? ''
+            }: ${JSON.stringify(observation.toObject(), undefined, 2)}`,
+          );
+          if (timestamp) {
+            lastTimestamp = timestamp;
           }
-          if (message) {
-            logger.info(
-              `Received a message for tick id ${tickId ?? ''}: ${JSON.stringify(
-                message,
-                undefined,
-                2,
-              )}`,
-            );
-            lastMessage = message;
+          if (response) {
+            lastResponse = response;
           }
-          if (tickId) {
-            lastTickId = tickId;
-
-            // if (false && !(tickId % 10)) {
-            //   const clientMessage = new ClientMessage();
-            //   clientMessage.setRequest('oh hai!');
-            //   sendValidMessagePromise = actorSession.sendMessage<ClientMessage>(
-            //     {
-            //       actorName: trialActor.name,
-            //       from: trialActor.name,
-            //       payload: clientMessage,
-            //       to: 'echo_echo_1',
-            //       trialId,
-            //     },
-            //   );
-            //   sendInvalidMessagePromise = actorSession.sendMessage<ClientMessage>(
-            //     {
-            //       actorName: trialActor.name,
-            //       from: trialActor.name,
-            //       payload: clientMessage,
-            //       to: 'newp',
-            //       trialId,
-            //     },
-            //   );
-            // }
-          }
+          lastObservation = observation;
+          const action = new ClientAction();
+          action.setRequest(TEST_MESSAGE);
+          actorSession.sendAction(action);
         }
-      },
-    );
+        if (message) {
+          logger.info(
+            `Received a message for tick id ${tickId ?? ''}: ${JSON.stringify(
+              message,
+              undefined,
+              2,
+            )}`,
+          );
+          lastMessage = message;
+        }
+        if (tickId) {
+          lastTickId = tickId;
 
-    const trialController = service.createTrialController();
+          // if (false && !(tickId % 10)) {
+          //   const clientMessage = new ClientMessage();
+          //   clientMessage.setRequest('oh hai!');
+          //   sendValidMessagePromise = actorSession.sendMessage<ClientMessage>(
+          //     {
+          //       actorName: trialActor.name,
+          //       from: trialActor.name,
+          //       payload: clientMessage,
+          //       to: 'echo_echo_1',
+          //       trialId,
+          //     },
+          //   );
+          //   sendInvalidMessagePromise = actorSession.sendMessage<ClientMessage>(
+          //     {
+          //       actorName: trialActor.name,
+          //       from: trialActor.name,
+          //       payload: clientMessage,
+          //       to: 'newp',
+          //       trialId,
+          //     },
+          //   );
+          // }
+        }
+      }
+    });
+
+    const trialController = cogmentService.createTrialController();
 
     const trialConfig = new TrialConfig();
     const environmentConfig = new EnvironmentConfig();

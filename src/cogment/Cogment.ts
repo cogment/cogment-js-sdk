@@ -1,9 +1,3 @@
-/**
- * A library for interacting with the {@link https://cogment.ai | cogment.ai} framework.
- *
- * @packageDocumentation
- */
-
 /*
  *  Copyright 2021 Artificial Intelligence Redefined <dev+cogment@ai-r.com>
  *
@@ -19,6 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *
+ */
+
+/**
+ * A library for interacting with the {@link https://cogment.ai | cogment.ai} framework.
+ *
+ * @packageDocumentation
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
