@@ -1,3 +1,10 @@
+## [1.20.1](https://github.com/cogment/cogment-js-sdk/compare/v1.20.0...v1.20.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* **docs:** remove test code ([b147d72](https://github.com/cogment/cogment-js-sdk/commit/b147d721d945e8152c5da979024da1db923437b5))
+
 # [1.20.0](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0...v1.20.0) (2021-02-16)
 
 
