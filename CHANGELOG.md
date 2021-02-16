@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0...v1.20.0) (2021-02-16)
+
+
+### Features
+
+* **style:** integrate remark-lint ([6c8d5ca](https://github.com/cogment/cogment-js-sdk/commit/6c8d5ca75e0123296c0b0bb688de5cc286818310))
+
 # [1.19.0](https://github.com/cogment/cogment-js-sdk/compare/v1.18.1...v1.19.0) (2021-02-11)
 
 
