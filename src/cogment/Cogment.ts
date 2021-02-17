@@ -25,8 +25,8 @@ import {grpc} from '@improbable-eng/grpc-web';
 import {CogSettings} from '../types';
 import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
 import {
-  ActorEndpoint,
-  ActorEndpointClient,
+  ClientActor,
+  ClientActorClient,
   TrialLifecycleClient,
 } from './api/orchestrator_pb_service';
 import {CogmentService} from './CogmentService';
@@ -74,18 +74,15 @@ export function createService({
       transport: unaryTransportFactory,
     },
   );
-  const actorEndpointClient: ActorEndpointClient = new ActorEndpointClient(
-    grpcURL,
-    {
-      transport: streamingTransportFactory,
-    },
-  );
+  const clientActorClient: ClientActorClient = new ClientActorClient(grpcURL, {
+    transport: streamingTransportFactory,
+  });
 
   const actionStreamClient = grpc.client<
     TrialActionRequest,
     TrialActionReply,
-    typeof ActorEndpoint.ActionStream
-  >(ActorEndpoint.ActionStream, {
+    typeof ClientActor.ActionStream
+  >(ClientActor.ActionStream, {
     host: grpcURL,
     transport: streamingTransportFactory,
   });
@@ -93,7 +90,7 @@ export function createService({
   return new CogmentService(
     cogSettings,
     trialLifecycleClient,
-    actorEndpointClient,
+    clientActorClient,
     actionStreamClient,
   );
 }

@@ -35,7 +35,7 @@ import {
   TrialState,
 } from './api/orchestrator_pb';
 import {
-  ActorEndpointClient,
+  ClientActorClient,
   TrialLifecycleClient,
 } from './api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
@@ -51,8 +51,8 @@ export class TrialController {
    * @param cogSettings - {@link CogSettings | `cog_settings.js`} generated file
    * @param actors - An array of [{@link TrialActor}, {@link ActorImplementation}] tuples
    * @param trialLifecycleClient - A {@link TrialLifecycleClient | `TrialLifecycleClient`}
-   * @param actorEndpointClient - An {@link ActorEndpointClient | `ActorEndpointClient`}
-   * @param actionStreamClient - A grpc-web client for the {@link ActorEndpoint#ActionStream} endpoint
+   * @param clientActorClient - An {@link ClientActorClient | `ClientActorClient`}
+   * @param actionStreamClient - A grpc-web client for the {@link ClientActor#ActionStream} endpoint
    */
   // eslint-disable-next-line max-params
   constructor(
@@ -62,7 +62,7 @@ export class TrialController {
       ActorImplementation<Message, Message, Message, Message>,
     ][],
     private trialLifecycleClient: TrialLifecycleClient,
-    private actorEndpointClient: ActorEndpointClient,
+    private clientActorClient: ClientActorClient,
     private actionStreamClient: grpc.Client<
       TrialActionRequest,
       TrialActionReply
@@ -135,7 +135,7 @@ export class TrialController {
     // eslint-disable-next-line compat/compat
     const response = await new Promise<JoinTrialReturnType>(
       (resolve, reject) => {
-        this.actorEndpointClient.joinTrial(
+        this.clientActorClient.joinTrial(
           request,
           (error: ServiceError | null, response: TrialJoinReply | null) => {
             if (error || !response) {
@@ -233,7 +233,7 @@ export class TrialController {
         const actorSession = new ActorSession(
           actor,
           this.cogSettings,
-          this.actorEndpointClient,
+          this.clientActorClient,
           this.actionStreamClient,
         );
         return actorImpl(actorSession);

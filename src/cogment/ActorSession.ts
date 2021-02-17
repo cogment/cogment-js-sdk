@@ -31,7 +31,7 @@ import {
   TrialActionRequest,
   TrialMessageRequest,
 } from './api/orchestrator_pb';
-import {ActorEndpointClient} from './api/orchestrator_pb_service';
+import {ClientActorClient} from './api/orchestrator_pb_service';
 import {deserializeData} from './lib/DeltaEncoding';
 import {getLogger} from './lib/Logger';
 import {SendMessageReturnType} from './TrialController';
@@ -56,7 +56,7 @@ export class ActorSession<
   constructor(
     private actorClass: TrialActor,
     private cogSettings: CogSettings,
-    private actorEndpointClient: ActorEndpointClient,
+    private clientActorClient: ClientActorClient,
     private actionStreamClient: grpc.Client<
       TrialActionRequest,
       TrialActionReply
@@ -137,7 +137,7 @@ export class ActorSession<
     request.addMessages(message);
     // eslint-disable-next-line compat/compat
     return new Promise<SendMessageReturnType>((resolve, reject) => {
-      this.actorEndpointClient.sendMessage(
+      this.clientActorClient.sendMessage(
         request,
         new grpc.Metadata({'trial-id': trialId, 'actor-name': actorName}),
         (error, response) => {
@@ -228,14 +228,9 @@ export class ActorSession<
     }));
 
     // copy the protobuf array to prevent mutation
-    const rewards = [...data.getRewardsList()].map((reward) => ({
-      tickId: reward.getFeedbacksList()[0].getTickId(),
-      reward: {
-        value: reward.getValue(),
-        confidence: reward.getConfidence(),
-        data: reward,
-      },
-    }));
+    const rewards = [...data.getRewardsList()].map((reward) => {
+      return reward.toObject();
+    });
 
     // sort all events by tickId - if an event object does not have a tickId, it gets placed at the front of the queue
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

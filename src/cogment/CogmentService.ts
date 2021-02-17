@@ -21,7 +21,7 @@ import {CogSettings, TrialActor} from '../types';
 import {ActorSession} from './ActorSession';
 import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
 import {
-  ActorEndpointClient,
+  ClientActorClient,
   TrialLifecycleClient,
 } from './api/orchestrator_pb_service';
 import {getLogger} from './lib/Logger';
@@ -48,7 +48,7 @@ export class CogmentService {
   constructor(
     private readonly cogSettings: CogSettings,
     private trialLifecycleClient: TrialLifecycleClient,
-    private actorEndpointClient: ActorEndpointClient,
+    private clientActorClient: ClientActorClient,
     private actionStreamClient: grpc.Client<
       TrialActionRequest,
       TrialActionReply
@@ -87,7 +87,7 @@ export class CogmentService {
       this.cogSettings,
       Object.values(this.actors),
       this.trialLifecycleClient,
-      this.actorEndpointClient,
+      this.clientActorClient,
       this.actionStreamClient,
     );
   }
