@@ -38,6 +38,7 @@ describe('ActorSession', () => {
   const TEST_MESSAGE = 'foo';
   const SUFFIX = ' bar';
 
+  let tickIds: number[] = [];
   let lastObservation: Observation;
   let lastTimestamp: number;
   let lastResponse: string;
@@ -75,8 +76,12 @@ describe('ActorSession', () => {
       setTimeout(actorSession.stop.bind(actorSession), 500);
 
       const action = new ClientAction();
-      action.setRequest(TEST_MESSAGE);
-      actorSession.sendAction(action);
+
+      //Send 10 actions so that we can see if they come back ordered
+      for (let i = 0; i < 10; i++) {
+        action.setRequest(TEST_MESSAGE);
+        actorSession.sendAction(action);
+      }
 
       for await (const {
         observation,
@@ -114,6 +119,7 @@ describe('ActorSession', () => {
         }
         if (tickId) {
           lastTickId = tickId;
+          tickIds.push(tickId);
 
           // if (false && !(tickId % 10)) {
           //   const clientMessage = new ClientMessage();
@@ -161,6 +167,12 @@ describe('ActorSession', () => {
   describe('#eventLoop', () => {
     test('receives observations', () => {
       expect(lastObservation).toBeInstanceOf(Observation);
+    });
+
+    test('tickIds are ordered', () => {
+      for (let tickIndex = 0; tickIndex < tickIds.length - 1; tickIndex++) {
+        expect(tickIds[tickIndex] <= tickIds[tickIndex + 1]).toBe(true)
+      }
     });
 
     test('observation contains a timestamp from the environment', () => {
