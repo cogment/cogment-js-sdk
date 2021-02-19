@@ -25,9 +25,10 @@ async def pre_trial_hook(session):
 
 
 async def main():
-    cog_context = cogment.Context(cog_settings=cog_settings, user_id="configurator")
-    cog_context.register_pre_trial_hook(pre_trial_hook)
-    cogment_done = asyncio.create_task(cog_context.serve_all_registered(port=9000))
+    context = cogment.Context(cog_settings=cog_settings, user_id="configurator")
+    context.register_pre_trial_hook(pre_trial_hook)
+
+    cogment_done = context.serve_all_registered(cogment.ServedEndpoint(port=9000))
 
     await asyncio.gather(cogment_done)
 

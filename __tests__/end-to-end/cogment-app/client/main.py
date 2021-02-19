@@ -63,12 +63,10 @@ async def main():
         print(f"Trial '{control_session.get_trial_id()}' terminating")
         await control_session.terminate_trial()
 
-    trial = asyncio.create_task(
-        context.start_trial(
-            endpoint="orchestrator:9000",
-            impl=trial_controler,
-            trial_config=TrialConfig(),
-        )
+    trial = await context.start_trial(
+        endpoint=cogment.Endpoint("orchestrator:9000"),
+        impl=trial_controler,
+        trial_config=TrialConfig(),
     )
 
     trial_id = await trial_id
