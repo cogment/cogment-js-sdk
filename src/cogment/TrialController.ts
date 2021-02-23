@@ -59,7 +59,7 @@ export class TrialController {
     private cogSettings: CogSettings,
     private actors: [
       TrialActor,
-      ActorImplementation<Message, Message, Message, Message>,
+      ActorImplementation<Message, Message, Message>,
     ][],
     private trialLifecycleClient: TrialLifecycleClient,
     private clientActorClient: ClientActorClient,

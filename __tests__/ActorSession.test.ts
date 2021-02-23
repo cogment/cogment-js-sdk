@@ -17,17 +17,17 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
+import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 import {createService} from '../src';
 import {TrialMessageReply} from '../src/cogment/api/orchestrator_pb';
 import {config} from '../src/cogment/lib/Config';
 import {getLogger} from '../src/cogment/lib/Logger';
-import {SendMessageReturnType} from '../src/cogment/TrialController';
 import {TrialActor} from '../src/types';
 import cogSettings from './end-to-end/cogment-app/webapp/src/cog_settings';
 import {
   ClientAction,
-  ClientMessage,
   EnvConfig as EnvironmentConfig,
+  Message,
   Observation,
   TrialConfig,
 } from './end-to-end/cogment-app/webapp/src/data_pb';
@@ -43,9 +43,8 @@ describe('ActorSession', () => {
   let lastTimestamp: number;
   let lastResponse: string;
   let lastTickId: number;
-  let lastMessage;
-  let sendValidMessagePromise: Promise<TrialMessageReply.AsObject>;
-  let sendInvalidMessagePromise: Promise<SendMessageReturnType>;
+  let lastMessage: Message;
+  let sendMessagePromise: Promise<TrialMessageReply.AsObject>;
 
   beforeAll(async () => {
     const cogmentService = createService({
@@ -63,89 +62,78 @@ describe('ActorSession', () => {
       actorClass: 'client',
     };
 
-    cogmentService.registerActor<
-      ClientAction,
-      Observation,
-      never,
-      ClientMessage
-    >(trialActor, async (actorSession) => {
-      logger.info('Actor running');
-      actorSession.start();
-      logger.info('Actor session started');
+    cogmentService.registerActor<ClientAction, Observation, never>(
+      trialActor,
+      async (actorSession) => {
+        logger.info('Actor running');
+        actorSession.start();
+        logger.info('Actor session started');
 
-      setTimeout(actorSession.stop.bind(actorSession), 500);
+        setTimeout(actorSession.stop.bind(actorSession), 500);
 
-      const action = new ClientAction();
-
-      //Send 10 actions so that we can see if they come back ordered
-      for (let i = 0; i < 10; i++) {
-        action.setRequest(TEST_MESSAGE);
+        const action = new ClientAction();
         actorSession.sendAction(action);
-      }
 
-      for await (const {
-        observation,
-        message,
-        tickId,
-      } of actorSession.eventLoop()) {
-        if (observation) {
-          const response = observation.getResponse();
-          const timestamp = observation.getTimestamp();
-          logger.info(
-            `Received an observation for tick id ${
-              tickId ?? ''
-            }: ${JSON.stringify(observation.toObject(), undefined, 2)}`,
-          );
-          if (timestamp) {
-            lastTimestamp = timestamp;
+        for await (const {
+          observation,
+          message: cogMessage,
+          tickId,
+        } of actorSession.eventLoop()) {
+          if (observation) {
+            const response = observation.getResponse();
+            const timestamp = observation.getTimestamp();
+            logger.info(
+              `Received an observation for tick id ${
+                tickId ?? ''
+              }: ${JSON.stringify(observation.toObject(), undefined, 2)}`,
+            );
+            if (timestamp) {
+              lastTimestamp = timestamp;
+            }
+            if (response) {
+              lastResponse = response;
+            }
+            lastObservation = observation;
+            const action = new ClientAction();
+            action.setRequest(TEST_MESSAGE);
+            actorSession.sendAction(action);
           }
-          if (response) {
-            lastResponse = response;
+          if (cogMessage) {
+            lastMessage = new Message();
+            const newMessage = cogMessage.data?.unpack<Message>(
+              (x: Uint8Array) => Message.deserializeBinary(x),
+              'cogment_app.Message',
+            );
+            if (newMessage) {
+              lastMessage = newMessage;
+              logger.info(
+                `Received a message for tick id ${
+                  tickId ?? ''
+                }: ${JSON.stringify(lastMessage.toObject(), undefined, 2)}`,
+              );
+            }
           }
-          lastObservation = observation;
-          const action = new ClientAction();
-          action.setRequest(TEST_MESSAGE);
-          actorSession.sendAction(action);
-        }
-        if (message) {
-          logger.info(
-            `Received a message for tick id ${tickId ?? ''}: ${JSON.stringify(
-              message,
-              undefined,
-              2,
-            )}`,
-          );
-          lastMessage = message;
-        }
-        if (tickId) {
-          lastTickId = tickId;
-          tickIds.push(tickId);
+          if (tickId !== undefined && tickId !== null && tickId >= 0) {
+            lastTickId = tickId;
+            tickIds.push(tickId);
 
-          // if (false && !(tickId % 10)) {
-          //   const clientMessage = new ClientMessage();
-          //   clientMessage.setRequest('oh hai!');
-          //   sendValidMessagePromise = actorSession.sendMessage<ClientMessage>(
-          //     {
-          //       actorName: trialActor.name,
-          //       from: trialActor.name,
-          //       payload: clientMessage,
-          //       to: 'echo_echo_1',
-          //       trialId,
-          //     },
-          //   );
-          //   sendInvalidMessagePromise = actorSession.sendMessage<ClientMessage>(
-          //     {
-          //       actorName: trialActor.name,
-          //       from: trialActor.name,
-          //       payload: clientMessage,
-          //       to: 'newp',
-          //       trialId,
-          //     },
-          //   );
-          // }
+            if (!(tickId % 2)) {
+              const message = new Message();
+              const anyPb = new AnyPb();
+              message.setRequest(TEST_MESSAGE);
+
+              anyPb.pack(message.serializeBinary(), 'cogment_app.Message');
+              sendMessagePromise = actorSession.sendMessage({
+                from: trialActor.name,
+                payload: anyPb,
+                to: 'echo_echo_1',
+                trialId,
+              });
+            }
+          }
         }
-      }
-    });
+      },
+    );
 
     const trialController = cogmentService.createTrialController();
 
@@ -169,9 +157,13 @@ describe('ActorSession', () => {
       expect(lastObservation).toBeInstanceOf(Observation);
     });
 
+    test('receives an incrementing tickId', () => {
+      expect(lastTickId).toBeGreaterThan(0);
+    });
+
     test('tickIds are ordered', () => {
       for (let tickIndex = 0; tickIndex < tickIds.length - 1; tickIndex++) {
-        expect(tickIds[tickIndex] <= tickIds[tickIndex + 1]).toBe(true)
+        expect(tickIds[tickIndex]).toBeLessThan(tickIds[tickIndex + 1]);
       }
     });
 
@@ -180,15 +172,11 @@ describe('ActorSession', () => {
       expect(lastTimestamp).not.toEqual('');
       expect(lastTimestamp).toBeLessThanOrEqual(Date.now());
     });
-
-    test('observation contains an incrementing tickId', () => {
-      expect(lastTickId).toBeGreaterThan(0);
-    });
   });
 
-  describe('#sendMessage', () => {
-    describe('when passed a message', () => {
-      test('observation.response contains the message', () => {
+  describe('#sendAction', () => {
+    describe('when passed an action that contains an echo request', () => {
+      test('observation contains the echo response', () => {
         expect(lastResponse).toMatch(new RegExp(`^${TEST_MESSAGE}`));
       });
     });
@@ -196,22 +184,21 @@ describe('ActorSession', () => {
 
   describe('#joinTrial', () => {
     describe('when passed a trialConfig', () => {
-      test('the trialConfig is passed to the backend', () => {
+      test('configurator passes trialConfig to the environment', () => {
         expect(lastResponse).toEqual(`${TEST_MESSAGE}${SUFFIX}`);
       });
     });
   });
 
-  describe.skip('#sendMessage', () => {
-    describe('when given a valid recipient', () => {
-      test('resolves', async () => {
-        await expect(sendValidMessagePromise).resolves.toBeTruthy();
-      });
+  describe('#sendMessage', () => {
+    test('succeeds', async () => {
+      await expect(sendMessagePromise).resolves.toBeTruthy();
     });
 
-    describe('when given an invalid recipient', () => {
-      test('rejects', async () => {
-        await expect(sendInvalidMessagePromise).rejects.toBeTruthy();
+    test('echo agent echos a message', () => {
+      expect(lastMessage.toObject()).toMatchObject({
+        request: '',
+        response: TEST_MESSAGE,
       });
     });
   });

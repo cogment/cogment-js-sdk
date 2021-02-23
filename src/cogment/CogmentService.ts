@@ -32,16 +32,13 @@ const logger = getLogger('CogmentService');
 export type ActorImplementation<
   ActionT extends Message,
   ObservationT extends Message,
-  RewardT extends Message,
-  MessageT extends Message
-> = (
-  session: ActorSession<ActionT, ObservationT, RewardT, MessageT>,
-) => Promise<void>;
+  RewardT extends Message
+> = (session: ActorSession<ActionT, ObservationT, RewardT>) => Promise<void>;
 
 export class CogmentService {
   private actors: Record<
     string,
-    [TrialActor, ActorImplementation<Message, Message, Message, Message>]
+    [TrialActor, ActorImplementation<Message, Message, Message>]
   > = {};
 
   // eslint-disable-next-line max-params
@@ -58,11 +55,10 @@ export class CogmentService {
   public registerActor<
     ActionT extends Message,
     ObservationT extends Message,
-    RewardT extends Message,
-    MessageT extends Message
+    RewardT extends Message
   >(
     actorConfig: TrialActor,
-    actorImpl: ActorImplementation<ActionT, ObservationT, RewardT, MessageT>,
+    actorImpl: ActorImplementation<ActionT, ObservationT, RewardT>,
   ): void {
     logger.info(
       `Registering actor ${actorConfig.name} with class ${actorConfig.actorClass}`,

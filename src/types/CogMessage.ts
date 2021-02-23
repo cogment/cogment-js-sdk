@@ -15,16 +15,11 @@
  *
  */
 
-import {Message} from 'google-protobuf';
-import {CogMessage} from './CogMessage';
+import {Any} from 'google-protobuf/google/protobuf/any_pb';
 
-export interface Event<
-  ObservationT extends Message,
-  FeedbackT extends Message
-> {
-  timestamp?: number;
-  tickId?: number;
-  observation?: ObservationT;
-  reward?: FeedbackT;
-  message?: CogMessage;
+export interface CogMessage {
+  tickId: number;
+  receiver: string;
+  sender: string;
+  data?: Any;
 }

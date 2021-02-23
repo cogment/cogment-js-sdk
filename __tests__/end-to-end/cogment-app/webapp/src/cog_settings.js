@@ -10,7 +10,7 @@ var _client_class = {
     observation_delta: data_pb.Observation,
     observation_delta_apply_fn: function (x) { return x; },
     feedback_space: null,
-    message_space: null,
+    message_space: data_pb.Message,
 };
 var _echo_class = {
     id: 'echo',
@@ -20,7 +20,7 @@ var _echo_class = {
     observation_delta: data_pb.Observation,
     observation_delta_apply_fn: function (x) { return x; },
     feedback_space: null,
-    message_space: null,
+    message_space: data_pb.Message,
 };
 var settings = {
     actor_classes: {

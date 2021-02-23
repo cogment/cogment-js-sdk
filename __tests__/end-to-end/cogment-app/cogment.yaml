@@ -3,11 +3,7 @@ import:
     - data.proto
 
 commands:
-  generate:python: |
-    cogment generate --python_dir=./environment
-    cogment generate --python_dir=./echo
-    cogment generate --python_dir=./client
-    cogment generate --python_dir=./configurator
+  generate:python: cogment generate --python_dir=./environment --python_dir=./echo --python_dir=./client --python_dir=./configurator
   generate:web-client: |
     cogment generate --js_dir=./webapp/src
     cd webapp

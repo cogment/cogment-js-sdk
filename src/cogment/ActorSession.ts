@@ -25,7 +25,8 @@ import {
   Reward,
   TrialActor,
 } from '../types';
-import {Action as ActionPb, Message as CogMessage} from './api/common_pb';
+import {CogMessage} from '../types/CogMessage';
+import {Action as ActionPb, Message as MessagePb} from './api/common_pb';
 import {
   TrialActionReply,
   TrialActionRequest,
@@ -41,11 +42,10 @@ const logger = getLogger('ActorSession');
 export class ActorSession<
   ActionT extends Message,
   ObservationT extends Message,
-  RewardT extends Message,
-  MessageT extends Message
+  RewardT extends Message
 > {
   private actorCogSettings: CogSettingsActorClass;
-  private events: Event<ObservationT, RewardT, MessageT>[] = [];
+  private events: Event<ObservationT, RewardT>[] = [];
   private lastObservation?: ObservationT;
   private nextEventPromise?: Promise<void>;
   private nextEventResolve?: () => void;
@@ -79,9 +79,7 @@ export class ActorSession<
     throw new Error('addFeedback() is not implemented.');
   }
 
-  public async *eventLoop(): AsyncGenerator<
-    Event<ObservationT, RewardT, MessageT>
-  > {
+  public async *eventLoop(): AsyncGenerator<Event<ObservationT, RewardT>> {
     if (!this.running) {
       logger.warn('Trial is not currently running.');
     }
@@ -121,25 +119,26 @@ export class ActorSession<
     this.actionStreamClient.send(request);
   }
 
-  public async sendMessage<PayloadT extends Message>({
+  public sendMessage = async ({
     from,
     to,
     payload,
     trialId,
-    actorName,
-  }: SendMessageOptions<PayloadT>): Promise<SendMessageReturnType> {
+  }: SendMessageOptions): Promise<SendMessageReturnType> => {
     const request = new TrialMessageRequest();
-    const message = new CogMessage();
+    const messagePb = new MessagePb();
 
-    message.setPayload(AnyPb.deserializeBinary(payload.serializeBinary()));
-    message.setSenderName(from);
-    message.setReceiverName(to);
-    request.addMessages(message);
+    messagePb.setPayload(payload);
+    messagePb.setSenderName(from);
+    messagePb.setReceiverName(to);
+    // TODO: remove on next release of orchestrator
+    messagePb.setTickId(-1);
+    request.setMessagesList([messagePb]);
     // eslint-disable-next-line compat/compat
     return new Promise<SendMessageReturnType>((resolve, reject) => {
       this.clientActorClient.sendMessage(
         request,
-        new grpc.Metadata({'trial-id': trialId, 'actor-name': actorName}),
+        new grpc.Metadata({'trial-id': trialId, 'actor-name': from}),
         (error, response) => {
           if (error || response === null) {
             return reject(error);
@@ -148,7 +147,7 @@ export class ActorSession<
         },
       );
     });
-  }
+  };
 
   public start(): void {
     this.running = true;
@@ -194,7 +193,6 @@ export class ActorSession<
       )}`,
     );
 
-    // copy the protobuf array to prevent mutation
     const observations = [...data.getObservationsList()]
       // TODO: is this necessary?
       .filter((observation) => {
@@ -213,55 +211,50 @@ export class ActorSession<
         };
       });
 
-    // copy the protobuf array to prevent mutation
-    const messages = [...data.getMessagesList()].map((message) => ({
-      tickId: message.getTickId(),
-      message: {
-        receiver: message.getReceiverName(),
-        sender: message.getSenderName(),
-        data: this.actorCogSettings.message_space?.deserializeBinary(
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          /// @ts-ignore-next-line
-          message?.getPayload()?.getValue_asU8(),
-        ) as MessageT,
-      },
-    }));
+    const messages: {message: CogMessage; tickId: number}[] = [
+      ...data.getMessagesList(),
+    ].map((message) => {
+      return {
+        tickId: message.getTickId(),
+        message: {
+          tickId: message.getTickId(),
+          receiver: message.getReceiverName(),
+          sender: message.getSenderName(),
+          data: message.getPayload(),
+        },
+      };
+    });
 
-    // copy the protobuf array to prevent mutation
     const rewards = [...data.getRewardsList()].map((reward) => {
       return reward.toObject();
     });
 
-    // sort all events by tickId - if an event object does not have a tickId, it gets placed at the front of the queue
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     this.events = [
       ...this.events,
-      ...observations,
       ...messages,
       ...rewards,
+      ...observations,
     ].sort(
       ({tickId: tickIdA}, {tickId: tickIdB}) => (tickIdA ?? 0) - (tickIdB ?? 0),
     );
 
     if (this.events[0]) {
-      if (this.events[0]?.tickId) {
+      if ((this.events[0]?.tickId ?? 0) >= 0) {
         this.tickId = this.events[0]?.tickId;
       }
       if (this.nextEventResolve) {
         this.nextEventResolve();
       }
-      this.nextEventPromise = new Promise((resolve) => {
-        this.nextEventResolve = resolve;
-      });
+      this.nextEventPromise = new Promise(
+        (resolve) => (this.nextEventResolve = resolve),
+      );
     }
   };
 }
 
-export interface SendMessageOptions<PayloadT extends Message> {
-  actorName: string;
+export interface SendMessageOptions {
   from: string;
-  payload: PayloadT;
+  payload: AnyPb;
   to: string;
   trialId: string;
 }

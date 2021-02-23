@@ -83,7 +83,7 @@ describe('a cogment-app', () => {
     // TODO: this fails if run before registerActor
     // const trialController = service.createTrialController(trialLifecycleClient);
 
-    service.registerActor<ClientAction, Observation, never, Message>(
+    service.registerActor<ClientAction, Observation, never>(
       trialActor,
       async (actorSession) => {
         logger.info('Actor running');

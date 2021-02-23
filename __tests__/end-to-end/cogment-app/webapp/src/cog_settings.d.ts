@@ -9,7 +9,7 @@ declare const settings: {
             observation_delta: typeof data_pb.Observation;
             observation_delta_apply_fn: (x: any) => any;
             feedback_space: null;
-            message_space: null;
+            message_space: typeof data_pb.Message;
         };
         echo: {
             id: string;
@@ -19,7 +19,7 @@ declare const settings: {
             observation_delta: typeof data_pb.Observation;
             observation_delta_apply_fn: (x: any) => any;
             feedback_space: null;
-            message_space: null;
+            message_space: typeof data_pb.Message;
         };
     };
     trial: {
