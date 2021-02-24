@@ -1,3 +1,12 @@
+# [1.21.0](https://github.com/cogment/cogment-js-sdk/compare/v1.20.1...v1.21.0) (2021-02-24)
+
+
+### Features
+
+* finish implementation of message passing ([3dc0c43](https://github.com/cogment/cogment-js-sdk/commit/3dc0c43979b82653dac34c4d2b88373b77f666e5))
+* **api:** update to orchestrator@v1.0.0-alpha4, cogment-py-sdk@v1.0.0-alpha7 ([fb8799e](https://github.com/cogment/cogment-js-sdk/commit/fb8799e58c3304206635c5bb3c4b4544bde19be9)), closes [#60](https://github.com/cogment/cogment-js-sdk/issues/60)
+* update to latest cogment-api + cogment-orchestrator ([ca04dac](https://github.com/cogment/cogment-js-sdk/commit/ca04dacd5674ad1dbdec400b0bf8e852fd79761f))
+
 ## [1.20.1](https://github.com/cogment/cogment-js-sdk/compare/v1.20.0...v1.20.1) (2021-02-16)
 
 
