@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/cogment/cogment-js-sdk/compare/v1.21.0...v1.21.1) (2021-02-24)
+
+
+### Bug Fixes
+
+* **release:** updating latest dist-tag failed ([6cfb73b](https://github.com/cogment/cogment-js-sdk/commit/6cfb73ba11fd6bd80efe2a920767d85d419c2eb9))
+
 # [1.21.0](https://github.com/cogment/cogment-js-sdk/compare/v1.20.1...v1.21.0) (2021-02-24)
 
 
