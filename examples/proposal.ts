@@ -17,7 +17,7 @@
 
 import {createService} from 'cogment';
 
-import cogSettings from './cog_settings';
+import cogSettings from './CogSettings';
 
 import {ROCK, PAPER, SCISSORS, TrialConfig} from './data_pb2';
 

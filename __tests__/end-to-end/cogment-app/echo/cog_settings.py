@@ -14,7 +14,7 @@ _client_class = _cog.actor.ActorClass(
     observation_space=data_pb.Observation,
     observation_delta=data_pb.Observation,
     observation_delta_apply_fn=_cog.delta_encoding._apply_delta_replace,
-    feedback_space=None,
+    feedback_space=None
 )
 
 _echo_class = _cog.actor.ActorClass(
@@ -24,7 +24,7 @@ _echo_class = _cog.actor.ActorClass(
     observation_space=data_pb.Observation,
     observation_delta=data_pb.Observation,
     observation_delta_apply_fn=_cog.delta_encoding._apply_delta_replace,
-    feedback_space=None,
+    feedback_space=None
 )
 
 

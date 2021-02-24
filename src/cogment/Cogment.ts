@@ -40,7 +40,7 @@ const logger = getLogger();
  * @example Instantiating the `cogment` API.
  * ```typescript
  * import {createService} from 'cogment';
- * import cogSettings from 'cog_settings';
+ * import cogSettings from 'CogSettings';
  *
  * const cogment = createService(cogSettings);
  * ```
