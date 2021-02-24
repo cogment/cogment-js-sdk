@@ -15,15 +15,16 @@
  *
  */
 
-import {CogSettings} from './CogSettings';
+import {Message} from 'google-protobuf';
+import {CogMessage} from './CogMessage';
 
-export * from './CogSettings';
-export * from './CogmentYaml';
-export * from './Event';
-export * from './Reward';
-export * from './TrialActor';
-
-declare module 'cog_settings' {
-  const cogSettings: CogSettings;
-  export {cogSettings};
+export interface Event<
+  ObservationT extends Message,
+  FeedbackT extends Message
+> {
+  timestamp?: number;
+  tickId?: number;
+  observation?: ObservationT;
+  reward?: FeedbackT;
+  message?: CogMessage;
 }

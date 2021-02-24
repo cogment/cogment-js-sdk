@@ -16,8 +16,8 @@
  */
 
 import {Message} from 'google-protobuf';
-import {CogSettingsActorClass} from '../@types/cogment';
-import {ObservationData} from '../cogment/api/common_pb';
+import {CogSettingsActorClass} from '../../types';
+import {ObservationData} from '../api/common_pb';
 
 export function decodeObservationData<T extends Message>({
   actorClass,
@@ -36,7 +36,6 @@ export function decodeObservationData<T extends Message>({
       data.getContent_asU8(),
     );
     // TODO: lazy hack around type system by casting here
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     return actorClass.observation_delta_apply_fn(delta) as T;
   }
 }
@@ -54,11 +53,14 @@ export interface SerializableProtobuf extends Message {
 /**
  * Turn any protobuf message with a `content` field (implements the {@link SerializableProtobuf} interface) into a
  * `destinationPb` type protobuf message.
- * @internal
+ *
  * @typeParam T - Return protobuf message type
+ *
  * @param sourcePb - A protobuf message that implements the {@link SerializableProtobuf} interface
  * @param destinationPb - A protobuf message class to deserialize into
  * @returns A protobuf message of type `destinationPb` with the contents of `sourcePb`
+ *
+ * @internal
  */
 export function deserializeData<T extends Message>({
   sourcePb,

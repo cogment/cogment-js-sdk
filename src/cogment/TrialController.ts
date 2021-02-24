@@ -17,16 +17,10 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
-import {CogSettings, TrialActor} from './@types/cogment';
+import {CogSettings, TrialActor} from '../types';
 import {ActorSession} from './ActorSession';
-import {
-  Message as CogMessage,
-  TrialConfig,
-  VersionInfo,
-  VersionRequest,
-} from './cogment/api/common_pb';
-import {ServiceError} from './cogment/api/environment_pb_service';
+import {TrialConfig, VersionInfo, VersionRequest} from './api/common_pb';
+import {ServiceError} from './api/environment_pb_service';
 import {
   TerminateTrialRequest,
   TrialActionReply,
@@ -36,15 +30,14 @@ import {
   TrialJoinReply,
   TrialJoinRequest,
   TrialMessageReply,
-  TrialMessageRequest,
   TrialStartReply,
   TrialStartRequest,
   TrialState,
-} from './cogment/api/orchestrator_pb';
+} from './api/orchestrator_pb';
 import {
-  ActorEndpointClient,
+  ClientActorClient,
   TrialLifecycleClient,
-} from './cogment/api/orchestrator_pb_service';
+} from './api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
 import {getLogger} from './lib/Logger';
 
@@ -58,18 +51,18 @@ export class TrialController {
    * @param cogSettings - {@link CogSettings | `cog_settings.js`} generated file
    * @param actors - An array of [{@link TrialActor}, {@link ActorImplementation}] tuples
    * @param trialLifecycleClient - A {@link TrialLifecycleClient | `TrialLifecycleClient`}
-   * @param actorEndpointClient - An {@link ActorEndpointClient | `ActorEndpointClient`}
-   * @param actionStreamClient - A grpc-web client for the {@link ActorEndpoint#ActionStream} endpoint
+   * @param clientActorClient - An {@link ClientActorClient | `ClientActorClient`}
+   * @param actionStreamClient - A grpc-web client for the {@link ClientActor#ActionStream} endpoint
    */
   // eslint-disable-next-line max-params
   constructor(
     private cogSettings: CogSettings,
     private actors: [
       TrialActor,
-      ActorImplementation<Message, Message, Message, Message>,
+      ActorImplementation<Message, Message, Message>,
     ][],
     private trialLifecycleClient: TrialLifecycleClient,
-    private actorEndpointClient: ActorEndpointClient,
+    private clientActorClient: ClientActorClient,
     private actionStreamClient: grpc.Client<
       TrialActionRequest,
       TrialActionReply
@@ -123,6 +116,7 @@ export class TrialController {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async isTrialOver(trialId: string): Promise<boolean> {
     // eslint-disable-next-line compat/compat
     return Promise.resolve(!this.trialId);
@@ -141,7 +135,7 @@ export class TrialController {
     // eslint-disable-next-line compat/compat
     const response = await new Promise<JoinTrialReturnType>(
       (resolve, reject) => {
-        this.actorEndpointClient.joinTrial(
+        this.clientActorClient.joinTrial(
           request,
           (error: ServiceError | null, response: TrialJoinReply | null) => {
             if (error || !response) {
@@ -156,30 +150,6 @@ export class TrialController {
 
     await this.startActors(response.trialId);
     return response;
-  }
-
-  // TODO: WIP - See https://gitlab.com/ai-r/cogment-js-sdk/-/issues/20
-  // eslint-disable-next-line max-params
-  public async sendMessage(
-    receiverName: string,
-    senderName: string,
-    messagePayload: AnyPb,
-  ): Promise<SendMessageReturnType> {
-    const request = new TrialMessageRequest();
-    const message = new CogMessage();
-    message.setSenderName(senderName);
-    message.setReceiverName(receiverName);
-    message.setPayload(messagePayload);
-    request.addMessages(message);
-    // eslint-disable-next-line compat/compat
-    return new Promise<SendMessageReturnType>((resolve, reject) => {
-      this.actorEndpointClient.sendMessage(request, (error, response) => {
-        if (error || response === null) {
-          return reject(error);
-        }
-        resolve(response.toObject());
-      });
-    });
   }
 
   /**
@@ -263,7 +233,7 @@ export class TrialController {
         const actorSession = new ActorSession(
           actor,
           this.cogSettings,
-          this.actorEndpointClient,
+          this.clientActorClient,
           this.actionStreamClient,
         );
         return actorImpl(actorSession);

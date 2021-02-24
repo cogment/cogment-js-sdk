@@ -24,10 +24,7 @@ message EchoAction {
   string response = 1;
 }
 
-message ClientMessage {
+message Message {
   string request = 1;
-}
-
-message EchoMessage {
-  string response = 1;
+  string response = 2;
 }

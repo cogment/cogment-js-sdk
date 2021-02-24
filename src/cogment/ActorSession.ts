@@ -17,45 +17,46 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
+import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 import {
   CogSettings,
   CogSettingsActorClass,
   Event,
   Reward,
   TrialActor,
-} from './@types/cogment';
-import {Action as ActionPb} from './cogment/api/common_pb';
+} from '../types';
+import {CogMessage} from '../types/CogMessage';
+import {Action as ActionPb, Message as MessagePb} from './api/common_pb';
 import {
   TrialActionReply,
   TrialActionRequest,
-} from './cogment/api/orchestrator_pb';
-import {ActorEndpointClient} from './cogment/api/orchestrator_pb_service';
+  TrialMessageRequest,
+} from './api/orchestrator_pb';
+import {ClientActorClient} from './api/orchestrator_pb_service';
 import {deserializeData} from './lib/DeltaEncoding';
 import {getLogger} from './lib/Logger';
+import {SendMessageReturnType} from './TrialController';
 
 const logger = getLogger('ActorSession');
 
 export class ActorSession<
   ActionT extends Message,
   ObservationT extends Message,
-  RewardT extends Message,
-  MessageT extends Message
+  RewardT extends Message
 > {
   private actorCogSettings: CogSettingsActorClass;
-  private events: Event<ObservationT, RewardT, MessageT>[] = [];
-  private running = false;
-
-  private tickId?: number;
+  private events: Event<ObservationT, RewardT>[] = [];
   private lastObservation?: ObservationT;
-
   private nextEventPromise?: Promise<void>;
   private nextEventResolve?: () => void;
+  private running = false;
+  private tickId?: number;
 
   // eslint-disable-next-line max-params
   constructor(
     private actorClass: TrialActor,
     private cogSettings: CogSettings,
-    private actorEndpointClient: ActorEndpointClient,
+    private clientActorClient: ClientActorClient,
     private actionStreamClient: grpc.Client<
       TrialActionRequest,
       TrialActionReply
@@ -73,13 +74,12 @@ export class ActorSession<
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public addFeedback(to: string[], feedback: Reward): void {
     throw new Error('addFeedback() is not implemented.');
   }
 
-  public async *eventLoop(): AsyncGenerator<
-    Event<ObservationT, RewardT, MessageT>
-  > {
+  public async *eventLoop(): AsyncGenerator<Event<ObservationT, RewardT>> {
     if (!this.running) {
       logger.warn('Trial is not currently running.');
     }
@@ -91,6 +91,7 @@ export class ActorSession<
             event.tickId?.toString() ?? ''
           } ${JSON.stringify(event, undefined, 2)}`,
         );
+        // TODO: think through the logic on this one
         if (event.observation) {
           this.lastObservation = event.observation;
         }
@@ -118,10 +119,35 @@ export class ActorSession<
     this.actionStreamClient.send(request);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public sendMessage(to: string[], message: MessageT): void {
-    throw new Error('sendMessage() is not implemented');
-  }
+  public sendMessage = async ({
+    from,
+    to,
+    payload,
+    trialId,
+  }: SendMessageOptions): Promise<SendMessageReturnType> => {
+    const request = new TrialMessageRequest();
+    const messagePb = new MessagePb();
+
+    messagePb.setPayload(payload);
+    messagePb.setSenderName(from);
+    messagePb.setReceiverName(to);
+    // TODO: remove on next release of orchestrator
+    messagePb.setTickId(-1);
+    request.setMessagesList([messagePb]);
+    // eslint-disable-next-line compat/compat
+    return new Promise<SendMessageReturnType>((resolve, reject) => {
+      this.clientActorClient.sendMessage(
+        request,
+        new grpc.Metadata({'trial-id': trialId, 'actor-name': from}),
+        (error, response) => {
+          if (error || response === null) {
+            return reject(error);
+          }
+          resolve(response.toObject());
+        },
+      );
+    });
+  };
 
   public start(): void {
     this.running = true;
@@ -167,10 +193,8 @@ export class ActorSession<
       )}`,
     );
 
-    // TODO: We need to define an order here, preferably merge all objects of the same tickId into a single event?
-    //       Assumes data received is all newer than the last received tickId
     const observations = [...data.getObservationsList()]
-      .sort((a, b) => a.getTickId() - b.getTickId())
+      // TODO: is this necessary?
       .filter((observation) => {
         return observation.getData()?.getContent() !== '';
       })
@@ -187,49 +211,50 @@ export class ActorSession<
         };
       });
 
-    const messages = [...data.getMessagesList()]
-      .sort((a, b) => a.getTickId() - b.getTickId())
-      .map((message) => ({
+    const messages: {message: CogMessage; tickId: number}[] = [
+      ...data.getMessagesList(),
+    ].map((message) => {
+      return {
         tickId: message.getTickId(),
         message: {
+          tickId: message.getTickId(),
           receiver: message.getReceiverName(),
           sender: message.getSenderName(),
-          data: this.actorCogSettings.message_space?.deserializeBinary(
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            /// @ts-ignore-next-line
-            message?.getPayload()?.getValue_asU8(),
-          ) as MessageT,
+          data: message.getPayload(),
         },
-      }));
+      };
+    });
 
-    const rewards = data.getRewardsList().map((reward) => ({
-      tickId: reward.getFeedbacksList()[0].getTickId(),
-      reward: {
-        value: reward.getValue(),
-        confidence: reward.getConfidence(),
-        data: reward,
-      },
-    }));
+    const rewards = [...data.getRewardsList()].map((reward) => {
+      return reward.toObject();
+    });
 
     this.events = [
       ...this.events,
-      ...observations,
       ...messages,
       ...rewards,
+      ...observations,
     ].sort(
       ({tickId: tickIdA}, {tickId: tickIdB}) => (tickIdA ?? 0) - (tickIdB ?? 0),
     );
 
     if (this.events[0]) {
-      if (this.events[0]?.tickId) {
+      if ((this.events[0]?.tickId ?? 0) >= 0) {
         this.tickId = this.events[0]?.tickId;
       }
       if (this.nextEventResolve) {
         this.nextEventResolve();
       }
-      this.nextEventPromise = new Promise((resolve) => {
-        this.nextEventResolve = resolve;
-      });
+      this.nextEventPromise = new Promise(
+        (resolve) => (this.nextEventResolve = resolve),
+      );
     }
   };
+}
+
+export interface SendMessageOptions {
+  from: string;
+  payload: AnyPb;
+  to: string;
+  trialId: string;
 }

@@ -15,9 +15,10 @@
  *
  */
 
-export * from './ActorSession';
-export * from './Cogment';
-export * from './CogmentService';
-export * from './TrialController';
-export * from './lib/DeltaEncoding';
-export * from './lib/Logger';
+/**
+ * A library for interacting with the {@link https://cogment.ai | cogment.ai} framework.
+ *
+ * @packageDocumentation
+ */
+
+export {createService} from './cogment';

@@ -27,7 +27,7 @@ import path from 'path';
 const moduleName = 'cogment-api';
 
 interface CogmentApiConfig {
-  cogment_api_version: string;
+  releaseUrl: string;
 }
 
 export default class FetchProtos extends Command {
@@ -37,7 +37,7 @@ export default class FetchProtos extends Command {
 
   static flags = {
     help: flags.help({char: 'h'}),
-    cogmentApiVersion: flags.string({
+    releaseUrl: flags.string({
       char: 'r',
       description: 'cogment-api release version, uses cosmiconfig',
     }),
@@ -58,11 +58,9 @@ export default class FetchProtos extends Command {
       this.error('No configuration provided', {exit: 1});
     }
     const config: CogmentApiConfig = result.config as CogmentApiConfig;
-    const cogmentApiVersion =
-      flags.cogmentApiVersion ?? config.cogment_api_version;
-    const url = `https://github.com/cogment/cogment-api/archive/v${cogmentApiVersion}.tar.gz`;
+    const url = flags.releaseUrl ?? config.releaseUrl;
 
-    this.log(`Fetching cogment-api@v${cogmentApiVersion} from ${url}`);
+    this.log(`Fetching cogment-api from ${url}`);
 
     try {
       const response = await axios.request<ReadStream>({
@@ -104,8 +102,9 @@ export default class FetchProtos extends Command {
     this.log(
       'Decompression successful, copying .proto files to cogment/api/*.proto',
     );
+
     tarballTemporaryDirectory
-      .find(`cogment-api-${cogmentApiVersion}`, {
+      .find({
         matching: '*.proto',
       })
       .forEach((file) =>

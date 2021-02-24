@@ -18,6 +18,15 @@ services:
     ports:
       - 4000:4000/tcp
 
+  client:
+    build:
+      context: __tests__/end-to-end/cogment-app/client
+      dockerfile: ../py_service.dockerfile
+    environment:
+      - PYTHONUNBUFFERED=1
+    stdin_open: true
+    tty: true
+
   echo:
     image: registry.gitlab.com/ai-r/change_me/echo:latest
     build:

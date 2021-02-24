@@ -15,6 +15,31 @@
  *
  */
 
+const {defaultsDeep} = require('lodash');
+
+const commonConfig = {
+  prettierPath: './node_modules/.bin/prettier',
+  preset: 'ts-jest',
+  setupFilesAfterEnv: [
+    './jest.setup.js',
+    'jest-chain',
+    'jest-extended',
+    'jest-allure/dist/setup',
+  ],
+  testPathIgnorePatterns: [
+    '<rootDir>/__tests__/end-to-end/cogment-app',
+    '<rootDir>/src/cogment/api',
+    '<rootDir>/node_modules/',
+    '<rootDir>/dist/',
+    '<rootDir>/public/',
+    '<rootDir>/coverage/',
+    '<rootDir>/cli/',
+    '<rootDir>/CHANGELOG.md',
+    '<rootDir>/.gitlab/',
+    '<rootDir>/.github/',
+  ],
+};
+
 module.exports = {
   collectCoverage: true,
   coverageReporters: [
@@ -33,27 +58,43 @@ module.exports = {
     '.d.ts',
     'cli',
   ],
-  displayName: 'cogment',
-  preset: 'ts-jest',
-  prettierPath: './node_modules/.bin/prettier',
   reporters: ['default', 'jest-junit', 'jest-sonar'],
-  setupFilesAfterEnv: ['./jest.setup.js', 'jest-allure/dist/setup'],
+  roots: ['<rootDir>/src', '<rootDir>/__tests__'],
+  slowTestThreshold: 10,
   testEnvironment: 'jsdom',
-  testPathIgnorePatterns: [
-    '<rootDir>/__tests__/end-to-end/cogment-app',
-    '<rootDir>/src/__mocks__/',
-    '<rootDir>/src/__data__/',
-    '<rootDir>/src/cogment/api',
-    '<rootDir>/node_modules/',
-    '<rootDir>/dist/',
-    '<rootDir>/public/',
-    '<rootDir>/coverage',
-    '<rootDir>/cli',
-    'cog_settings.js',
-  ],
   verbose: true,
-  watchPlugins: [
-    'jest-watch-typeahead/filename',
-    'jest-watch-typeahead/testname',
+  projects: [
+    defaultsDeep(
+      {
+        displayName: 'lint:prettier',
+        testMatch: ['<rootDir>/src/**/*.ts'],
+        runner: 'prettier',
+      },
+      commonConfig,
+    ),
+    defaultsDeep(
+      {
+        displayName: 'lint:eslint',
+        testMatch: ['<rootDir>/src/**/*.ts'],
+        runner: 'eslint',
+      },
+      commonConfig,
+    ),
+    defaultsDeep(
+      {
+        displayName: 'lint:remark',
+        testMatch: ['<rootDir>/**/*.md'],
+        preset: 'jest-runner-remark',
+      },
+      commonConfig,
+    ),
+    defaultsDeep(
+      {
+        preset: 'ts-jest',
+        displayName: '__tests__',
+        testMatch: ['<rootDir>/__tests__/**/*.test.*'],
+      },
+      commonConfig,
+    ),
   ],
 };

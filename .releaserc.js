@@ -34,6 +34,7 @@ module.exports = {
       {
         prepare: true,
         npmPublish: true,
+        tarballDir: '.',
       },
     ],
     [
@@ -41,16 +42,7 @@ module.exports = {
       {
         assets: [
           {
-            path: 'dist/cogment.js',
-            label: 'CommonJS2 bundle',
-          },
-          {
-            path: 'dist/cogment.esm.js',
-            label: 'ESM bundle',
-          },
-          {
-            path: 'dist/cogment.umd.js',
-            label: 'UMD bundle',
+            path: 'cogment-cogment-js-sdk-*.*.*.tgz',
           },
         ],
       },

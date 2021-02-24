@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ndata.proto\x12\x0b\x63ogment_app\"\x1b\n\tEnvConfig\x12\x0e\n\x06suffix\x18\x01 \x01(\t\"9\n\x0bTrialConfig\x12*\n\nenv_config\x18\x01 \x01(\x0b\x32\x16.cogment_app.EnvConfig\"C\n\x0bObservation\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07request\x18\x02 \x01(\t\x12\x10\n\x08response\x18\x03 \x01(\t\"\x1f\n\x0c\x43lientAction\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1e\n\nEchoAction\x12\x10\n\x08response\x18\x01 \x01(\t\" \n\rClientMessage\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1f\n\x0b\x45\x63hoMessage\x12\x10\n\x08response\x18\x01 \x01(\tb\x06proto3'
+  serialized_pb=b'\n\ndata.proto\x12\x0b\x63ogment_app\"\x1b\n\tEnvConfig\x12\x0e\n\x06suffix\x18\x01 \x01(\t\"9\n\x0bTrialConfig\x12*\n\nenv_config\x18\x01 \x01(\x0b\x32\x16.cogment_app.EnvConfig\"C\n\x0bObservation\x12\x11\n\ttimestamp\x18\x01 \x01(\x04\x12\x0f\n\x07request\x18\x02 \x01(\t\x12\x10\n\x08response\x18\x03 \x01(\t\"\x1f\n\x0c\x43lientAction\x12\x0f\n\x07request\x18\x01 \x01(\t\"\x1e\n\nEchoAction\x12\x10\n\x08response\x18\x01 \x01(\t\",\n\x07Message\x12\x0f\n\x07request\x18\x01 \x01(\t\x12\x10\n\x08response\x18\x02 \x01(\tb\x06proto3'
 )
 
 
@@ -199,17 +199,24 @@ _ECHOACTION = _descriptor.Descriptor(
 )
 
 
-_CLIENTMESSAGE = _descriptor.Descriptor(
-  name='ClientMessage',
-  full_name='cogment_app.ClientMessage',
+_MESSAGE = _descriptor.Descriptor(
+  name='Message',
+  full_name='cogment_app.Message',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='request', full_name='cogment_app.ClientMessage.request', index=0,
+      name='request', full_name='cogment_app.Message.request', index=0,
       number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='response', full_name='cogment_app.Message.response', index=1,
+      number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -227,39 +234,7 @@ _CLIENTMESSAGE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=249,
-  serialized_end=281,
-)
-
-
-_ECHOMESSAGE = _descriptor.Descriptor(
-  name='EchoMessage',
-  full_name='cogment_app.EchoMessage',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='response', full_name='cogment_app.EchoMessage.response', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=283,
-  serialized_end=314,
+  serialized_end=293,
 )
 
 _TRIALCONFIG.fields_by_name['env_config'].message_type = _ENVCONFIG
@@ -268,8 +243,7 @@ DESCRIPTOR.message_types_by_name['TrialConfig'] = _TRIALCONFIG
 DESCRIPTOR.message_types_by_name['Observation'] = _OBSERVATION
 DESCRIPTOR.message_types_by_name['ClientAction'] = _CLIENTACTION
 DESCRIPTOR.message_types_by_name['EchoAction'] = _ECHOACTION
-DESCRIPTOR.message_types_by_name['ClientMessage'] = _CLIENTMESSAGE
-DESCRIPTOR.message_types_by_name['EchoMessage'] = _ECHOMESSAGE
+DESCRIPTOR.message_types_by_name['Message'] = _MESSAGE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 EnvConfig = _reflection.GeneratedProtocolMessageType('EnvConfig', (_message.Message,), {
@@ -307,19 +281,12 @@ EchoAction = _reflection.GeneratedProtocolMessageType('EchoAction', (_message.Me
   })
 _sym_db.RegisterMessage(EchoAction)
 
-ClientMessage = _reflection.GeneratedProtocolMessageType('ClientMessage', (_message.Message,), {
-  'DESCRIPTOR' : _CLIENTMESSAGE,
+Message = _reflection.GeneratedProtocolMessageType('Message', (_message.Message,), {
+  'DESCRIPTOR' : _MESSAGE,
   '__module__' : 'data_pb2'
-  # @@protoc_insertion_point(class_scope:cogment_app.ClientMessage)
+  # @@protoc_insertion_point(class_scope:cogment_app.Message)
   })
-_sym_db.RegisterMessage(ClientMessage)
-
-EchoMessage = _reflection.GeneratedProtocolMessageType('EchoMessage', (_message.Message,), {
-  'DESCRIPTOR' : _ECHOMESSAGE,
-  '__module__' : 'data_pb2'
-  # @@protoc_insertion_point(class_scope:cogment_app.EchoMessage)
-  })
-_sym_db.RegisterMessage(EchoMessage)
+_sym_db.RegisterMessage(Message)
 
 
 # @@protoc_insertion_point(module_scope)

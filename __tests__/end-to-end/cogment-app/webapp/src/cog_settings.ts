@@ -25,7 +25,7 @@ const _client_class = {
   observation_delta: data_pb.Observation,
   observation_delta_apply_fn: (x: any) => x,
   feedback_space: null,
-  message_space: null,
+  message_space: data_pb.Message,
 };
 
 const _echo_class = {
@@ -36,7 +36,7 @@ const _echo_class = {
   observation_delta: data_pb.Observation,
   observation_delta_apply_fn: (x: any) => x,
   feedback_space: null,
-  message_space: null,
+  message_space: data_pb.Message,
 };
 
 const settings = {

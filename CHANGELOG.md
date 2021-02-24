@@ -1,3 +1,96 @@
+# [1.21.0](https://github.com/cogment/cogment-js-sdk/compare/v1.20.1...v1.21.0) (2021-02-24)
+
+
+### Features
+
+* finish implementation of message passing ([3dc0c43](https://github.com/cogment/cogment-js-sdk/commit/3dc0c43979b82653dac34c4d2b88373b77f666e5))
+* **api:** update to orchestrator@v1.0.0-alpha4, cogment-py-sdk@v1.0.0-alpha7 ([fb8799e](https://github.com/cogment/cogment-js-sdk/commit/fb8799e58c3304206635c5bb3c4b4544bde19be9)), closes [#60](https://github.com/cogment/cogment-js-sdk/issues/60)
+* update to latest cogment-api + cogment-orchestrator ([ca04dac](https://github.com/cogment/cogment-js-sdk/commit/ca04dacd5674ad1dbdec400b0bf8e852fd79761f))
+
+## [1.20.1](https://github.com/cogment/cogment-js-sdk/compare/v1.20.0...v1.20.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* **docs:** remove test code ([b147d72](https://github.com/cogment/cogment-js-sdk/commit/b147d721d945e8152c5da979024da1db923437b5))
+
+# [1.20.0](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0...v1.20.0) (2021-02-16)
+
+
+### Features
+
+* **style:** integrate remark-lint ([6c8d5ca](https://github.com/cogment/cogment-js-sdk/commit/6c8d5ca75e0123296c0b0bb688de5cc286818310))
+
+# [1.19.0](https://github.com/cogment/cogment-js-sdk/compare/v1.18.1...v1.19.0) (2021-02-11)
+
+
+### Bug Fixes
+
+* **build:** webpack was clobbering tsc type definitions ([62f920e](https://github.com/cogment/cogment-js-sdk/commit/62f920ef1e43401b1a0c2d9847c200897cd92307))
+* **cli:** fetch-protos now uses github pages for cogment-api tarball releases ([21787c5](https://github.com/cogment/cogment-js-sdk/commit/21787c51bfe32d093dca603994b74f6c49cb01e0))
+* **package:** fix double namespace ([b7ac326](https://github.com/cogment/cogment-js-sdk/commit/b7ac32684851e2f239791cfe077f5027e8a5757c))
+* **package.json:** build:clean targeted wrong directory, junit is annoying ([be3e2b2](https://github.com/cogment/cogment-js-sdk/commit/be3e2b25454df2d5bf495d5c99d8deff7d900a28))
+* **package.json:** correct paths to include in npm pack ([1ebef8c](https://github.com/cogment/cogment-js-sdk/commit/1ebef8ca287a4cfb92d8b800f97a8595e80b2af0))
+* **semantic-release:** fix github release asset label and name ([ecf6018](https://github.com/cogment/cogment-js-sdk/commit/ecf60182d32f922b6ec6cbdfff21ad8ba259325e))
+* **semantic-release:** npm plugin output is in .tgz format ([a378c83](https://github.com/cogment/cogment-js-sdk/commit/a378c835d29a51e7463254d669ffb246165d0c70))
+* **test:** fix import path ([a36e986](https://github.com/cogment/cogment-js-sdk/commit/a36e986cee04560247af3fe4326682b4bea0fb80))
+* **typescript:** module commonjs ([c071602](https://github.com/cogment/cogment-js-sdk/commit/c0716027c8bf203ef98df3144f04bd5d23f23334))
+
+
+### Features
+
+* **build:** include .d.ts, .map, .LICENSE.txt in github releases ([abc1409](https://github.com/cogment/cogment-js-sdk/commit/abc1409e78f00e8ebc8107017d6303d76fdf75a2))
+* **refactor:** internal api structure better matches module layout ([9e64107](https://github.com/cogment/cogment-js-sdk/commit/9e64107629c29cbea2e3f61de28d400c1b95c6a5))
+* **semantic-release:** use npm plugin output as input to github release ([5d56f49](https://github.com/cogment/cogment-js-sdk/commit/5d56f4997a936d9fed34fdd4d263bf2d2753fae0))
+* implement message passing / handling ([457e024](https://github.com/cogment/cogment-js-sdk/commit/457e02497393d5272ff139f0bcf66f237aa794a0)), closes [#20](https://github.com/cogment/cogment-js-sdk/issues/20)
+
+# [1.19.0-alpha.5](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.4...v1.19.0-alpha.5) (2021-02-11)
+
+
+### Bug Fixes
+
+* **package.json:** correct paths to include in npm pack ([1ebef8c](https://github.com/cogment/cogment-js-sdk/commit/1ebef8ca287a4cfb92d8b800f97a8595e80b2af0))
+
+# [1.19.0-alpha.4](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.3...v1.19.0-alpha.4) (2021-02-11)
+
+
+### Bug Fixes
+
+* **semantic-release:** fix github release asset label and name ([ecf6018](https://github.com/cogment/cogment-js-sdk/commit/ecf60182d32f922b6ec6cbdfff21ad8ba259325e))
+
+# [1.19.0-alpha.3](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.2...v1.19.0-alpha.3) (2021-02-11)
+
+
+### Bug Fixes
+
+* **semantic-release:** npm plugin output is in .tgz format ([a378c83](https://github.com/cogment/cogment-js-sdk/commit/a378c835d29a51e7463254d669ffb246165d0c70))
+
+# [1.19.0-alpha.2](https://github.com/cogment/cogment-js-sdk/compare/v1.19.0-alpha.1...v1.19.0-alpha.2) (2021-02-11)
+
+
+### Features
+
+* **semantic-release:** use npm plugin output as input to github release ([5d56f49](https://github.com/cogment/cogment-js-sdk/commit/5d56f4997a936d9fed34fdd4d263bf2d2753fae0))
+
+# [1.19.0-alpha.1](https://github.com/cogment/cogment-js-sdk/compare/v1.18.1...v1.19.0-alpha.1) (2021-02-11)
+
+
+### Bug Fixes
+
+* **build:** webpack was clobbering tsc type definitions ([62f920e](https://github.com/cogment/cogment-js-sdk/commit/62f920ef1e43401b1a0c2d9847c200897cd92307))
+* **cli:** fetch-protos now uses github pages for cogment-api tarball releases ([21787c5](https://github.com/cogment/cogment-js-sdk/commit/21787c51bfe32d093dca603994b74f6c49cb01e0))
+* **package:** fix double namespace ([b7ac326](https://github.com/cogment/cogment-js-sdk/commit/b7ac32684851e2f239791cfe077f5027e8a5757c))
+* **package.json:** build:clean targeted wrong directory, junit is annoying ([be3e2b2](https://github.com/cogment/cogment-js-sdk/commit/be3e2b25454df2d5bf495d5c99d8deff7d900a28))
+* **test:** fix import path ([a36e986](https://github.com/cogment/cogment-js-sdk/commit/a36e986cee04560247af3fe4326682b4bea0fb80))
+* **typescript:** module commonjs ([c071602](https://github.com/cogment/cogment-js-sdk/commit/c0716027c8bf203ef98df3144f04bd5d23f23334))
+
+
+### Features
+
+* **build:** include .d.ts, .map, .LICENSE.txt in github releases ([abc1409](https://github.com/cogment/cogment-js-sdk/commit/abc1409e78f00e8ebc8107017d6303d76fdf75a2))
+* **refactor:** internal api structure better matches module layout ([9e64107](https://github.com/cogment/cogment-js-sdk/commit/9e64107629c29cbea2e3f61de28d400c1b95c6a5))
+* implement message passing / handling ([457e024](https://github.com/cogment/cogment-js-sdk/commit/457e02497393d5272ff139f0bcf66f237aa794a0)), closes [#20](https://github.com/cogment/cogment-js-sdk/issues/20)
+
 ## [1.18.1](https://github.com/cogment/cogment-js-sdk/compare/v1.18.0...v1.18.1) (2021-02-06)
 
 

@@ -17,16 +17,13 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import {CogSettings, TrialActor} from './@types/cogment';
+import {CogSettings, TrialActor} from '../types';
 import {ActorSession} from './ActorSession';
+import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
 import {
-  TrialActionReply,
-  TrialActionRequest,
-} from './cogment/api/orchestrator_pb';
-import {
-  ActorEndpointClient,
+  ClientActorClient,
   TrialLifecycleClient,
-} from './cogment/api/orchestrator_pb_service';
+} from './api/orchestrator_pb_service';
 import {getLogger} from './lib/Logger';
 import {TrialController} from './TrialController';
 
@@ -35,23 +32,20 @@ const logger = getLogger('CogmentService');
 export type ActorImplementation<
   ActionT extends Message,
   ObservationT extends Message,
-  RewardT extends Message,
-  MessageT extends Message
-> = (
-  session: ActorSession<ActionT, ObservationT, RewardT, MessageT>,
-) => Promise<void>;
+  RewardT extends Message
+> = (session: ActorSession<ActionT, ObservationT, RewardT>) => Promise<void>;
 
 export class CogmentService {
   private actors: Record<
     string,
-    [TrialActor, ActorImplementation<Message, Message, Message, Message>]
+    [TrialActor, ActorImplementation<Message, Message, Message>]
   > = {};
 
   // eslint-disable-next-line max-params
   constructor(
     private readonly cogSettings: CogSettings,
     private trialLifecycleClient: TrialLifecycleClient,
-    private actorEndpointClient: ActorEndpointClient,
+    private clientActorClient: ClientActorClient,
     private actionStreamClient: grpc.Client<
       TrialActionRequest,
       TrialActionReply
@@ -61,11 +55,10 @@ export class CogmentService {
   public registerActor<
     ActionT extends Message,
     ObservationT extends Message,
-    RewardT extends Message,
-    MessageT extends Message
+    RewardT extends Message
   >(
     actorConfig: TrialActor,
-    actorImpl: ActorImplementation<ActionT, ObservationT, RewardT, MessageT>,
+    actorImpl: ActorImplementation<ActionT, ObservationT, RewardT>,
   ): void {
     logger.info(
       `Registering actor ${actorConfig.name} with class ${actorConfig.actorClass}`,
@@ -90,7 +83,7 @@ export class CogmentService {
       this.cogSettings,
       Object.values(this.actors),
       this.trialLifecycleClient,
-      this.actorEndpointClient,
+      this.clientActorClient,
       this.actionStreamClient,
     );
   }
