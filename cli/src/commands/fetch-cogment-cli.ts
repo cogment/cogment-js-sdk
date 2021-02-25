@@ -15,74 +15,78 @@
  *
  */
 
-import { Command, flags } from '@oclif/command';
-import { https } from 'follow-redirects';
-import { cosmiconfig } from 'cosmiconfig';
-import { CosmiconfigResult } from 'cosmiconfig/dist/types';
-import fs from 'fs';
+import {Command, flags} from '@oclif/command';
+import {cosmiconfig} from 'cosmiconfig';
+import {CosmiconfigResult} from 'cosmiconfig/dist/types';
+import {https} from 'follow-redirects';
+import * as jetpack from 'fs-jetpack';
 import process from 'process';
 
 const moduleName = 'cogment-cli';
 
 interface CogmentApiConfig {
-    releaseUrl: string;
+  releaseUrl: string;
 }
 
-const osMap : {[index:string] : string} = {
-    darwin: "macOS",
-    linux: "linux",
-    win32: "windows"
-} 
+const osMap: {[index: string]: string} = {
+  darwin: 'macOS',
+  linux: 'linux',
+  win32: 'windows',
+};
 
-export default class FetchProtos extends Command {
-    static description = 'fetch fetch-cogment-cli release';
+export default class FetchCogmentCli extends Command {
+  static description = 'fetch fetch-cogment-cli release';
 
-    static examples = [`$ cogjs-cli fetch-cogment-cli`];
+  static examples = [`$ cogjs-cli fetch-cogment-cli`];
 
-    static flags = {
-        help: flags.help({ char: 'h' }),
-        releaseUrl: flags.string({
-            char: 'r',
-            description: 'cogment-cli release version, uses cosmiconfig',
-        }),
-    };
+  static flags = {
+    help: flags.help({char: 'h'}),
+    releaseUrl: flags.string({
+      char: 'r',
+      description: 'cogment-cli release version, uses cosmiconfig',
+    }),
+    out: flags.string({
+      char: 'o',
+      default: 'cogment/cli/cogment',
+      description: 'output destination',
+    }),
+  };
 
-    static args = [];
+  static args = [];
 
-    async run(): Promise<void> {
-        const { flags } = this.parse(FetchProtos);
-        const fileName = 'cogment/cli/cogment';
+  async run(): Promise<void> {
+    const {flags} = this.parse(FetchCogmentCli);
 
-        const result: CosmiconfigResult = await cosmiconfig(moduleName).search();
+    const result: CosmiconfigResult = await cosmiconfig(moduleName).search();
 
-        if (!result || !result.config) {
-            this.error('No configuration provided', { exit: 1 });
-        }
-        const config: CogmentApiConfig = result.config as CogmentApiConfig;
-        const urlPreParse = flags.releaseUrl ?? config.releaseUrl;
-
-        const os = osMap[process.platform.toString()]
-        const url = urlPreParse.replace("${OS}", os);
-
-        this.log(`Fetching cogment-cli from ${url}`);
-
-        try {
-            const file = fs.createWriteStream(fileName);
-            https.get(url, function(response) {
-                response.pipe(file);
-            });
-        } catch (error) {
-            this.error(
-                `Failed to fetch cogment-cli: ${(error as Error).stack ?? ''}`,
-                {
-                    exit: 1,
-                },
-            );
-        }
-
-        this.log('Download successful');
-        this.log('Making file executable...');
-        fs.chmodSync('./cogment/cli/cogment', '755');
-        this.log('Done!')
+    if (!result || !result.config) {
+      this.error('No configuration provided', {exit: 1});
     }
+    const config: CogmentApiConfig = result.config as CogmentApiConfig;
+    const urlPreParse = flags.releaseUrl ?? config.releaseUrl;
+
+    const os = osMap[process.platform.toString()];
+    const url = urlPreParse.replace('${OS}', os);
+
+    this.log(`Fetching cogment-cli from ${url}`);
+
+    try {
+      const writeStream = jetpack
+        .file(flags.out, {mode: '0755'})
+        .createWriteStream(flags.out, {
+          mode: 0o755,
+        });
+      https.get(url, function (response) {
+        response.pipe(writeStream);
+      });
+    } catch (error) {
+      this.error(
+        `Failed to fetch cogment-cli: ${(error as Error).stack ?? ''}`,
+        {
+          exit: 1,
+        },
+      );
+    }
+    this.log('Download successful');
+  }
 }
