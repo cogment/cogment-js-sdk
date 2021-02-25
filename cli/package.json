@@ -18,8 +18,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "cogjs-cli": "./bin/run",
-    "cogment": "./bin/cogment"
+    "cogjs-cli": "./bin/run"
   },
   "files": [
     "/bin",
