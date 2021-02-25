@@ -1,6 +1,6 @@
 {
   "name": "@cogment/cogment-js-sdk",
-  "version": "1.21.1",
+  "version": "1.22.0",
   "description": "Javascript SDK for the Cogment Framework",
   "homepage": "https://github.com/cogment/cogment-js-sdk",
   "bugs": "https://github.com/cogment/cogment-js-sdk/issues",

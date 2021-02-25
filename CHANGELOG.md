@@ -1,3 +1,18 @@
+# [1.22.0](https://github.com/cogment/cogment-js-sdk/compare/v1.21.1...v1.22.0) (2021-02-25)
+
+
+### Bug Fixes
+
+* **ci:** need to start ssh-agent ([e6e4dbb](https://github.com/cogment/cogment-js-sdk/commit/e6e4dbbb5cf9f6abcdc4d795781353b21ef6d8c4))
+* **ci:** no need to install openssh-client on non -slim node:14 container ([2f4f24e](https://github.com/cogment/cogment-js-sdk/commit/2f4f24ec619967c2e4fc0fff4b3598708d24692e))
+* **cli:** fetch-cogment-cli now accepts --out ([bccd5ca](https://github.com/cogment/cogment-js-sdk/commit/bccd5caba45d04554632a6e66be2a64f38c254a0))
+
+
+### Features
+
+* **api:** update to cogment-cli@v1.0.0-alpha7 ([049f390](https://github.com/cogment/cogment-js-sdk/commit/049f390b04883db0a0deccd4f3357a6cdbd26ab2)), closes [#61](https://github.com/cogment/cogment-js-sdk/issues/61)
+* **ci:** run cogment generate ([bfd2f88](https://github.com/cogment/cogment-js-sdk/commit/bfd2f883d0912ec40073a20046ab69460c819628)), closes [#62](https://github.com/cogment/cogment-js-sdk/issues/62)
+
 ## [1.21.1](https://github.com/cogment/cogment-js-sdk/compare/v1.21.0...v1.21.1) (2021-02-24)
 
 
