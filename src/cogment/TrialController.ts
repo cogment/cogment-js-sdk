@@ -168,7 +168,7 @@ export class TrialController {
     return new Promise<StartTrialReturnType>((resolve, reject) => {
       const request = new TrialStartRequest();
       request.setUserId(actorClass);
-      if (trialConfig && this.cogSettings.trial.config_type) {
+      if (trialConfig && this.cogSettings.trial.config) {
         const trialConfigInternal = new TrialConfig();
         trialConfigInternal.setContent(trialConfig.serializeBinary());
         request.setConfig(trialConfigInternal);

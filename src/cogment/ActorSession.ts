@@ -62,7 +62,7 @@ export class ActorSession<
       TrialActionReply
     >,
   ) {
-    this.actorCogSettings = cogSettings.actor_classes[actorClass.actorClass];
+    this.actorCogSettings = cogSettings.actorClasses[actorClass.actorClass];
 
     this.actionStreamClient.onMessage(this.onActionStreamMessage);
     this.actionStreamClient.onHeaders(this.onActionStreamHeaders);
@@ -206,7 +206,7 @@ export class ActorSession<
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
             sourcePb: observation.getData(),
-            destinationPb: this.actorCogSettings.observation_space,
+            destinationPb: this.actorCogSettings.observationSpace,
           }),
         };
       });

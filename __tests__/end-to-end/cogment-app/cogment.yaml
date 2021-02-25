@@ -8,7 +8,6 @@ commands:
     npm i
     cd ..
   generate: |
-    cogment run init-webapp
     cogment generate \
     --js_dir webapp \
     --typescript \

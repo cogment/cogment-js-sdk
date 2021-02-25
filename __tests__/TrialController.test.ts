@@ -22,7 +22,7 @@ import {TrialInfoReply} from '../src/cogment/api/orchestrator_pb';
 import {StartTrialReturnType} from '../src/cogment/TrialController';
 import {config} from '../src/cogment/lib/Config';
 import {TrialActor} from '../src/types';
-import cogSettings from './end-to-end/cogment-app/webapp/src/CogSettings';
+import {cogSettings} from './end-to-end/cogment-app/webapp/src/CogSettings';
 
 describe('TrialController', () => {
   const TRIAL_ACTOR: TrialActor = {

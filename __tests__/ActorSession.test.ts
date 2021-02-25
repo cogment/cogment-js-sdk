@@ -23,7 +23,7 @@ import {TrialMessageReply} from '../src/cogment/api/orchestrator_pb';
 import {config} from '../src/cogment/lib/Config';
 import {getLogger} from '../src/cogment/lib/Logger';
 import {TrialActor} from '../src/types';
-import cogSettings from './end-to-end/cogment-app/webapp/src/CogSettings';
+import {cogSettings} from './end-to-end/cogment-app/webapp/src/CogSettings';
 import {
   ClientAction,
   EnvConfig as EnvironmentConfig,
@@ -48,7 +48,7 @@ describe('ActorSession', () => {
 
   beforeAll(async () => {
     const cogmentService = createService({
-      cogSettings: cogSettings,
+      cogSettings,
       grpcURL: config.connection.http,
       unaryTransportFactory: NodeHttpTransport(),
       streamingTransportFactory: grpc.WebsocketTransport(),

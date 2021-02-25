@@ -19,26 +19,26 @@ import {Message} from 'google-protobuf';
 import {CogSettingsActorClass} from '../../types';
 import {ObservationData} from '../api/common_pb';
 
-export function decodeObservationData<T extends Message>({
-  actorClass,
-  data,
-}: {
-  actorClass: CogSettingsActorClass;
-  data: ObservationData;
-}): T {
-  if (data.getSnapshot()) {
-    return actorClass.observation_space.deserializeBinary(
-      data.getContent_asU8(),
-      // TODO: lazy hack around type system by casting here
-    ) as T;
-  } else {
-    const delta = actorClass.observation_delta.deserializeBinary(
-      data.getContent_asU8(),
-    );
-    // TODO: lazy hack around type system by casting here
-    return actorClass.observation_delta_apply_fn(delta) as T;
-  }
-}
+// export function decodeObservationData<T extends Message>({
+//   actorClass,
+//   data,
+// }: {
+//   actorClass: CogSettingsActorClass;
+//   data: ObservationData;
+// }): T {
+//   if (data.getSnapshot()) {
+//     return actorClass.observationSpace.deserializeBinary(
+//       data.getContent_asU8(),
+//       // TODO: lazy hack around type system by casting here
+//     ) as T;
+//   } else {
+//     const delta = actorClass.observationDelta.deserializeBinary(
+//       data.getContent_asU8(),
+//     );
+//     // TODO: lazy hack around type system by casting here
+//     return actorClass.observationDeltaApply(delta) as T;
+//   }
+// }
 
 /**
  * A protobuf message type containing a `content` field of type bytes.

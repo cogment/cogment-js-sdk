@@ -27,7 +27,7 @@ import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
 import {config} from '../../src/cogment/lib/Config';
 import {getLogger} from '../../src/cogment/lib/Logger';
 import {TrialActor} from '../../src/types';
-import cogSettings from './cogment-app/webapp/src/CogSettings';
+import {cogSettings} from './cogment-app/webapp/src/CogSettings';
 import {ClientAction, Observation} from './cogment-app/webapp/src/data_pb';
 
 const logger = getLogger('cogment').childLogger('__tests__/end-to-end');

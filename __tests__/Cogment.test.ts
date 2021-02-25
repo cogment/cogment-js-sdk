@@ -18,7 +18,7 @@
 import {createService} from '../src/cogment';
 import {CogmentService} from '../src/cogment/CogmentService';
 import {config} from '../src/cogment/lib/Config';
-import cogSettings from './end-to-end/cogment-app/webapp/src/CogSettings';
+import {cogSettings} from './end-to-end/cogment-app/webapp/src/CogSettings';
 
 describe('Cogment', () => {
   describe('createService', () => {

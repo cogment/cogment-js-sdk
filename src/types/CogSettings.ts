@@ -19,26 +19,23 @@ import {Message} from 'google-protobuf';
 
 export interface CogSettingsActorClass {
   id: string;
-  config_type: typeof Message | null;
-  action_space: typeof Message;
-  observation_space: typeof Message;
-  observation_delta: typeof Message;
-  observation_delta_apply_fn: (x: unknown) => unknown;
-  feedback_space: typeof Message | null;
-  message_space: typeof Message | null;
+  config?: typeof Message;
+  actionSpace: typeof Message;
+  observationSpace: typeof Message;
+  observationDelta?: typeof Message;
+  observationDeltaApply?: (x: Message) => Message;
 }
 
 export interface CogSettings {
-  actor_classes: Record<string, CogSettingsActorClass>;
+  actorClasses: Record<string, CogSettingsActorClass>;
   trial: {
-    config_type: typeof Message | null;
+    config: typeof Message;
   };
   environment: {
-    config_type: typeof Message | null;
-  };
-  env_class: {
-    id: string;
-    config_type: typeof Message | null;
-    message_space: typeof Message | null;
+    config?: typeof Message;
+    class: {
+      id: string;
+      config: typeof Message;
+    };
   };
 }

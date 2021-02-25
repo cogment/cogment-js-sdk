@@ -20,4 +20,3 @@ eslint.json
 dependency-check-*.*
 tls
 tsconfig.tsbuildinfo
-cogment
