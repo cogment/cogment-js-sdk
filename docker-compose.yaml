@@ -5,7 +5,7 @@ services:
     image: namely/grpc-cli:1.32_1
 
   cogment-cli:
-    image: registry.gitlab.com/ai-r/cogment-cli:latest
+    image: cogment/cli:v1.0.0-alpha7
     volumes:
       - ./:/cogment
 
@@ -15,8 +15,6 @@ services:
       context: .
     volumes:
       - .:/app
-    ports:
-      - 4000:4000/tcp
 
   client:
     build:

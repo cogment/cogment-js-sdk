@@ -20,9 +20,9 @@ RUN npm install
 
 COPY . .
 
-RUN cd cli && npm install && npm install -g ./
-
-RUN npm run build:protos \
+RUN npm run init \
+  && npm install -g ./cli \
+  && install -m 0755 bin/cogment /usr/local/bin/ \
   && rm -rf cogment cogment-api.tar.gz cogment-api-*
 
-CMD npm run build
+CMD npm run test

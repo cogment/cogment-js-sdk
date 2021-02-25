@@ -1,4 +1,7 @@
-image: docker:20.10.0
+image: docker:20.10.3
+
+variables:
+  COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
 
 default:
   tags:
@@ -11,31 +14,31 @@ stages:
   - release
   - pages
 
-variables:
-  COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
-
 pre:install:
   stage: .pre
-  image: node:14-alpine
+  image: node:14
   script:
     - npm install
-    - cd cli && npm install
+    - pushd cli && npm install && popd
+    - pushd __tests__/end-to-end/cogment-app/webapp && npm install && popd
   artifacts:
     expire_in: 1 day
     paths:
       - node_modules
       - cli/node_modules
+      - __tests__/end-to-end/cogment-app/webapp/node_modules
 
 test:
   stage: test
   variables:
     NODE_ENV: test
+    COMPOSE_FILE: docker-compose.yaml
   before_script:
+    - apk add bash docker-compose
     - docker network prune -f
-    - apk add docker-compose bash
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker-compose build cogment-js-sdk
-    - docker-compose run cogment-js-sdk npm run build:protos
+    - docker-compose run cogment-js-sdk npm run init
     - bin/up.bash
   script:
     - docker-compose run -e NODE_ENV=test cogment-js-sdk npm run test:ci
@@ -47,7 +50,7 @@ test:
     expose_as: reports
     expire_in: 1 day
     paths:
-      - src/cogment
+      - src/cogment/api
       - coverage
       - allure-report
       - docker.log
@@ -69,7 +72,7 @@ build:
 
 release:
   stage: release
-  image: node:14-alpine
+  image: node:14
   variables:
     NODE_ENV: production
   before_script:
