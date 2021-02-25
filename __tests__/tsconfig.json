@@ -4,7 +4,7 @@
     "allowSyntheticDefaultImports": true,
     "checkJs": false,
     "composite": true,
-    "declaration": false,
+    "declaration": true,
     "declarationMap": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

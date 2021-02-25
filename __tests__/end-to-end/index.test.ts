@@ -130,10 +130,76 @@ describe('a cogment-app', () => {
     );
 
     const trialController = service.createTrialController();
-
     const {trialId} = await trialController.startTrial(trialActor.name);
     await trialController.joinTrial(trialId, trialActor);
     // eslint-disable-next-line compat/compat
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return trialController.terminateTrial(trialId);
+  });
+
+  test('passes back actor config', async () => {
+    const trialActor: TrialActor = {name: 'client_actor', actorClass: 'client'};
+    const service = createService({
+      cogSettings: cogSettings,
+      grpcURL: config.connection.http,
+      unaryTransportFactory: NodeHttpTransport(),
+      streamingTransportFactory: grpc.WebsocketTransport(),
+    });
+
+    // TODO: this fails if run before registerActor
+    // const trialController = service.createTrialController(trialLifecycleClient);
+
+    service.registerActor<ClientAction, Observation, never>(
+      trialActor,
+      async (actorSession) => {
+        logger.info('Actor running');
+        actorSession.start();
+        logger.info('Actor session started');
+
+        setTimeout(actorSession.stop.bind(actorSession), 3000);
+
+        const action = new ClientAction();
+        action.setRequest('ping');
+        actorSession.sendAction(action);
+
+        for await (const {
+          observation,
+          message,
+          reward,
+          tickId,
+        } of actorSession.eventLoop()) {
+          if (observation) {
+            logger.info(
+              `Received an observation: ${JSON.stringify(
+                observation.toObject(),
+                undefined,
+                2,
+              )}`,
+            );
+            const action = new ClientAction();
+            action.setRequest('ping');
+            actorSession.sendAction(action);
+          }
+          if (message) {
+            logger.info(message);
+          }
+
+          if (reward) {
+            logger.info(reward);
+          }
+
+          if (tickId ?? 0 > 10) {
+            actorSession.stop();
+          }
+        }
+      },
+    );
+
+    const trialController = service.createTrialController();
+    const {trialId} = await trialController.startTrial(trialActor.name);
+    const joinResponse = await trialController.joinTrial(trialId, trialActor);
+    expect(joinResponse.config.configMessage).toEqual('test');
+
     await new Promise((resolve) => setTimeout(resolve, 500));
     return trialController.terminateTrial(trialId);
   });

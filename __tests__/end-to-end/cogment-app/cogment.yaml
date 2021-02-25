@@ -36,6 +36,7 @@ actor_classes:
       space: cogment_app.ClientAction
     observation:
       space: cogment_app.Observation
+    config_type: cogment_app.ClientConfig
   - id: echo
     action:
       space: cogment_app.EchoAction
@@ -52,6 +53,8 @@ trial_params:
     - name: client_actor
       actor_class: client
       endpoint: client
+      config:
+        config_message: 'test'
     - name: echo_echo_1
       actor_class: echo
       implementation: echo

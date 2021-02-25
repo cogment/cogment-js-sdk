@@ -48,7 +48,7 @@ export class TrialController {
 
   /**
    *
-   * @param cogSettings - {@link CogSettings | `cog_settings.js`} generated file
+   * @param cogSettings - {@link CogSettings} generated file
    * @param actors - An array of [{@link TrialActor}, {@link ActorImplementation}] tuples
    * @param trialLifecycleClient - A {@link TrialLifecycleClient | `TrialLifecycleClient`}
    * @param clientActorClient - An {@link ClientActorClient | `ClientActorClient`}
@@ -132,6 +132,7 @@ export class TrialController {
       request.setActorName(trialActor.name);
       request.setActorClass(trialActor.actorClass);
     }
+
     // eslint-disable-next-line compat/compat
     const response = await new Promise<JoinTrialReturnType>(
       (resolve, reject) => {
@@ -142,7 +143,24 @@ export class TrialController {
               return reject(error);
             }
             this.trialId = response.getTrialId();
-            resolve(response.toObject());
+            const config = response.getConfig();
+            const responseObject = response.toObject() as JoinTrialReturnType;
+            if (config && trialActor) {
+              const configType = this.cogSettings.actorClasses[
+                trialActor.actorClass
+              ].config;
+              if (!configType) {
+                throw new Error(
+                  'Config type is not defined on the submitted actorClass',
+                );
+              }
+              const newConfig = configType
+                .deserializeBinary(config.getContent_asU8())
+                .toObject();
+
+              responseObject.config = newConfig;
+            }
+            resolve(responseObject);
           },
         );
       },
@@ -251,6 +269,7 @@ export type JoinTrialArguments = {
   trialId: string;
 };
 
-export type JoinTrialReturnType = TrialJoinReply.AsObject;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type JoinTrialReturnType = TrialJoinReply.AsObject & {config: any};
 
 export type VersionReturnType = {version: VersionInfo.AsObject['versionsList']};

@@ -20,6 +20,10 @@ message ClientAction {
   string request = 1;
 }
 
+message ClientConfig {
+  string config_message = 1;
+}
+
 message EchoAction {
   string response = 1;
 }
