@@ -79,6 +79,7 @@ release:
     - mkdir -pm 0700 ~/.ssh
     - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
     - ssh-keyscan github.com >> ~/.ssh/known_hosts
+    - eval $(ssh-agent -s)
     - echo "${GIT_SSH_PRIVATE_KEY}" | ssh-add -
   script:
     - git checkout "${CI_COMMIT_BRANCH}"
