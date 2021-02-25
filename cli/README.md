@@ -1,4 +1,4 @@
-# [**@cogment/cogment-js-cli**](https://github.com/cogment/cogment-js-cli)
+# [**@cogment/cogment-js-cli**](https://github.com/cogment/cogment-js-sdk)
 
 Command line tool for the cogment-js-sdk repository
 
@@ -8,17 +8,14 @@ Command line tool for the cogment-js-sdk repository
 [![License](https://img.shields.io/npm/l/@cogment/cogment-js-cli.svg)](https://github.com/cogment/cogment-js-cli/blob/master/package.json)
 
 <!-- toc -->
-
-*   [@cogment/cogment-js-cli](#cogmentcogment-js-cli)
-*   [Usage](#usage)
-*   [Commands](#commands)
-
+* [[**@cogment/cogment-js-cli**](https://github.com/cogment/cogment-js-sdk)](#cogmentcogment-js-clihttpsgithubcomcogmentcogment-js-sdk)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @cogment/cogment-js-cli
 $ cogjs-cli COMMAND
@@ -30,55 +27,78 @@ USAGE
   $ cogjs-cli COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
+* [`cogjs-cli fetch-cogment-cli`](#cogjs-cli-fetch-cogment-cli)
+* [`cogjs-cli fetch-protos`](#cogjs-cli-fetch-protos)
+* [`cogjs-cli help [COMMAND]`](#cogjs-cli-help-command)
+* [`cogjs-cli init:docker-compose-override`](#cogjs-cli-initdocker-compose-override)
 
-*   [`cogjs-cli fetch-protos`](#cogjs-cli-fetch-protos)
-*   [`cogjs-cli help [COMMAND]`](#cogjs-cli-help-command)
-*   [`cogjs-cli init:docker-compose-override`](#cogjs-cli-initdocker-compose-override)
+## `cogjs-cli fetch-cogment-cli`
+
+fetch fetch-cogment-cli release
+
+```
+USAGE
+  $ cogjs-cli fetch-cogment-cli
+
+OPTIONS
+  -h, --help                   show CLI help
+  -o, --out=out                [default: cogment/cli/cogment] output destination
+  -r, --releaseUrl=releaseUrl  cogment-cli release version, uses cosmiconfig
+
+EXAMPLE
+  $ cogjs-cli fetch-cogment-cli
+```
+
+_See code: [src/commands/fetch-cogment-cli.ts](https://github.com/cogment/cogment-js-sdk/blob/v0.0.0/src/commands/fetch-cogment-cli.ts)_
 
 ## `cogjs-cli fetch-protos`
 
 fetch cogment-api protobuf release
 
-    USAGE
-      $ cogjs-cli fetch-protos
+```
+USAGE
+  $ cogjs-cli fetch-protos
 
-    OPTIONS
-      -h, --help                   show CLI help
-      -r, --releaseUrl=releaseUrl  cogment-api release version, uses cosmiconfig
+OPTIONS
+  -h, --help                   show CLI help
+  -r, --releaseUrl=releaseUrl  cogment-api release version, uses cosmiconfig
 
-    EXAMPLE
-      $ cogjs-cli fetch-protos
+EXAMPLE
+  $ cogjs-cli fetch-protos
+```
 
-*See code: [src/commands/fetch-protos.ts](https://github.com/cogment/cogment-js-cli/blob/v0.0.0/src/commands/fetch-protos.ts)*
+_See code: [src/commands/fetch-protos.ts](https://github.com/cogment/cogment-js-sdk/blob/v0.0.0/src/commands/fetch-protos.ts)_
 
 ## `cogjs-cli help [COMMAND]`
 
 display help for cogjs-cli
 
-    USAGE
-      $ cogjs-cli help [COMMAND]
+```
+USAGE
+  $ cogjs-cli help [COMMAND]
 
-    ARGUMENTS
-      COMMAND  command to show help for
+ARGUMENTS
+  COMMAND  command to show help for
 
-    OPTIONS
-      --all  see all commands in CLI
+OPTIONS
+  --all  see all commands in CLI
+```
 
-*See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1/src/commands/help.ts)*
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
 ## `cogjs-cli init:docker-compose-override`
 
 creates a docker-compose.override.yaml for local development
 
-    USAGE
-      $ cogjs-cli init:docker-compose-override
+```
+USAGE
+  $ cogjs-cli init:docker-compose-override
+```
 
-*See code: [src/commands/init/docker-compose-override.ts](https://github.com/cogment/cogment-js-cli/blob/v0.0.0/src/commands/init/docker-compose-override.ts)*
-
+_See code: [src/commands/init/docker-compose-override.ts](https://github.com/cogment/cogment-js-sdk/blob/v0.0.0/src/commands/init/docker-compose-override.ts)_
 <!-- commandsstop -->

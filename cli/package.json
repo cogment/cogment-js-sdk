@@ -3,17 +3,23 @@
   "version": "0.0.0",
   "description": "Command line tool for the cogment-js-sdk repository",
   "keywords": [
-    "oclif"
+    "oclif",
+    "cogment"
   ],
   "homepage": "https://github.com/cogment/cogment-js-sdk/",
-  "bugs": "https://github.com/cogment/cogment-js-cli/issues",
-  "repository": "cogment/cogment-js-cli",
+  "bugs": "https://github.com/cogment/cogment-js-sdk/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cogment/cogment-js-sdk.git",
+    "directory": "cli"
+  },
   "license": "SEE LICENSE IN LICENSE.md",
   "author": "Emma Coutu @ecoutu",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "cogjs-cli": "./bin/run"
+    "cogjs-cli": "./bin/run",
+    "cogment": "./bin/cogment"
   },
   "files": [
     "/bin",
@@ -22,6 +28,7 @@
     "/oclif.manifest.json"
   ],
   "scripts": {
+    "postinstall": "bin/run fetch-cogment-cli --out bin/cogment",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",
     "test": "echo NO TESTS",
