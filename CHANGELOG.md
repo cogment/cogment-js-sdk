@@ -1,3 +1,16 @@
+# [1.23.0](https://github.com/cogment/cogment-js-sdk/compare/v1.22.0...v1.23.0) (2021-02-26)
+
+
+### Bug Fixes
+
+* **cli:** do not list cogment as a bin file ([db4b97d](https://github.com/cogment/cogment-js-sdk/commit/db4b97db80077ae10be57a354912bec85c6a088d))
+* **trialcontroller.ts, some tests:** actor config now gets deserialized and sent on joinTrial ([937b553](https://github.com/cogment/cogment-js-sdk/commit/937b5532fb94243dab121aa0aa391c2576dd1b7f)), closes [#52](https://github.com/cogment/cogment-js-sdk/issues/52)
+
+
+### Features
+
+* **cli:** install cogment-cli as part of cogjs-cli ([c917548](https://github.com/cogment/cogment-js-sdk/commit/c917548ee94bc4d75890493ba71c66f789eb4ab0))
+
 # [1.22.0](https://github.com/cogment/cogment-js-sdk/compare/v1.21.1...v1.22.0) (2021-02-25)
 
 
