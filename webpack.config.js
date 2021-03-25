@@ -83,9 +83,10 @@ module.exports = [
     ],
     output: {
       filename: `[name].esm.js`,
-      module: false,
+      module: true,
       scriptType: 'module',
       uniqueName: 'cogment-esm',
+      libraryTarget: 'module',
       library: {
         type: 'module',
       },
