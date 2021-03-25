@@ -22,20 +22,27 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import {CogSettings} from './types';
-import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
+import {getLogger} from '../lib/Logger';
+import {
+  TrialActionReply,
+  TrialActionRequest,
+  TrialListEntry,
+  TrialListRequest,
+} from './api/orchestrator_pb';
 import {
   ClientActor,
   ClientActorClient,
+  TrialLifecycle,
   TrialLifecycleClient,
 } from './api/orchestrator_pb_service';
 import {CogmentService} from './CogmentService';
-import {getLogger} from '../lib/Logger';
+import {CogSettings} from './types';
 
 const logger = getLogger();
 
 /**
- * Creates a new {@link CogmentService} from a generated {@link CogSettings | 'cog_settings.ts'}. Optionally pass transports used by clients.
+ * Creates a new {@link CogmentService} from a generated {@link CogSettings | 'cog_settings.ts'}. Optionally pass
+ * transports used by clients.
  *
  * @example Instantiating the `cogment` API.
  * ```typescript
@@ -48,7 +55,8 @@ const logger = getLogger();
  * @param cogSettings - Settings loaded from the generated `cog_settings.js` file.
  * @param grpcURL - HTTP(S) url of grpc-web reverse proxy to orchestrator.
  * @param unaryTransportFactory - A `grpc.TransportFactory` used to make unary (non-streaming) requests to the backend.
- * @param streamingTransportFactory - A `grpc.TransportFactory` used to instantiate streaming connections to the backend.
+ * @param streamingTransportFactory - A `grpc.TransportFactory` used to instantiate streaming connections to the
+ *   backend.
  *
  * @public
  * @beta
@@ -87,11 +95,21 @@ export function createService({
     transport: streamingTransportFactory,
   });
 
+  const watchTrialsClient = grpc.client<
+    TrialListRequest,
+    TrialListEntry,
+    typeof TrialLifecycle.WatchTrials
+  >(TrialLifecycle.WatchTrials, {
+    host: grpcURL,
+    transport: streamingTransportFactory,
+  });
+
   return new CogmentService(
     cogSettings,
     trialLifecycleClient,
     clientActorClient,
     actionStreamClient,
+    watchTrialsClient,
   );
 }
 

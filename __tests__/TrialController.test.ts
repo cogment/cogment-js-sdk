@@ -17,11 +17,15 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import {createService} from '../src/cogment';
-import {TrialInfoReply} from '../src/cogment/api/orchestrator_pb';
+import {createService} from '../src';
+import {
+  TrialInfoReply,
+  TrialListEntry,
+  TrialState,
+} from '../src/cogment/api/orchestrator_pb';
 import {StartTrialReturnType} from '../src/cogment/TrialController';
-import {config} from '../src/lib/Config';
 import {TrialActor} from '../src/cogment/types';
+import {config} from '../src/lib/Config';
 import {cogSettings} from './end-to-end/cogment-app/webapp/src/CogSettings';
 
 describe('TrialController', () => {
@@ -35,6 +39,7 @@ describe('TrialController', () => {
   let startTrialPromise: Promise<StartTrialReturnType>;
   let trialInfoPromise: Promise<TrialInfoReply>;
   let terminateTrialPromise: Promise<void>;
+  let trial: TrialListEntry;
 
   beforeAll(async () => {
     const clientName = TRIAL_ACTOR.name;
@@ -57,8 +62,21 @@ describe('TrialController', () => {
       trialId,
     );
 
-    // eslint-disable-next-line compat/compat
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    for await (const trialListEntry of trialController.watchTrials([
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+    ])) {
+      if (trialListEntry) {
+        trial = trialListEntry;
+        break;
+      }
+    }
 
     terminateTrialPromise = trialController.terminateTrial(trialId);
 
@@ -104,6 +122,17 @@ describe('TrialController', () => {
       const trialController = service.createTrialController();
       const response = await trialController.version();
       expect(response.version.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('#watchTrials()', () => {
+    test('returns the running trial', () => {
+      expect(trial.getTrialId()).toMatch(
+        new RegExp(
+          /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i,
+        ),
+      );
+      expect(Object.values(TrialState)).toContain(trial.getState());
     });
   });
 });

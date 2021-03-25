@@ -29,6 +29,8 @@ import {
   TrialInfoRequest,
   TrialJoinReply,
   TrialJoinRequest,
+  TrialListEntry,
+  TrialListRequest,
   TrialMessageReply,
   TrialStartReply,
   TrialStartRequest,
@@ -44,7 +46,10 @@ import {getLogger} from '../lib/Logger';
 const logger = getLogger('TrialController');
 
 export class TrialController {
+  private nextTrialListEntryPromise?: Promise<boolean>;
+  private nextTrialListEntryResolve?: (doContinue: boolean) => void;
   private trialId?: string;
+  private trialListEntries: TrialListEntry[] = [];
 
   /**
    *
@@ -53,6 +58,7 @@ export class TrialController {
    * @param trialLifecycleClient - A {@link TrialLifecycleClient | `TrialLifecycleClient`}
    * @param clientActorClient - An {@link ClientActorClient | `ClientActorClient`}
    * @param actionStreamClient - A grpc-web client for the {@link ClientActor#ActionStream} endpoint
+   * @param watchTrialsClient - A grpc-web client for the {@link TrialLifecycleClient#WatchTrials} endpoint
    */
   // eslint-disable-next-line max-params
   constructor(
@@ -67,7 +73,17 @@ export class TrialController {
       TrialActionRequest,
       TrialActionReply
     >,
-  ) {}
+    private watchTrialsClient: grpc.Client<TrialListRequest, TrialListEntry>,
+  ) {
+    // eslint-disable-next-line compat/compat
+    this.nextTrialListEntryPromise = new Promise(
+      (resolve) => (this.nextTrialListEntryResolve = resolve),
+    );
+
+    this.watchTrialsClient.onMessage(this.onWatchTrialsMessage);
+    this.watchTrialsClient.onHeaders(this.onWatchTrialsHeaders);
+    this.watchTrialsClient.onEnd(this.onWatchTrialsEnd);
+  }
 
   /**
    * A list of {@link TrialActor}s associated to this trial.
@@ -104,6 +120,12 @@ export class TrialController {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public async isTrialOver(trialId: string): Promise<boolean> {
+    // eslint-disable-next-line compat/compat
+    return Promise.resolve(!this.trialId);
+  }
+
   // TODO: this causes an orchestrator crash, guessing header related in getTrialInfo call
   public async isTrialOverBroken(trialId: string): Promise<boolean> {
     return this.getTrialInfo(trialId).then((trialInfoReply) => {
@@ -114,12 +136,6 @@ export class TrialController {
         );
       });
     });
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public async isTrialOver(trialId: string): Promise<boolean> {
-    // eslint-disable-next-line compat/compat
-    return Promise.resolve(!this.trialId);
   }
 
   public async joinTrial(
@@ -154,11 +170,9 @@ export class TrialController {
                   'Config type is not defined on the submitted actorClass',
                 );
               }
-              const newConfig = configType
+              responseObject.config = configType
                 .deserializeBinary(config.getContent_asU8())
                 .toObject();
-
-              responseObject.config = newConfig;
             }
             resolve(responseObject);
           },
@@ -237,6 +251,79 @@ export class TrialController {
       );
     });
   }
+
+  public async *watchTrials(
+    filter?: (0 | 1 | 2 | 3 | 4 | 5)[],
+  ): AsyncGenerator<TrialListEntry, void, void> {
+    const trialListRequest = new TrialListRequest();
+    if (filter) {
+      trialListRequest.setFilterList(filter);
+    }
+
+    this.watchTrialsClient.start();
+    this.watchTrialsClient.send(trialListRequest);
+
+    while (true) {
+      const trialListEntry = this.trialListEntries.shift();
+      if (trialListEntry) {
+        logger.debug(
+          `new trialListEntry ${JSON.stringify(trialListEntry, undefined, 2)}`,
+        );
+        yield trialListEntry;
+      } else {
+        logger.debug('No trialListEntries available');
+        const doContinue = await this.nextTrialListEntryPromise;
+        if (!doContinue) {
+          break;
+        }
+      }
+    }
+  }
+
+  private onWatchTrialsEnd = (
+    code: grpc.Code,
+    message: string,
+    trailers: grpc.Metadata,
+    // eslint-disable-next-line max-params
+  ) => {
+    logger.debug(
+      `watchTrials received end, code: ${code}, message: ${message}, trailers: ${JSON.stringify(
+        trailers,
+        undefined,
+        2,
+      )}`,
+    );
+    if (this.nextTrialListEntryResolve) {
+      this.nextTrialListEntryResolve(false);
+    }
+  };
+
+  private onWatchTrialsHeaders = (headers: grpc.Metadata) => {
+    logger.debug(
+      `watchTrials received headers: ${JSON.stringify(headers, undefined, 2)}`,
+    );
+  };
+
+  private onWatchTrialsMessage = (trialListEntry: TrialListEntry) => {
+    if (!trialListEntry) {
+      return logger.warn('Received a TrialListEntry without any data');
+    }
+    logger.debug(
+      `Received a TrialListEntry: ${JSON.stringify(
+        trialListEntry.toObject(),
+        undefined,
+        2,
+      )}`,
+    );
+    this.trialListEntries.push(trialListEntry);
+    if (this.nextTrialListEntryResolve) {
+      this.nextTrialListEntryResolve(true);
+    }
+    // eslint-disable-next-line compat/compat
+    this.nextTrialListEntryPromise = new Promise(
+      (resolve) => (this.nextTrialListEntryResolve = resolve),
+    );
+  };
 
   private async startActors(trialId: string) {
     // eslint-disable-next-line compat/compat

@@ -74,7 +74,7 @@ services:
     image: registry.gitlab.com/ai-r/change_me/orchestrator:latest
     build:
       context: ./__tests__/end-to-end/cogment-app/
-      dockerfile: orchestrator/Dockerfile
+      dockerfile: orchestrator.dockerfile
     x-cogment:
       ports:
         - port: 9000

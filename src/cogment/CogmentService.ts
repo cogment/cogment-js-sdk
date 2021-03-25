@@ -19,7 +19,12 @@ import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
 import {CogSettings, TrialActor} from './types';
 import {ActorSession} from './ActorSession';
-import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
+import {
+  TrialActionReply,
+  TrialActionRequest,
+  TrialListEntry,
+  TrialListRequest,
+} from './api/orchestrator_pb';
 import {
   ClientActorClient,
   TrialLifecycleClient,
@@ -50,6 +55,7 @@ export class CogmentService {
       TrialActionRequest,
       TrialActionReply
     >,
+    private watchTrialsClient: grpc.Client<TrialListRequest, TrialListEntry>,
   ) {}
 
   public registerActor<
@@ -85,6 +91,7 @@ export class CogmentService {
       this.trialLifecycleClient,
       this.clientActorClient,
       this.actionStreamClient,
+      this.watchTrialsClient,
     );
   }
 }
