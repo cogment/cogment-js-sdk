@@ -46,6 +46,7 @@ module.exports = {
     'clover',
     ['html-spa', {subdir: 'report'}],
     'json',
+    'json-summary',
     'lcov',
     'text',
     'text-summary',
@@ -58,6 +59,14 @@ module.exports = {
     '.d.ts',
     'cli',
   ],
+  coverageThreshold: {
+    global: {
+      branches: 65.16,
+      functions: 79.22,
+      lines: 88.11,
+      statements: 87.33,
+    },
+  },
   reporters: ['default', 'jest-junit', 'jest-sonar'],
   roots: ['<rootDir>/src', '<rootDir>/__tests__'],
   slowTestThreshold: 10,
