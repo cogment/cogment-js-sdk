@@ -22,6 +22,7 @@ import {
   CogSettings,
   CogSettingsActorClass,
   Event,
+  EventType,
   Reward,
   TrialActor,
 } from './types';
@@ -95,6 +96,7 @@ export class ActorSession<
         if (event.observation) {
           this.lastObservation = event.observation;
         }
+
         yield event;
       } else {
         logger.trace('No events available');
@@ -182,6 +184,7 @@ export class ActorSession<
 
   private onActionStreamMessage = (action: TrialActionReply) => {
     const data = action.getData();
+    const type = action.getFinalData() ? EventType.FINAL : EventType.ACTIVE;
     if (!data) {
       return logger.warn('Received an action without any data');
     }
@@ -208,10 +211,11 @@ export class ActorSession<
             sourcePb: observation.getData(),
             destinationPb: this.actorCogSettings.observationSpace,
           }),
+          type,
         };
       });
 
-    const messages: {message: CogMessage; tickId: number}[] = [
+    const messages: {message: CogMessage; tickId: number; type: EventType}[] = [
       ...data.getMessagesList(),
     ].map((message) => {
       return {
@@ -222,11 +226,15 @@ export class ActorSession<
           sender: message.getSenderName(),
           data: message.getPayload(),
         },
+        type,
       };
     });
 
     const rewards = [...data.getRewardsList()].map((reward) => {
-      return reward.toObject();
+      return {
+        ...reward.toObject(),
+        type,
+      };
     });
 
     this.events = [

@@ -18,6 +18,13 @@
 import {Message} from 'google-protobuf';
 import {CogMessage} from './CogMessage';
 
+export enum EventType {
+  NONE = 0,
+  ACTIVE = 1,
+  ENDING = 2,
+  FINAL = 3,
+}
+
 export interface Event<
   ObservationT extends Message,
   FeedbackT extends Message
@@ -27,4 +34,5 @@ export interface Event<
   observation?: ObservationT;
   reward?: FeedbackT;
   message?: CogMessage;
+  type?: EventType;
 }
