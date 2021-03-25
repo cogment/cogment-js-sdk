@@ -24,9 +24,9 @@ import {
   VersionRequest,
 } from '../../src/cogment/api/common_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
-import {config} from '../../src/cogment/lib/Config';
-import {getLogger} from '../../src/cogment/lib/Logger';
-import {TrialActor} from '../../src/types';
+import {config} from '../../src/lib/Config';
+import {getLogger} from '../../src/lib/Logger';
+import {TrialActor} from '../../src/cogment/types';
 import {cogSettings} from './cogment-app/webapp/src/CogSettings';
 import {ClientAction, Observation} from './cogment-app/webapp/src/data_pb';
 

@@ -20,8 +20,8 @@ import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {createService} from '../src/cogment';
 import {TrialInfoReply} from '../src/cogment/api/orchestrator_pb';
 import {StartTrialReturnType} from '../src/cogment/TrialController';
-import {config} from '../src/cogment/lib/Config';
-import {TrialActor} from '../src/types';
+import {config} from '../src/lib/Config';
+import {TrialActor} from '../src/cogment/types';
 import {cogSettings} from './end-to-end/cogment-app/webapp/src/CogSettings';
 
 describe('TrialController', () => {

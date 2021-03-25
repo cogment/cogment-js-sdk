@@ -17,7 +17,7 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import {CogSettings, TrialActor} from '../types';
+import {CogSettings, TrialActor} from './types';
 import {ActorSession} from './ActorSession';
 import {TrialConfig, VersionInfo, VersionRequest} from './api/common_pb';
 import {ServiceError} from './api/environment_pb_service';
@@ -39,7 +39,7 @@ import {
   TrialLifecycleClient,
 } from './api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
-import {getLogger} from './lib/Logger';
+import {getLogger} from '../lib/Logger';
 
 const logger = getLogger('TrialController');
 

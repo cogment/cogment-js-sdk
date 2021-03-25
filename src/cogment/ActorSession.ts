@@ -24,8 +24,8 @@ import {
   Event,
   Reward,
   TrialActor,
-} from '../types';
-import {CogMessage} from '../types/CogMessage';
+} from './types';
+import {CogMessage} from './types/CogMessage';
 import {Action as ActionPb, Message as MessagePb} from './api/common_pb';
 import {
   TrialActionReply,
@@ -33,8 +33,8 @@ import {
   TrialMessageRequest,
 } from './api/orchestrator_pb';
 import {ClientActorClient} from './api/orchestrator_pb_service';
-import {deserializeData} from './lib/DeltaEncoding';
-import {getLogger} from './lib/Logger';
+import {deserializeData} from '../lib/DeltaEncoding';
+import {getLogger} from '../lib/Logger';
 import {SendMessageReturnType} from './TrialController';
 
 const logger = getLogger('ActorSession');

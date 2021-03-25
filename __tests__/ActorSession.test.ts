@@ -20,9 +20,9 @@ import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 import {createService} from '../src';
 import {TrialMessageReply} from '../src/cogment/api/orchestrator_pb';
-import {config} from '../src/cogment/lib/Config';
-import {getLogger} from '../src/cogment/lib/Logger';
-import {TrialActor} from '../src/types';
+import {config} from '../src/lib/Config';
+import {getLogger} from '../src/lib/Logger';
+import {TrialActor} from '../src/cogment/types';
 import {cogSettings} from './end-to-end/cogment-app/webapp/src/CogSettings';
 import {
   ClientAction,

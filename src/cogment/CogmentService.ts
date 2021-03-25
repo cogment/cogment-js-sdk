@@ -17,14 +17,14 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import {CogSettings, TrialActor} from '../types';
+import {CogSettings, TrialActor} from './types';
 import {ActorSession} from './ActorSession';
 import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
 import {
   ClientActorClient,
   TrialLifecycleClient,
 } from './api/orchestrator_pb_service';
-import {getLogger} from './lib/Logger';
+import {getLogger} from '../lib/Logger';
 import {TrialController} from './TrialController';
 
 const logger = getLogger('CogmentService');

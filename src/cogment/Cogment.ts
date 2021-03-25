@@ -22,7 +22,7 @@
  */
 
 import {grpc} from '@improbable-eng/grpc-web';
-import {CogSettings} from '../types';
+import {CogSettings} from './types';
 import {TrialActionReply, TrialActionRequest} from './api/orchestrator_pb';
 import {
   ClientActor,
@@ -30,7 +30,7 @@ import {
   TrialLifecycleClient,
 } from './api/orchestrator_pb_service';
 import {CogmentService} from './CogmentService';
-import {getLogger} from './lib/Logger';
+import {getLogger} from '../lib/Logger';
 
 const logger = getLogger();
 
