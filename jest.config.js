@@ -20,12 +20,7 @@ const {defaultsDeep} = require('lodash');
 const commonConfig = {
   prettierPath: './node_modules/.bin/prettier',
   preset: 'ts-jest',
-  setupFilesAfterEnv: [
-    './jest.setup.js',
-    'jest-chain',
-    'jest-extended',
-    'jest-allure/dist/setup',
-  ],
+  setupFilesAfterEnv: ['./jest.setup.js'],
   testPathIgnorePatterns: [
     '<rootDir>/__tests__/end-to-end/cogment-app',
     '<rootDir>/src/cogment/api',
