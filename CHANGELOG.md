@@ -1,3 +1,11 @@
+# [1.24.0](https://github.com/cogment/cogment-js-sdk/compare/v1.23.0...v1.24.0) (2021-03-26)
+
+
+### Features
+
+* event.type now implemented ([d381968](https://github.com/cogment/cogment-js-sdk/commit/d38196826843f9823f428a1b8e5f17c9a0a1dc78))
+* **trialcontroller.ts:** watchTrials endpoint implemented ([4c5430e](https://github.com/cogment/cogment-js-sdk/commit/4c5430e7bb20f4f4fc012903cd7460425233c880)), closes [#47](https://github.com/cogment/cogment-js-sdk/issues/47)
+
 # [1.23.0](https://github.com/cogment/cogment-js-sdk/compare/v1.22.0...v1.23.0) (2021-02-26)
 
 
