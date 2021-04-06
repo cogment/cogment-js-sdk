@@ -29,7 +29,7 @@
     "analyze": "npx size-limit --why",
     "build": "npx npm-run-all build:clean build:protos build:webpack build:typings",
     "build:clean": "npx rimraf dist public cogment cogment-api.tar.gz cogment-api-* src/cogment/api",
-    "build:docs": "typedoc",
+    "build:docs": "typedoc --plugin typedoc-plugin-markdown",
     "build:install": "npm install",
     "build:protos": "npx npm-run-all build:protos:fetch build:protos:compile",
     "build:protos:compile": "protoc -I . cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
@@ -84,7 +84,8 @@
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.14.0",
     "@improbable-eng/grpc-web-node-http-transport": "^0.14.0",
-    "debug": "^4.3.1"
+    "debug": "^4.3.1",
+    "typedoc-plugin-markdown": "^3.6.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
