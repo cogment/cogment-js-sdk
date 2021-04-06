@@ -31,13 +31,13 @@ trial:
 
 # Static configuration
 actor_classes:
-  - id: client
+  - name: client
     action:
       space: cogment_app.ClientAction
     observation:
       space: cogment_app.Observation
     config_type: cogment_app.ClientConfig
-  - id: echo
+  - name: echo
     action:
       space: cogment_app.EchoAction
     observation:

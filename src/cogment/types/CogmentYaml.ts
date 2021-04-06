@@ -16,7 +16,7 @@
  */
 
 export interface CogmentYamlActorClass {
-  id: string;
+  name: string;
   action: {
     space: string;
   };

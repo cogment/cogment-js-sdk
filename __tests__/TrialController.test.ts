@@ -18,11 +18,7 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {createService} from '../src';
-import {
-  TrialInfoReply,
-  TrialListEntry,
-  TrialState,
-} from '../src/cogment/api/orchestrator_pb';
+import {TrialListEntry, TrialState} from '../src/cogment/api/orchestrator_pb';
 import {StartTrialReturnType} from '../src/cogment/TrialController';
 import {TrialActor} from '../src/cogment/types';
 import {config} from '../src/lib/Config';
@@ -37,7 +33,6 @@ describe('TrialController', () => {
   let isTrialOverBeforeTerminateTrial: boolean;
   let isTrialOverAfterTerminateTrial: boolean;
   let startTrialPromise: Promise<StartTrialReturnType>;
-  let trialInfoPromise: Promise<TrialInfoReply>;
   let terminateTrialPromise: Promise<void>;
   let trial: TrialListEntry;
 
@@ -55,8 +50,6 @@ describe('TrialController', () => {
     startTrialPromise = trialController.startTrial(clientName);
 
     const {trialId} = await startTrialPromise;
-
-    trialInfoPromise = trialController.getTrialInfo(trialId);
 
     isTrialOverBeforeTerminateTrial = await trialController.isTrialOver(
       trialId,

@@ -5,7 +5,7 @@ services:
     image: namely/grpc-cli:1.32_1
 
   cogment-cli:
-    image: cogment/cli:v1.0.0-alpha7
+    image: cogment/cli:v1.0.0-alpha9
     volumes:
       - ./:/cogment
 

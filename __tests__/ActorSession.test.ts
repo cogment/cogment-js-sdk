@@ -20,9 +20,9 @@ import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
 import {createService} from '../src';
 import {TrialMessageReply} from '../src/cogment/api/orchestrator_pb';
+import {TrialActor} from '../src/cogment/types';
 import {config} from '../src/lib/Config';
 import {getLogger} from '../src/lib/Logger';
-import {TrialActor} from '../src/cogment/types';
 import {cogSettings} from './end-to-end/cogment-app/webapp/src/CogSettings';
 import {
   ClientAction,
@@ -113,23 +113,23 @@ describe('ActorSession', () => {
               );
             }
           }
+
           if (tickId !== undefined && tickId !== null && tickId >= 0) {
             lastTickId = tickId;
             tickIds.push(tickId);
 
-            if (!(tickId % 2)) {
-              const message = new Message();
-              const anyPb = new AnyPb();
-              message.setRequest(TEST_MESSAGE);
+            const message = new Message();
+            const anyPb = new AnyPb();
+            message.setRequest(TEST_MESSAGE);
 
-              anyPb.pack(message.serializeBinary(), 'cogment_app.Message');
-              sendMessagePromise = actorSession.sendMessage({
-                from: trialActor.name,
-                payload: anyPb,
-                to: 'echo_echo_1',
-                trialId,
-              });
-            }
+            anyPb.pack(message.serializeBinary(), 'cogment_app.Message');
+
+            sendMessagePromise = actorSession.sendMessage({
+              from: trialActor.name,
+              payload: anyPb,
+              to: 'echo_echo_1',
+              trialId,
+            });
           }
         }
       },
@@ -163,7 +163,7 @@ describe('ActorSession', () => {
 
     test('tickIds are ordered', () => {
       for (let tickIndex = 0; tickIndex < tickIds.length - 1; tickIndex++) {
-        expect(tickIds[tickIndex]).toBeLessThan(tickIds[tickIndex + 1]);
+        expect(tickIds[tickIndex]).toBeLessThanOrEqual(tickIds[tickIndex + 1]);
       }
     });
 

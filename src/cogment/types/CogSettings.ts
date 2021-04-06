@@ -18,7 +18,7 @@
 import {Message} from 'google-protobuf';
 
 export interface CogSettingsActorClass {
-  id: string;
+  name: string;
   config?: typeof Message;
   actionSpace: typeof Message;
   observationSpace: typeof Message;

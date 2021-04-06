@@ -54,44 +54,12 @@ module.exports = {
     '.d.ts',
     'cli',
   ],
-  coverageThreshold: {
-    global: {
-      branches: 65.16,
-      functions: 79.22,
-      lines: 88.11,
-      statements: 87.33,
-    },
-  },
   reporters: ['default', 'jest-junit', 'jest-sonar'],
   roots: ['<rootDir>/src', '<rootDir>/__tests__'],
   slowTestThreshold: 10,
   testEnvironment: 'jsdom',
   verbose: true,
   projects: [
-    defaultsDeep(
-      {
-        displayName: 'lint:prettier',
-        testMatch: ['<rootDir>/src/**/*.ts'],
-        runner: 'prettier',
-      },
-      commonConfig,
-    ),
-    defaultsDeep(
-      {
-        displayName: 'lint:eslint',
-        testMatch: ['<rootDir>/src/**/*.ts'],
-        runner: 'eslint',
-      },
-      commonConfig,
-    ),
-    defaultsDeep(
-      {
-        displayName: 'lint:remark',
-        testMatch: ['<rootDir>/**/*.md'],
-        preset: 'jest-runner-remark',
-      },
-      commonConfig,
-    ),
     defaultsDeep(
       {
         preset: 'ts-jest',

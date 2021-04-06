@@ -114,8 +114,9 @@ export class ActorSession<
   }
 
   public sendAction(userAction: ActionT): void {
-    const action = new ActionPb();
+    const action: ActionPb = new ActionPb();
     action.setContent(userAction.serializeBinary());
+    action.setTickId(-1);
     const request = new TrialActionRequest();
     request.setAction(action);
     this.actionStreamClient.send(request);

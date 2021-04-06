@@ -15,42 +15,28 @@ async def echo(actor_session):
 
     async for event in actor_session.event_loop():
         try:
-            if "message" in event:
-                (sender, msg) = event["message"]
-                message = Message()
-                msg.Unpack(message)
+            for message in event.messages:
+                sender = message.sender_name
+                msg = message.payload
+                
+                message_parsed = Message()
+                msg.Unpack(message_parsed)
 
                 print(
-                    f"{actor_session.name} received a message from {sender}: {message}"
+                    f"{actor_session.name} received a message from {sender}: {message_parsed}"
                 )
-                actor_session.send_message(Message(response=message.request), [sender])
-            if "observation" in event:
-                observation = event["observation"]
+                actor_session.send_message(Message(response=message_parsed.request), [sender])
+            if event.observation:
+                observation = event.observation
+
                 print(
-                    f"{actor_session.name} received observation '{observation.request}' with "
-                    f"timestamp {observation.timestamp}"
+                    f"{actor_session.name} received observation '{observation.snapshot.request}' with "
+                    f"timestamp {observation.snapshot.timestamp}"
                 )
-                action = EchoAction(response=observation.request)
+                action = EchoAction(response=observation.snapshot.request)
                 actor_session.do_action(action)
-            if "reward" in event:
-                reward = event["reward"]
-                print(f"{actor_session.name} received a reward")
 
-            if "final_data" in event:
-                final_data = event["final_data"]
-                for observation in final_data.observations:
-                    print(
-                        f"'{actor_session.name}' received a final observation: '{observation}'"
-                    )
-                for reward in final_data.rewards:
-                    print(
-                        f"'{actor_session.name}' received a final reward for tick #{reward.tick_id}: {reward.value}/{reward.confidence}"
-                    )
-                for message in final_data.messages:
-                    (sender, message) = message
-                    print(
-                        f"'{actor_session.name}' received a final message from '{sender}': - '{message}'"
-                    )
+            # TODO: add test for final data and rewards
 
         except Exception as err:
             print(err)
