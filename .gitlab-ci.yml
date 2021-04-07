@@ -91,6 +91,7 @@ release:
     - main
     - next
     - alpha
+    - beta
 
 pages:
   stage: pages
