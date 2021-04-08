@@ -21,3 +21,4 @@ dependency-check-*.*
 tls
 tsconfig.tsbuildinfo
 __tests__/allure-results
+bin/cogment
