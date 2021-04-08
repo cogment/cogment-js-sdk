@@ -1,3 +1,10 @@
+# [1.25.0-beta.2](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0-beta.1...v1.25.0-beta.2) (2021-04-08)
+
+
+### Bug Fixes
+
+* **cli:** cli depends on cosmiconfig ([0669197](https://github.com/cogment/cogment-js-sdk/commit/06691970ebcfb488ca9769bb0cb5570268ef67c0))
+
 # [1.25.0-beta.1](https://github.com/cogment/cogment-js-sdk/compare/v1.24.0...v1.25.0-beta.1) (2021-04-08)
 
 
