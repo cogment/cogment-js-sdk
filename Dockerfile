@@ -16,7 +16,7 @@ RUN curl -LSso /tmp/allure.deb ${ALLURE_URL} \
   && rm -rf /tmp/allure.deb /var/lib/apt/lists/*
 
 COPY package*.json ./
-RUN npm install
+RUN npm install -g npm && npm install
 
 COPY . .
 

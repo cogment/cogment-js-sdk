@@ -18,6 +18,7 @@ pre:install:
   stage: .pre
   image: node:14
   script:
+    - npm install -g npm
     - npm install
     - pushd cli && npm install && popd
     - pushd __tests__/end-to-end/cogment-app/webapp && npm install && popd
