@@ -41,6 +41,7 @@
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
     "axios": "^0.21.1",
+    "cosmiconfig": "^7.0.0",
     "decompress": "^4.2.1",
     "follow-redirects": "^1.13.3",
     "fs-jetpack": "^4.1.0",
