@@ -1,3 +1,15 @@
+# [1.25.0-beta.1](https://github.com/cogment/cogment-js-sdk/compare/v1.24.0...v1.25.0-beta.1) (2021-04-08)
+
+
+### Bug Fixes
+
+* trigger release ([68403b0](https://github.com/cogment/cogment-js-sdk/commit/68403b0906ee3d13306afb1b0ee62ec3229f74ac))
+
+
+### Features
+
+* **package.json:** output docs to be consumed by cogment-docs ([a898646](https://github.com/cogment/cogment-js-sdk/commit/a898646f376b94910ae27e937b46ec8b7e6d5477))
+
 # [1.24.0](https://github.com/cogment/cogment-js-sdk/compare/v1.23.0...v1.24.0) (2021-03-26)
 
 
