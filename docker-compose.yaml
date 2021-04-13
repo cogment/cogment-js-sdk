@@ -86,7 +86,8 @@ services:
 
   grpcwebproxy:
     build:
-      context: ./__tests__/end-to-end/cogment-app/grpcwebproxy
+      context: ./__tests__/end-to-end/cogment-app
+      dockerfile: grpcwebproxy.dockerfile
     depends_on:
       - orchestrator
     restart: on-failure
