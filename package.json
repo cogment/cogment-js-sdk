@@ -71,7 +71,7 @@
     "start": "webpack serve",
     "storybook": "npx storybook",
     "test:ci": "npm-run-all test:{jest,reports}",
-    "test:jest": "jest --runInBand",
+    "test:jest": "jest",
     "test:reports": "npm-run-all --parallel test:reports:*",
     "test:reports:allure": "allure generate --clean",
     "test:ui": "npx majestic --noOpen",
