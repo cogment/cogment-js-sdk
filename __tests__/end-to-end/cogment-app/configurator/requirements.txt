@@ -1,1 +1,1 @@
-cogment==1.0.0a12
+cogment==1.0.0b2

@@ -45,6 +45,7 @@
 - [Contributing][contributing]
 - [Open Core Development][opencore-development]
 - [Coding guidelines][codeguidelines]
+- [Updating Cogment][updating-cogment]
 - [Sentimental Versioning][sentimental-versioning]
 - [Test Report][tests]
 - [Coverage Report][coverage]
@@ -195,4 +196,5 @@ npm install @cogment/cogment-js-sdk
 [semver.org]: https://semver.org
 [sentimental-versioning]: http://sentimentalversioning.org/
 [tests]: https://ai-r.gitlab.io/cogment-js-sdk/allure
+[updating-cogment]: /docs/updating-cogment.md
 [webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs

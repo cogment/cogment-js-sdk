@@ -19,7 +19,12 @@ import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
 import {CogSettings, TrialActor} from './types';
 import {ActorSession} from './ActorSession';
-import {TrialConfig, VersionInfo, VersionRequest} from './api/common_pb';
+import {
+  TrialConfig,
+  TrialState,
+  VersionInfo,
+  VersionRequest,
+} from './api/common_pb';
 import {ServiceError} from './api/environment_pb_service';
 import {
   TerminateTrialRequest,
@@ -34,7 +39,6 @@ import {
   TrialMessageReply,
   TrialStartReply,
   TrialStartRequest,
-  TrialState,
 } from './api/orchestrator_pb';
 import {
   ClientActorClient,
