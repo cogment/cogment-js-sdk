@@ -4,74 +4,74 @@
     "webpack.Compiler": {
       "entries": [
         {
-          "time": 1618575362897,
+          "time": 1618576248485,
           "type": "time",
           "args": [
             "make hook",
             10,
-            989252716
+            891211163
           ],
-          "message": "make hook: 10989.252715999999 ms"
+          "message": "make hook: 10891.211163 ms"
         },
         {
-          "time": 1618575362897,
+          "time": 1618576248485,
           "type": "time",
           "args": [
             "finish make hook",
             0,
-            146617
+            110914
           ],
-          "message": "finish make hook: 0.146617 ms"
+          "message": "finish make hook: 0.110914 ms"
         },
         {
-          "time": 1618575362900,
+          "time": 1618576248507,
           "type": "time",
           "args": [
             "finish compilation",
             0,
-            3120528
+            21887216
           ],
-          "message": "finish compilation: 3.120528 ms"
+          "message": "finish compilation: 21.887216 ms"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "time",
           "args": [
             "seal compilation",
             10,
-            606628242
+            475770283
           ],
-          "message": "seal compilation: 10606.628242 ms"
+          "message": "seal compilation: 10475.770283 ms"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576259142,
           "type": "time",
           "args": [
             "afterCompile hook",
             0,
-            105652
+            159721304
           ],
-          "message": "afterCompile hook: 0.105652 ms"
+          "message": "afterCompile hook: 159.721304 ms"
         },
         {
-          "time": 1618575374184,
+          "time": 1618576259577,
           "type": "time",
           "args": [
             "emitAssets",
             0,
-            676986667
+            434395117
           ],
-          "message": "emitAssets: 676.986667 ms"
+          "message": "emitAssets: 434.395117 ms"
         },
         {
-          "time": 1618575374184,
+          "time": 1618576259577,
           "type": "time",
           "args": [
             "emitRecords",
             0,
-            8172
+            7337
           ],
-          "message": "emitRecords: 0.008172 ms"
+          "message": "emitRecords: 0.007337 ms"
         }
       ],
       "filteredEntries": 0,
@@ -80,27 +80,27 @@
     "webpack.FlagDependencyExportsPlugin": {
       "entries": [
         {
-          "time": 1618575362898,
+          "time": 1618576248496,
           "type": "time",
           "args": [
             "restore cached provided exports",
             0,
-            185738
+            202808
           ],
-          "message": "restore cached provided exports: 0.185738 ms"
+          "message": "restore cached provided exports: 0.202808 ms"
         },
         {
-          "time": 1618575362899,
+          "time": 1618576248501,
           "type": "time",
           "args": [
             "figure out provided exports",
             0,
-            901300
+            4739827
           ],
-          "message": "figure out provided exports: 0.9013 ms"
+          "message": "figure out provided exports: 4.739827 ms"
         },
         {
-          "time": 1618575362899,
+          "time": 1618576248501,
           "type": "log",
           "args": [
             "100% of exports of modules have been determined (25 not cached, 0 flagged uncacheable, 0 from cache, 0 additional calculations due to dependencies)"
@@ -108,14 +108,14 @@
           "message": "100% of exports of modules have been determined (25 not cached, 0 flagged uncacheable, 0 from cache, 0 additional calculations due to dependencies)"
         },
         {
-          "time": 1618575362899,
+          "time": 1618576248501,
           "type": "time",
           "args": [
             "store provided exports into cache",
             0,
-            175294
+            165546
           ],
-          "message": "store provided exports into cache: 0.175294 ms"
+          "message": "store provided exports into cache: 0.165546 ms"
         }
       ],
       "filteredEntries": 0,
@@ -124,14 +124,14 @@
     "webpack.InnerGraphPlugin": {
       "entries": [
         {
-          "time": 1618575362900,
+          "time": 1618576248502,
           "type": "time",
           "args": [
             "infer dependency usage",
             0,
-            358877
+            317630
           ],
-          "message": "infer dependency usage: 0.358877 ms"
+          "message": "infer dependency usage: 0.31763 ms"
         }
       ],
       "filteredEntries": 0,
@@ -140,57 +140,57 @@
     "webpack.Compilation": {
       "entries": [
         {
-          "time": 1618575362900,
+          "time": 1618576248505,
           "type": "time",
           "args": [
             "finish modules",
             0,
-            2921751
+            20113572
           ],
-          "message": "finish modules: 2.921751 ms"
+          "message": "finish modules: 20.113572 ms"
         },
         {
-          "time": 1618575362900,
+          "time": 1618576248507,
           "type": "time",
           "args": [
             "report dependency errors and warnings",
             0,
-            111768
+            1720277
           ],
-          "message": "report dependency errors and warnings: 0.111768 ms"
+          "message": "report dependency errors and warnings: 1.720277 ms"
         },
         {
-          "time": 1618575362903,
+          "time": 1618576248522,
           "type": "time",
           "args": [
             "optimize dependencies",
             0,
-            2349310
+            15128358
           ],
-          "message": "optimize dependencies: 2.34931 ms"
+          "message": "optimize dependencies: 15.128358 ms"
         },
         {
-          "time": 1618575362905,
+          "time": 1618576248527,
           "type": "time",
           "args": [
             "create chunks",
             0,
-            1743468
+            4305842
           ],
-          "message": "create chunks: 1.743468 ms"
+          "message": "create chunks: 4.305842 ms"
         },
         {
-          "time": 1618575362913,
+          "time": 1618576248564,
           "type": "time",
           "args": [
             "optimize",
             0,
-            8074310
+            37835328
           ],
-          "message": "optimize: 8.07431 ms"
+          "message": "optimize: 37.835328 ms"
         },
         {
-          "time": 1618575362919,
+          "time": 1618576248569,
           "type": "log",
           "args": [
             "25 modules hashed (1 variants per module in average)"
@@ -198,17 +198,17 @@
           "message": "25 modules hashed (1 variants per module in average)"
         },
         {
-          "time": 1618575362919,
+          "time": 1618576248569,
           "type": "time",
           "args": [
             "module hashing",
             0,
-            5765320
+            4646784
           ],
-          "message": "module hashing: 5.76532 ms"
+          "message": "module hashing: 4.646784 ms"
         },
         {
-          "time": 1618575362924,
+          "time": 1618576248574,
           "type": "log",
           "args": [
             "100% code generated (25 generated, 0 from cache)"
@@ -216,97 +216,97 @@
           "message": "100% code generated (25 generated, 0 from cache)"
         },
         {
-          "time": 1618575362924,
+          "time": 1618576248574,
           "type": "time",
           "args": [
             "code generation",
             0,
-            5509960
+            4417380
           ],
-          "message": "code generation: 5.50996 ms"
+          "message": "code generation: 4.41738 ms"
         },
         {
-          "time": 1618575362927,
+          "time": 1618576248577,
           "type": "time",
           "args": [
             "runtime requirements",
             0,
-            2974196
+            3022943
           ],
-          "message": "runtime requirements: 2.974196 ms"
+          "message": "runtime requirements: 3.022943 ms"
         },
         {
-          "time": 1618575362927,
+          "time": 1618576248578,
           "type": "time",
           "args": [
             "hashing: initialize hash",
             0,
-            9161
+            13901
           ],
-          "message": "hashing: initialize hash: 0.009161 ms"
+          "message": "hashing: initialize hash: 0.013901 ms"
         },
         {
-          "time": 1618575362927,
+          "time": 1618576248578,
           "type": "time",
           "args": [
             "hashing: sort chunks",
             0,
-            47700
+            53326
           ],
-          "message": "hashing: sort chunks: 0.0477 ms"
+          "message": "hashing: sort chunks: 0.053326 ms"
         },
         {
-          "time": 1618575362929,
+          "time": 1618576248583,
           "type": "time",
           "args": [
             "hashing: hash runtime modules",
             0,
-            433850
+            340478
           ],
-          "message": "hashing: hash runtime modules: 0.43385 ms"
+          "message": "hashing: hash runtime modules: 0.340478 ms"
         },
         {
-          "time": 1618575362929,
+          "time": 1618576248583,
           "type": "time",
           "args": [
             "hashing: hash chunks",
             0,
-            1374466
+            5057250
           ],
-          "message": "hashing: hash chunks: 1.374466 ms"
+          "message": "hashing: hash chunks: 5.05725 ms"
         },
         {
-          "time": 1618575362929,
+          "time": 1618576248583,
           "type": "time",
           "args": [
             "hashing: hash digest",
             0,
-            74289
+            61369
           ],
-          "message": "hashing: hash digest: 0.074289 ms"
+          "message": "hashing: hash digest: 0.061369 ms"
         },
         {
-          "time": 1618575362929,
+          "time": 1618576248583,
           "type": "time",
           "args": [
             "hashing: process full hash modules",
             0,
-            4263
+            3203
           ],
-          "message": "hashing: process full hash modules: 0.004263 ms"
+          "message": "hashing: process full hash modules: 0.003203 ms"
         },
         {
-          "time": 1618575362929,
+          "time": 1618576248584,
           "type": "time",
           "args": [
             "hashing",
             0,
-            2259430
+            7466303
           ],
-          "message": "hashing: 2.25943 ms"
+          "message": "hashing: 7.466303 ms"
         },
         {
-          "time": 1618575362929,
+          "time": 1618576248584,
           "type": "log",
           "args": [
             "100% code generated (4 generated, 0 from cache)"
@@ -314,44 +314,44 @@
           "message": "100% code generated (4 generated, 0 from cache)"
         },
         {
-          "time": 1618575362930,
+          "time": 1618576248585,
           "type": "time",
           "args": [
             "record hash",
             0,
-            105995
+            1134719
           ],
-          "message": "record hash: 0.105995 ms"
+          "message": "record hash: 1.134719 ms"
         },
         {
-          "time": 1618575362930,
+          "time": 1618576248586,
           "type": "time",
           "args": [
             "module assets",
             0,
-            397844
+            1015403
           ],
-          "message": "module assets: 0.397844 ms"
+          "message": "module assets: 1.015403 ms"
         },
         {
-          "time": 1618575362932,
+          "time": 1618576248594,
           "type": "time",
           "args": [
             "create chunk assets",
             0,
-            1819526
+            7198023
           ],
-          "message": "create chunk assets: 1.819526 ms"
+          "message": "create chunk assets: 7.198023 ms"
         },
         {
-          "time": 1618575373506,
+          "time": 1618576258982,
           "type": "time",
           "args": [
             "process assets",
             10,
-            573955499
+            388046943
           ],
-          "message": "process assets: 10573.955499 ms"
+          "message": "process assets: 10388.046943 ms"
         }
       ],
       "filteredEntries": 0,
@@ -360,14 +360,14 @@
     "webpack.SideEffectsFlagPlugin": {
       "entries": [
         {
-          "time": 1618575362901,
+          "time": 1618576248510,
           "type": "time",
           "args": [
             "update dependencies",
             0,
-            71412
+            61921
           ],
-          "message": "update dependencies: 0.071412 ms"
+          "message": "update dependencies: 0.061921 ms"
         }
       ],
       "filteredEntries": 0,
@@ -376,24 +376,24 @@
     "webpack.FlagDependencyUsagePlugin": {
       "entries": [
         {
-          "time": 1618575362901,
+          "time": 1618576248512,
           "type": "time",
           "args": [
             "initialize exports usage",
             0,
-            86823
+            1093692
           ],
-          "message": "initialize exports usage: 0.086823 ms"
+          "message": "initialize exports usage: 1.093692 ms"
         },
         {
-          "time": 1618575362903,
+          "time": 1618576248515,
           "type": "time",
           "args": [
             "trace exports usage in graph",
             0,
-            1780195
+            2867542
           ],
-          "message": "trace exports usage in graph: 1.780195 ms"
+          "message": "trace exports usage in graph: 2.867542 ms"
         }
       ],
       "filteredEntries": 0,
@@ -402,27 +402,27 @@
     "webpack.buildChunkGraph": {
       "entries": [
         {
-          "time": 1618575362904,
+          "time": 1618576248524,
           "type": "time",
           "args": [
             "visitModules: prepare",
             0,
-            242206
+            387348
           ],
-          "message": "visitModules: prepare: 0.242206 ms"
+          "message": "visitModules: prepare: 0.387348 ms"
         },
         {
-          "time": 1618575362904,
+          "time": 1618576248525,
           "type": "time",
           "args": [
             "visitModules: visiting",
             0,
-            727180
+            463444
           ],
-          "message": "visitModules: visiting: 0.72718 ms"
+          "message": "visitModules: visiting: 0.463444 ms"
         },
         {
-          "time": 1618575362904,
+          "time": 1618576248525,
           "type": "log",
           "args": [
             "53 queue items processed (25 blocks)"
@@ -430,7 +430,7 @@
           "message": "53 queue items processed (25 blocks)"
         },
         {
-          "time": 1618575362904,
+          "time": 1618576248525,
           "type": "log",
           "args": [
             "0 chunk groups connected"
@@ -438,7 +438,7 @@
           "message": "0 chunk groups connected"
         },
         {
-          "time": 1618575362904,
+          "time": 1618576248525,
           "type": "log",
           "args": [
             "0 chunk groups processed for merging (0 module sets, 0 forked, 0 + 0 modules forked, 0 + 0 modules merged into fork, 0 resulting modules)"
@@ -446,7 +446,7 @@
           "message": "0 chunk groups processed for merging (0 module sets, 0 forked, 0 + 0 modules forked, 0 + 0 modules merged into fork, 0 resulting modules)"
         },
         {
-          "time": 1618575362904,
+          "time": 1618576248525,
           "type": "log",
           "args": [
             "0 chunk group info updated (0 already connected chunk groups reconnected)"
@@ -454,34 +454,34 @@
           "message": "0 chunk group info updated (0 already connected chunk groups reconnected)"
         },
         {
-          "time": 1618575362904,
+          "time": 1618576248525,
           "type": "time",
           "args": [
             "visitModules",
             0,
-            1027217
+            1187221
           ],
-          "message": "visitModules: 1.027217 ms"
+          "message": "visitModules: 1.187221 ms"
         },
         {
-          "time": 1618575362904,
+          "time": 1618576248525,
           "type": "time",
           "args": [
             "connectChunkGroups",
             0,
-            6501
+            6507
           ],
-          "message": "connectChunkGroups: 0.006501 ms"
+          "message": "connectChunkGroups: 0.006507 ms"
         },
         {
-          "time": 1618575362904,
+          "time": 1618576248525,
           "type": "time",
           "args": [
             "cleanup",
             0,
-            3785
+            4004
           ],
-          "message": "cleanup: 0.003785 ms"
+          "message": "cleanup: 0.004004 ms"
         }
       ],
       "filteredEntries": 0,
@@ -490,44 +490,44 @@
     "webpack.SplitChunksPlugin": {
       "entries": [
         {
-          "time": 1618575362906,
+          "time": 1618576248534,
           "type": "time",
           "args": [
             "prepare",
             0,
-            38146
+            45759
           ],
-          "message": "prepare: 0.038146 ms"
+          "message": "prepare: 0.045759 ms"
         },
         {
-          "time": 1618575362907,
+          "time": 1618576248535,
           "type": "time",
           "args": [
             "modules",
             0,
-            1424798
+            894163
           ],
-          "message": "modules: 1.424798 ms"
+          "message": "modules: 0.894163 ms"
         },
         {
-          "time": 1618575362907,
+          "time": 1618576248535,
           "type": "time",
           "args": [
             "queue",
             0,
-            5246
+            5584
           ],
-          "message": "queue: 0.005246 ms"
+          "message": "queue: 0.005584 ms"
         },
         {
-          "time": 1618575362907,
+          "time": 1618576248535,
           "type": "time",
           "args": [
             "maxSize",
             0,
-            15800
+            16398
           ],
-          "message": "maxSize: 0.0158 ms"
+          "message": "maxSize: 0.016398 ms"
         }
       ],
       "filteredEntries": 0,
@@ -536,54 +536,54 @@
     "webpack.ModuleConcatenationPlugin": {
       "entries": [
         {
-          "time": 1618575362909,
+          "time": 1618576248543,
           "type": "time",
           "args": [
             "select relevant modules",
             0,
-            176944
+            196848
           ],
-          "message": "select relevant modules: 0.176944 ms"
+          "message": "select relevant modules: 0.196848 ms"
         },
         {
-          "time": 1618575362909,
+          "time": 1618576248543,
           "type": "time",
           "args": [
             "sort relevant modules",
             0,
-            2984
+            4159
           ],
-          "message": "sort relevant modules: 0.002984 ms"
+          "message": "sort relevant modules: 0.004159 ms"
         },
         {
-          "time": 1618575362909,
+          "time": 1618576248543,
           "type": "time",
           "args": [
             "find modules to concatenate",
             0,
-            49840
+            54511
           ],
-          "message": "find modules to concatenate: 0.04984 ms"
+          "message": "find modules to concatenate: 0.054511 ms"
         },
         {
-          "time": 1618575362909,
+          "time": 1618576248543,
           "type": "time",
           "args": [
             "sort concat configurations",
             0,
-            2642
+            1960
           ],
-          "message": "sort concat configurations: 0.002642 ms"
+          "message": "sort concat configurations: 0.00196 ms"
         },
         {
-          "time": 1618575362909,
+          "time": 1618576248543,
           "type": "time",
           "args": [
             "create concatenated modules",
             0,
-            8299
+            10944
           ],
-          "message": "create concatenated modules: 0.008299 ms"
+          "message": "create concatenated modules: 0.010944 ms"
         }
       ],
       "filteredEntries": 3,
@@ -592,7 +592,7 @@
     "webpack.FileSystemInfo": {
       "entries": [
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "25 new snapshots created"
@@ -600,7 +600,7 @@
           "message": "25 new snapshots created"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "0% root snapshot uncached (0 / 0)"
@@ -608,7 +608,7 @@
           "message": "0% root snapshot uncached (0 / 0)"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "0% children snapshot uncached (0 / 0)"
@@ -616,7 +616,7 @@
           "message": "0% children snapshot uncached (0 / 0)"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "0 entries tested"
@@ -624,7 +624,7 @@
           "message": "0 entries tested"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "File info in cache: 32 timestamps 32 hashes 32 timestamp hash combinations"
@@ -632,7 +632,7 @@
           "message": "File info in cache: 32 timestamps 32 hashes 32 timestamp hash combinations"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "File timestamp hash combination snapshot optimization: 86% (196/228) entries shared via 3 shared snapshots (16 times referenced)"
@@ -640,7 +640,7 @@
           "message": "File timestamp hash combination snapshot optimization: 86% (196/228) entries shared via 3 shared snapshots (16 times referenced)"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "Directory info in cache: 0 timestamps 0 hashes 0 timestamp hash combinations"
@@ -648,7 +648,7 @@
           "message": "Directory info in cache: 0 timestamps 0 hashes 0 timestamp hash combinations"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "Managed items info in cache: 70 items"
@@ -656,7 +656,7 @@
           "message": "Managed items info in cache: 70 items"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "Managed items snapshot optimization: 99% (938/945) entries shared via 1 shared snapshots (13 times referenced)"
@@ -664,7 +664,7 @@
           "message": "Managed items snapshot optimization: 99% (938/945) entries shared via 1 shared snapshots (13 times referenced)"
         },
         {
-          "time": 1618575373507,
+          "time": 1618576258983,
           "type": "log",
           "args": [
             "Managed files snapshot optimization: 100% (3122/3129) entries shared via 1 shared snapshots (13 times referenced)"
@@ -678,8 +678,8 @@
   },
   "hash": "b00441f3fe161453edd9",
   "version": "5.33.2",
-  "time": 22283,
-  "builtAt": 1618575374184,
+  "time": 21990,
+  "builtAt": 1618576259577,
   "publicPath": "auto",
   "outputPath": "/app/dist",
   "assetsByChunkName": {
@@ -1426,8 +1426,8 @@
           "optional": false,
           "orphan": false,
           "dependent": true,
-          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
-          "issuerName": "./src/cogment/Cogment.ts",
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+          "issuerName": "./src/cogment/ActorSession.ts",
           "issuerPath": [
             {
               "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
@@ -1440,16 +1440,16 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
-              "name": "./src/cogment/Cogment.ts",
-              "id": 536
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             }
           ],
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "id": 37,
-          "issuerId": 536,
+          "issuerId": 762,
           "chunks": [
             285
           ],
@@ -1587,9 +1587,9 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
-              "name": "./src/cogment/Cogment.ts",
-              "id": 536
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             },
             {
               "identifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
@@ -1769,9 +1769,9 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
-              "name": "./src/cogment/Cogment.ts",
-              "id": 536
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             },
             {
               "identifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
@@ -1869,9 +1869,9 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
-              "name": "./src/cogment/TrialController.ts",
-              "id": 618
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             },
             {
               "identifier": "/app/src/cogment/api/common_pb.js",
@@ -2021,9 +2021,9 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
-              "name": "./src/cogment/TrialController.ts",
-              "id": 618
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             },
             {
               "identifier": "/app/src/cogment/api/common_pb.js",
@@ -2116,9 +2116,9 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
-              "name": "./src/cogment/Cogment.ts",
-              "id": 536
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             },
             {
               "identifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
@@ -2700,8 +2700,8 @@
           "optional": false,
           "orphan": false,
           "dependent": true,
-          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
-          "issuerName": "./src/cogment/TrialController.ts",
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+          "issuerName": "./src/cogment/ActorSession.ts",
           "issuerPath": [
             {
               "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
@@ -2714,16 +2714,16 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
-              "name": "./src/cogment/TrialController.ts",
-              "id": 618
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             }
           ],
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "id": 886,
-          "issuerId": 618,
+          "issuerId": 762,
           "chunks": [
             285
           ],
@@ -2860,9 +2860,9 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
-              "name": "./src/cogment/TrialController.ts",
-              "id": 618
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             },
             {
               "identifier": "/app/src/cogment/api/orchestrator_pb.js",
@@ -2941,8 +2941,8 @@
           "optional": false,
           "orphan": false,
           "dependent": true,
-          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
-          "issuerName": "./src/cogment/TrialController.ts",
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+          "issuerName": "./src/cogment/ActorSession.ts",
           "issuerPath": [
             {
               "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
@@ -2955,16 +2955,16 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
-              "name": "./src/cogment/TrialController.ts",
-              "id": 618
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             }
           ],
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "id": 552,
-          "issuerId": 618,
+          "issuerId": 762,
           "chunks": [
             285
           ],
@@ -4003,8 +4003,8 @@
           "optional": false,
           "orphan": false,
           "dependent": true,
-          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
-          "issuerName": "./src/cogment/Cogment.ts",
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+          "issuerName": "./src/cogment/ActorSession.ts",
           "issuerPath": [
             {
               "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
@@ -4017,16 +4017,16 @@
               "id": 872
             },
             {
-              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
-              "name": "./src/cogment/Cogment.ts",
-              "id": 536
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
             }
           ],
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "id": 545,
-          "issuerId": 536,
+          "issuerId": 762,
           "chunks": [
             285
           ],
