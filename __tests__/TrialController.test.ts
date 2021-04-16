@@ -40,10 +40,8 @@ describe('TrialController', () => {
   beforeAll(async () => {
     const clientName = TRIAL_ACTOR.name;
     const service = createService({
-      cogSettings: cogSettings,
+      cogSettings,
       grpcURL: config.connection.http,
-      unaryTransportFactory: NodeHttpTransport(),
-      streamingTransportFactory: grpc.WebsocketTransport(),
     });
 
     const trialController = service.createTrialController();
