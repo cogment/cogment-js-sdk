@@ -18,6 +18,16 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
 import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
+import {deserializeData} from '../lib/DeltaEncoding';
+import {getLogger} from '../lib/Logger';
+import {Action as ActionPb, Message as MessagePb} from './api/common_pb';
+import {
+  TrialActionReply,
+  TrialActionRequest,
+  TrialMessageRequest,
+} from './api/orchestrator_pb';
+import {ClientActorClient} from './api/orchestrator_pb_service';
+import {SendMessageReturnType} from './TrialController';
 import {
   CogSettings,
   CogSettingsActorClass,
@@ -27,19 +37,15 @@ import {
   TrialActor,
 } from './types';
 import {CogMessage} from './types/CogMessage';
-import {Action as ActionPb, Message as MessagePb} from './api/common_pb';
-import {
-  TrialActionReply,
-  TrialActionRequest,
-  TrialMessageRequest,
-} from './api/orchestrator_pb';
-import {ClientActorClient} from './api/orchestrator_pb_service';
-import {deserializeData} from '../lib/DeltaEncoding';
-import {getLogger} from '../lib/Logger';
-import {SendMessageReturnType} from './TrialController';
 
 const logger = getLogger('ActorSession');
 
+/**
+ * Controller object passed to each {@link ActorImplementation | `ActorImplementation`} callback.
+ * @typeParam ActionT - The action space type for this actor class
+ * @typeParam ObservationT - The observation space type for this actor class
+ * @typeParam RewardT - The reward type for this actor class
+ */
 export class ActorSession<
   ActionT extends Message,
   ObservationT extends Message,
@@ -53,6 +59,14 @@ export class ActorSession<
   private running = false;
   private tickId?: number;
 
+  /**
+   *
+   * @param actorClass - The actor class configuration
+   * @param cogSettings - Generated CogSettings file, see {@link CogSettings | `CogSettings`}
+   * @param clientActorClient - gRPC client for the ClientActor service
+   * @param actionStreamClient - gRPC streaming client for the ClientActor.ActionStream endpoint
+   * @internal
+   */
   // eslint-disable-next-line max-params
   constructor(
     private actorClass: TrialActor,
@@ -80,6 +94,10 @@ export class ActorSession<
     throw new Error('addFeedback() is not implemented.');
   }
 
+  /**
+   * Yields observations, messages and rewards received from the Cogment framework.
+   * @returns - A generator that yields observations, messages and rewards.
+   */
   public async *eventLoop(): AsyncGenerator<Event<ObservationT, RewardT>> {
     if (!this.running) {
       logger.warn('Trial is not currently running.');
@@ -105,14 +123,25 @@ export class ActorSession<
     }
   }
 
+  /**
+   * Get the trial's current tick id, matching the latest received observation.
+   * @returns - The current tick id.
+   */
   public getTickId(): number | undefined {
     return this.tickId;
   }
 
+  /**
+   * Check if the trial is over.
+   */
   public isTrialOver(): boolean {
     return typeof this.tickId !== 'undefined';
   }
 
+  /**
+   * Send an action to the environment.
+   * @param userAction - An action space protobuf for this actor class.
+   */
   public sendAction(userAction: ActionT): void {
     const action: ActionPb = new ActionPb();
     action.setContent(userAction.serializeBinary());
@@ -122,6 +151,13 @@ export class ActorSession<
     this.actionStreamClient.send(request);
   }
 
+  /**
+   * Send an asynchronous message to a cogment entity.
+   * @param from - the source of this message
+   * @param to - the destination of this message
+   * @param payload - an Any.proto encoded protobuf instance
+   * @param trialId - id of the trial to send a message to
+   */
   public sendMessage = async ({
     from,
     to,
@@ -152,10 +188,16 @@ export class ActorSession<
     });
   };
 
+  /**
+   * Start this ActorSession, the eventLoop will begin yielding events received from the Cogment framework.
+   */
   public start(): void {
     this.running = true;
   }
 
+  /**
+   * End this ActorSession, ending the eventLoop.
+   */
   public stop(): void {
     this.running = false;
   }
@@ -262,8 +304,21 @@ export class ActorSession<
 }
 
 export interface SendMessageOptions {
+  /**
+   * The unique identifier for the connected actor generating the message.
+   */
   from: string;
+  /**
+   * The payload data, encoded as an Any protobuf message.
+   */
   payload: AnyPb;
+  /**
+   * The unique identifier for the messages destination. Can be another actors name, or the special value `env` to send
+   * a message to the environment.
+   */
   to: string;
+  /**
+   * The id of the trial to send the message to.
+   */
   trialId: string;
 }

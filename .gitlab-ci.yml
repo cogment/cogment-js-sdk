@@ -2,6 +2,7 @@ image: docker:20.10.3
 
 variables:
   COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
+  HUSKY: 0
 
 default:
   tags:
@@ -18,6 +19,7 @@ pre:install:
   stage: .pre
   image: node:14
   script:
+    - npm install -g npm
     - npm install
     - pushd cli && npm install && popd
     - pushd __tests__/end-to-end/cogment-app/webapp && npm install && popd
@@ -64,11 +66,13 @@ build:
     - apk add docker-compose
   script:
     - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build
+    - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build:docs:html
   artifacts:
     expire_in: 1 day
     paths:
       - dist
       - public
+      - docs
 
 release:
   stage: release
@@ -100,10 +104,9 @@ pages:
   before_script:
     - apk add docker-compose
   script:
-    - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build:docs
     - cp -r allure-report public/allure
     - cp -r coverage public/coverage
-    - cp -r docs/api/* public/
+    - cp -r docs/api/html public/api
   artifacts:
     paths:
       - public

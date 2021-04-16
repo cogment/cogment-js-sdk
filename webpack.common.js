@@ -16,7 +16,6 @@
  */
 
 const webpack = require('webpack');
-const ESLintPlugin = require('eslint-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -34,10 +33,7 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new webpack.ProgressPlugin(),
-    new ESLintPlugin({extensions: ['ts', 'js', '.json']}),
-  ],
+  plugins: [new webpack.ProgressPlugin()],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },

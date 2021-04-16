@@ -5,12 +5,12 @@
       "type": "object",
       "title": "Actor Class",
       "description": "Actor Class static configuration",
-      "required": ["id", "action", "observation"],
+      "required": ["name", "action", "observation"],
       "properties": {
-        "id": {
+        "name": {
           "type": "string",
-          "title": "ID",
-          "description": "ID of this actor class (must be unique)"
+          "title": "Name",
+          "description": "Name of this actor class (must be unique)"
         },
         "action": {
           "type": "object",
@@ -33,18 +33,6 @@
               "type": "string",
               "title": "Observation Space",
               "description": "Fully qualified protobuf name representing the actor's observation space"
-            }
-          }
-        },
-        "message": {
-          "type": "object",
-          "title": "Actor Message Configuration",
-          "description": "Static configuration for this actors messages",
-          "properties": {
-            "space": {
-              "type": "string",
-              "title": "Message Space",
-              "description": "Fully qualified protobuf name representing the actor's message space"
             }
           }
         }

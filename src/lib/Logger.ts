@@ -14,7 +14,8 @@
  *  limitations under the License.
  *
  */
-import debug from 'debug';
+
+import debugLogger from 'debug';
 
 const MODULE_NAME = 'cogment';
 
@@ -31,26 +32,26 @@ export enum LogLevel {
 
 export interface Logger {
   childLogger: (loggerName: string, level?: LogLevel) => Logger;
-  setLogLevel: (level: LogLevel) => void;
   debug: LoggerFunction;
   error: LoggerFunction;
   fatal: LoggerFunction;
   info: LoggerFunction;
+  setLogLevel: (level: LogLevel) => void;
   trace: LoggerFunction;
   warn: LoggerFunction;
 }
 
 /**
- * Implements a {@link Logger} using the {@link debug#Debug | debug} module.
+ * Implements a {@link Logger} using the {@link debug#Debug | `debug`} module.
  */
 export class DebugLogger implements Logger {
-  private readonly traceLogger: debug.Debugger;
-  private readonly debugLogger: debug.Debugger;
-  private readonly infoLogger: debug.Debugger;
-  private readonly warnLogger: debug.Debugger;
-  private readonly errorLogger: debug.Debugger;
-  private readonly fatalLogger: debug.Debugger;
-  private logger: debug.Debugger;
+  private readonly debugLogger: debugLogger.Debugger;
+  private readonly errorLogger: debugLogger.Debugger;
+  private readonly fatalLogger: debugLogger.Debugger;
+  private readonly infoLogger: debugLogger.Debugger;
+  private logger: debugLogger.Debugger;
+  private readonly traceLogger: debugLogger.Debugger;
+  private readonly warnLogger: debugLogger.Debugger;
 
   /**
    *
@@ -61,14 +62,14 @@ export class DebugLogger implements Logger {
     private loggerName: string = MODULE_NAME,
     private level: LogLevel = LogLevel.debug,
   ) {
-    const logger = (this.logger = debug(loggerName));
+    this.logger = debugLogger(loggerName);
 
-    this.traceLogger = logger.extend('trace');
-    this.debugLogger = logger.extend('debug');
-    this.infoLogger = logger.extend('info');
-    this.warnLogger = logger.extend('warn');
-    this.errorLogger = logger.extend('error');
-    this.fatalLogger = logger.extend('fatal');
+    this.traceLogger = this.logger.extend('trace');
+    this.debugLogger = this.logger.extend('debug');
+    this.infoLogger = this.logger.extend('info');
+    this.warnLogger = this.logger.extend('warn');
+    this.errorLogger = this.logger.extend('error');
+    this.fatalLogger = this.logger.extend('fatal');
   }
 
   public childLogger(
@@ -76,10 +77,6 @@ export class DebugLogger implements Logger {
     level: LogLevel = this.level,
   ): DebugLogger {
     return new DebugLogger(`${this.loggerName}:${childLoggerName}`, level);
-  }
-
-  public setLogLevel(level: LogLevel): void {
-    this.level = level;
   }
 
   public debug(...data: [unknown, ...unknown[]]): void {
@@ -104,6 +101,10 @@ export class DebugLogger implements Logger {
     if (this.level < LogLevel.info) {
       this.infoLogger(...data);
     }
+  }
+
+  public setLogLevel(level: LogLevel): void {
+    this.level = level;
   }
 
   public trace(...data: [unknown, ...unknown[]]): void {

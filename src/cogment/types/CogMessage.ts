@@ -17,9 +17,26 @@
 
 import {Any} from 'google-protobuf/google/protobuf/any_pb';
 
+/**
+ * Interface used for message passing in the Cogment framework.
+ * @internal
+ */
 export interface CogMessage {
-  tickId: number;
-  receiver: string;
-  sender: string;
+  /**
+   * An {@link Any} encoded protobuf message.
+   */
   data?: Any;
+  /**
+   * Actor name to deliver the message to.
+   */
+  receiver: string;
+  /**
+   * Actor name the message originates from.
+   */
+  sender: string;
+  /**
+   * Current tick id.
+   * @defaultValue -1
+   */
+  tickId: number;
 }

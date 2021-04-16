@@ -25,3 +25,4 @@ cli/lib/**/*
 tls
 dependency-check-*.*
 /__tests__/
+schemas/*.json

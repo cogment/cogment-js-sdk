@@ -1,3 +1,42 @@
+# [1.25.0-beta.4](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0-beta.3...v1.25.0-beta.4) (2021-04-16)
+
+
+### Features
+
+* release api docs to github pages ([233c361](https://github.com/cogment/cogment-js-sdk/commit/233c361f0110d67c9b8e85ba2245b81b45d8365e)), closes [#43](https://github.com/cogment/cogment-js-sdk/issues/43)
+* **types:** explicitly expose public api, document usage ([bbfde12](https://github.com/cogment/cogment-js-sdk/commit/bbfde12df6bdfd119ee46f0a1a410d692dc8d02e)), closes [#73](https://github.com/cogment/cogment-js-sdk/issues/73)
+
+# [1.25.0-beta.3](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0-beta.2...v1.25.0-beta.3) (2021-04-16)
+
+
+### Bug Fixes
+
+* husky@6 breaking changes ([26216e7](https://github.com/cogment/cogment-js-sdk/commit/26216e7bcba2e69d0ae90c38df7047486115dd78))
+
+
+### Features
+
+* **cogment:** update cogment components to latest beta version ([6b252b9](https://github.com/cogment/cogment-js-sdk/commit/6b252b9b35b26d748175f12b982c3894b308c074)), closes [#77](https://github.com/cogment/cogment-js-sdk/issues/77)
+
+# [1.25.0-beta.2](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0-beta.1...v1.25.0-beta.2) (2021-04-08)
+
+
+### Bug Fixes
+
+* **cli:** cli depends on cosmiconfig ([0669197](https://github.com/cogment/cogment-js-sdk/commit/06691970ebcfb488ca9769bb0cb5570268ef67c0))
+
+# [1.25.0-beta.1](https://github.com/cogment/cogment-js-sdk/compare/v1.24.0...v1.25.0-beta.1) (2021-04-08)
+
+
+### Bug Fixes
+
+* trigger release ([68403b0](https://github.com/cogment/cogment-js-sdk/commit/68403b0906ee3d13306afb1b0ee62ec3229f74ac))
+
+
+### Features
+
+* **package.json:** output docs to be consumed by cogment-docs ([a898646](https://github.com/cogment/cogment-js-sdk/commit/a898646f376b94910ae27e937b46ec8b7e6d5477))
+
 # [1.24.0](https://github.com/cogment/cogment-js-sdk/compare/v1.23.0...v1.24.0) (2021-03-26)
 
 
