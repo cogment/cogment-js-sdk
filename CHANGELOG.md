@@ -1,3 +1,15 @@
+# [1.25.0-beta.3](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0-beta.2...v1.25.0-beta.3) (2021-04-16)
+
+
+### Bug Fixes
+
+* husky@6 breaking changes ([26216e7](https://github.com/cogment/cogment-js-sdk/commit/26216e7bcba2e69d0ae90c38df7047486115dd78))
+
+
+### Features
+
+* **cogment:** update cogment components to latest beta version ([6b252b9](https://github.com/cogment/cogment-js-sdk/commit/6b252b9b35b26d748175f12b982c3894b308c074)), closes [#77](https://github.com/cogment/cogment-js-sdk/issues/77)
+
 # [1.25.0-beta.2](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0-beta.1...v1.25.0-beta.2) (2021-04-08)
 
 
