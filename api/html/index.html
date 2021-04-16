@@ -1,0 +1,418 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@cogment/cogment-js-sdk - v1.25.0-beta.3</title>
+	<meta name="description" content="Documentation for @cogment/cogment-js-sdk - v1.25.0-beta.3">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@cogment/cogment-js-sdk - v1.25.0-beta.3</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<h1>@cogment/cogment-js-sdk - v1.25.0-beta.3</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<a href="#cogmentcogment-js-sdk" id="cogmentcogment-js-sdk" style="color: inherit; text-decoration: none;">
+					<h1><a href="https://github.com/cogment/cogment-js-sdk"><strong>@cogment/cogment-js-sdk</strong></a></h1>
+				</a>
+				<p><a href="https://www.npmjs.com/package/cogment" title="npm-cogment"><img src="https://img.shields.io/badge/npm-%40cogment%2Fcogment--js--sdk-brightgreen" alt="cogment"></a>
+					<a href="https://www.npmjs.com/package/cogment" title="npm-cogment"><img src="https://img.shields.io/npm/dw/@cogment/cogment-js-sdk" alt="npm"></a>
+					<a href="https://www.npmjs.com/package/cogment" title="npm-cogment"><img src="https://img.shields.io/npm/v/@cogment/cogment-js-sdk" alt="npm"></a>
+					<a href="https://www.npmjs.com/package/cogment" title="npm-cogment"><img src="https://img.shields.io/npm/collaborators/@cogment/cogment-js-sdk" alt="npm collaborators"></a>
+				<a href="https://www.npmjs.com/package/cogment" title="npm-cogment"><img src="https://img.shields.io/bundlephobia/minzip/@cogment/cogment-js-sdk" alt="npm bundle size (scoped)"></a></p>
+				<p><a href="https://github.com/cogment/cogment-js-sdk/" title="Repository"><img src="https://img.shields.io/github/commit-activity/w/cogment/cogment-js-sdk?style=social&logo=github" alt="GitHub commit activity"></a>
+					<a href="https://github.com/cogment/cogment-js-sdk/" title="Repository"><img src="https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social" alt="GitHub forks"></a>
+					<a href="https://github.com/cogment/cogment-js-sdk/" title="Repository"><img src="https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social" alt="GitHub Repo stars"></a>
+				<a href="https://github.com/cogment/cogment-js-sdk/" title="Repository"><img src="https://img.shields.io/github/contributors/cogment/cogment-js-sdk?style=social&logo=github" alt="GitHub contributors"></a></p>
+				<p><a href="/LICENSE.md" title="license"><img src="https://img.shields.io/npm/l/@cogment/cogment-js-sdk" alt="License"></a>
+				<img src="https://img.shields.io/osslifecycle/cogment/cogment-js-sdk" alt="OSS Lifecycle"></p>
+				<p><img src="https://img.shields.io/node/v/@cogment/cogment-js-sdk" alt="node-current (scoped)"></p>
+				<p><a href="https://github.com/prettier/prettier"><img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg" alt="code style: prettier"></a>
+					<a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg" alt="Commitizen friendly"></a>
+					<a href="/CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg" alt="Contributor Covenant"></a>
+				<a href="https://github.com/semantic-release/semantic-release"><img src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg" alt="semantic-release"></a></p>
+				<p><img src="https://img.shields.io/discord/739822842450935963?label=Discord&logo=Discord&style=plastic" alt="Discord"></p>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of contents</h2>
+				</a>
+				<ul>
+					<li><a href="#links">Links</a></li>
+					<li><a href="#usage">Usage</a></li>
+					<li><a href="#docker">Docker</a><ul>
+							<li><a href="#docker-setup">Docker Setup</a></li>
+							<li><a href="#docker-testing">Docker Testing</a></li>
+						</ul>
+					</li>
+					<li><a href="#non-docker">Non-docker</a><ul>
+							<li><a href="#setup">Setup</a></li>
+							<li><a href="#testing">Testing</a></li>
+						</ul>
+					</li>
+				</ul>
+				<a href="#links" id="links" style="color: inherit; text-decoration: none;">
+					<h2>Links</h2>
+				</a>
+				<ul>
+					<li><a href="https://cogment.ai" title="cogment.ai">cogment.ai</a></li>
+					<li><a href="https://github.com/cogment/cogment-js-sdk/" title="Repository">Repository</a></li>
+					<li><a href="https://ai-r.gitlab.io/cogment-js-sdk" title="api-docs">API Documentation</a></li>
+					<li><a href="/CODE_OF_CONDUCT.md">Code of Conduct</a></li>
+					<li><a href="/LICENSE.md" title="license">License</a></li>
+					<li><a href="/CHANGELOG.md" title="changelog">Changelog</a></li>
+					<li><a href="/CONTRIBUTING.md">Contributing</a></li>
+					<li><a href="/docs/opencore-development.md">Open Core Development</a></li>
+					<li><a href="/docs/codeguidelines.md">Coding guidelines</a></li>
+					<li><a href="/docs/updating-cogment.md">Updating Cogment</a></li>
+					<li><a href="http://sentimentalversioning.org/">Sentimental Versioning</a></li>
+					<li><a href="https://ai-r.gitlab.io/cogment-js-sdk/allure">Test Report</a></li>
+					<li><a href="https://ai-r.gitlab.io/cogment-js-sdk/coverage/lcov-report" title="coverage report">Coverage Report</a></li>
+					<li><a href="https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs">Webpack Bundle Report</a></li>
+					<li><a href="/cli">cogjs-cli</a></li>
+					<li><a href="https://semver.org">Semantic Versioning</a></li>
+				</ul>
+				<a href="#usage" id="usage" style="color: inherit; text-decoration: none;">
+					<h2>Usage</h2>
+				</a>
+				<p>Install the package:</p>
+				<pre><code class="language-shell"><span style="color: #000000">npm install @cogment/cogment-js-sdk</span>
+</code></pre>
+				<p>The <a href="/__tests__/">test suite</a> <a href="/__tests__/end-to-end/cogment-app/">embeds</a> a working <a href="https://docs.cogment.ai/">Cogment
+					application</a>. Parts of the example application
+				pertinent to the js-sdk test suite:</p>
+				<ul>
+					<li><a href="/__tests__/end-to-end/cogment-app/echo/">an echo actor</a></li>
+					<li><a href="/__tests__/end-to-end/cogment-app/environment/">an environment</a></li>
+					<li><a href="/__tests__/end-to-end/cogment-app/configurator">configuration pre-hook</a>
+					- a gRPC service, configured in cogment.yaml</li>
+					<li><a href="/__tests__/end-to-end/cogment-app/cogment.yaml">cogment.yaml</a> - the
+						configuration entrypoint into Cogment and is used to generate language
+					specific static configuration files.</li>
+					<li><a href="/__tests__/end-to-end/cogment-app/data.proto">data.proto</a> -
+						application specific protobufs that represent trial entities (eg:
+						observation space, actor action space, etc) in addition to other
+					utility protobufs needed by the user, you!</li>
+				</ul>
+				<p>The <a href="/__tests__/ActorSession.test.ts">ActorSession.test.ts</a> is the most
+					feature complete example of a working cogment application and is
+				documented to be read as such.</p>
+				<p>Examples follow.</p>
+				<a href="#instantiate-a-cogmentservice" id="instantiate-a-cogmentservice" style="color: inherit; text-decoration: none;">
+					<h3>Instantiate a CogmentService</h3>
+				</a>
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">createService</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;cogment&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">cogSettings</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./CogSettings&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cogmentService</span><span style="color: #000000"> = </span><span style="color: #795E26">createService</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">cogSettings</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<a href="#start-and-stop-a-trial" id="start-and-stop-a-trial" style="color: inherit; text-decoration: none;">
+					<h3>Start and stop a trial</h3>
+				</a>
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">createService</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;cogment&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">cogSettings</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./CogSettings&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cogmentService</span><span style="color: #000000"> = </span><span style="color: #795E26">createService</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">cogSettings</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">trialController</span><span style="color: #000000"> = </span><span style="color: #001080">cogmentService</span><span style="color: #000000">.</span><span style="color: #795E26">createTrialController</span><span style="color: #000000">();</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> {</span><span style="color: #0070C1">trialId</span><span style="color: #000000">} = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">trialController</span><span style="color: #000000">.</span><span style="color: #795E26">startTrial</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;unique-id&#039;</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #001080">trialController</span><span style="color: #000000">.</span><span style="color: #795E26">terminateTrial</span><span style="color: #000000">(</span><span style="color: #001080">trialId</span><span style="color: #000000">);</span>
+</code></pre>
+				<a href="#register-an-actor-and-join-the-trial" id="register-an-actor-and-join-the-trial" style="color: inherit; text-decoration: none;">
+					<h3>Register an actor and join the trial</h3>
+				</a>
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">createService</span><span style="color: #000000">, </span><span style="color: #001080">TrialActor</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;cogment&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">cogSettings</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./CogSettings&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">ClientAction</span><span style="color: #000000">, </span><span style="color: #001080">Observation</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./data_pb&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cogmentService</span><span style="color: #000000"> = </span><span style="color: #795E26">createService</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">cogSettings</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">trialActor</span><span style="color: #000000">: </span><span style="color: #267F99">TrialActor</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">name:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;client_actor&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">actorClass:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;client&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">};</span>
+
+<span style="color: #001080">cogmentService</span><span style="color: #000000">.</span><span style="color: #795E26">registerActor</span><span style="color: #000000">&lt;</span><span style="color: #267F99">ClientAction</span><span style="color: #000000">, </span><span style="color: #267F99">Observation</span><span style="color: #000000">, </span><span style="color: #267F99">never</span><span style="color: #000000">&gt;(</span>
+<span style="color: #000000">  </span><span style="color: #001080">trialActor</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">async</span><span style="color: #000000"> (</span><span style="color: #001080">actorSession</span><span style="color: #000000">) </span><span style="color: #0000FF">=&gt;</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #008000">// Actor implementation here.</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">);</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">trialController</span><span style="color: #000000"> = </span><span style="color: #001080">cogmentService</span><span style="color: #000000">.</span><span style="color: #795E26">createTrialController</span><span style="color: #000000">();</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> {</span><span style="color: #0070C1">trialId</span><span style="color: #000000">} = </span><span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">trialController</span><span style="color: #000000">.</span><span style="color: #795E26">startTrial</span><span style="color: #000000">(</span><span style="color: #001080">trialActor</span><span style="color: #000000">.</span><span style="color: #001080">name</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">await</span><span style="color: #000000"> </span><span style="color: #001080">trialController</span><span style="color: #000000">.</span><span style="color: #795E26">joinTrial</span><span style="color: #000000">(</span><span style="color: #001080">trialId</span><span style="color: #000000">, </span><span style="color: #001080">trialActor</span><span style="color: #000000">);</span>
+<span style="color: #AF00DB">return</span><span style="color: #000000"> </span><span style="color: #001080">trialController</span><span style="color: #000000">.</span><span style="color: #795E26">terminateTrial</span><span style="color: #000000">(</span><span style="color: #001080">trialId</span><span style="color: #000000">);</span>
+</code></pre>
+				<a href="#watch-for-trial-state-changes" id="watch-for-trial-state-changes" style="color: inherit; text-decoration: none;">
+					<h3>Watch for trial state changes</h3>
+				</a>
+				<pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> {</span><span style="color: #001080">createService</span><span style="color: #000000">} </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;cogment&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">cogSettings</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./CogSettings&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">cogmentService</span><span style="color: #000000"> = </span><span style="color: #795E26">createService</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">cogSettings</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">trialController</span><span style="color: #000000"> = </span><span style="color: #001080">cogmentService</span><span style="color: #000000">.</span><span style="color: #795E26">createTrialController</span><span style="color: #000000">();</span>
+
+<span style="color: #AF00DB">for</span><span style="color: #000000"> </span><span style="color: #AF00DB">await</span><span style="color: #000000"> (</span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">trialListEntry</span><span style="color: #000000"> </span><span style="color: #0000FF">of</span><span style="color: #000000"> </span><span style="color: #001080">trialController</span><span style="color: #000000">.</span><span style="color: #795E26">watchTrials</span><span style="color: #000000">([</span>
+<span style="color: #000000">  </span><span style="color: #098658">0</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #098658">1</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #098658">2</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #098658">3</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #098658">4</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #098658">5</span><span style="color: #000000">,</span>
+<span style="color: #000000">])) {</span>
+<span style="color: #000000">  </span><span style="color: #008000">// Do stuff!</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<a href="#development-workflow" id="development-workflow" style="color: inherit; text-decoration: none;">
+					<h2>Development Workflow</h2>
+				</a>
+				<a href="#docker" id="docker" style="color: inherit; text-decoration: none;">
+					<h3>Docker</h3>
+				</a>
+				<a href="#docker-setup" id="docker-setup" style="color: inherit; text-decoration: none;">
+					<h4>Docker Setup</h4>
+				</a>
+				<ol>
+					<li>Clone the repository:<pre><code class="language-shell"><span style="color: #000000">git clone https://github.com/cogment/cogment-js-sdk.git</span>
+</code></pre>
+					</li>
+					<li>Build the docker container:<pre><code class="language-shell"><span style="color: #000000">docker-compose build cogment-js-sdk</span>
+</code></pre>
+					</li>
+					<li>Initialize the repository:<pre><code class="language-shell"><span style="color: #000000">docker-compose run cogment-js-sdk npm run init</span>
+</code></pre>
+					</li>
+				</ol>
+				<a href="#docker-testing" id="docker-testing" style="color: inherit; text-decoration: none;">
+					<h4>Docker Testing</h4>
+				</a>
+				<ol>
+					<li>Start the embeded cogment app<pre><code class="language-shell"><span style="color: #000000">bin/up.bash</span>
+</code></pre>
+					</li>
+					<li>Run all tests<pre><code class="language-shell"><span style="color: #000000">docker-compose run cogment-js-sdk npm run </span><span style="color: #795E26">test</span>
+</code></pre>
+					</li>
+				</ol>
+				<a href="#non-docker" id="non-docker" style="color: inherit; text-decoration: none;">
+					<h3>Non-docker</h3>
+				</a>
+				<a href="#setup" id="setup" style="color: inherit; text-decoration: none;">
+					<h4>Setup</h4>
+				</a>
+				<ol>
+					<li>Clone the repository:<pre><code class="language-shell"><span style="color: #000000">git clone https://github.com/cogment/cogment-js-sdk.git</span>
+</code></pre>
+					</li>
+					<li>Install node (check <a href="/.node-version">.node-version</a> for the
+						appropriate version). The recommended way to manage node
+						distributions is through
+						<a href="https://github.com/nvm-sh/nvm">nvm (node version manager)</a>:<pre><code class="language-shell"><span style="color: #000000">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash</span>
+<span style="color: #795E26">source</span><span style="color: #000000"> ~/.nvm/nvm.sh</span>
+<span style="color: #795E26">cd</span><span style="color: #000000"> /path/to/cogment-js-sdk</span>
+<span style="color: #000000">nvm install</span>
+</code></pre>
+					</li>
+					<li>Initialize the repository:<pre><code class="language-shell"><span style="color: #000000">npm run init</span>
+</code></pre>
+					</li>
+				</ol>
+				<a href="#testing" id="testing" style="color: inherit; text-decoration: none;">
+					<h4>Testing</h4>
+				</a>
+				<ol>
+					<li>Change the contents of .cogmentrc.js from<pre><code><span style="color: #267F99">module</span><span style="color: #000000">.</span><span style="color: #267F99">exports</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">connection:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">http:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;http://grpcwebproxy:8080&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #001080">logger:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">level:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;debug&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">};</span>
+</code></pre>
+						To<pre><code><span style="color: #267F99">module</span><span style="color: #000000">.</span><span style="color: #267F99">exports</span><span style="color: #000000"> = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">connection:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">http:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;http://localhost:8080&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">  </span><span style="color: #001080">logger:</span><span style="color: #000000"> {</span>
+<span style="color: #000000">    </span><span style="color: #001080">level:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;debug&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  },</span>
+<span style="color: #000000">};</span>
+</code></pre>
+					</li>
+					<li>Start the embeded cogment app<pre><code class="language-shell"><span style="color: #000000">bin/up.bash</span>
+</code></pre>
+					</li>
+					<li>Do one of the following:</li>
+				</ol>
+				<ul>
+					<li>To run the test suite once:<pre><code class="language-shell"><span style="color: #000000">npm run </span><span style="color: #795E26">test</span>
+</code></pre>
+					</li>
+					<li>To watch for changes and rerun tests automatically in your console:<pre><code class="language-shell"><span style="color: #000000">npm run test:watch</span>
+</code></pre>
+					</li>
+					<li>To launch the <a href="https://github.com/Raathigesh/majestic" title="majestic">majestic test ui</a> to run / watch / visualize
+						tests:<pre><code class="language-shell"><span style="color: #000000">npm run test:ui</span>
+</code></pre>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/eventtype.html" class="tsd-kind-icon">Event<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="classes/actorsession.html" class="tsd-kind-icon">Actor<wbr>Session</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/cogmentservice.html" class="tsd-kind-icon">Cogment<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/trialcontroller.html" class="tsd-kind-icon">Trial<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cogsettings.html" class="tsd-kind-icon">Cog<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cogsettingsactorclass.html" class="tsd-kind-icon">Cog<wbr>Settings<wbr>Actor<wbr>Class</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cogmentyaml.html" class="tsd-kind-icon">Cogment<wbr>Yaml</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cogmentyamlactor.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Actor</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cogmentyamlactorclass.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Actor<wbr>Class</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cogmentyamldatalog.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Datalog</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/cogmentyamltrialparameters.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Trial<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/createserviceoptions.html" class="tsd-kind-icon">Create<wbr>Service<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="interfaces/event.html" class="tsd-kind-icon">Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/reward.html" class="tsd-kind-icon">Reward</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sendmessageoptions.html" class="tsd-kind-icon">Send<wbr>Message<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/trialactor.html" class="tsd-kind-icon">Trial<wbr>Actor</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="modules.html#actorimplementation" class="tsd-kind-icon">Actor<wbr>Implementation</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#jointrialarguments" class="tsd-kind-icon">Join<wbr>Trial<wbr>Arguments</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#jointrialreturntype" class="tsd-kind-icon">Join<wbr>Trial<wbr>Return<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#sendmessagereturntype" class="tsd-kind-icon">Send<wbr>Message<wbr>Return<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#starttrialreturntype" class="tsd-kind-icon">Start<wbr>Trial<wbr>Return<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="modules.html#versionreturntype" class="tsd-kind-icon">Version<wbr>Return<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="modules.html#createservice" class="tsd-kind-icon">create<wbr>Service</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

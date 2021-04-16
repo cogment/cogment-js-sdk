@@ -1,0 +1,468 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ActorSession | @cogment/cogment-js-sdk - v1.25.0-beta.3</title>
+	<meta name="description" content="Documentation for @cogment/cogment-js-sdk - v1.25.0-beta.3">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../assets/css/main.css">
+	<script async src="../assets/js/search.js" id="search-script"></script>
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="../assets/js/search.json" data-base="..">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="../index.html" class="title">@cogment/cogment-js-sdk - v1.25.0-beta.3</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="../modules.html">@cogment/cogment-js-sdk - v1.25.0-beta.3</a>
+				</li>
+				<li>
+					<a href="actorsession.html">ActorSession</a>
+				</li>
+			</ul>
+			<h1>Class ActorSession&lt;ActionT, ObservationT, RewardT&gt;</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Controller object passed to each <a href="../modules.html#actorimplementation"><code>ActorImplementation</code></a> callback.</p>
+					</div>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>ActionT<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span></h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The action space type for this actor class</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>ObservationT<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span></h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The observation space type for this actor class</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>RewardT<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span></h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The reward type for this actor class</p>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-hierarchy">
+				<h3>Hierarchy</h3>
+				<ul class="tsd-hierarchy">
+					<li>
+						<span class="target">ActorSession</span>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel-group tsd-index-group">
+				<h2>Index</h2>
+				<section class="tsd-panel tsd-index-panel">
+					<div class="tsd-index-content">
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="actorsession.html#addfeedback" class="tsd-kind-icon">add<wbr>Feedback</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="actorsession.html#eventloop" class="tsd-kind-icon">event<wbr>Loop</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="actorsession.html#gettickid" class="tsd-kind-icon">get<wbr>Tick<wbr>Id</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="actorsession.html#istrialover" class="tsd-kind-icon">is<wbr>Trial<wbr>Over</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="actorsession.html#sendaction" class="tsd-kind-icon">send<wbr>Action</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="actorsession.html#sendmessage" class="tsd-kind-icon">send<wbr>Message</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="actorsession.html#start" class="tsd-kind-icon">start</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="actorsession.html#stop" class="tsd-kind-icon">stop</a></li>
+							</ul>
+						</section>
+					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="addfeedback" class="tsd-anchor"></a>
+					<h3>add<wbr>Feedback</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">add<wbr>Feedback<span class="tsd-signature-symbol">(</span>to<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span>, feedback<span class="tsd-signature-symbol">: </span><a href="../interfaces/reward.html" class="tsd-signature-type" data-tsd-kind="Interface">Reward</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in cogment/ActorSession.ts:93</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>to: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
+								</li>
+								<li>
+									<h5>feedback: <a href="../interfaces/reward.html" class="tsd-signature-type" data-tsd-kind="Interface">Reward</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="eventloop" class="tsd-anchor"></a>
+					<h3>event<wbr>Loop</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">event<wbr>Loop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/event.html" class="tsd-signature-type" data-tsd-kind="Interface">Event</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ObservationT</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RewardT</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in cogment/ActorSession.ts:101</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Yields observations, messages and rewards received from the Cogment framework.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">AsyncGenerator</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/event.html" class="tsd-signature-type" data-tsd-kind="Interface">Event</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">ObservationT</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">RewardT</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<ul>
+								<li>A generator that yields observations, messages and rewards.</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="gettickid" class="tsd-anchor"></a>
+					<h3>get<wbr>Tick<wbr>Id</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Tick<wbr>Id<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in cogment/ActorSession.ts:130</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get the trial&#39;s current tick id, matching the latest received observation.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></h4>
+							<ul>
+								<li>The current tick id.</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="istrialover" class="tsd-anchor"></a>
+					<h3>is<wbr>Trial<wbr>Over</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">is<wbr>Trial<wbr>Over<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in cogment/ActorSession.ts:137</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check if the trial is over.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="sendaction" class="tsd-anchor"></a>
+					<h3>send<wbr>Action</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Action<span class="tsd-signature-symbol">(</span>userAction<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ActionT</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in cogment/ActorSession.ts:145</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Send an action to the environment.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>userAction: <span class="tsd-signature-type">ActionT</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>An action space protobuf for this actor class.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="sendmessage" class="tsd-anchor"></a>
+					<h3>send<wbr>Message</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">send<wbr>Message<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><a href="../interfaces/sendmessageoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SendMessageOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in cogment/ActorSession.ts:161</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Send an asynchronous message to a cogment entity.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <a href="../interfaces/sendmessageoptions.html" class="tsd-signature-type" data-tsd-kind="Interface">SendMessageOptions</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">AsObject</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="start" class="tsd-anchor"></a>
+					<h3>start</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">start<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in cogment/ActorSession.ts:194</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Start this ActorSession, the eventLoop will begin yielding events received from the Cogment framework.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="stop" class="tsd-anchor"></a>
+					<h3>stop</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">stop<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in cogment/ActorSession.ts:201</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>End this ActorSession, ending the eventLoop.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class=" ">
+						<a href="../modules.html">Exports</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="../enums/eventtype.html" class="tsd-kind-icon">Event<wbr>Type</a>
+					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-has-type-parameter">
+						<a href="actorsession.html" class="tsd-kind-icon">Actor<wbr>Session</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="actorsession.html#addfeedback" class="tsd-kind-icon">add<wbr>Feedback</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="actorsession.html#eventloop" class="tsd-kind-icon">event<wbr>Loop</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="actorsession.html#gettickid" class="tsd-kind-icon">get<wbr>Tick<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="actorsession.html#istrialover" class="tsd-kind-icon">is<wbr>Trial<wbr>Over</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="actorsession.html#sendaction" class="tsd-kind-icon">send<wbr>Action</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="actorsession.html#sendmessage" class="tsd-kind-icon">send<wbr>Message</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="actorsession.html#start" class="tsd-kind-icon">start</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="actorsession.html#stop" class="tsd-kind-icon">stop</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
+					<li class=" tsd-kind-class">
+						<a href="cogmentservice.html" class="tsd-kind-icon">Cogment<wbr>Service</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="trialcontroller.html" class="tsd-kind-icon">Trial<wbr>Controller</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/cogsettings.html" class="tsd-kind-icon">Cog<wbr>Settings</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/cogsettingsactorclass.html" class="tsd-kind-icon">Cog<wbr>Settings<wbr>Actor<wbr>Class</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/cogmentyaml.html" class="tsd-kind-icon">Cogment<wbr>Yaml</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/cogmentyamlactor.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Actor</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/cogmentyamlactorclass.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Actor<wbr>Class</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/cogmentyamldatalog.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Datalog</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/cogmentyamltrialparameters.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Trial<wbr>Parameters</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/createserviceoptions.html" class="tsd-kind-icon">Create<wbr>Service<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-has-type-parameter">
+						<a href="../interfaces/event.html" class="tsd-kind-icon">Event</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/reward.html" class="tsd-kind-icon">Reward</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/sendmessageoptions.html" class="tsd-kind-icon">Send<wbr>Message<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="../interfaces/trialactor.html" class="tsd-kind-icon">Trial<wbr>Actor</a>
+					</li>
+					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+						<a href="../modules.html#actorimplementation" class="tsd-kind-icon">Actor<wbr>Implementation</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../modules.html#jointrialarguments" class="tsd-kind-icon">Join<wbr>Trial<wbr>Arguments</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../modules.html#jointrialreturntype" class="tsd-kind-icon">Join<wbr>Trial<wbr>Return<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../modules.html#sendmessagereturntype" class="tsd-kind-icon">Send<wbr>Message<wbr>Return<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../modules.html#starttrialreturntype" class="tsd-kind-icon">Start<wbr>Trial<wbr>Return<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="../modules.html#versionreturntype" class="tsd-kind-icon">Version<wbr>Return<wbr>Type</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="../modules.html#createservice" class="tsd-kind-icon">create<wbr>Service</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
