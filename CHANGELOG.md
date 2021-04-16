@@ -1,3 +1,10 @@
+## [1.25.1](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0...v1.25.1) (2021-04-16)
+
+
+### Bug Fixes
+
+* **gh-pages:** run typedoc as part of semantic-release ([75242bb](https://github.com/cogment/cogment-js-sdk/commit/75242bb90412b85572bc6721cb32458d4dbd225c))
+
 ## [1.25.1-beta.1](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0...v1.25.1-beta.1) (2021-04-16)
 
 
