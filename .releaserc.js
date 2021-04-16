@@ -58,10 +58,16 @@ module.exports = {
       },
     ],
     [
+      '@semantic-release/exec',
+      {
+        publishCmd: 'npm run build:docs:html',
+      },
+    ],
+    [
       '@qiwi/semantic-release-gh-pages-plugin',
       {
         msg: 'docs: updated <%= nextRelease.gitTag %>',
-        src: 'docs',
+        src: 'public',
         dst: '.',
         branch: 'gh-pages',
         repositoryUrl: 'https://github.com/cogment/cogment-js-sdk',
