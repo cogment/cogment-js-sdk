@@ -46,6 +46,8 @@ test:
     - docker-compose run -e NODE_ENV=test cogment-js-sdk npm run test:ci
   after_script:
     - docker-compose logs --no-color --tail all > docker.log
+    - cp -r allure-report public/allure
+    - cp -r coverage public/coverage
     - bin/down.bash
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
@@ -53,8 +55,7 @@ test:
     expire_in: 1 day
     paths:
       - src/cogment/api
-      - coverage
-      - allure-report
+      - public
       - docker.log
     reports:
       junit: junit.xml
@@ -66,13 +67,11 @@ build:
     - apk add docker-compose
   script:
     - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build
-    - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build:docs:html
   artifacts:
     expire_in: 1 day
     paths:
       - dist
       - public
-      - docs
 
 release:
   stage: release
@@ -104,9 +103,7 @@ pages:
   before_script:
     - apk add docker-compose
   script:
-    - cp -r allure-report public/allure
-    - cp -r coverage public/coverage
-    - cp -r docs/api/html public/api
+    - echo "Generating Gitlab pages"
   artifacts:
     paths:
       - public
