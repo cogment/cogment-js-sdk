@@ -15,4 +15,8 @@
  *
  */
 
-export {createService} from './Cogment';
+export * from './ActorSession';
+export * from './Cogment';
+export * from './CogmentService';
+export * from './TrialController';
+export * from './types';

@@ -15,9 +15,30 @@
  *
  */
 
+import {RewardSource} from '../api/common_pb';
+
+/**
+ * A reward received from the Cogment framework.
+ */
 export interface Reward {
-  tickId: number;
-  value: number;
+  /**
+   * Confidence in this reward's value.
+   */
   confidence: number;
-  data: Reward;
+  /**
+   * The name of the actor receiving the reward.
+   */
+  receiverName: string;
+  /**
+   * Reward sources.
+   */
+  sources: RewardSource;
+  /**
+   * The tick id of this reward.
+   */
+  tickId: number;
+  /**
+   * The value of this reward.
+   */
+  value: number;
 }

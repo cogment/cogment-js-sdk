@@ -93,7 +93,7 @@ services:
     restart: on-failure
 
   sonarqube:
-    image: sonarqube:developer
+    image: sonarqube:latest
     stop_grace_period: 3600s
     ulimits:
       memlock:
@@ -124,7 +124,7 @@ services:
     image: sonarsource/sonar-scanner-cli:latest
     environment:
       SONAR_HOST_URL: http://sonarqube:9000
-      SONAR_LOGIN: f11ae17e5c21e4e3df7d563c8c810b2c6f6cfd19
+      SONAR_LOGIN: 4960f76c69872c19cc49ec9ec7ea50e147a95b03
     volumes:
       - .:/usr/src
     depends_on:

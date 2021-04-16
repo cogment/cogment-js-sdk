@@ -16,37 +16,17 @@
  */
 
 import {Message} from 'google-protobuf';
-import {CogSettingsActorClass} from '../cogment/types';
-import {ObservationData} from '../cogment/api/common_pb';
-
-// export function decodeObservationData<T extends Message>({
-//   actorClass,
-//   data,
-// }: {
-//   actorClass: CogSettingsActorClass;
-//   data: ObservationData;
-// }): T {
-//   if (data.getSnapshot()) {
-//     return actorClass.observationSpace.deserializeBinary(
-//       data.getContent_asU8(),
-//       // TODO: lazy hack around type system by casting here
-//     ) as T;
-//   } else {
-//     const delta = actorClass.observationDelta.deserializeBinary(
-//       data.getContent_asU8(),
-//     );
-//     // TODO: lazy hack around type system by casting here
-//     return actorClass.observationDeltaApply(delta) as T;
-//   }
-// }
 
 /**
  * A protobuf message type containing a `content` field of type bytes.
  */
 export interface SerializableProtobuf extends Message {
   getContent(): Uint8Array | string;
-  getContent_asU8(): Uint8Array;
+
   getContent_asB64(): string;
+
+  getContent_asU8(): Uint8Array;
+
   setContent(value: Uint8Array | string): void;
 }
 

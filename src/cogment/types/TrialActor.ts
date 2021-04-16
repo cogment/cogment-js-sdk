@@ -15,7 +15,17 @@
  *
  */
 
+/**
+ * Configuration for an actor joining a trial.
+ */
 export interface TrialActor {
-  name: string;
+  /**
+   * The actors class.
+   * @see {@link CogmentYamlActorClass.name}
+   */
   actorClass: string;
+  /**
+   * A unique identifier for this actor, used for message passing between actors in a running trial.
+   */
+  name: string;
 }

@@ -18,15 +18,11 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
 import {createService} from '../../src/cogment';
-import {
-  Message,
-  VersionInfo,
-  VersionRequest,
-} from '../../src/cogment/api/common_pb';
+import {VersionInfo, VersionRequest} from '../../src/cogment/api/common_pb';
 import {TrialLifecycle} from '../../src/cogment/api/orchestrator_pb_service';
+import {TrialActor} from '../../src/cogment/types';
 import {config} from '../../src/lib/Config';
 import {getLogger} from '../../src/lib/Logger';
-import {TrialActor} from '../../src/cogment/types';
 import {cogSettings} from './cogment-app/webapp/src/CogSettings';
 import {ClientAction, Observation} from './cogment-app/webapp/src/data_pb';
 

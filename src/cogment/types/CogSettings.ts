@@ -17,25 +17,63 @@
 
 import {Message} from 'google-protobuf';
 
+/**
+ * Generated static configuration of a Cogment actor.
+ */
 export interface CogSettingsActorClass {
-  name: string;
-  config?: typeof Message;
+  /**
+   * Protobuf message type of this actor's action space.
+   * @see {@link CogmentYamlActorClass.action.space}
+   */
   actionSpace: typeof Message;
-  observationSpace: typeof Message;
+  /**
+   * Protobuf message type of this actor's config type.
+   * @see {@link CogmentYamlActorClass.config_type}
+   */
+  config?: typeof Message;
+  /**
+   * @see {@link CogmentYamlActorClass.name}
+   */
+  name: string;
+  /**
+   * Protobuf message type of this actor's observation delta.
+   */
   observationDelta?: typeof Message;
+  /**
+   * Function used to transform observation deltas.
+   */
   observationDeltaApply?: (x: Message) => Message;
+  /**
+   * Protobuf message type of this actor's observation space.
+   * @see {@link CogmentYamlActorClass.observation.space}
+   */
+  observationSpace: typeof Message;
 }
 
+/**
+ * Generated static configuration for a Cogment application.
+ */
 export interface CogSettings {
+  /**
+   * Actor class static configuration.
+   */
   actorClasses: Record<string, CogSettingsActorClass>;
-  trial: {
-    config: typeof Message;
-  };
+  /**
+   * Environment static configuration.
+   */
   environment: {
+    /**
+     * Protobuf message type of the environment's configuration.
+     */
     config?: typeof Message;
-    class: {
-      id: string;
-      config: typeof Message;
-    };
+  };
+  /**
+   * Trial static configuration.
+   */
+  trial: {
+    /**
+     * Protobuf message type of the trial's configuration.
+     */
+    config: typeof Message;
   };
 }

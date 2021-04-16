@@ -17,14 +17,9 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message} from 'google-protobuf';
-import {CogSettings, TrialActor} from './types';
+import {getLogger} from '../lib/Logger';
 import {ActorSession} from './ActorSession';
-import {
-  TrialConfig,
-  TrialState,
-  VersionInfo,
-  VersionRequest,
-} from './api/common_pb';
+import {TrialConfig, VersionInfo, VersionRequest} from './api/common_pb';
 import {ServiceError} from './api/environment_pb_service';
 import {
   TerminateTrialRequest,
@@ -45,10 +40,16 @@ import {
   TrialLifecycleClient,
 } from './api/orchestrator_pb_service';
 import {ActorImplementation} from './CogmentService';
-import {getLogger} from '../lib/Logger';
+import {CogSettings, TrialActor} from './types';
 
 const logger = getLogger('TrialController');
 
+/**
+ * Controller for interacting with trials in the Cogment framework. Each instance is bound to
+ * {@link CogSettings | `CogSettings`},
+ * {@link TrialActor | `TrialActor's`} {@link ActorImplementation | `ActorImplementation's`} and gRPC connections to
+ * the Cogment framework.
+ */
 export class TrialController {
   private nextTrialListEntryPromise?: Promise<boolean>;
   private nextTrialListEntryResolve?: (doContinue: boolean) => void;
@@ -57,12 +58,16 @@ export class TrialController {
 
   /**
    *
-   * @param cogSettings - {@link CogSettings} generated file
-   * @param actors - An array of [{@link TrialActor}, {@link ActorImplementation}] tuples
+   * @param cogSettings - {@link CogSettings | `CogSettings`} generated file
+   * @param actors - An array of [{@link TrialActor | `TrialActor`}, {@link ActorImplementation |
+   *   `ActorImplementation`}] tuples
    * @param trialLifecycleClient - A {@link TrialLifecycleClient | `TrialLifecycleClient`}
    * @param clientActorClient - An {@link ClientActorClient | `ClientActorClient`}
-   * @param actionStreamClient - A grpc-web client for the {@link ClientActor#ActionStream} endpoint
-   * @param watchTrialsClient - A grpc-web client for the {@link TrialLifecycleClient#WatchTrials} endpoint
+   * @param actionStreamClient - A grpc-web client for the {@link ClientActor#ActionStream |
+   *   `ClientActor#ActionStream`} endpoint
+   * @param watchTrialsClient - A grpc-web client for the
+   *   {@link TrialLifecycleClient#WatchTrials | `TrialLifecycleClient#WatchTrials`} endpoint
+   * @internal
    */
   // eslint-disable-next-line max-params
   constructor(
@@ -90,16 +95,16 @@ export class TrialController {
   }
 
   /**
-   * A list of {@link TrialActor}s associated to this trial.
-   * @returns The trial actors for this trial.
+   * A list of {@link TrialActor | `TrialActor's`} associated to this trial.
+   * @returns - The trial actors for this trial.
    */
   public getActiveActors(): TrialActor[] {
     return this.actors.map(([trialActor]) => trialActor);
   }
 
   /**
-   * The trialId of any started or joined trial.
-   * @returns The trial id
+   * The id of any started or joined trial.
+   * @returns - The trial id
    */
   public getTriaId(): string {
     if (!this.trialId) {
@@ -108,9 +113,13 @@ export class TrialController {
     return this.trialId;
   }
 
+  /**
+   * Get trial information for a given trial.
+   * @param trialId - Id of the trial to retrieve info for.
+   */
   public async getTrialInfo(trialId: string): Promise<TrialInfoReply> {
     // eslint-disable-next-line compat/compat
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.trialLifecycleClient.getTrialInfo(
         new TrialInfoRequest(),
         new grpc.Metadata({'trial-id': trialId}),
@@ -124,24 +133,21 @@ export class TrialController {
     });
   }
 
+  /**
+   * Check if a given trial is completed.
+   * @param trialId - the id of the trial to check.
+   */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public async isTrialOver(trialId: string): Promise<boolean> {
     // eslint-disable-next-line compat/compat
     return Promise.resolve(!this.trialId);
   }
 
-  // TODO: this causes an orchestrator crash, guessing header related in getTrialInfo call
-  public async isTrialOverBroken(trialId: string): Promise<boolean> {
-    return this.getTrialInfo(trialId).then((trialInfoReply) => {
-      return !!trialInfoReply.getTrialList()?.find((trialInfo) => {
-        return (
-          trialInfo.getTrialId() === trialId &&
-          trialInfo.getState() === TrialState.RUNNING
-        );
-      });
-    });
-  }
-
+  /**
+   * Join a trial given a trial id.
+   * @param trialId - The trialId of the trial to join.
+   * @param trialActor - The TrialActor configuration to join as.
+   */
   public async joinTrial(
     trialId: string,
     trialActor?: TrialActor,
@@ -154,7 +160,7 @@ export class TrialController {
     }
 
     // eslint-disable-next-line compat/compat
-    const response = await new Promise<JoinTrialReturnType>(
+    const joinTrialResponse = await new Promise<JoinTrialReturnType>(
       (resolve, reject) => {
         this.clientActorClient.joinTrial(
           request,
@@ -184,15 +190,16 @@ export class TrialController {
       },
     );
 
-    await this.startActors(response.trialId);
-    return response;
+    await this.startActors(joinTrialResponse.trialId);
+    return joinTrialResponse;
   }
 
   /**
    * Start a new trial.
-   * @param actorClass - The name of an actor_class corresponding to `cogment.yaml`
-   * @param trialConfig - A TrialConfig protobuf that will merge with `trial_params.trial_config` from `cogment.yaml`
-   * @returns A trial start response
+   * @param actorClass - The name of an actor_class corresponding to {@link CogmentYaml | `cogment.yaml`}
+   * @param trialConfig - A TrialConfig protobuf that will be passed to any pre-hooks configured in
+   *   {@link CogmentYaml.pre_hooks | `cogment.yaml`}
+   * @returns - A trial start response
    */
   public async startTrial(
     // TODO: what does the backend do with TrialStartRequest#user_id? This should be optional if we are to be able to
@@ -224,9 +231,13 @@ export class TrialController {
     });
   }
 
+  /**
+   * Terminate a trial.
+   * @param trialId - Id of the trial to terminate.
+   */
   public async terminateTrial(trialId: string): Promise<void> {
     // eslint-disable-next-line compat/compat
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.trialLifecycleClient.terminateTrial(
         new TerminateTrialRequest(),
         new grpc.Metadata({'trial-id': trialId}),
@@ -241,9 +252,12 @@ export class TrialController {
     });
   }
 
+  /**
+   * Request the version from the Cogment framework.
+   */
   public async version(): Promise<VersionReturnType> {
     // eslint-disable-next-line compat/compat
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
       this.trialLifecycleClient.version(
         new VersionRequest(),
         (error, response) => {
@@ -256,6 +270,10 @@ export class TrialController {
     });
   }
 
+  /**
+   * Watch cogment for trial changes.
+   * @param filter - An enum of TrialState's to watch trial changes of.
+   */
   public async *watchTrials(
     filter?: (0 | 1 | 2 | 3 | 4 | 5)[],
   ): AsyncGenerator<TrialListEntry, void, void> {
@@ -353,14 +371,24 @@ export class TrialController {
 
 export type SendMessageReturnType = TrialMessageReply.AsObject;
 export type StartTrialReturnType = TrialStartReply.AsObject;
-
-export type JoinTrialArguments = {
-  actorClass?: string;
-  actorName?: string;
-  trialId: string;
-};
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type JoinTrialReturnType = TrialJoinReply.AsObject & {config: any};
-
 export type VersionReturnType = {version: VersionInfo.AsObject['versionsList']};
+
+/**
+ * Arguments to joinTrial
+ */
+export type JoinTrialArguments = {
+  /**
+   * The class of the actor; this must correspond with a {@link CogmentYaml.actor_classes}.
+   */
+  actorClass?: string;
+  /**
+   * Unique identifier for this actor connecting to the trial. Used for message passing.
+   */
+  actorName?: string;
+  /**
+   * The id of the trial to join.
+   */
+  trialId: string;
+};

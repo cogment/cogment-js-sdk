@@ -102,7 +102,7 @@ pages:
   before_script:
     - apk add docker-compose
   script:
-    - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build:docs
+    - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build:docs:md
     - cp -r allure-report public/allure
     - cp -r coverage public/coverage
     - cp -r docs/api/* public/

@@ -55,15 +55,119 @@
 
 ## Usage
 
-To install the package:
+Install the package:
 
 ```shell script
 npm install @cogment/cogment-js-sdk
 ```
 
-## Docker
+The [test suite][test-suite] [embeds][cogment-app] a working [Cogment
+application][docs.cogment.ai]. Parts of the example application
+pertinent to the js-sdk test suite:
 
-### Docker Setup
+- [an echo actor](/__tests__/end-to-end/cogment-app/echo/)
+- [an environment](/__tests__/end-to-end/cogment-app/environment/)
+- [configuration pre-hook](/__tests__/end-to-end/cogment-app/configurator)
+  \- a gRPC service, configured in cogment.yaml
+- [cogment.yaml](/__tests__/end-to-end/cogment-app/cogment.yaml) - the
+  configuration entrypoint into Cogment and is used to generate language
+  specific static configuration files.
+- [data.proto](/__tests__/end-to-end/cogment-app/data.proto) -
+  application specific protobufs that represent trial entities (eg:
+  observation space, actor action space, etc) in addition to other
+  utility protobufs needed by the user, you!
+
+The [ActorSession.test.ts](/__tests__/ActorSession.test.ts) is the most
+feature complete example of a working cogment application and is
+documented to be read as such.
+
+Examples follow.
+
+### Instantiate a CogmentService
+
+```typescript
+import {createService} from 'cogment';
+import cogSettings from './CogSettings';
+
+const cogmentService = createService({
+  cogSettings,
+});
+```
+
+### Start and stop a trial
+
+```typescript
+import {createService} from 'cogment';
+import cogSettings from './CogSettings';
+
+const cogmentService = createService({
+  cogSettings,
+});
+
+const trialController = cogmentService.createTrialController();
+
+const {trialId} = await trialController.startTrial('unique-id');
+return trialController.terminateTrial(trialId);
+```
+
+### Register an actor and join the trial
+
+```typescript
+import {createService, TrialActor} from 'cogment';
+import cogSettings from './CogSettings';
+import {ClientAction, Observation} from './data_pb';
+
+const cogmentService = createService({
+  cogSettings,
+});
+
+const trialActor: TrialActor = {
+  name: 'client_actor',
+  actorClass: 'client',
+};
+
+cogmentService.registerActor<ClientAction, Observation, never>(
+  trialActor,
+  async (actorSession) => {
+    // Actor implementation here.
+  },
+);
+
+const trialController = cogmentService.createTrialController();
+const {trialId} = await trialController.startTrial(trialActor.name);
+await trialController.joinTrial(trialId, trialActor);
+return trialController.terminateTrial(trialId);
+```
+
+### Watch for trial state changes
+
+```typescript
+import {createService} from 'cogment';
+import cogSettings from './CogSettings';
+
+const cogmentService = createService({
+  cogSettings,
+});
+
+const trialController = cogmentService.createTrialController();
+
+for await (const trialListEntry of trialController.watchTrials([
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+])) {
+  // Do stuff!
+}
+```
+
+## Development Workflow
+
+### Docker
+
+#### Docker Setup
 
 1. Clone the repository:
    ```shell script
@@ -78,48 +182,29 @@ npm install @cogment/cogment-js-sdk
    docker-compose run cogment-js-sdk npm run init
    ```
 
-### Docker Testing
+#### Docker Testing
 
-1. Change the contents of .cogmentrc.js from
-   ```
-   module.exports = {
-     connection: {
-       http: 'http://grpcwebproxy:8080',
-     },
-     logger: {
-       level: 'debug',
-     },
-   };
-   ```
-   To
-   ```
-   module.exports = {
-     connection: {
-       http: 'http://localhost:8080',
-     },
-     logger: {
-       level: 'debug',
-     },
-   };
-   ```
-2. Start the embeded cogment app
+1. Start the embeded cogment app
    ```shell script
    bin/up.bash
    ```
-3. Run all tests
+2. Run all tests
    ```shell script
    docker-compose run cogment-js-sdk npm run test
    ```
 
-## Non-docker
+### Non-docker
 
-### Setup
+#### Setup
 
 1. Clone the repository:
    ```shell script
    git clone https://github.com/cogment/cogment-js-sdk.git
    ```
-2. Install Node:
+2. Install node (check [.node-version](/.node-version) for the
+   appropriate version). The recommended way to manage node
+   distributions is through
+   [nvm (node version manager)](https://github.com/nvm-sh/nvm):
    ```shell script
    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
    source ~/.nvm/nvm.sh
@@ -131,7 +216,7 @@ npm install @cogment/cogment-js-sdk
    npm run init
    ```
 
-### Testing
+#### Testing
 
 1. Change the contents of .cogmentrc.js from
    ```
@@ -162,20 +247,15 @@ npm install @cogment/cogment-js-sdk
 3. Do one of the following:
 
 - To run the test suite once:
-
   ```shell script
   npm run test
   ```
-
 - To watch for changes and rerun tests automatically in your console:
-
   ```shell script
   npm run test:watch
   ```
-
 - To launch the [majestic test ui][majestic] to run / watch / visualize
   tests:
-
   ```shell script
   npm run test:ui
   ```
@@ -185,9 +265,11 @@ npm install @cogment/cogment-js-sdk
 [code-of-conduct]: /CODE_OF_CONDUCT.md
 [codeguidelines]: /docs/codeguidelines.md
 [cogjs-cli]: /cli
+[cogment-app]: /__tests__/end-to-end/cogment-app/
 [cogment.ai]: https://cogment.ai 'cogment.ai'
 [contributing]: /CONTRIBUTING.md
 [coverage]: https://ai-r.gitlab.io/cogment-js-sdk/coverage/lcov-report 'coverage report'
+[docs.cogment.ai]: https://docs.cogment.ai/
 [license]: /LICENSE.md 'license'
 [majestic]: https://github.com/Raathigesh/majestic 'majestic'
 [npm-cogment]: https://www.npmjs.com/package/cogment 'npm-cogment'
@@ -195,6 +277,7 @@ npm install @cogment/cogment-js-sdk
 [repo]: https://github.com/cogment/cogment-js-sdk/ 'Repository'
 [semver.org]: https://semver.org
 [sentimental-versioning]: http://sentimentalversioning.org/
+[test-suite]: /__tests__/
 [tests]: https://ai-r.gitlab.io/cogment-js-sdk/allure
 [updating-cogment]: /docs/updating-cogment.md
 [webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs

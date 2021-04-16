@@ -17,11 +17,9 @@
 
 import {grpc} from '@improbable-eng/grpc-web';
 import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import {createService} from '../src';
+import {createService, StartTrialReturnType, TrialActor} from '../src';
 import {TrialState} from '../src/cogment/api/common_pb';
 import {TrialListEntry} from '../src/cogment/api/orchestrator_pb';
-import {StartTrialReturnType} from '../src/cogment/TrialController';
-import {TrialActor} from '../src/cogment/types';
 import {config} from '../src/lib/Config';
 import {cogSettings} from './end-to-end/cogment-app/webapp/src/CogSettings';
 
