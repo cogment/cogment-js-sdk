@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CogmentYamlActor | @cogment/cogment-js-sdk - v1.25.0-beta.4</title>
-	<meta name="description" content="Documentation for @cogment/cogment-js-sdk - v1.25.0-beta.4">
+	<title>Event | @cogment/cogment-js-sdk - v1.25.1-beta.1</title>
+	<meta name="description" content="Documentation for @cogment/cogment-js-sdk - v1.25.1-beta.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@cogment/cogment-js-sdk - v1.25.0-beta.4</a>
+					<a href="../index.html" class="title">@cogment/cogment-js-sdk - v1.25.1-beta.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -50,13 +50,13 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">@cogment/cogment-js-sdk - v1.25.0-beta.4</a>
+					<a href="../modules.html">@cogment/cogment-js-sdk - v1.25.1-beta.1</a>
 				</li>
 				<li>
-					<a href="cogmentyamlactor.html">CogmentYamlActor</a>
+					<a href="event.html">Event</a>
 				</li>
 			</ul>
-			<h1>Interface CogmentYamlActor</h1>
+			<h1>Interface Event&lt;ObservationT, FeedbackT&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -66,15 +66,36 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Static configuration of an actor participating in a trial.</p>
+						<p>An event received from the Cogment framework.</p>
 					</div>
 				</div>
+			</section>
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>ObservationT<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span></h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Protobuf message type of the observation space.</p>
+							</div>
+						</div>
+					</li>
+					<li>
+						<h4>FeedbackT<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span></h4>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>Protobuf message type of the feedback space.</p>
+							</div>
+						</div>
+					</li>
+				</ul>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CogmentYamlActor</span>
+						<span class="target">Event</span>
 					</li>
 				</ul>
 			</section>
@@ -85,10 +106,12 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogmentyamlactor.html#actor_class" class="tsd-kind-icon">actor_<wbr>class</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogmentyamlactor.html#endpoint" class="tsd-kind-icon">endpoint</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogmentyamlactor.html#implementation" class="tsd-kind-icon">implementation</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogmentyamlactor.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="event.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="event.html#observation" class="tsd-kind-icon">observation</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="event.html#reward" class="tsd-kind-icon">reward</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="event.html#tickid" class="tsd-kind-icon">tick<wbr>Id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="event.html#timestamp" class="tsd-kind-icon">timestamp</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="event.html#type" class="tsd-kind-icon">type</a></li>
 							</ul>
 						</section>
 					</div>
@@ -97,65 +120,92 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="actor_class" class="tsd-anchor"></a>
-					<h3>actor_<wbr>class</h3>
-					<div class="tsd-signature tsd-kind-icon">actor_<wbr>class<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="message" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">CogMessage</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in cogment/types/CogmentYaml.ts:107</li>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/types/Event.ts#L43">cogment/types/Event.ts:43</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>The <a href="cogmentyamlactorclass.html"><code>CogmentYamlActorClass</code></a> this actor is an instance of (must match
-							<a href="cogmentyamlactorclass.html#name"><code>CogmentYamlActorClass.name</code></a>).</p>
+							<p>The next message encoded as a protobuf message.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="endpoint" class="tsd-anchor"></a>
-					<h3>endpoint</h3>
-					<div class="tsd-signature tsd-kind-icon">endpoint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="observation" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> observation</h3>
+					<div class="tsd-signature tsd-kind-icon">observation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ObservationT</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in cogment/types/CogmentYaml.ts:111</li>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/types/Event.ts#L47">cogment/types/Event.ts:47</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>gRPC endpoint of this actor. The special value of <code>client</code> is used for connecting actors (vs. served actors).</p>
+							<p>The next observation from the environment encoded as a protobuf message.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="implementation" class="tsd-anchor"></a>
-					<h3>implementation</h3>
-					<div class="tsd-signature tsd-kind-icon">implementation<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="reward" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> reward</h3>
+					<div class="tsd-signature tsd-kind-icon">reward<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">FeedbackT</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in cogment/types/CogmentYaml.ts:116</li>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/types/Event.ts#L51">cogment/types/Event.ts:51</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Which implementation of this actor class to use. Actors may have multiple implementations. The special value of
-							<code>client</code> is used for connecting actors (vs. served actors).</p>
+							<p>The next reward encoded as a protobuf message.</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="tickid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> tick<wbr>Id</h3>
+					<div class="tsd-signature tsd-kind-icon">tick<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in cogment/types/CogmentYaml.ts:121</li>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/types/Event.ts#L55">cogment/types/Event.ts:55</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>A unique name for this actor instance. This identifier is used for communication between actors using message
-							passing.</p>
+							<p>The tick id of this event.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="timestamp" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> timestamp</h3>
+					<div class="tsd-signature tsd-kind-icon">timestamp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/types/Event.ts#L59">cogment/types/Event.ts:59</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Epoch timestamp in milliseconds when this event was generated by the Cogment framework.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="type" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> type</h3>
+					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../enums/eventtype.html" class="tsd-signature-type" data-tsd-kind="Enumeration">EventType</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/types/Event.ts#L63">cogment/types/Event.ts:63</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The trial state at the tick id of this event.</p>
 						</div>
 					</div>
 				</section>
@@ -192,27 +242,9 @@
 					<li class=" tsd-kind-interface">
 						<a href="cogmentyaml.html" class="tsd-kind-icon">Cogment<wbr>Yaml</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="cogmentyamlactor.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Actor</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogmentyamlactor.html#actor_class" class="tsd-kind-icon">actor_<wbr>class</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogmentyamlactor.html#endpoint" class="tsd-kind-icon">endpoint</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogmentyamlactor.html#implementation" class="tsd-kind-icon">implementation</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogmentyamlactor.html#name" class="tsd-kind-icon">name</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="cogmentyamlactorclass.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Actor<wbr>Class</a>
 					</li>
@@ -225,9 +257,33 @@
 					<li class=" tsd-kind-interface">
 						<a href="createserviceoptions.html" class="tsd-kind-icon">Create<wbr>Service<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-has-type-parameter">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface tsd-has-type-parameter">
 						<a href="event.html" class="tsd-kind-icon">Event</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="event.html#message" class="tsd-kind-icon">message</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="event.html#observation" class="tsd-kind-icon">observation</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="event.html#reward" class="tsd-kind-icon">reward</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="event.html#tickid" class="tsd-kind-icon">tick<wbr>Id</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="event.html#timestamp" class="tsd-kind-icon">timestamp</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="event.html#type" class="tsd-kind-icon">type</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="reward.html" class="tsd-kind-icon">Reward</a>
 					</li>

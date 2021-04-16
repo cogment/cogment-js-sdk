@@ -1,0 +1,4347 @@
+{
+  "name": "cogment-umd",
+  "logging": {
+    "webpack.Compiler": {
+      "entries": [
+        {
+          "time": 1618575362425,
+          "type": "time",
+          "args": [
+            "make hook",
+            10,
+            524690450
+          ],
+          "message": "make hook: 10524.69045 ms"
+        },
+        {
+          "time": 1618575362425,
+          "type": "time",
+          "args": [
+            "finish make hook",
+            0,
+            215419
+          ],
+          "message": "finish make hook: 0.215419 ms"
+        },
+        {
+          "time": 1618575362428,
+          "type": "time",
+          "args": [
+            "finish compilation",
+            0,
+            2196798
+          ],
+          "message": "finish compilation: 2.196798 ms"
+        },
+        {
+          "time": 1618575372849,
+          "type": "time",
+          "args": [
+            "seal compilation",
+            10,
+            421170181
+          ],
+          "message": "seal compilation: 10421.170181 ms"
+        },
+        {
+          "time": 1618575372849,
+          "type": "time",
+          "args": [
+            "afterCompile hook",
+            0,
+            243698
+          ],
+          "message": "afterCompile hook: 0.243698 ms"
+        },
+        {
+          "time": 1618575373934,
+          "type": "time",
+          "args": [
+            "emitAssets",
+            1,
+            84767473
+          ],
+          "message": "emitAssets: 1084.7674729999999 ms"
+        },
+        {
+          "time": 1618575373934,
+          "type": "time",
+          "args": [
+            "emitRecords",
+            0,
+            5492
+          ],
+          "message": "emitRecords: 0.005492 ms"
+        }
+      ],
+      "filteredEntries": 0,
+      "debug": false
+    },
+    "webpack.FlagDependencyExportsPlugin": {
+      "entries": [
+        {
+          "time": 1618575362426,
+          "type": "time",
+          "args": [
+            "restore cached provided exports",
+            0,
+            171876
+          ],
+          "message": "restore cached provided exports: 0.171876 ms"
+        },
+        {
+          "time": 1618575362427,
+          "type": "time",
+          "args": [
+            "figure out provided exports",
+            0,
+            480023
+          ],
+          "message": "figure out provided exports: 0.480023 ms"
+        },
+        {
+          "time": 1618575362427,
+          "type": "log",
+          "args": [
+            "100% of exports of modules have been determined (25 not cached, 0 flagged uncacheable, 0 from cache, 0 additional calculations due to dependencies)"
+          ],
+          "message": "100% of exports of modules have been determined (25 not cached, 0 flagged uncacheable, 0 from cache, 0 additional calculations due to dependencies)"
+        },
+        {
+          "time": 1618575362427,
+          "type": "time",
+          "args": [
+            "store provided exports into cache",
+            0,
+            93826
+          ],
+          "message": "store provided exports into cache: 0.093826 ms"
+        }
+      ],
+      "filteredEntries": 0,
+      "debug": false
+    },
+    "webpack.InnerGraphPlugin": {
+      "entries": [
+        {
+          "time": 1618575362427,
+          "type": "time",
+          "args": [
+            "infer dependency usage",
+            0,
+            568563
+          ],
+          "message": "infer dependency usage: 0.568563 ms"
+        }
+      ],
+      "filteredEntries": 0,
+      "debug": false
+    },
+    "webpack.Compilation": {
+      "entries": [
+        {
+          "time": 1618575362428,
+          "type": "time",
+          "args": [
+            "finish modules",
+            0,
+            2054466
+          ],
+          "message": "finish modules: 2.054466 ms"
+        },
+        {
+          "time": 1618575362428,
+          "type": "time",
+          "args": [
+            "report dependency errors and warnings",
+            0,
+            107004
+          ],
+          "message": "report dependency errors and warnings: 0.107004 ms"
+        },
+        {
+          "time": 1618575362430,
+          "type": "time",
+          "args": [
+            "optimize dependencies",
+            0,
+            1624995
+          ],
+          "message": "optimize dependencies: 1.624995 ms"
+        },
+        {
+          "time": 1618575362431,
+          "type": "time",
+          "args": [
+            "create chunks",
+            0,
+            978999
+          ],
+          "message": "create chunks: 0.978999 ms"
+        },
+        {
+          "time": 1618575362436,
+          "type": "time",
+          "args": [
+            "optimize",
+            0,
+            4997424
+          ],
+          "message": "optimize: 4.997424 ms"
+        },
+        {
+          "time": 1618575362437,
+          "type": "log",
+          "args": [
+            "25 modules hashed (1 variants per module in average)"
+          ],
+          "message": "25 modules hashed (1 variants per module in average)"
+        },
+        {
+          "time": 1618575362438,
+          "type": "time",
+          "args": [
+            "module hashing",
+            0,
+            1842435
+          ],
+          "message": "module hashing: 1.842435 ms"
+        },
+        {
+          "time": 1618575362439,
+          "type": "log",
+          "args": [
+            "100% code generated (25 generated, 0 from cache)"
+          ],
+          "message": "100% code generated (25 generated, 0 from cache)"
+        },
+        {
+          "time": 1618575362439,
+          "type": "time",
+          "args": [
+            "code generation",
+            0,
+            1731888
+          ],
+          "message": "code generation: 1.731888 ms"
+        },
+        {
+          "time": 1618575362441,
+          "type": "time",
+          "args": [
+            "runtime requirements",
+            0,
+            1371722
+          ],
+          "message": "runtime requirements: 1.371722 ms"
+        },
+        {
+          "time": 1618575362441,
+          "type": "time",
+          "args": [
+            "hashing: initialize hash",
+            0,
+            9008
+          ],
+          "message": "hashing: initialize hash: 0.009008 ms"
+        },
+        {
+          "time": 1618575362441,
+          "type": "time",
+          "args": [
+            "hashing: sort chunks",
+            0,
+            89383
+          ],
+          "message": "hashing: sort chunks: 0.089383 ms"
+        },
+        {
+          "time": 1618575362442,
+          "type": "time",
+          "args": [
+            "hashing: hash runtime modules",
+            0,
+            294389
+          ],
+          "message": "hashing: hash runtime modules: 0.294389 ms"
+        },
+        {
+          "time": 1618575362442,
+          "type": "time",
+          "args": [
+            "hashing: hash chunks",
+            0,
+            999839
+          ],
+          "message": "hashing: hash chunks: 0.999839 ms"
+        },
+        {
+          "time": 1618575362442,
+          "type": "time",
+          "args": [
+            "hashing: hash digest",
+            0,
+            82694
+          ],
+          "message": "hashing: hash digest: 0.082694 ms"
+        },
+        {
+          "time": 1618575362442,
+          "type": "time",
+          "args": [
+            "hashing: process full hash modules",
+            0,
+            4288
+          ],
+          "message": "hashing: process full hash modules: 0.004288 ms"
+        },
+        {
+          "time": 1618575362442,
+          "type": "time",
+          "args": [
+            "hashing",
+            0,
+            1721559
+          ],
+          "message": "hashing: 1.721559 ms"
+        },
+        {
+          "time": 1618575362442,
+          "type": "log",
+          "args": [
+            "100% code generated (4 generated, 0 from cache)"
+          ],
+          "message": "100% code generated (4 generated, 0 from cache)"
+        },
+        {
+          "time": 1618575362443,
+          "type": "time",
+          "args": [
+            "record hash",
+            0,
+            168459
+          ],
+          "message": "record hash: 0.168459 ms"
+        },
+        {
+          "time": 1618575362443,
+          "type": "time",
+          "args": [
+            "module assets",
+            0,
+            105293
+          ],
+          "message": "module assets: 0.105293 ms"
+        },
+        {
+          "time": 1618575362445,
+          "type": "time",
+          "args": [
+            "create chunk assets",
+            0,
+            2188028
+          ],
+          "message": "create chunk assets: 2.188028 ms"
+        },
+        {
+          "time": 1618575372848,
+          "type": "time",
+          "args": [
+            "process assets",
+            10,
+            402971731
+          ],
+          "message": "process assets: 10402.971731 ms"
+        }
+      ],
+      "filteredEntries": 0,
+      "debug": false
+    },
+    "webpack.SideEffectsFlagPlugin": {
+      "entries": [
+        {
+          "time": 1618575362428,
+          "type": "time",
+          "args": [
+            "update dependencies",
+            0,
+            70089
+          ],
+          "message": "update dependencies: 0.070089 ms"
+        }
+      ],
+      "filteredEntries": 0,
+      "debug": false
+    },
+    "webpack.FlagDependencyUsagePlugin": {
+      "entries": [
+        {
+          "time": 1618575362429,
+          "type": "time",
+          "args": [
+            "initialize exports usage",
+            0,
+            84926
+          ],
+          "message": "initialize exports usage: 0.084926 ms"
+        },
+        {
+          "time": 1618575362430,
+          "type": "time",
+          "args": [
+            "trace exports usage in graph",
+            0,
+            959838
+          ],
+          "message": "trace exports usage in graph: 0.959838 ms"
+        }
+      ],
+      "filteredEntries": 0,
+      "debug": false
+    },
+    "webpack.buildChunkGraph": {
+      "entries": [
+        {
+          "time": 1618575362430,
+          "type": "time",
+          "args": [
+            "visitModules: prepare",
+            0,
+            231623
+          ],
+          "message": "visitModules: prepare: 0.231623 ms"
+        },
+        {
+          "time": 1618575362430,
+          "type": "time",
+          "args": [
+            "visitModules: visiting",
+            0,
+            273088
+          ],
+          "message": "visitModules: visiting: 0.273088 ms"
+        },
+        {
+          "time": 1618575362431,
+          "type": "log",
+          "args": [
+            "53 queue items processed (25 blocks)"
+          ],
+          "message": "53 queue items processed (25 blocks)"
+        },
+        {
+          "time": 1618575362431,
+          "type": "log",
+          "args": [
+            "0 chunk groups connected"
+          ],
+          "message": "0 chunk groups connected"
+        },
+        {
+          "time": 1618575362431,
+          "type": "log",
+          "args": [
+            "0 chunk groups processed for merging (0 module sets, 0 forked, 0 + 0 modules forked, 0 + 0 modules merged into fork, 0 resulting modules)"
+          ],
+          "message": "0 chunk groups processed for merging (0 module sets, 0 forked, 0 + 0 modules forked, 0 + 0 modules merged into fork, 0 resulting modules)"
+        },
+        {
+          "time": 1618575362431,
+          "type": "log",
+          "args": [
+            "0 chunk group info updated (0 already connected chunk groups reconnected)"
+          ],
+          "message": "0 chunk group info updated (0 already connected chunk groups reconnected)"
+        },
+        {
+          "time": 1618575362431,
+          "type": "time",
+          "args": [
+            "visitModules",
+            0,
+            556446
+          ],
+          "message": "visitModules: 0.556446 ms"
+        },
+        {
+          "time": 1618575362431,
+          "type": "time",
+          "args": [
+            "connectChunkGroups",
+            0,
+            3803
+          ],
+          "message": "connectChunkGroups: 0.003803 ms"
+        },
+        {
+          "time": 1618575362431,
+          "type": "time",
+          "args": [
+            "cleanup",
+            0,
+            2105
+          ],
+          "message": "cleanup: 0.002105 ms"
+        }
+      ],
+      "filteredEntries": 0,
+      "debug": false
+    },
+    "webpack.SplitChunksPlugin": {
+      "entries": [
+        {
+          "time": 1618575362431,
+          "type": "time",
+          "args": [
+            "prepare",
+            0,
+            42341
+          ],
+          "message": "prepare: 0.042341 ms"
+        },
+        {
+          "time": 1618575362432,
+          "type": "time",
+          "args": [
+            "modules",
+            0,
+            535625
+          ],
+          "message": "modules: 0.535625 ms"
+        },
+        {
+          "time": 1618575362432,
+          "type": "time",
+          "args": [
+            "queue",
+            0,
+            3664
+          ],
+          "message": "queue: 0.003664 ms"
+        },
+        {
+          "time": 1618575362432,
+          "type": "time",
+          "args": [
+            "maxSize",
+            0,
+            10967
+          ],
+          "message": "maxSize: 0.010967 ms"
+        }
+      ],
+      "filteredEntries": 0,
+      "debug": false
+    },
+    "webpack.ModuleConcatenationPlugin": {
+      "entries": [
+        {
+          "time": 1618575362433,
+          "type": "time",
+          "args": [
+            "select relevant modules",
+            0,
+            172351
+          ],
+          "message": "select relevant modules: 0.172351 ms"
+        },
+        {
+          "time": 1618575362433,
+          "type": "time",
+          "args": [
+            "sort relevant modules",
+            0,
+            3123
+          ],
+          "message": "sort relevant modules: 0.003123 ms"
+        },
+        {
+          "time": 1618575362433,
+          "type": "time",
+          "args": [
+            "find modules to concatenate",
+            0,
+            53106
+          ],
+          "message": "find modules to concatenate: 0.053106 ms"
+        },
+        {
+          "time": 1618575362433,
+          "type": "time",
+          "args": [
+            "sort concat configurations",
+            0,
+            1942
+          ],
+          "message": "sort concat configurations: 0.001942 ms"
+        },
+        {
+          "time": 1618575362433,
+          "type": "time",
+          "args": [
+            "create concatenated modules",
+            0,
+            7544
+          ],
+          "message": "create concatenated modules: 0.007544 ms"
+        }
+      ],
+      "filteredEntries": 3,
+      "debug": false
+    },
+    "webpack.FileSystemInfo": {
+      "entries": [
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "25 new snapshots created"
+          ],
+          "message": "25 new snapshots created"
+        },
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "0% root snapshot uncached (0 / 0)"
+          ],
+          "message": "0% root snapshot uncached (0 / 0)"
+        },
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "0% children snapshot uncached (0 / 0)"
+          ],
+          "message": "0% children snapshot uncached (0 / 0)"
+        },
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "0 entries tested"
+          ],
+          "message": "0 entries tested"
+        },
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "File info in cache: 32 timestamps 32 hashes 32 timestamp hash combinations"
+          ],
+          "message": "File info in cache: 32 timestamps 32 hashes 32 timestamp hash combinations"
+        },
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "File timestamp hash combination snapshot optimization: 86% (196/228) entries shared via 3 shared snapshots (16 times referenced)"
+          ],
+          "message": "File timestamp hash combination snapshot optimization: 86% (196/228) entries shared via 3 shared snapshots (16 times referenced)"
+        },
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "Directory info in cache: 0 timestamps 0 hashes 0 timestamp hash combinations"
+          ],
+          "message": "Directory info in cache: 0 timestamps 0 hashes 0 timestamp hash combinations"
+        },
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "Managed items info in cache: 70 items"
+          ],
+          "message": "Managed items info in cache: 70 items"
+        },
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "Managed items snapshot optimization: 99% (938/945) entries shared via 1 shared snapshots (13 times referenced)"
+          ],
+          "message": "Managed items snapshot optimization: 99% (938/945) entries shared via 1 shared snapshots (13 times referenced)"
+        },
+        {
+          "time": 1618575372849,
+          "type": "log",
+          "args": [
+            "Managed files snapshot optimization: 100% (3122/3129) entries shared via 1 shared snapshots (13 times referenced)"
+          ],
+          "message": "Managed files snapshot optimization: 100% (3122/3129) entries shared via 1 shared snapshots (13 times referenced)"
+        }
+      ],
+      "filteredEntries": 0,
+      "debug": false
+    }
+  },
+  "hash": "1945d4b54df7d1fae995",
+  "version": "5.33.2",
+  "time": 22043,
+  "builtAt": 1618575373934,
+  "publicPath": "auto",
+  "outputPath": "/app/dist",
+  "assetsByChunkName": {
+    "cogment": [
+      "cogment.umd.js"
+    ]
+  },
+  "assets": [
+    {
+      "type": "asset",
+      "name": "cogment.umd.js",
+      "size": 398598,
+      "emitted": true,
+      "comparedForEmit": false,
+      "cached": false,
+      "info": {
+        "javascriptModule": false,
+        "minimized": true,
+        "related": {
+          "license": "cogment.umd.js.LICENSE.txt",
+          "sourceMap": "cogment.umd.js.map"
+        },
+        "size": 398598
+      },
+      "chunkNames": [
+        "cogment"
+      ],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "filteredRelated": 0,
+      "related": [
+        {
+          "type": "sourceMap",
+          "name": "cogment.umd.js.map",
+          "size": 1070605,
+          "emitted": true,
+          "comparedForEmit": false,
+          "cached": false,
+          "info": {
+            "development": true,
+            "size": 1070605
+          },
+          "chunkNames": [],
+          "chunkIdHints": [],
+          "auxiliaryChunkNames": [
+            "cogment"
+          ],
+          "auxiliaryChunkIdHints": [],
+          "related": {},
+          "chunks": [],
+          "auxiliaryChunks": [
+            285
+          ],
+          "isOverSizeLimit": false
+        },
+        {
+          "type": "license",
+          "name": "cogment.umd.js.LICENSE.txt",
+          "size": 808,
+          "emitted": true,
+          "comparedForEmit": false,
+          "cached": false,
+          "info": {
+            "extractedComments": true,
+            "size": 808
+          },
+          "chunkNames": [],
+          "chunkIdHints": [],
+          "auxiliaryChunkNames": [],
+          "auxiliaryChunkIdHints": [],
+          "related": {},
+          "chunks": [],
+          "auxiliaryChunks": [],
+          "isOverSizeLimit": false
+        }
+      ],
+      "chunks": [
+        285
+      ],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": true
+    },
+    {
+      "type": "asset",
+      "name": "cogment/TrialController.d.ts",
+      "size": 2371,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 2371
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/TrialController.d.ts.map",
+      "size": 2162,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 2162
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/ActorSession.d.ts",
+      "size": 1650,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 1650
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "lib/Logger.d.ts.map",
+      "size": 1587,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 1587
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/ActorSession.d.ts.map",
+      "size": 1534,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 1534
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/CogmentService.d.ts",
+      "size": 1408,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 1408
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "lib/Logger.d.ts",
+      "size": 1379,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 1379
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/CogmentService.d.ts.map",
+      "size": 1226,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 1226
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/CogmentYaml.d.ts.map",
+      "size": 1124,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 1124
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/CogmentYaml.d.ts",
+      "size": 1025,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 1025
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/Cogment.d.ts",
+      "size": 670,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 670
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/Cogment.d.ts.map",
+      "size": 665,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 665
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/CogSettings.d.ts.map",
+      "size": 624,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 624
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "lib/Config.d.ts",
+      "size": 609,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 609
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "lib/Config.d.ts.map",
+      "size": 561,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 561
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/Event.d.ts.map",
+      "size": 544,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 544
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/CogSettings.d.ts",
+      "size": 538,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 538
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "lib/DeltaEncoding.d.ts.map",
+      "size": 506,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 506
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "lib/DeltaEncoding.d.ts",
+      "size": 469,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 469
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/Event.d.ts",
+      "size": 448,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 448
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/Reward.d.ts.map",
+      "size": 323,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 323
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/CogMessage.d.ts.map",
+      "size": 310,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 310
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/Reward.d.ts",
+      "size": 229,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 229
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/index.d.ts.map",
+      "size": 228,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 228
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/index.d.ts.map",
+      "size": 225,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 225
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/CogMessage.d.ts",
+      "size": 212,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 212
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/TrialActor.d.ts.map",
+      "size": 211,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 211
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/index.d.ts",
+      "size": 188,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 188
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/index.d.ts",
+      "size": 178,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 178
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "index.d.ts.map",
+      "size": 124,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 124
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "cogment/types/TrialActor.d.ts",
+      "size": 114,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 114
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    },
+    {
+      "type": "asset",
+      "name": "index.d.ts",
+      "size": 62,
+      "emitted": false,
+      "comparedForEmit": true,
+      "cached": false,
+      "info": {
+        "size": 62
+      },
+      "chunkNames": [],
+      "chunkIdHints": [],
+      "auxiliaryChunkNames": [],
+      "auxiliaryChunkIdHints": [],
+      "related": {},
+      "chunks": [],
+      "auxiliaryChunks": [],
+      "isOverSizeLimit": false
+    }
+  ],
+  "chunks": [
+    {
+      "rendered": true,
+      "initial": true,
+      "entry": true,
+      "recorded": false,
+      "size": 614257,
+      "sizes": {
+        "javascript": 613341,
+        "runtime": 916
+      },
+      "names": [
+        "cogment"
+      ],
+      "idHints": [],
+      "runtime": [
+        "cogment"
+      ],
+      "files": [
+        "cogment.umd.js"
+      ],
+      "auxiliaryFiles": [
+        "cogment.umd.js.map"
+      ],
+      "hash": "8211294db02779a95173",
+      "childrenByOrder": {},
+      "id": 285,
+      "siblings": [],
+      "parents": [],
+      "children": [],
+      "modules": [
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 24856,
+          "sizes": {
+            "javascript": 24856
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+          "name": "./node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+          "nameForCondition": "/app/node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+          "index": 4,
+          "preOrderIndex": 4,
+          "index2": 1,
+          "postOrderIndex": 1,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+          "issuerName": "./src/cogment/Cogment.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "name": "./src/cogment/Cogment.ts",
+              "id": 536
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 37,
+          "issuerId": 536,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "module": "./node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "moduleName": "./node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "resolvedModuleIdentifier": "/app/node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "resolvedModule": "./node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "1:68-82",
+              "moduleId": 37,
+              "resolvedModuleId": 37
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "module": "./node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "moduleName": "./node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "resolvedModuleIdentifier": "/app/node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "resolvedModule": "./node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "1:223-227",
+              "moduleId": 37,
+              "resolvedModuleId": 37
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "module": "./src/cogment/ActorSession.ts",
+              "moduleName": "./src/cogment/ActorSession.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "resolvedModule": "./src/cogment/ActorSession.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "@improbable-eng/grpc-web",
+              "loc": "5:17-52",
+              "moduleId": 762,
+              "resolvedModuleId": 762
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "module": "./src/cogment/Cogment.ts",
+              "moduleName": "./src/cogment/Cogment.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "resolvedModule": "./src/cogment/Cogment.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "@improbable-eng/grpc-web",
+              "loc": "4:17-52",
+              "moduleId": 536,
+              "resolvedModuleId": 536
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "module": "./src/cogment/TrialController.ts",
+              "moduleName": "./src/cogment/TrialController.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "resolvedModule": "./src/cogment/TrialController.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "@improbable-eng/grpc-web",
+              "loc": "5:17-52",
+              "moduleId": 618,
+              "resolvedModuleId": 618
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/orchestrator_pb_service.js",
+              "module": "./src/cogment/api/orchestrator_pb_service.js",
+              "moduleName": "./src/cogment/api/orchestrator_pb_service.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/orchestrator_pb_service.js",
+              "resolvedModule": "./src/cogment/api/orchestrator_pb_service.js",
+              "type": "cjs full require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "@improbable-eng/grpc-web",
+              "loc": "6:11-51",
+              "moduleId": 122,
+              "resolvedModuleId": 122
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: this is used directly at 1:223-227",
+            "CommonJS bailout: module.exports is used directly at 1:68-82",
+            "Statement (ExpressionStatement) with side effects in source code at 1:0-24856",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 6010,
+          "sizes": {
+            "javascript": 6010
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/debug/src/browser.js",
+          "name": "./node_modules/debug/src/browser.js",
+          "nameForCondition": "/app/node_modules/debug/src/browser.js",
+          "index": 7,
+          "preOrderIndex": 7,
+          "index2": 5,
+          "postOrderIndex": 5,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+          "issuerName": "./src/lib/Logger.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "name": "./src/cogment/Cogment.ts",
+              "id": 536
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+              "name": "./src/lib/Logger.ts",
+              "id": 545
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 227,
+          "issuerId": 545,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "module": "./node_modules/debug/src/browser.js",
+              "moduleName": "./node_modules/debug/src/browser.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "resolvedModule": "./node_modules/debug/src/browser.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "152:8-31",
+              "moduleId": 227,
+              "resolvedModuleId": 227
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "module": "./node_modules/debug/src/browser.js",
+              "moduleName": "./node_modules/debug/src/browser.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "resolvedModule": "./node_modules/debug/src/browser.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "200:3-26",
+              "moduleId": 227,
+              "resolvedModuleId": 227
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "module": "./node_modules/debug/src/browser.js",
+              "moduleName": "./node_modules/debug/src/browser.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "resolvedModule": "./node_modules/debug/src/browser.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "202:3-29",
+              "moduleId": 227,
+              "resolvedModuleId": 227
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "module": "./node_modules/debug/src/browser.js",
+              "moduleName": "./node_modules/debug/src/browser.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "resolvedModule": "./node_modules/debug/src/browser.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "219:6-29",
+              "moduleId": 227,
+              "resolvedModuleId": 227
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "module": "./node_modules/debug/src/browser.js",
+              "moduleName": "./node_modules/debug/src/browser.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "resolvedModule": "./node_modules/debug/src/browser.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "255:0-14",
+              "moduleId": 227,
+              "resolvedModuleId": 227
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "module": "./node_modules/debug/src/browser.js",
+              "moduleName": "./node_modules/debug/src/browser.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "resolvedModule": "./node_modules/debug/src/browser.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "255:37-44",
+              "moduleId": 227,
+              "resolvedModuleId": 227
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "module": "./node_modules/debug/src/browser.js",
+              "moduleName": "./node_modules/debug/src/browser.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "resolvedModule": "./node_modules/debug/src/browser.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "257:21-35",
+              "moduleId": 227,
+              "resolvedModuleId": 227
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+              "module": "./src/lib/Logger.ts",
+              "moduleName": "./src/lib/Logger.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+              "resolvedModule": "./src/lib/Logger.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "debug",
+              "loc": "5:38-54",
+              "moduleId": 545,
+              "resolvedModuleId": 545
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: module.exports.humanize(...) prevents optimization as module.exports is passed as call context at 152:8-31",
+            "CommonJS bailout: exports is used directly at 255:37-44",
+            "CommonJS bailout: module.exports is used directly at 255:0-14",
+            "CommonJS bailout: module.exports is used directly at 257:21-35",
+            "Statement (ExpressionStatement) with side effects in source code at 7:0-32",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 4
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 6029,
+          "sizes": {
+            "javascript": 6029
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/debug/src/common.js",
+          "name": "./node_modules/debug/src/common.js",
+          "nameForCondition": "/app/node_modules/debug/src/common.js",
+          "index": 8,
+          "preOrderIndex": 8,
+          "index2": 4,
+          "postOrderIndex": 4,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/debug/src/browser.js",
+          "issuerName": "./node_modules/debug/src/browser.js",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "name": "./src/cogment/Cogment.ts",
+              "id": 536
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+              "name": "./src/lib/Logger.ts",
+              "id": 545
+            },
+            {
+              "identifier": "/app/node_modules/debug/src/browser.js",
+              "name": "./node_modules/debug/src/browser.js",
+              "id": 227
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 447,
+          "issuerId": 227,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "module": "./node_modules/debug/src/browser.js",
+              "moduleName": "./node_modules/debug/src/browser.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/browser.js",
+              "resolvedModule": "./node_modules/debug/src/browser.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./common",
+              "loc": "255:17-36",
+              "moduleId": 227,
+              "resolvedModuleId": 227
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/common.js",
+              "module": "./node_modules/debug/src/common.js",
+              "moduleName": "./node_modules/debug/src/common.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/common.js",
+              "resolvedModule": "./node_modules/debug/src/common.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "261:0-14",
+              "moduleId": 447,
+              "resolvedModuleId": 447
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: module.exports is used directly at 261:0-14",
+            "Statement (ExpressionStatement) with side effects in source code at 261:0-23",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 5
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 235851,
+          "sizes": {
+            "javascript": 235851
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/google-protobuf/google-protobuf.js",
+          "name": "./node_modules/google-protobuf/google-protobuf.js",
+          "nameForCondition": "/app/node_modules/google-protobuf/google-protobuf.js",
+          "index": 11,
+          "preOrderIndex": 11,
+          "index2": 7,
+          "postOrderIndex": 7,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/src/cogment/api/common_pb.js",
+          "issuerName": "./src/cogment/api/common_pb.js",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "name": "./src/cogment/TrialController.ts",
+              "id": 618
+            },
+            {
+              "identifier": "/app/src/cogment/api/common_pb.js",
+              "name": "./src/cogment/api/common_pb.js",
+              "id": 886
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 19,
+          "issuerId": 886,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/google-protobuf/google-protobuf.js",
+              "module": "./node_modules/google-protobuf/google-protobuf.js",
+              "moduleName": "./node_modules/google-protobuf/google-protobuf.js",
+              "resolvedModuleIdentifier": "/app/node_modules/google-protobuf/google-protobuf.js",
+              "resolvedModule": "./node_modules/google-protobuf/google-protobuf.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "2:342-346",
+              "moduleId": 19,
+              "resolvedModuleId": 19
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/google-protobuf/google-protobuf.js",
+              "module": "./node_modules/google-protobuf/google-protobuf.js",
+              "moduleName": "./node_modules/google-protobuf/google-protobuf.js",
+              "resolvedModuleIdentifier": "/app/node_modules/google-protobuf/google-protobuf.js",
+              "resolvedModule": "./node_modules/google-protobuf/google-protobuf.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "7:307-311",
+              "moduleId": 19,
+              "resolvedModuleId": 19
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "module": "./node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "moduleName": "./node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "resolvedModuleIdentifier": "/app/node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "resolvedModule": "./node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "google-protobuf",
+              "loc": "14:11-37",
+              "moduleId": 302,
+              "resolvedModuleId": 302
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/common_pb.js",
+              "module": "./src/cogment/api/common_pb.js",
+              "moduleName": "./src/cogment/api/common_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/common_pb.js",
+              "resolvedModule": "./src/cogment/api/common_pb.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "google-protobuf",
+              "loc": "13:11-37",
+              "moduleId": 886,
+              "resolvedModuleId": 886
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/environment_pb.js",
+              "module": "./src/cogment/api/environment_pb.js",
+              "moduleName": "./src/cogment/api/environment_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/environment_pb.js",
+              "resolvedModule": "./src/cogment/api/environment_pb.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "google-protobuf",
+              "loc": "13:11-37",
+              "moduleId": 164,
+              "resolvedModuleId": 164
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/orchestrator_pb.js",
+              "module": "./src/cogment/api/orchestrator_pb.js",
+              "moduleName": "./src/cogment/api/orchestrator_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/orchestrator_pb.js",
+              "resolvedModule": "./src/cogment/api/orchestrator_pb.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "google-protobuf",
+              "loc": "13:11-37",
+              "moduleId": 552,
+              "resolvedModuleId": 552
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: this is used directly at 2:342-346",
+            "CommonJS bailout: this is used directly at 7:307-311",
+            "Statement (VariableDeclaration) with side effects in source code at 1:0-24",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 4
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 7965,
+          "sizes": {
+            "javascript": 7965
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/google-protobuf/google/protobuf/any_pb.js",
+          "name": "./node_modules/google-protobuf/google/protobuf/any_pb.js",
+          "nameForCondition": "/app/node_modules/google-protobuf/google/protobuf/any_pb.js",
+          "index": 12,
+          "preOrderIndex": 12,
+          "index2": 8,
+          "postOrderIndex": 8,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/src/cogment/api/common_pb.js",
+          "issuerName": "./src/cogment/api/common_pb.js",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "name": "./src/cogment/TrialController.ts",
+              "id": 618
+            },
+            {
+              "identifier": "/app/src/cogment/api/common_pb.js",
+              "name": "./src/cogment/api/common_pb.js",
+              "id": 886
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 302,
+          "issuerId": 886,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "module": "./node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "moduleName": "./node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "resolvedModuleIdentifier": "/app/node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "resolvedModule": "./node_modules/google-protobuf/google/protobuf/any_pb.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "224:19-26",
+              "moduleId": 302,
+              "resolvedModuleId": 302
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/common_pb.js",
+              "module": "./src/cogment/api/common_pb.js",
+              "moduleName": "./src/cogment/api/common_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/common_pb.js",
+              "resolvedModule": "./src/cogment/api/common_pb.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "google-protobuf/google/protobuf/any_pb.js",
+              "loc": "17:29-81",
+              "moduleId": 886,
+              "resolvedModuleId": 886
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: exports is used directly at 224:19-26",
+            "Statement (VariableDeclaration) with side effects in source code at 14:0-38",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 4
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 3023,
+          "sizes": {
+            "javascript": 3023
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ms/index.js",
+          "name": "./node_modules/ms/index.js",
+          "nameForCondition": "/app/node_modules/ms/index.js",
+          "index": 9,
+          "preOrderIndex": 9,
+          "index2": 3,
+          "postOrderIndex": 3,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/debug/src/common.js",
+          "issuerName": "./node_modules/debug/src/common.js",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "name": "./src/cogment/Cogment.ts",
+              "id": 536
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+              "name": "./src/lib/Logger.ts",
+              "id": 545
+            },
+            {
+              "identifier": "/app/node_modules/debug/src/browser.js",
+              "name": "./node_modules/debug/src/browser.js",
+              "id": 227
+            },
+            {
+              "identifier": "/app/node_modules/debug/src/common.js",
+              "name": "./node_modules/debug/src/common.js",
+              "id": 447
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 824,
+          "issuerId": 447,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/debug/src/common.js",
+              "module": "./node_modules/debug/src/common.js",
+              "moduleName": "./node_modules/debug/src/common.js",
+              "resolvedModuleIdentifier": "/app/node_modules/debug/src/common.js",
+              "resolvedModule": "./node_modules/debug/src/common.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "ms",
+              "loc": "14:24-37",
+              "moduleId": 447,
+              "resolvedModuleId": 447
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ms/index.js",
+              "module": "./node_modules/ms/index.js",
+              "moduleName": "./node_modules/ms/index.js",
+              "resolvedModuleIdentifier": "/app/node_modules/ms/index.js",
+              "resolvedModule": "./node_modules/ms/index.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "26:0-14",
+              "moduleId": 824,
+              "resolvedModuleId": 824
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: module.exports is used directly at 26:0-14",
+            "Statement (VariableDeclaration) with side effects in source code at 6:0-15",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 6
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 11605,
+          "sizes": {
+            "javascript": 11605
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/tslib/tslib.es6.js",
+          "name": "./node_modules/tslib/tslib.es6.js",
+          "nameForCondition": "/app/node_modules/tslib/tslib.es6.js",
+          "index": 1,
+          "preOrderIndex": 1,
+          "index2": 0,
+          "postOrderIndex": 0,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+          "issuerName": "./src/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 655,
+          "issuerId": 607,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "module": "./src/cogment/ActorSession.ts",
+              "moduleName": "./src/cogment/ActorSession.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "resolvedModule": "./src/cogment/ActorSession.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "tslib",
+              "loc": "4:14-30",
+              "moduleId": 762,
+              "resolvedModuleId": 762
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "module": "./src/cogment/TrialController.ts",
+              "moduleName": "./src/cogment/TrialController.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "resolvedModule": "./src/cogment/TrialController.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "tslib",
+              "loc": "4:14-30",
+              "moduleId": 618,
+              "resolvedModuleId": 618
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "tslib",
+              "loc": "3:14-30",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "tslib",
+              "loc": "3:14-30",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "module": "./src/index.ts",
+              "moduleName": "./src/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "resolvedModule": "./src/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "tslib",
+              "loc": "3:14-30",
+              "moduleId": 607,
+              "resolvedModuleId": 607
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+              "module": "./src/lib/Logger.ts",
+              "moduleName": "./src/lib/Logger.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+              "resolvedModule": "./src/lib/Logger.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "tslib",
+              "loc": "4:14-30",
+              "moduleId": 545,
+              "resolvedModuleId": 545
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "__assign",
+            "__asyncDelegator",
+            "__asyncGenerator",
+            "__asyncValues",
+            "__await",
+            "__awaiter",
+            "__classPrivateFieldGet",
+            "__classPrivateFieldSet",
+            "__createBinding",
+            "__decorate",
+            "__exportStar",
+            "__extends",
+            "__generator",
+            "__importDefault",
+            "__importStar",
+            "__makeTemplateObject",
+            "__metadata",
+            "__param",
+            "__read",
+            "__rest",
+            "__spread",
+            "__spreadArray",
+            "__spreadArrays",
+            "__values"
+          ],
+          "optimizationBailout": [
+            "Statement (ExportNamedDeclaration) with side effects in source code at 108:0-114:3"
+          ],
+          "depth": 1
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 8557,
+          "sizes": {
+            "javascript": 8557
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+          "name": "./src/cogment/ActorSession.ts",
+          "nameForCondition": "/app/src/cogment/ActorSession.ts",
+          "index": 3,
+          "preOrderIndex": 3,
+          "index2": 18,
+          "postOrderIndex": 18,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+          "issuerName": "./src/cogment/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 762,
+          "issuerId": 872,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "module": "./src/cogment/TrialController.ts",
+              "moduleName": "./src/cogment/TrialController.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "resolvedModule": "./src/cogment/TrialController.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./ActorSession",
+              "loc": "7:21-46",
+              "moduleId": 618,
+              "resolvedModuleId": 618
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./ActorSession",
+              "loc": "4:21-46",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "ActorSession",
+            "__esModule"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 2
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 1710,
+          "sizes": {
+            "javascript": 1710
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+          "name": "./src/cogment/Cogment.ts",
+          "nameForCondition": "/app/src/cogment/Cogment.ts",
+          "index": 21,
+          "preOrderIndex": 21,
+          "index2": 22,
+          "postOrderIndex": 22,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+          "issuerName": "./src/cogment/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 536,
+          "issuerId": 872,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./Cogment",
+              "loc": "5:21-41",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "__esModule",
+            "createService"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 2
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 1610,
+          "sizes": {
+            "javascript": 1610
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/CogmentService.ts",
+          "name": "./src/cogment/CogmentService.ts",
+          "nameForCondition": "/app/src/cogment/CogmentService.ts",
+          "index": 23,
+          "preOrderIndex": 23,
+          "index2": 21,
+          "postOrderIndex": 21,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+          "issuerName": "./src/cogment/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 948,
+          "issuerId": 872,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "module": "./src/cogment/Cogment.ts",
+              "moduleName": "./src/cogment/Cogment.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "resolvedModule": "./src/cogment/Cogment.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./CogmentService",
+              "loc": "7:23-50",
+              "moduleId": 536,
+              "resolvedModuleId": 536
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./CogmentService",
+              "loc": "6:21-48",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "CogmentService",
+            "__esModule"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 2
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 12053,
+          "sizes": {
+            "javascript": 12053
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+          "name": "./src/cogment/TrialController.ts",
+          "nameForCondition": "/app/src/cogment/TrialController.ts",
+          "index": 24,
+          "preOrderIndex": 24,
+          "index2": 20,
+          "postOrderIndex": 20,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+          "issuerName": "./src/cogment/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 618,
+          "issuerId": 872,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/CogmentService.ts",
+              "module": "./src/cogment/CogmentService.ts",
+              "moduleName": "./src/cogment/CogmentService.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/CogmentService.ts",
+              "resolvedModule": "./src/cogment/CogmentService.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./TrialController",
+              "loc": "5:24-52",
+              "moduleId": 948,
+              "resolvedModuleId": 948
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./TrialController",
+              "loc": "7:21-49",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "TrialController",
+            "__esModule"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 2
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 110877,
+          "sizes": {
+            "javascript": 110877
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/src/cogment/api/common_pb.js",
+          "name": "./src/cogment/api/common_pb.js",
+          "nameForCondition": "/app/src/cogment/api/common_pb.js",
+          "index": 10,
+          "preOrderIndex": 10,
+          "index2": 9,
+          "postOrderIndex": 9,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+          "issuerName": "./src/cogment/TrialController.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "name": "./src/cogment/TrialController.ts",
+              "id": 618
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 886,
+          "issuerId": 618,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "module": "./src/cogment/ActorSession.ts",
+              "moduleName": "./src/cogment/ActorSession.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "resolvedModule": "./src/cogment/ActorSession.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./api/common_pb",
+              "loc": "8:18-44",
+              "moduleId": 762,
+              "resolvedModuleId": 762
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "module": "./src/cogment/TrialController.ts",
+              "moduleName": "./src/cogment/TrialController.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "resolvedModule": "./src/cogment/TrialController.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./api/common_pb",
+              "loc": "8:18-44",
+              "moduleId": 618,
+              "resolvedModuleId": 618
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/common_pb.js",
+              "module": "./src/cogment/api/common_pb.js",
+              "moduleName": "./src/cogment/api/common_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/common_pb.js",
+              "resolvedModule": "./src/cogment/api/common_pb.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "3830:19-26",
+              "moduleId": 886,
+              "resolvedModuleId": 886
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/environment_pb.js",
+              "module": "./src/cogment/api/environment_pb.js",
+              "moduleName": "./src/cogment/api/environment_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/environment_pb.js",
+              "resolvedModule": "./src/cogment/api/environment_pb.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../../cogment/api/common_pb.js",
+              "loc": "17:28-69",
+              "moduleId": 164,
+              "resolvedModuleId": 164
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/orchestrator_pb.js",
+              "module": "./src/cogment/api/orchestrator_pb.js",
+              "moduleName": "./src/cogment/api/orchestrator_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/orchestrator_pb.js",
+              "resolvedModule": "./src/cogment/api/orchestrator_pb.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../../cogment/api/common_pb.js",
+              "loc": "17:28-69",
+              "moduleId": 552,
+              "resolvedModuleId": 552
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/orchestrator_pb_service.js",
+              "module": "./src/cogment/api/orchestrator_pb_service.js",
+              "moduleName": "./src/cogment/api/orchestrator_pb_service.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/orchestrator_pb_service.js",
+              "resolvedModule": "./src/cogment/api/orchestrator_pb_service.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../../cogment/api/common_pb",
+              "loc": "5:28-66",
+              "moduleId": 122,
+              "resolvedModuleId": 122
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: exports is used directly at 3830:19-26",
+            "Statement (VariableDeclaration) with side effects in source code at 13:0-38",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 55073,
+          "sizes": {
+            "javascript": 55073
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/src/cogment/api/environment_pb.js",
+          "name": "./src/cogment/api/environment_pb.js",
+          "nameForCondition": "/app/src/cogment/api/environment_pb.js",
+          "index": 14,
+          "preOrderIndex": 14,
+          "index2": 10,
+          "postOrderIndex": 10,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/src/cogment/api/orchestrator_pb.js",
+          "issuerName": "./src/cogment/api/orchestrator_pb.js",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "name": "./src/cogment/TrialController.ts",
+              "id": 618
+            },
+            {
+              "identifier": "/app/src/cogment/api/orchestrator_pb.js",
+              "name": "./src/cogment/api/orchestrator_pb.js",
+              "id": 552
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 164,
+          "issuerId": 552,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/src/cogment/api/environment_pb.js",
+              "module": "./src/cogment/api/environment_pb.js",
+              "moduleName": "./src/cogment/api/environment_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/environment_pb.js",
+              "resolvedModule": "./src/cogment/api/environment_pb.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "1834:19-26",
+              "moduleId": 164,
+              "resolvedModuleId": 164
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/orchestrator_pb.js",
+              "module": "./src/cogment/api/orchestrator_pb.js",
+              "moduleName": "./src/cogment/api/orchestrator_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/orchestrator_pb.js",
+              "resolvedModule": "./src/cogment/api/orchestrator_pb.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../../cogment/api/environment_pb.js",
+              "loc": "19:33-79",
+              "moduleId": 552,
+              "resolvedModuleId": 552
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: exports is used directly at 1834:19-26",
+            "Statement (VariableDeclaration) with side effects in source code at 13:0-38",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 4
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 109103,
+          "sizes": {
+            "javascript": 109103
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/src/cogment/api/orchestrator_pb.js",
+          "name": "./src/cogment/api/orchestrator_pb.js",
+          "nameForCondition": "/app/src/cogment/api/orchestrator_pb.js",
+          "index": 13,
+          "preOrderIndex": 13,
+          "index2": 11,
+          "postOrderIndex": 11,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+          "issuerName": "./src/cogment/TrialController.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "name": "./src/cogment/TrialController.ts",
+              "id": 618
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 552,
+          "issuerId": 618,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "module": "./src/cogment/ActorSession.ts",
+              "moduleName": "./src/cogment/ActorSession.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "resolvedModule": "./src/cogment/ActorSession.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./api/orchestrator_pb",
+              "loc": "9:24-56",
+              "moduleId": 762,
+              "resolvedModuleId": 762
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "module": "./src/cogment/TrialController.ts",
+              "moduleName": "./src/cogment/TrialController.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "resolvedModule": "./src/cogment/TrialController.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./api/orchestrator_pb",
+              "loc": "9:24-56",
+              "moduleId": 618,
+              "resolvedModuleId": 618
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/orchestrator_pb.js",
+              "module": "./src/cogment/api/orchestrator_pb.js",
+              "moduleName": "./src/cogment/api/orchestrator_pb.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/orchestrator_pb.js",
+              "resolvedModule": "./src/cogment/api/orchestrator_pb.js",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "3561:19-26",
+              "moduleId": 552,
+              "resolvedModuleId": 552
+            },
+            {
+              "moduleIdentifier": "/app/src/cogment/api/orchestrator_pb_service.js",
+              "module": "./src/cogment/api/orchestrator_pb_service.js",
+              "moduleName": "./src/cogment/api/orchestrator_pb_service.js",
+              "resolvedModuleIdentifier": "/app/src/cogment/api/orchestrator_pb_service.js",
+              "resolvedModule": "./src/cogment/api/orchestrator_pb_service.js",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../../cogment/api/orchestrator_pb",
+              "loc": "4:34-78",
+              "moduleId": 122,
+              "resolvedModuleId": 122
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: exports is used directly at 3561:19-26",
+            "Statement (VariableDeclaration) with side effects in source code at 13:0-38",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 13478,
+          "sizes": {
+            "javascript": 13478
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/src/cogment/api/orchestrator_pb_service.js",
+          "name": "./src/cogment/api/orchestrator_pb_service.js",
+          "nameForCondition": "/app/src/cogment/api/orchestrator_pb_service.js",
+          "index": 22,
+          "preOrderIndex": 22,
+          "index2": 19,
+          "postOrderIndex": 19,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+          "issuerName": "./src/cogment/Cogment.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "name": "./src/cogment/Cogment.ts",
+              "id": 536
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 122,
+          "issuerId": 536,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "module": "./src/cogment/Cogment.ts",
+              "moduleName": "./src/cogment/Cogment.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "resolvedModule": "./src/cogment/Cogment.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./api/orchestrator_pb_service",
+              "loc": "6:32-72",
+              "moduleId": 536,
+              "resolvedModuleId": 536
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "ClientActor",
+            "ClientActorClient",
+            "TrialLifecycle",
+            "TrialLifecycleClient"
+          ],
+          "optimizationBailout": [
+            "Statement (VariableDeclaration) with side effects in source code at 4:0-79",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 392,
+          "sizes": {
+            "javascript": 392
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+          "name": "./src/cogment/index.ts",
+          "nameForCondition": "/app/src/cogment/index.ts",
+          "index": 2,
+          "preOrderIndex": 2,
+          "index2": 23,
+          "postOrderIndex": 23,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+          "issuerName": "./src/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 872,
+          "issuerId": 607,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "4:48-55",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "5:43-50",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "6:50-57",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "7:51-58",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "8:41-48",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "module": "./src/index.ts",
+              "moduleName": "./src/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "resolvedModule": "./src/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./cogment",
+              "loc": "4:21-41",
+              "moduleId": 607,
+              "resolvedModuleId": 607
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: exports is used directly at 4:48-55",
+            "CommonJS bailout: exports is used directly at 5:43-50",
+            "CommonJS bailout: exports is used directly at 6:50-57",
+            "CommonJS bailout: exports is used directly at 7:51-58",
+            "CommonJS bailout: exports is used directly at 8:41-48",
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 1
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 77,
+          "sizes": {
+            "javascript": 77
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/CogSettings.ts",
+          "name": "./src/cogment/types/CogSettings.ts",
+          "nameForCondition": "/app/src/cogment/types/CogSettings.ts",
+          "index": 16,
+          "preOrderIndex": 16,
+          "index2": 12,
+          "postOrderIndex": 12,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+          "issuerName": "./src/cogment/types/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "name": "./src/cogment/types/index.ts",
+              "id": 908
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 119,
+          "issuerId": 908,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./CogSettings",
+              "loc": "4:21-45",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "__esModule"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 77,
+          "sizes": {
+            "javascript": 77
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/CogmentYaml.ts",
+          "name": "./src/cogment/types/CogmentYaml.ts",
+          "nameForCondition": "/app/src/cogment/types/CogmentYaml.ts",
+          "index": 17,
+          "preOrderIndex": 17,
+          "index2": 13,
+          "postOrderIndex": 13,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+          "issuerName": "./src/cogment/types/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "name": "./src/cogment/types/index.ts",
+              "id": 908
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 422,
+          "issuerId": 908,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./CogmentYaml",
+              "loc": "5:21-45",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "__esModule"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 405,
+          "sizes": {
+            "javascript": 405
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/Event.ts",
+          "name": "./src/cogment/types/Event.ts",
+          "nameForCondition": "/app/src/cogment/types/Event.ts",
+          "index": 18,
+          "preOrderIndex": 18,
+          "index2": 14,
+          "postOrderIndex": 14,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+          "issuerName": "./src/cogment/types/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "name": "./src/cogment/types/index.ts",
+              "id": 908
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 887,
+          "issuerId": 908,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/Event.ts",
+              "module": "./src/cogment/types/Event.ts",
+              "moduleName": "./src/cogment/types/Event.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/Event.ts",
+              "resolvedModule": "./src/cogment/types/Event.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "10:15-32",
+              "moduleId": 887,
+              "resolvedModuleId": 887
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./Event",
+              "loc": "6:21-39",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "EventType",
+            "__esModule"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 77,
+          "sizes": {
+            "javascript": 77
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/Reward.ts",
+          "name": "./src/cogment/types/Reward.ts",
+          "nameForCondition": "/app/src/cogment/types/Reward.ts",
+          "index": 19,
+          "preOrderIndex": 19,
+          "index2": 15,
+          "postOrderIndex": 15,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+          "issuerName": "./src/cogment/types/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "name": "./src/cogment/types/index.ts",
+              "id": 908
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 192,
+          "issuerId": 908,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./Reward",
+              "loc": "7:21-40",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "__esModule"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 77,
+          "sizes": {
+            "javascript": 77
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/TrialActor.ts",
+          "name": "./src/cogment/types/TrialActor.ts",
+          "nameForCondition": "/app/src/cogment/types/TrialActor.ts",
+          "index": 20,
+          "preOrderIndex": 20,
+          "index2": 16,
+          "postOrderIndex": 16,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+          "issuerName": "./src/cogment/types/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "name": "./src/cogment/types/index.ts",
+              "id": 908
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 725,
+          "issuerId": 908,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./TrialActor",
+              "loc": "8:21-44",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "__esModule"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 382,
+          "sizes": {
+            "javascript": 382
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+          "name": "./src/cogment/types/index.ts",
+          "nameForCondition": "/app/src/cogment/types/index.ts",
+          "index": 15,
+          "preOrderIndex": 15,
+          "index2": 17,
+          "postOrderIndex": 17,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+          "issuerName": "./src/cogment/index.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 908,
+          "issuerId": 872,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "module": "./src/cogment/ActorSession.ts",
+              "moduleName": "./src/cogment/ActorSession.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "resolvedModule": "./src/cogment/ActorSession.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./types",
+              "loc": "10:14-32",
+              "moduleId": 762,
+              "resolvedModuleId": 762
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "module": "./src/cogment/index.ts",
+              "moduleName": "./src/cogment/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "resolvedModule": "./src/cogment/index.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./types",
+              "loc": "8:21-39",
+              "moduleId": 872,
+              "resolvedModuleId": 872
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "4:47-54",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "5:47-54",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "6:41-48",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "7:42-49",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "module": "./src/cogment/types/index.ts",
+              "moduleName": "./src/cogment/types/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/types/index.ts",
+              "resolvedModule": "./src/cogment/types/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "8:46-53",
+              "moduleId": 908,
+              "resolvedModuleId": 908
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: exports is used directly at 4:47-54",
+            "CommonJS bailout: exports is used directly at 5:47-54",
+            "CommonJS bailout: exports is used directly at 6:41-48",
+            "CommonJS bailout: exports is used directly at 7:42-49",
+            "CommonJS bailout: exports is used directly at 8:46-53",
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 2
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 162,
+          "sizes": {
+            "javascript": 162
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+          "name": "./src/index.ts",
+          "nameForCondition": "/app/src/index.ts",
+          "index": 0,
+          "preOrderIndex": 0,
+          "index2": 24,
+          "postOrderIndex": 24,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": false,
+          "issuer": null,
+          "issuerName": null,
+          "issuerPath": null,
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 607,
+          "issuerId": null,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "module": "./src/index.ts",
+              "moduleName": "./src/index.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "resolvedModule": "./src/index.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "4:43-50",
+              "moduleId": 607,
+              "resolvedModuleId": 607
+            },
+            {
+              "moduleIdentifier": null,
+              "module": null,
+              "moduleName": null,
+              "resolvedModuleIdentifier": null,
+              "resolvedModule": null,
+              "type": "entry",
+              "active": true,
+              "explanation": "",
+              "userRequest": "./src/index.ts",
+              "loc": "cogment",
+              "moduleId": null,
+              "resolvedModuleId": null
+            },
+            {
+              "moduleIdentifier": null,
+              "module": null,
+              "moduleName": null,
+              "resolvedModuleIdentifier": null,
+              "resolvedModule": null,
+              "type": null,
+              "active": true,
+              "explanation": "used as library export",
+              "userRequest": null,
+              "moduleId": null,
+              "resolvedModuleId": null
+            }
+          ],
+          "usedExports": null,
+          "providedExports": null,
+          "optimizationBailout": [
+            "CommonJS bailout: exports is used directly at 4:43-50",
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 0
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 325,
+          "sizes": {
+            "javascript": 325
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/DeltaEncoding.ts",
+          "name": "./src/lib/DeltaEncoding.ts",
+          "nameForCondition": "/app/src/lib/DeltaEncoding.ts",
+          "index": 5,
+          "preOrderIndex": 5,
+          "index2": 2,
+          "postOrderIndex": 2,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+          "issuerName": "./src/cogment/ActorSession.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "name": "./src/cogment/ActorSession.ts",
+              "id": 762
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 672,
+          "issuerId": 762,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "module": "./src/cogment/ActorSession.ts",
+              "moduleName": "./src/cogment/ActorSession.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "resolvedModule": "./src/cogment/ActorSession.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../lib/DeltaEncoding",
+              "loc": "6:22-53",
+              "moduleId": 762,
+              "resolvedModuleId": 762
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "__esModule",
+            "deserializeData"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "javascript/auto",
+          "layer": null,
+          "size": 3567,
+          "sizes": {
+            "javascript": 3567
+          },
+          "built": true,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+          "name": "./src/lib/Logger.ts",
+          "nameForCondition": "/app/src/lib/Logger.ts",
+          "index": 6,
+          "preOrderIndex": 6,
+          "index2": 6,
+          "postOrderIndex": 6,
+          "cacheable": true,
+          "optional": false,
+          "orphan": false,
+          "dependent": true,
+          "issuer": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+          "issuerName": "./src/cogment/Cogment.ts",
+          "issuerPath": [
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/index.ts",
+              "name": "./src/index.ts",
+              "id": 607
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/index.ts",
+              "name": "./src/cogment/index.ts",
+              "id": 872
+            },
+            {
+              "identifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "name": "./src/cogment/Cogment.ts",
+              "id": 536
+            }
+          ],
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": 545,
+          "issuerId": 536,
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "module": "./src/cogment/ActorSession.ts",
+              "moduleName": "./src/cogment/ActorSession.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/ActorSession.ts",
+              "resolvedModule": "./src/cogment/ActorSession.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../lib/Logger",
+              "loc": "7:15-39",
+              "moduleId": 762,
+              "resolvedModuleId": 762
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "module": "./src/cogment/Cogment.ts",
+              "moduleName": "./src/cogment/Cogment.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/Cogment.ts",
+              "resolvedModule": "./src/cogment/Cogment.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../lib/Logger",
+              "loc": "5:15-39",
+              "moduleId": 536,
+              "resolvedModuleId": 536
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/CogmentService.ts",
+              "module": "./src/cogment/CogmentService.ts",
+              "moduleName": "./src/cogment/CogmentService.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/CogmentService.ts",
+              "resolvedModule": "./src/cogment/CogmentService.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../lib/Logger",
+              "loc": "4:15-39",
+              "moduleId": 948,
+              "resolvedModuleId": 948
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "module": "./src/cogment/TrialController.ts",
+              "moduleName": "./src/cogment/TrialController.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/cogment/TrialController.ts",
+              "resolvedModule": "./src/cogment/TrialController.ts",
+              "type": "cjs require",
+              "active": true,
+              "explanation": "",
+              "userRequest": "../lib/Logger",
+              "loc": "6:15-39",
+              "moduleId": 618,
+              "resolvedModuleId": 618
+            },
+            {
+              "moduleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+              "module": "./src/lib/Logger.ts",
+              "moduleName": "./src/lib/Logger.ts",
+              "resolvedModuleIdentifier": "/app/node_modules/ts-loader/index.js!/app/src/lib/Logger.ts",
+              "resolvedModule": "./src/lib/Logger.ts",
+              "type": "cjs self exports reference",
+              "active": true,
+              "explanation": "",
+              "userRequest": null,
+              "loc": "15:14-30",
+              "moduleId": 545,
+              "resolvedModuleId": 545
+            }
+          ],
+          "usedExports": true,
+          "providedExports": [
+            "DebugLogger",
+            "LogLevel",
+            "__esModule",
+            "getLogger"
+          ],
+          "optimizationBailout": [
+            "Statement (ExpressionStatement) with side effects in source code at 2:0-62",
+            "ModuleConcatenation bailout: Module is not an ECMAScript module"
+          ],
+          "depth": 3
+        },
+        {
+          "type": "module",
+          "moduleType": "runtime",
+          "layer": null,
+          "size": 313,
+          "sizes": {
+            "runtime": 313
+          },
+          "built": false,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "webpack/runtime/define property getters",
+          "name": "webpack/runtime/define property getters",
+          "nameForCondition": null,
+          "index": null,
+          "preOrderIndex": null,
+          "index2": null,
+          "postOrderIndex": null,
+          "optional": false,
+          "orphan": false,
+          "dependent": false,
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": "",
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [],
+          "usedExports": null,
+          "providedExports": [],
+          "optimizationBailout": [],
+          "depth": null
+        },
+        {
+          "type": "module",
+          "moduleType": "runtime",
+          "layer": null,
+          "size": 221,
+          "sizes": {
+            "runtime": 221
+          },
+          "built": false,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "webpack/runtime/global",
+          "name": "webpack/runtime/global",
+          "nameForCondition": null,
+          "index": null,
+          "preOrderIndex": null,
+          "index2": null,
+          "postOrderIndex": null,
+          "optional": false,
+          "orphan": false,
+          "dependent": false,
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": "",
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [],
+          "usedExports": null,
+          "providedExports": [],
+          "optimizationBailout": [],
+          "depth": null
+        },
+        {
+          "type": "module",
+          "moduleType": "runtime",
+          "layer": null,
+          "size": 103,
+          "sizes": {
+            "runtime": 103
+          },
+          "built": false,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "webpack/runtime/hasOwnProperty shorthand",
+          "name": "webpack/runtime/hasOwnProperty shorthand",
+          "nameForCondition": null,
+          "index": null,
+          "preOrderIndex": null,
+          "index2": null,
+          "postOrderIndex": null,
+          "optional": false,
+          "orphan": false,
+          "dependent": false,
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": "",
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [],
+          "usedExports": null,
+          "providedExports": [],
+          "optimizationBailout": [],
+          "depth": null
+        },
+        {
+          "type": "module",
+          "moduleType": "runtime",
+          "layer": null,
+          "size": 279,
+          "sizes": {
+            "runtime": 279
+          },
+          "built": false,
+          "codeGenerated": true,
+          "buildTimeExecuted": false,
+          "cached": false,
+          "identifier": "webpack/runtime/make namespace object",
+          "name": "webpack/runtime/make namespace object",
+          "nameForCondition": null,
+          "index": null,
+          "preOrderIndex": null,
+          "index2": null,
+          "postOrderIndex": null,
+          "optional": false,
+          "orphan": false,
+          "dependent": false,
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "id": "",
+          "chunks": [
+            285
+          ],
+          "assets": [],
+          "reasons": [],
+          "usedExports": null,
+          "providedExports": [],
+          "optimizationBailout": [],
+          "depth": null
+        }
+      ],
+      "origins": [
+        {
+          "module": "",
+          "moduleIdentifier": "",
+          "moduleName": "",
+          "loc": "cogment",
+          "request": "./src/index.ts"
+        }
+      ]
+    }
+  ],
+  "entrypoints": {
+    "cogment": {
+      "name": "cogment",
+      "chunks": [
+        285
+      ],
+      "assets": [
+        {
+          "name": "cogment.umd.js",
+          "size": 398598
+        }
+      ],
+      "filteredAssets": 0,
+      "assetsSize": 398598,
+      "auxiliaryAssets": [
+        {
+          "name": "cogment.umd.js.map",
+          "size": 1070605
+        }
+      ],
+      "filteredAuxiliaryAssets": 0,
+      "auxiliaryAssetsSize": 1070605,
+      "children": {},
+      "childAssets": {},
+      "isOverSizeLimit": true
+    }
+  },
+  "namedChunkGroups": {
+    "cogment": {
+      "name": "cogment",
+      "chunks": [
+        285
+      ],
+      "assets": [
+        {
+          "name": "cogment.umd.js",
+          "size": 398598
+        }
+      ],
+      "filteredAssets": 0,
+      "assetsSize": 398598,
+      "auxiliaryAssets": [
+        {
+          "name": "cogment.umd.js.map",
+          "size": 1070605
+        }
+      ],
+      "filteredAuxiliaryAssets": 0,
+      "auxiliaryAssetsSize": 1070605,
+      "children": {},
+      "childAssets": {},
+      "isOverSizeLimit": true
+    }
+  },
+  "errors": [],
+  "errorsCount": 0,
+  "warnings": [
+    {
+      "message": "asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).\nThis can impact web performance.\nAssets: \n  cogment.umd.js (389 KiB)",
+      "stack": "AssetsOverSizeLimitWarning: asset size limit: The following asset(s) exceed the recommended size limit (244 KiB).\nThis can impact web performance.\nAssets: \n  cogment.umd.js (389 KiB)\n    at /app/node_modules/webpack/lib/performance/SizeLimitsPlugin.js:134:7\n    at Hook.eval [as callAsync] (eval at create (/app/node_modules/webpack/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:14:1)\n    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/app/node_modules/webpack/node_modules/tapable/lib/Hook.js:18:14)\n    at /app/node_modules/webpack/lib/Compiler.js:827:27\n    at /app/node_modules/neo-async/async.js:2818:7\n    at done (/app/node_modules/neo-async/async.js:3522:9)\n    at alreadyWritten (/app/node_modules/webpack/lib/Compiler.js:668:8)\n    at /app/node_modules/webpack/lib/Compiler.js:756:19\n    at /app/node_modules/graceful-fs/graceful-fs.js:123:16\n    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:63:3)"
+    },
+    {
+      "message": "entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.\nEntrypoints:\n  cogment (389 KiB)\n      cogment.umd.js\n",
+      "stack": "EntrypointsOverSizeLimitWarning: entrypoint size limit: The following entrypoint(s) combined asset size exceeds the recommended limit (244 KiB). This can impact web performance.\nEntrypoints:\n  cogment (389 KiB)\n      cogment.umd.js\n\n    at /app/node_modules/webpack/lib/performance/SizeLimitsPlugin.js:139:7\n    at Hook.eval [as callAsync] (eval at create (/app/node_modules/webpack/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:14:1)\n    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/app/node_modules/webpack/node_modules/tapable/lib/Hook.js:18:14)\n    at /app/node_modules/webpack/lib/Compiler.js:827:27\n    at /app/node_modules/neo-async/async.js:2818:7\n    at done (/app/node_modules/neo-async/async.js:3522:9)\n    at alreadyWritten (/app/node_modules/webpack/lib/Compiler.js:668:8)\n    at /app/node_modules/webpack/lib/Compiler.js:756:19\n    at /app/node_modules/graceful-fs/graceful-fs.js:123:16\n    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:63:3)"
+    },
+    {
+      "message": "webpack performance recommendations: \nYou can limit the size of your bundles by using import() or require.ensure to lazy load some parts of your application.\nFor more info visit https://webpack.js.org/guides/code-splitting/",
+      "stack": "NoAsyncChunksWarning: webpack performance recommendations: \nYou can limit the size of your bundles by using import() or require.ensure to lazy load some parts of your application.\nFor more info visit https://webpack.js.org/guides/code-splitting/\n    at /app/node_modules/webpack/lib/performance/SizeLimitsPlugin.js:153:21\n    at Hook.eval [as callAsync] (eval at create (/app/node_modules/webpack/node_modules/tapable/lib/HookCodeFactory.js:33:10), <anonymous>:14:1)\n    at Hook.CALL_ASYNC_DELEGATE [as _callAsync] (/app/node_modules/webpack/node_modules/tapable/lib/Hook.js:18:14)\n    at /app/node_modules/webpack/lib/Compiler.js:827:27\n    at /app/node_modules/neo-async/async.js:2818:7\n    at done (/app/node_modules/neo-async/async.js:3522:9)\n    at alreadyWritten (/app/node_modules/webpack/lib/Compiler.js:668:8)\n    at /app/node_modules/webpack/lib/Compiler.js:756:19\n    at /app/node_modules/graceful-fs/graceful-fs.js:123:16\n    at FSReqCallback.readFileAfterClose [as oncomplete] (internal/fs/read_file_context.js:63:3)"
+    }
+  ],
+  "warningsCount": 3,
+  "children": []
+}

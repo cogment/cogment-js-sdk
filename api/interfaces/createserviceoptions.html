@@ -3,8 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>CogSettingsActorClass | @cogment/cogment-js-sdk - v1.25.0-beta.4</title>
-	<meta name="description" content="Documentation for @cogment/cogment-js-sdk - v1.25.0-beta.4">
+	<title>CreateServiceOptions | @cogment/cogment-js-sdk - v1.25.1-beta.1</title>
+	<meta name="description" content="Documentation for @cogment/cogment-js-sdk - v1.25.1-beta.1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
 	<script async src="../assets/js/search.js" id="search-script"></script>
@@ -23,7 +23,7 @@
 						<li class="state loading">Preparing search index...</li>
 						<li class="state failure">The search index is not available</li>
 					</ul>
-					<a href="../index.html" class="title">@cogment/cogment-js-sdk - v1.25.0-beta.4</a>
+					<a href="../index.html" class="title">@cogment/cogment-js-sdk - v1.25.1-beta.1</a>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -50,13 +50,13 @@
 		<div class="container">
 			<ul class="tsd-breadcrumb">
 				<li>
-					<a href="../modules.html">@cogment/cogment-js-sdk - v1.25.0-beta.4</a>
+					<a href="../modules.html">@cogment/cogment-js-sdk - v1.25.1-beta.1</a>
 				</li>
 				<li>
-					<a href="cogsettingsactorclass.html">CogSettingsActorClass</a>
+					<a href="createserviceoptions.html">CreateServiceOptions</a>
 				</li>
 			</ul>
-			<h1>Interface CogSettingsActorClass</h1>
+			<h1>Interface CreateServiceOptions</h1>
 		</div>
 	</div>
 </header>
@@ -66,7 +66,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Generated static configuration of a Cogment actor.</p>
+						<p>Options for creating a service.</p>
 					</div>
 				</div>
 			</section>
@@ -74,7 +74,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">CogSettingsActorClass</span>
+						<span class="target">CreateServiceOptions</span>
 					</li>
 				</ul>
 			</section>
@@ -85,12 +85,10 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogsettingsactorclass.html#actionspace" class="tsd-kind-icon">action<wbr>Space</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogsettingsactorclass.html#config" class="tsd-kind-icon">config</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogsettingsactorclass.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogsettingsactorclass.html#observationdelta" class="tsd-kind-icon">observation<wbr>Delta</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogsettingsactorclass.html#observationdeltaapply" class="tsd-kind-icon">observation<wbr>Delta<wbr>Apply</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cogsettingsactorclass.html#observationspace" class="tsd-kind-icon">observation<wbr>Space</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="createserviceoptions.html#cogsettings" class="tsd-kind-icon">cog<wbr>Settings</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="createserviceoptions.html#grpcurl" class="tsd-kind-icon">grpcURL</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="createserviceoptions.html#streamingtransportfactory" class="tsd-kind-icon">streaming<wbr>Transport<wbr>Factory</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="createserviceoptions.html#unarytransportfactory" class="tsd-kind-icon">unary<wbr>Transport<wbr>Factory</a></li>
 							</ul>
 						</section>
 					</div>
@@ -99,129 +97,86 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="actionspace" class="tsd-anchor"></a>
-					<h3>action<wbr>Space</h3>
-					<div class="tsd-signature tsd-kind-icon">action<wbr>Space<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">Message</span></div>
+					<a name="cogsettings" class="tsd-anchor"></a>
+					<h3>cog<wbr>Settings</h3>
+					<div class="tsd-signature tsd-kind-icon">cog<wbr>Settings<span class="tsd-signature-symbol">:</span> <a href="cogsettings.html" class="tsd-signature-type" data-tsd-kind="Interface">CogSettings</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in cogment/types/CogSettings.ts:28</li>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/Cogment.ts#L124">cogment/Cogment.ts:124</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Protobuf message type of this actor&#39;s action space.</p>
+							<p><a href="cogsettings.html"><code>CogSettings</code></a> file generated by <code>cogment generate</code>.</p>
 						</div>
 						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p>{@link CogmentYamlActorClass.action.space}</p>
+							<dt>example</dt>
+							<dd><pre><code class="language-typescript"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">CogSettings</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;./CogSettings&#039;</span><span style="color: #000000">;</span>
+</code></pre>
 							</dd>
 						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="config" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> config</h3>
-					<div class="tsd-signature tsd-kind-icon">config<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">Message</span></div>
+					<a name="grpcurl" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> grpcURL</h3>
+					<div class="tsd-signature tsd-kind-icon">grpcURL<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in cogment/types/CogSettings.ts:33</li>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/Cogment.ts#L130">cogment/Cogment.ts:130</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Protobuf message type of this actor&#39;s config type.</p>
+							<p>URL of the Cogment gRPC backend.</p>
 						</div>
 						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="cogmentyamlactorclass.html#config_type">CogmentYamlActorClass.config_type</a></p>
+							<dt>defaultvalue</dt>
+							<dd><p><code>//${window.location.hostname}:8080</code></p>
 							</dd>
 						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="streamingtransportfactory" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> streaming<wbr>Transport<wbr>Factory</h3>
+					<div class="tsd-signature tsd-kind-icon">streaming<wbr>Transport<wbr>Factory<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TransportFactory</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in cogment/types/CogSettings.ts:37</li>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/Cogment.ts#L138">cogment/Cogment.ts:138</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>gRPC transport for streaming calls.</p>
+						</div>
 						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p><a href="cogmentyamlactorclass.html#name">CogmentYamlActorClass.name</a></p>
+							<dt>defaultvalue</dt>
+							<dd><pre><code class="language-typescript"><span style="color: #001080">grpc</span><span style="color: #000000">.</span><span style="color: #795E26">WebsocketTransport</span><span style="color: #000000">()</span>
+</code></pre>
 							</dd>
 						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="observationdelta" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> observation<wbr>Delta</h3>
-					<div class="tsd-signature tsd-kind-icon">observation<wbr>Delta<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">Message</span></div>
+					<a name="unarytransportfactory" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> unary<wbr>Transport<wbr>Factory</h3>
+					<div class="tsd-signature tsd-kind-icon">unary<wbr>Transport<wbr>Factory<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TransportFactory</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in cogment/types/CogSettings.ts:41</li>
+							<li>Defined in <a href="https://github.com/cogment/cogment-js-sdk/blob/main/src/cogment/Cogment.ts#L148">cogment/Cogment.ts:148</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Protobuf message type of this actor&#39;s observation delta.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="observationdeltaapply" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> observation<wbr>Delta<wbr>Apply</h3>
-					<div class="tsd-signature tsd-kind-icon">observation<wbr>Delta<wbr>Apply<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">Message</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in cogment/types/CogSettings.ts:45</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Function used to transform observation deltas.</p>
-						</div>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-interface">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Message</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5>x: <span class="tsd-signature-type">Message</span></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Message</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="observationspace" class="tsd-anchor"></a>
-					<h3>observation<wbr>Space</h3>
-					<div class="tsd-signature tsd-kind-icon">observation<wbr>Space<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">typeof </span><span class="tsd-signature-type">Message</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in cogment/types/CogSettings.ts:50</li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Protobuf message type of this actor&#39;s observation space.</p>
+							<p>gRPC transport for unary calls.</p>
 						</div>
 						<dl class="tsd-comment-tags">
-							<dt>see</dt>
-							<dd><p>{@link CogmentYamlActorClass.observation.space}</p>
+							<dt>defaultvalue</dt>
+							<dd><pre><code class="language-typescript"><span style="color: #001080">grpc</span><span style="color: #000000">.</span><span style="color: #795E26">CrossBrowserHttpTransport</span><span style="color: #000000">({</span>
+<span style="color: #000000">  </span><span style="color: #001080">withCredentials:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span>
+<span style="color: #000000">})</span>
+</code></pre>
 							</dd>
 						</dl>
 					</div>
@@ -253,33 +208,9 @@
 					<li class=" tsd-kind-interface">
 						<a href="cogsettings.html" class="tsd-kind-icon">Cog<wbr>Settings</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-interface">
+					<li class=" tsd-kind-interface">
 						<a href="cogsettingsactorclass.html" class="tsd-kind-icon">Cog<wbr>Settings<wbr>Actor<wbr>Class</a>
-						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogsettingsactorclass.html#actionspace" class="tsd-kind-icon">action<wbr>Space</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogsettingsactorclass.html#config" class="tsd-kind-icon">config</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogsettingsactorclass.html#name" class="tsd-kind-icon">name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogsettingsactorclass.html#observationdelta" class="tsd-kind-icon">observation<wbr>Delta</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogsettingsactorclass.html#observationdeltaapply" class="tsd-kind-icon">observation<wbr>Delta<wbr>Apply</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="cogsettingsactorclass.html#observationspace" class="tsd-kind-icon">observation<wbr>Space</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="cogmentyaml.html" class="tsd-kind-icon">Cogment<wbr>Yaml</a>
 					</li>
@@ -295,9 +226,27 @@
 					<li class=" tsd-kind-interface">
 						<a href="cogmentyamltrialparameters.html" class="tsd-kind-icon">Cogment<wbr>Yaml<wbr>Trial<wbr>Parameters</a>
 					</li>
-					<li class=" tsd-kind-interface">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-interface">
 						<a href="createserviceoptions.html" class="tsd-kind-icon">Create<wbr>Service<wbr>Options</a>
+						<ul>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="createserviceoptions.html#cogsettings" class="tsd-kind-icon">cog<wbr>Settings</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="createserviceoptions.html#grpcurl" class="tsd-kind-icon">grpcURL</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="createserviceoptions.html#streamingtransportfactory" class="tsd-kind-icon">streaming<wbr>Transport<wbr>Factory</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="createserviceoptions.html#unarytransportfactory" class="tsd-kind-icon">unary<wbr>Transport<wbr>Factory</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="event.html" class="tsd-kind-icon">Event</a>
 					</li>
