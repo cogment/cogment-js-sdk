@@ -1,3 +1,11 @@
+# [1.25.0-beta.4](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0-beta.3...v1.25.0-beta.4) (2021-04-16)
+
+
+### Features
+
+* release api docs to github pages ([233c361](https://github.com/cogment/cogment-js-sdk/commit/233c361f0110d67c9b8e85ba2245b81b45d8365e)), closes [#43](https://github.com/cogment/cogment-js-sdk/issues/43)
+* **types:** explicitly expose public api, document usage ([bbfde12](https://github.com/cogment/cogment-js-sdk/commit/bbfde12df6bdfd119ee46f0a1a410d692dc8d02e)), closes [#73](https://github.com/cogment/cogment-js-sdk/issues/73)
+
 # [1.25.0-beta.3](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0-beta.2...v1.25.0-beta.3) (2021-04-16)
 
 
