@@ -1,19 +1,8 @@
-# [**@cogment/cogment-js-sdk**](https://github.com/cogment/cogment-js-sdk)
+# cogment-js-sdk
 
-[![cogment](https://img.shields.io/badge/npm-%40cogment%2Fcogment--js--sdk-brightgreen)][npm-cogment]
-[![npm](https://img.shields.io/npm/dw/@cogment/cogment-js-sdk)][npm-cogment]
-[![npm](https://img.shields.io/npm/v/@cogment/cogment-js-sdk)][npm-cogment]
-[![npm collaborators](https://img.shields.io/npm/collaborators/@cogment/cogment-js-sdk)][npm-cogment]
-[![npm bundle size (scoped)](https://img.shields.io/bundlephobia/minzip/@cogment/cogment-js-sdk)][npm-cogment]
+[![Retrieve from npm](https://img.shields.io/badge/npm-%40cogment%2Fcogment--js--sdk-brightgreen)][npm-cogment] [![Apache 2 License](https://img.shields.io/badge/license-Apache%202-green)](./LICENSE) [![Changelog](https://img.shields.io/badge/-Changelog%20-blueviolet)](./CHANGELOG.md)
 
-[![GitHub commit activity](https://img.shields.io/github/commit-activity/w/cogment/cogment-js-sdk?style=social&logo=github)][repo]
-[![GitHub forks](https://img.shields.io/github/forks/cogment/cogment-js-sdk?style=social)][repo]
-[![GitHub Repo stars](https://img.shields.io/github/stars/cogment/cogment-js-sdk?style=social)][repo]
-[![GitHub contributors](https://img.shields.io/github/contributors/cogment/cogment-js-sdk?style=social&logo=github)][repo]
-
-[![License](https://img.shields.io/npm/l/@cogment/cogment-js-sdk)][license]
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/cogment/cogment-js-sdk)
-
 ![node-current (scoped)](https://img.shields.io/node/v/@cogment/cogment-js-sdk)
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
@@ -21,7 +10,9 @@
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)][code-of-conduct]
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-![Discord](https://img.shields.io/discord/739822842450935963?label=Discord&logo=Discord&style=plastic)
+[Cogment](https://cogment.ai) is an innovative open source AI platform designed to leverage the advent of AI to benefit humankind through human-AI collaboration developed by [AI Redefined](https://ai-r.com). Cogment enables AI researchers and engineers to build, train and operate AI agents in simulated or real environments shared with humans. For the full user documentation visit <https://docs.cogment.ai>
+
+This module, `cogment-js-sdk`, is the Javascript SDK for making use of Cogment when working with Javascript. It's full documentation can be consulted at <https://docs.cogment.ai/cogment/cogment-api-reference/javascript/modules/>.
 
 ## Table of contents
 
