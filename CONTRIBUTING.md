@@ -162,6 +162,6 @@ Channels"][cogment-doc-community-channels].
 [cogment-js-sdk-npm]: https://npmjs.com/@cogment/cogment-js-sdk
 [cogment-js-sdk-wiki]: https://github.com/cogment/cogment-js-sdk/wiki
 [cogment-js-sdk]: https://github.com/cogment/cogment-js-sdk
-[commitizen]: https://commitizen-tools.github.io/commitizen/
+[commitizen]: https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines
 [pr-template]: /.github/PULL_REQUEST_TEMPLATE.md
 [stackoverflow]: https://stackoverflow.com/questions/tagged/cogment-js-sdk

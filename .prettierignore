@@ -12,3 +12,4 @@ CHANGELOG.md
 /cli/README.md
 tls
 dependency-check-*.*
+.husky/_
