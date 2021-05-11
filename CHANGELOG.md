@@ -1,3 +1,13 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+This file is generated from the commit history following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+## [1.25.2](https://github.com/cogment/cogment-js-sdk/compare/v1.25.1...v1.25.2) (2021-05-11)
+
+* Initial public version
+
 ## [1.25.1](https://github.com/cogment/cogment-js-sdk/compare/v1.25.0...v1.25.1) (2021-04-16)
 
 
