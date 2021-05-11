@@ -147,6 +147,7 @@ export class TrialController {
    * Join a trial given a trial id.
    * @param trialId - The trialId of the trial to join.
    * @param trialActor - The TrialActor configuration to join as.
+   * @returns - A trial join response
    */
   public async joinTrial(
     trialId: string,
