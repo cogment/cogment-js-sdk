@@ -127,6 +127,7 @@ publish_tag_to_npm:
     - /^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+(?:-[[:alnum:]]+)?$/
 
 publish_branch_to_github:
+  image: node:14 # No node usage here but git is required (and part of this image)
   extends: .base_gh_ssh_agent
   stage: publish
   script:
