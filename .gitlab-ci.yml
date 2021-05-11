@@ -10,10 +10,44 @@ default:
     - docker
 
 stages:
+  - lint
   - test
   - build
-  - release
+  - publish
   - pages
+
+.base_gh_ssh_agent:
+  before_script:
+    ## _Inspired by https://docs.gitlab.com/ee/ci/ssh_keys/_
+    ##
+    ## Install ssh-agent if not already installed.
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    ## Run ssh-agent
+    - eval $(ssh-agent -s)
+    ## Add the private key file to ssh-agent
+    - echo "$GH_REPO_SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    ## Create the SSH directory and give it the right permissions
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    ## Using the set $SSH_KNOWN_HOSTS to be able to verify remote servers public keys
+    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+shellcheck:
+  image: koalaman/shellcheck-alpine:stable
+  stage: lint
+  before_script:
+    - shellcheck --version
+  script:
+    - shellcheck ./scripts/*.sh
+
+shfmt:
+  image: mvdan/shfmt:v3.1.0-alpine
+  stage: lint
+  before_script:
+    - shfmt -version
+  script:
+    - shfmt -i 2 -ci -d ./scripts
 
 pre:install:
   stage: .pre
@@ -61,7 +95,7 @@ test:
       junit: junit.xml
     when: always
 
-build:
+build_docker:
   stage: build
   before_script:
     - apk add docker-compose
@@ -73,28 +107,35 @@ build:
       - dist
       - public
 
-release:
-  stage: release
+dry_run_publish_tag_to_npm:
   image: node:14
+  stage: build
   variables:
     NODE_ENV: production
-  before_script:
-    - mkdir -pm 0700 ~/.ssh
-    - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
-    - ssh-keyscan github.com >> ~/.ssh/known_hosts
-    - eval $(ssh-agent -s)
-    - echo "${GIT_SSH_PRIVATE_KEY}" | ssh-add -
   script:
-    - git checkout "${CI_COMMIT_BRANCH}"
+    - npm publish --dry-run
+
+publish_tag_to_npm:
+  image: node:14
+  stage: publish
+  variables:
+    NODE_ENV: production
+  script:
+    - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'>.npmrc
+    - npm publish
+  only:
+    - /^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+(?:-[[:alnum:]]+)?$/
+
+publish_branch_to_github:
+  extends: .base_gh_ssh_agent
+  stage: publish
+  script:
+    - git checkout ${CI_COMMIT_BRANCH} # Checkout the branch not the sha1
     - git remote add downstream git@github.com:cogment/cogment-js-sdk.git
     - git fetch downstream ${CI_COMMIT_BRANCH}
-    - git push downstream ${CI_COMMIT_BRANCH}
-    - npm run semantic-release
+    - git push --tags downstream ${CI_COMMIT_BRANCH}:${CI_COMMIT_BRANCH}
   only:
     - main
-    - next
-    - alpha
-    - beta
 
 pages:
   stage: pages
