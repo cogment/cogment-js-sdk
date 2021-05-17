@@ -64,6 +64,15 @@ pre:install:
       - cli/node_modules
       - __tests__/end-to-end/cogment-app/webapp/node_modules
 
+lint_js:
+  image: node:14
+  stage: lint
+  script:
+    - npm install -g npm
+    - npm install
+    - pushd cli && npm install && popd
+    - npm run lint:ci
+
 test:
   stage: test
   variables:
