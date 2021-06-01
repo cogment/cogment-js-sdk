@@ -73,7 +73,7 @@ module.exports = {
     'notice/notice': [
       'error',
       {
-        mustMatch: `Copyright ${new Date().getFullYear()} Artificial Intelligence Redefined <dev\\+cogment@ai-r\\.com>`,
+        mustMatch: `Copyright ${new Date().getFullYear()} AI Redefined Inc. <dev\\+cogment@ai-r\\.com>`,
         templateFile: path.resolve(__dirname, 'config/copyright.js'),
         onNonMatchingHeader: 'replace',
       },
