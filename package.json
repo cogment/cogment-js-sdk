@@ -27,7 +27,7 @@
   "scripts": {
     "test": "npm run test:jest",
     "analyze": "npx size-limit --why",
-    "build": "npm-run-all build:clean build:protos build:webpack build:typings",
+    "build": "npm-run-all build:clean build:protos build:webpack",
     "build:clean": "rimraf dist public cogment cogment-api.tar.gz cogment-api-* src/cogment/api",
     "build:docs:md": "typedoc --plugin typedoc-plugin-markdown --hideInPageTOC --hideBreadcrumbs --hidePageTitle --out docs/api",
     "build:docs:html": "typedoc --plugin none --out public/api",
@@ -35,8 +35,6 @@
     "build:protos": "npm-run-all build:protos:fetch build:protos:compile",
     "build:protos:compile": "protoc -I . cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
     "build:protos:fetch": "cogjs-cli fetch-protos",
-    "build:tsc": "tsc",
-    "build:typings": "npm run build:tsc -- --declaration --declarationMap --emitDeclarationOnly --outFile dist/index.d.ts",
     "build:webpack": "webpack",
     "build:webpack:watch": "npm run build:webpack -- --watch",
     "cz": "git-cz",
