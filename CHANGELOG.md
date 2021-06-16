@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 This file is generated from the commit history following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.25.4](https://github.com/cogment/cogment-js-sdk/compare/v1.25.3...v1.25.4) (2021-06-16)
+
+
+
 ## [1.25.3](https://github.com/cogment/cogment-js-sdk/compare/v1.25.2...v1.25.3) (2021-06-14)
 
 
