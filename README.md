@@ -168,10 +168,6 @@ for await (const trialListEntry of trialController.watchTrials([
    ```shell script
    docker-compose build cogment-js-sdk
    ```
-3. Initialize the repository:
-   ```shell script
-   docker-compose run cogment-js-sdk npm run init
-   ```
 
 #### Docker Testing
 
@@ -204,6 +200,7 @@ for await (const trialListEntry of trialController.watchTrials([
    ```
 3. Initialize the repository:
    ```shell script
+   npm install
    npm run init
    ```
 
