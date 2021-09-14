@@ -12,6 +12,9 @@
   "author": "Artificial Intelligence Redefined <dev+cogment@ai-r.com>",
   "main": "dist/cogment.js",
   "types": "dist/index.d.ts",
+  "bin": {
+    "cogment-js-sdk-generate": "./run/generate"
+  },
   "directories": {
     "lib": "dist",
     "doc": "docs",
@@ -39,8 +42,7 @@
     "init": "npm-run-all init:*",
     "init:0": "npm-run-all init:0:*",
     "init:0:install-cli": "npm-run-all init:0:install-cli:*",
-    "init:0:install-cli:0": "npm --prefix ./some_project install ./some_project",
-    "init:0:install-cli:1": "cd cli && npm install -g .",
+    "init:0:install-cli:0": "cd cli && npm i && npm install -g .",
     "init:0:install-test-suite": "cd __tests__/end-to-end/cogment-app/webapp && npm install",
     "init:1": "npm-run-all init:1:*",
     "init:1:docker-compose-overrride": "cogjs-cli init:docker-compose-override",
@@ -86,6 +88,7 @@
     "@improbable-eng/grpc-web": "^0.14.0",
     "@improbable-eng/grpc-web-node-http-transport": "^0.14.0",
     "debug": "^4.3.1",
+    "pascal-case": "^3.1.2",
     "typedoc-plugin-markdown": "^3.6.1"
   },
   "devDependencies": {
@@ -166,7 +169,7 @@
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.1.0",
     "ts-protoc-gen": "^0.14.0",
-    "tslib": "^2.2.0",
+    "tslib": "^2.3.1",
     "typedoc": "^0.20.35",
     "typescript": "^4.2.4",
     "webpack": "^5.31.0",
