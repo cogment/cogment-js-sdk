@@ -1,4 +1,5 @@
 /* eslint-disable eslint-comments/disable-enable-pair */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable max-params */
 /* eslint-disable compat/compat */
@@ -19,11 +20,10 @@
  *
  */
 
-import YAML from 'yaml';
+import * as YAML from 'yaml';
 import {existsSync, readFileSync, writeFileSync} from 'fs';
 import {cogSettingsTemplate} from '../data/templates';
 import {exec} from 'child_process';
-import glob from 'glob';
 
 const shell = (command: string) => {
   return new Promise<void>((resolve) => {
@@ -40,14 +40,6 @@ const shell = (command: string) => {
       }
       console.log(stdout);
       resolve();
-    });
-  });
-};
-
-const protos = () => {
-  return new Promise<string[]>((resolve) => {
-    glob('*.proto', {}, (error, files) => {
-      resolve(files);
     });
   });
 };
@@ -71,7 +63,9 @@ export const generate: () => Promise<void> = async () => {
     await shell('npm i protoc-gen-ts');
   }
 
-  const protoFileNames = await protos();
+  const cogmentYamlString = readFileSync('./cogment.yaml', 'utf-8');
+  const cogmentYaml = YAML.parse(cogmentYamlString);
+  const protoFileNames = cogmentYaml.import.proto as string[];
 
   const protoFiles: {[fileName: string]: string} = {};
   protoFileNames.forEach((fileName) => {
@@ -79,8 +73,6 @@ export const generate: () => Promise<void> = async () => {
     protoFiles[fileName] = fileContent;
   });
 
-  const cogmentYamlString = readFileSync('./cogment.yaml', 'utf-8');
-  const cogmentYaml = YAML.parse(cogmentYamlString);
   const cogSettings = cogSettingsTemplate(protoFiles, cogmentYaml);
 
   await shell(

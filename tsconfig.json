@@ -18,7 +18,7 @@
     "outDir": "dist",
     "removeComments": true,
     "resolveJsonModule": true,
-    "rootDirs": ["src", "src/generate"],
+    "rootDir": "src",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
@@ -31,7 +31,11 @@
     "__tests__/end-to-end/cogment-app"
   ],
   "references": [
-    {"path": "./cli"},
-    {"path": "__tests__/end-to-end/cogment-app/webapp"}
+    {
+      "path": "./cli"
+    },
+    {
+      "path": "__tests__/end-to-end/cogment-app/webapp"
+    }
   ]
 }
