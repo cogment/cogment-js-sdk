@@ -179,6 +179,10 @@
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.7.2"
   },
+  "optionalDependencies": {
+    "grpc-tools": "^1.11.2",
+    "protoc-gen-ts": "^0.14.0"
+  },
   "engines": {
     "node": ">=10"
   },

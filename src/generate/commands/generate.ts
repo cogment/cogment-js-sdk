@@ -44,6 +44,15 @@ const shell = (command: string) => {
   });
 };
 
+const isInstalled = (testPackage: string) => {
+  try {
+    require.resolve(testPackage);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 export const generate: () => Promise<void> = async () => {
   const packageJsonExists = existsSync('./package.json');
   if (!packageJsonExists) {
@@ -56,11 +65,23 @@ export const generate: () => Promise<void> = async () => {
     await shell('npm i');
   }
 
-  if (!existsSync('./node_modules/grpc-tools')) {
-    await shell('npm i grpc-tools');
+  if (isInstalled('grpc-tools')) {
+    try {
+      await shell('npm i grpc-tools');
+    } catch {
+      throw new Error(
+        'Could not install auxilliary generation tools, try running `npm i --save-optional`',
+      );
+    }
   }
-  if (!existsSync('./node_modules/protoc-gen-ts')) {
-    await shell('npm i protoc-gen-ts');
+  if (isInstalled('protoc-gen-ts')) {
+    try {
+      await shell('npm i protoc-gen-ts');
+    } catch {
+      throw new Error(
+        'Could not install auxilliary generation tools, try running `npm i --save-optional`',
+      );
+    }
   }
 
   const cogmentYamlString = readFileSync('./cogment.yaml', 'utf-8');
