@@ -1,6 +1,6 @@
 {
   "name": "@cogment/cogment-js-sdk",
-  "version": "1.25.4",
+  "version": "1.25.5",
   "description": "Javascript SDK for the Cogment Framework",
   "homepage": "https://github.com/cogment/cogment-js-sdk",
   "bugs": "https://github.com/cogment/cogment-js-sdk/issues",
@@ -181,7 +181,7 @@
   },
   "optionalDependencies": {
     "grpc-tools": "^1.11.2",
-    "protoc-gen-ts": "^0.14.0"
+    "ts-protoc-gen": "^0.14.0"
   },
   "engines": {
     "node": ">=10"
