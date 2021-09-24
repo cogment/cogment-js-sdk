@@ -70,12 +70,14 @@ export interface ActorClass {
   observationDeltaApply?: (x: Message) => Message;
 }
 
-${(cogSettings.actor_classes as {
-  name: string;
-  config_type: string;
-  action: {space: string};
-  observation: {space: string; delta: string};
-}[])
+${(
+  cogSettings.actor_classes as {
+    name: string;
+    config_type: string;
+    action: {space: string};
+    observation: {space: string; delta: string};
+  }[]
+)
   .map(
     (actorClass) => `
 export class ${pascalCase(actorClass.name)}ActorClass implements ActorClass {

@@ -173,9 +173,8 @@ export class TrialController {
             const config = response.getConfig();
             const responseObject = response.toObject() as JoinTrialReturnType;
             if (config && trialActor) {
-              const configType = this.cogSettings.actorClasses[
-                trialActor.actorClass
-              ].config;
+              const configType =
+                this.cogSettings.actorClasses[trialActor.actorClass].config;
               if (!configType) {
                 throw new Error(
                   'Config type is not defined on the submitted actorClass',

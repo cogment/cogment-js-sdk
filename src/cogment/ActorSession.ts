@@ -49,7 +49,7 @@ const logger = getLogger('ActorSession');
 export class ActorSession<
   ActionT extends Message,
   ObservationT extends Message,
-  RewardT extends Message
+  RewardT extends Message,
 > {
   private actorCogSettings: CogSettingsActorClass;
   private events: Event<ObservationT, RewardT>[] = [];

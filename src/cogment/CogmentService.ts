@@ -44,7 +44,7 @@ const logger = getLogger('CogmentService');
 export type ActorImplementation<
   ActionT extends Message,
   ObservationT extends Message,
-  RewardT extends Message
+  RewardT extends Message,
 > = (session: ActorSession<ActionT, ObservationT, RewardT>) => Promise<void>;
 
 /**
@@ -103,7 +103,7 @@ export class CogmentService {
   public registerActor<
     ActionT extends Message,
     ObservationT extends Message,
-    RewardT extends Message
+    RewardT extends Message,
   >(
     actorConfig: TrialActor,
     actorImpl: ActorImplementation<ActionT, ObservationT, RewardT>,

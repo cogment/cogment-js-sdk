@@ -143,12 +143,7 @@ const cogmentService = createService({
 const trialController = cogmentService.createTrialController();
 
 for await (const trialListEntry of trialController.watchTrials([
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
+  0, 1, 2, 3, 4, 5,
 ])) {
   // Do stuff!
 }

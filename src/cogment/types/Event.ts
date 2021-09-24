@@ -35,7 +35,7 @@ export enum EventType {
  */
 export interface Event<
   ObservationT extends Message,
-  FeedbackT extends Message
+  FeedbackT extends Message,
 > {
   /**
    * The next message encoded as a protobuf message.
