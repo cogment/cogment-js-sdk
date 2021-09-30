@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 This file is generated from the commit history following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [1.26.0](https://github.com/cogment/cogment-js-sdk/compare/v1.25.5...v1.26.0) (2021-09-30)
+
+
+### Bug Fixes
+
+* **actorconfig typing should default to any:** actorConfig defaults to any ([1b70aad](https://github.com/cogment/cogment-js-sdk/commit/1b70aade310c54045b9cff7770c9bcd86096374e))
+
+
+### Features
+
+* **actorsession:** actorSession now has actorConfig as a public member ([9eb1728](https://github.com/cogment/cogment-js-sdk/commit/9eb1728d4fb50c35815f6d7a9e230ff47c5d0852))
+
+
+
 ## [1.25.5](https://github.com/cogment/cogment-js-sdk/compare/v1.25.4...v1.25.5) (2021-09-23)
 
 
