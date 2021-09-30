@@ -50,6 +50,7 @@ export class ActorSession<
   ActionT extends Message,
   ObservationT extends Message,
   RewardT extends Message,
+  ActorConfigT extends any,
 > {
   private actorCogSettings: CogSettingsActorClass;
   private events: Event<ObservationT, RewardT>[] = [];
@@ -70,7 +71,7 @@ export class ActorSession<
   // eslint-disable-next-line max-params
   constructor(
     private actorClass: TrialActor,
-    public actorConfig: any,
+    public actorConfig: ActorConfigT,
     private cogSettings: CogSettings,
     private clientActorClient: ClientActorClient,
     private actionStreamClient: grpc.Client<
