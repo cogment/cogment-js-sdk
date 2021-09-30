@@ -70,6 +70,7 @@ export class ActorSession<
   // eslint-disable-next-line max-params
   constructor(
     private actorClass: TrialActor,
+    public actorConfig: any,
     private cogSettings: CogSettings,
     private clientActorClient: ClientActorClient,
     private actionStreamClient: grpc.Client<

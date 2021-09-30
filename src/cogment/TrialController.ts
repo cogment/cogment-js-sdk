@@ -190,7 +190,7 @@ export class TrialController {
       },
     );
 
-    await this.startActors(joinTrialResponse.trialId);
+    await this.startActors(joinTrialResponse.trialId, joinTrialResponse.config);
     return joinTrialResponse;
   }
 
@@ -347,7 +347,7 @@ export class TrialController {
     );
   };
 
-  private async startActors(trialId: string) {
+  private async startActors(trialId: string, actorConfig: any) {
     // eslint-disable-next-line compat/compat
     return Promise.all(
       this.actors.map(([actor, actorImpl]) => {
@@ -359,6 +359,7 @@ export class TrialController {
 
         const actorSession = new ActorSession(
           actor,
+          actorConfig,
           this.cogSettings,
           this.clientActorClient,
           this.actionStreamClient,
