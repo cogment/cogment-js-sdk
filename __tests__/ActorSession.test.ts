@@ -36,7 +36,6 @@ describe('ActorSession', () => {
   const TEST_MESSAGE = 'foo';
   const SUFFIX = ' bar';
 
-  let actorConfig: any;
   let tickIds: number[] = [];
   let lastObservation: Observation;
   let lastTimestamp: number;
@@ -84,7 +83,6 @@ describe('ActorSession', () => {
       trialActor,
       async (actorSession) => {
         logger.info('Actor running');
-        actorConfig = actorSession.actorConfig;
         // Start the actorSession - the sdk will now start emitting events.
         actorSession.start();
         logger.info('Actor session started');
@@ -243,10 +241,6 @@ describe('ActorSession', () => {
   });
 
   describe('#eventLoop', () => {
-    test('actorConfig exists', () => {
-      expect(actorConfig).not.toBeUndefined();
-    });
-
     test('receives observations', () => {
       expect(lastObservation).toBeInstanceOf(Observation);
     });

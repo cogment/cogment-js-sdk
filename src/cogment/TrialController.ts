@@ -149,7 +149,7 @@ export class TrialController {
    * @param trialActor - The TrialActor configuration to join as.
    * @returns - A trial join response
    */
-  public async joinTrial(
+  public async joinTrial<ActorConfigT = any>(
     trialId: string,
     trialActor?: TrialActor,
   ): Promise<JoinTrialReturnType> {
@@ -190,7 +190,10 @@ export class TrialController {
       },
     );
 
-    await this.startActors(joinTrialResponse.trialId, joinTrialResponse.config);
+    await this.startActors<ActorConfigT>(
+      joinTrialResponse.trialId,
+      joinTrialResponse.config,
+    );
     return joinTrialResponse;
   }
 
@@ -347,7 +350,10 @@ export class TrialController {
     );
   };
 
-  private async startActors(trialId: string, actorConfig: any) {
+  private async startActors<ActorConfigT = any>(
+    trialId: string,
+    actorConfig: ActorConfigT,
+  ) {
     // eslint-disable-next-line compat/compat
     return Promise.all(
       this.actors.map(([actor, actorImpl]) => {
