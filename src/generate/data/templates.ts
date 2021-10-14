@@ -84,7 +84,7 @@ export class ${pascalCase(actorClass.name)}ActorClass implements ActorClass {
   name = '${actorClass.name}';
   ${
     actorClass.config_type
-      ? `config: ${procToken(protoFiles, actorClass.config_type)}`
+      ? `config = ${procToken(protoFiles, actorClass.config_type)}`
       : ``
   }
   actionSpace = ${procToken(protoFiles, actorClass.action.space)};

@@ -105,6 +105,6 @@ export const generate: () => Promise<void> = async () => {
   await shell(
     'npx tsc --noImplicitUseStrict --declaration --declarationMap --outDir src ./src/CogSettings.ts',
   );
-  await shell('rm -f ./src/CogSettings.ts');
+  // await shell('rm -f ./src/CogSettings.ts');
   console.log('Done generation!');
 };
