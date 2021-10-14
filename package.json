@@ -49,7 +49,7 @@
     "init:1:docker-compose-overrride": "cogjs-cli init:docker-compose-override",
     "init:1:fetch-cogment-cli": "cogjs-cli fetch-cogment-cli --out bin/cogment",
     "init:2": "npm-run-all init:2:*",
-    "init:2:generate": "export PATH=$PWD/bin:$PATH; cd ./__tests__/end-to-end/cogment-app/ && cogment run generate",
+    "init:2:generate": "export PATH=$PWD/bin:$PATH; cd ./__tests__/end-to-end/cogment-app/ && cogment run sync &&  cogment run generate",
     "init:2:protos": "npm run build:protos",
     "lint": "npm-run-all lint:{eslint,prettier,remark,commitlint}:check",
     "lint:ci": "npm-run-all lint:{prettier,commitlint}:ci",

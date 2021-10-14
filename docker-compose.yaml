@@ -13,8 +13,6 @@ services:
     image: registry.gitlab.com/ai-r/cogment-js-sdk/cogment-js-sdk:latest
     build:
       context: .
-    volumes:
-      - .:/app
 
   client:
     build:

@@ -83,7 +83,6 @@ test:
     - docker system prune -af --volumes
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker-compose build cogment-js-sdk
-    - docker-compose run cogment-js-sdk npm run init
     - bin/up.bash
   script:
     - docker-compose run -e NODE_ENV=test cogment-js-sdk npm run test:ci

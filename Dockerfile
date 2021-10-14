@@ -1,4 +1,4 @@
-FROM node:14 AS dev
+FROM nikolaik/python-nodejs AS dev
 
 ARG ALLURE_URL=https://github.com/allure-framework/allure2/releases/download/2.13.8/allure_2.13.8-1_all.deb
 ARG PROTOC_URL=https://github.com/protocolbuffers/protobuf/releases/download/v3.14.0/protoc-3.14.0-linux-x86_64.zip
@@ -17,12 +17,10 @@ RUN curl -LSso /tmp/allure.deb ${ALLURE_URL} \
 
 COPY package*.json ./
 RUN npm install -g npm && npm install
+RUN python -m pip install cogment[generate]
 
 COPY . .
 
-RUN npm run init \
-  && npm install -g ./cli \
-  && install -m 0755 bin/cogment /usr/local/bin/ \
-  && rm -rf cogment cogment-api.tar.gz cogment-api-*
+RUN npm run init
 
 CMD npm run test
