@@ -11,7 +11,6 @@ services:
       - COGMENT_GRPC_REFLECTION=1
       - PYTHONUNBUFFERED=1
 
-
   environment:
     build:
       context: environment
@@ -25,7 +24,7 @@ services:
       context: .
       dockerfile: orchestrator.dockerfile
     ports:
-      - "9000:9000"
+      - '9000:9000'
 
   client:
     build:
