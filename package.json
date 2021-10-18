@@ -50,8 +50,8 @@
     "init:1:fetch-cogment-cli": "cogjs-cli fetch-cogment-cli --out bin/cogment",
     "init:2": "npm run build",
     "init:3": "export PATH=$PWD/bin:$PATH; cd ./__tests__/end-to-end/cogment-app/ && cogment run sync &&  cogment run generate",
-    "lint": "npm-run-all lint:{eslint,prettier,remark,commitlint}:check",
-    "lint:ci": "npm-run-all lint:{prettier,commitlint}:ci",
+    "lint": "npm-run-all lint:{eslint,prettier,remark}:check",
+    "lint:ci": "npm-run-all lint:{prettier}:ci",
     "lint:eslint": "eslint .",
     "lint:eslint:check": "npm run lint:eslint",
     "lint:eslint:fix": "npm run lint:eslint -- --fix",
@@ -63,8 +63,6 @@
     "lint:remark": "remark .",
     "lint:remark:check": "npm run lint:remark .",
     "lint:remark:fix": "npm run lint:remark -- --fix",
-    "lint:commitlint:check": "npx commitlint --from main",
-    "lint:commitlint:ci": "npx commitlint --from HEAD~5",
     "migrate": "npm-run-all migrate:*",
     "migrate:conduct": "npx covgen 'dev+cogment@ai-r.com'",
     "report:legal": "npm-run-all report:legal:*",
@@ -91,8 +89,6 @@
     "typedoc-plugin-markdown": "^3.6.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.1.1",
-    "@commitlint/config-conventional": "^12.1.1",
     "@microsoft/api-extractor": "^7.13.4",
     "@microsoft/tsdoc": "^0.13.0",
     "@microsoft/tsdoc-config": "^0.14.0",
