@@ -2,10 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
-This file is generated from the commit history following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) guidelines and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-# [1.26.0](https://github.com/cogment/cogment-js-sdk/compare/v1.25.5...v1.26.0) (2021-09-30)
+## Unreleased
 
+### Added
+
+- Added test for code generation via cogment-js-sdk-generate
+
+### Removed
+
+- Various tooling, including commitizen
+
+## v1.26.0 - 2021-09-30
 
 ### Bug Fixes
 
