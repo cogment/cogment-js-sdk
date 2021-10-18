@@ -9,8 +9,7 @@ repository will be merged back upstream to the private codebase.
 
 ## Release Process
 
-This repository follows [semantic versioning][semver.org] as well as
-[commitizen][commitizen] for commit style.
+This repository follows [semantic versioning][semver.org]
 
 Releases are automated using the [semantic-release][semantic-release]
 tool. Read the [workflow][semantic-release-workflow] documentation.
@@ -54,7 +53,6 @@ When a release is ready to be made, there are a few rules of thumb:
   It may be desirable to merge into both `next` and `main` if merging a
   `fix` commit while there is ongoing work in the `next` branch.
 
-[commitizen]: https://commitizen-tools.github.io/commitizen/
 [semantic-release-workflow]: https://github.com/semantic-release/semantic-release/blob/master/docs/usage/workflow-configuration.md
 [semantic-release]: https://github.com/semantic-release/semantic-release
 [semver.org]: https://semver.org

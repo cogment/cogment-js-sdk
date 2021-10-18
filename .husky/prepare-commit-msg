@@ -1,4 +1,0 @@
-#!/bin/bash
-. "$(dirname "$0")/_/husky.sh"
-
-exec < /dev/tty && [ -z ${CI} ] && node_modules/.bin/cz --hook || true

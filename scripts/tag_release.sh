@@ -73,11 +73,19 @@ printf "** Now on the latest commit for release branch \"%s/%s\"\n" "${GIT_REMOT
 # Check the package version
 package_version=$(retrieve_package_version)
 if [[ "${version}" != "${package_version}" ]]; then
-  printf "Package version, %s, doesn't match %s.\n" "${package_version}" "${version}"
+  printf "Package version, %s, doesn't match.\n" "${version}"
   exit 1
 fi
 
 printf "** Package version checked\n"
+
+# Update the changelog and commit
+changelog_md_file="${ROOT_DIR}/CHANGELOG.md"
+today=$(date +%Y-%m-%d)
+sed -i.bak "s/.*##\ Unreleased.*/## Unreleased${SED_NL}${SED_NL}## v${version} - ${today}/g" "${changelog_md_file}"
+git -C "${ROOT_DIR}" commit -q -a -m"Finalizing release v${version}"
+
+printf "** \"%s\" updated and committed\n" "${changelog_md_file}"
 
 # Move to the remote main branch
 git -C "${ROOT_DIR}" checkout -q -B main "${GIT_REMOTE}"/main
@@ -109,6 +117,8 @@ printf "** Now on the latest commit for develop branch \"%s/develop\"\n" "${GIT_
 git -C "${ROOT_DIR}" rebase -q main
 
 printf "** \"develop\" rebased on the just release \"main\"\n"
+
+# TODO here we switch back to the "latest" version of the internal dependencies and update .cogment-api.yaml and .gitlab-ci.yml
 
 # (Force) push develop to the remote
 if [[ "${dry_run}" == 1 ]]; then
