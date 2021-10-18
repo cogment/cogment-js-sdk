@@ -51,7 +51,7 @@
     "init:2": "npm run build",
     "init:3": "export PATH=$PWD/bin:$PATH; cd ./__tests__/end-to-end/cogment-app/ && cogment run sync &&  cogment run generate",
     "lint": "npm-run-all lint:{eslint,prettier,remark}:check",
-    "lint:ci": "npm-run-all lint:{prettier}:ci",
+    "lint:ci": "npm-run-all lint:prettier:ci",
     "lint:eslint": "eslint .",
     "lint:eslint:check": "npm run lint:eslint",
     "lint:eslint:fix": "npm run lint:eslint -- --fix",
