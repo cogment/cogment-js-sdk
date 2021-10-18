@@ -11,9 +11,6 @@ repository will be merged back upstream to the private codebase.
 
 This repository follows [semantic versioning][semver.org]
 
-Releases are automated using the [semantic-release][semantic-release]
-tool. Read the [workflow][semantic-release-workflow] documentation.
-
 A general proposed workflow is:
 
 The `develop` branch acts as the default branch for the repository. All
@@ -29,15 +26,8 @@ are sent to multiple targets: gitlab (`origin`) releases, github
 
 Caveats:
 
-- [Use --no-ff when merging between semantic-release branches!](https://github.com/semantic-release/git#merging-between-semantic-release-branches)
-
 When a release is ready to be made, there are a few rules of thumb:
 
-- Each time a release is made, `semantic-release` will analyze the
-  commit messages since the last commit, looking for commits of type
-  `fix` or `feat`, or any commit with `BREAKING CHANGE` in the message.
-  The commit will result in a patch, minor, or major version bump,
-  respectively.
 - The `next` branch will generate releases on the `next` channel. This
   should be reserved primarily for breaking changes / major releases
   that are ready for public consumption but are still not the "latest"
@@ -53,6 +43,4 @@ When a release is ready to be made, there are a few rules of thumb:
   It may be desirable to merge into both `next` and `main` if merging a
   `fix` commit while there is ongoing work in the `next` branch.
 
-[semantic-release-workflow]: https://github.com/semantic-release/semantic-release/blob/master/docs/usage/workflow-configuration.md
-[semantic-release]: https://github.com/semantic-release/semantic-release
 [semver.org]: https://semver.org
