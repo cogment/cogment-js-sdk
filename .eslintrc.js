@@ -29,7 +29,6 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
-    'sonarjs',
     'unicorn',
     'jest',
     'jest-formatting',
@@ -54,7 +53,6 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
-    'plugin:sonarjs/recommended',
     'plugin:unicorn/recommended',
     'plugin:jest/recommended',
     'plugin:jest/style',

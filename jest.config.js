@@ -54,7 +54,7 @@ module.exports = {
     '.d.ts',
     'cli',
   ],
-  reporters: ['default', 'jest-junit', 'jest-sonar'],
+  reporters: ['default', 'jest-junit'],
   roots: ['<rootDir>/src', '<rootDir>/__tests__'],
   slowTestThreshold: 10,
   testEnvironment: 'jsdom',

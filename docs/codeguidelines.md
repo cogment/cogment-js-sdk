@@ -38,8 +38,6 @@ consensus on what code style should look like.
 
 Plus, ESLint is magic!: Current plugins include:
 
-- eslint-plugin-unicorn and eslint-plugin-sonarjs help detect code
-  smell, such as duplicate code.
 - Browser compatibility.
 - Test formatting, style
 - Copyright as file headers (including updating copyright year with
