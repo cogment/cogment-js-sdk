@@ -1,0 +1,68 @@
+import:
+  proto:
+    - data.proto
+
+commands:
+  init-webapp: |
+    cd webapp
+    npm i
+    cd ..
+  sync: |
+    cogment sync environment client configurator echo webapp
+  generate: |
+    cogment run init-webapp
+    cogment run sync
+
+    python -m pip install cogment[generate]
+
+    cd environment && python -m cogment.generate && cd -
+    cd client && python -m cogment.generate && cd -
+    cd echo && python -m cogment.generate && cd -
+    cd configurator && python -m cogment.generate && cd -
+
+    cd webapp && npx cogment-js-sdk-generate && cd -
+
+  build: docker-compose build
+  # Start and stop services
+  start: docker-compose up orchestrator environment echo
+  stop: docker-compose stop orchestrator environment echo
+  client: docker-compose run --rm client
+
+environment:
+  config_type: cogment_app.EnvConfig
+
+trial:
+  config_type: cogment_app.TrialConfig
+  pre_hooks:
+    - grpc://configurator:9000
+
+# Static configuration
+actor_classes:
+  - name: client
+    action:
+      space: cogment_app.ClientAction
+    observation:
+      space: cogment_app.Observation
+    config_type: cogment_app.ClientConfig
+  - name: echo
+    action:
+      space: cogment_app.EchoAction
+    observation:
+      space: cogment_app.Observation
+
+# Dynamic configuration (could be changed by a pre-hook)
+trial_params:
+  environment:
+    endpoint: grpc://environment:9000
+    config:
+      suffix: ''
+  actors:
+    - name: client_actor
+      actor_class: client
+      endpoint: client
+      config:
+        config_message: 'test'
+    - name: echo_echo_1
+      actor_class: echo
+      implementation: echo
+      endpoint: grpc://echo:9000
