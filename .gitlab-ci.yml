@@ -88,8 +88,11 @@ test:
   after_script:
     - docker-compose logs --no-color --tail all > docker.log
     - bin/down.bash
-    - cp -r allure-report public/allure
-    - cp -r coverage public/coverage
+    - mkdir public
+    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/allure-report ./public/allure
+    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/coverage ./public/coverage
+    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/src/cogment/api ./src/cogment/api
+    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/junit.xml ./junit.xml
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
     expose_as: reports
@@ -108,6 +111,10 @@ build_docker:
     - apk add docker-compose
   script:
     - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build
+    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/dist ./dist
+    - mkdir public
+    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/allure-report ./public/allure
+    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/coverage ./public/coverage
   artifacts:
     expire_in: 1 day
     paths:
