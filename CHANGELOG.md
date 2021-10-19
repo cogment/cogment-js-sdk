@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## v1.26.1 - 2021-10-19
+
 ### Added
 
 - Added test for code generation via cogment-js-sdk-generate
