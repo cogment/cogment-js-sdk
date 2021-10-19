@@ -88,7 +88,7 @@ test:
   after_script:
     - docker-compose logs --no-color --tail all > docker.log
     - bin/down.bash
-    - mkdir public
+    - mkdir -p public
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/allure-report ./public/allure
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/coverage ./public/coverage
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/src/cogment/api ./src/cogment/api
@@ -112,7 +112,7 @@ build_docker:
   script:
     - docker-compose run -e NODE_ENV=production -e CI=true cogment-js-sdk npm run build
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/dist ./dist
-    - mkdir public
+    - mkdir -p public
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/allure-report ./public/allure
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/coverage ./public/coverage
   artifacts:
