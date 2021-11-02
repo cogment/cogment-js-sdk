@@ -15,12 +15,12 @@
  *
  */
 
-import {grpc} from '@improbable-eng/grpc-web';
-import {Message} from 'google-protobuf';
-import {getLogger} from '../lib/Logger';
-import {ActorSession} from './ActorSession';
-import {TrialConfig, VersionInfo, VersionRequest} from './api/common_pb';
-import {ServiceError} from './api/environment_pb_service';
+import { grpc } from '@improbable-eng/grpc-web';
+import { Message } from 'google-protobuf';
+import { getLogger } from '../lib/Logger';
+import { ActorSession } from './ActorSession';
+import { TrialConfig, VersionInfo, VersionRequest } from './api/common_pb';
+import { ServiceError } from './api/environment_pb_service';
 import {
   TerminateTrialRequest,
   TrialActionReply,
@@ -33,14 +33,15 @@ import {
   TrialListRequest,
   TrialMessageReply,
   TrialStartReply,
-  TrialStartRequest,
+  TrialStartRequest
 } from './api/orchestrator_pb';
 import {
   ClientActorClient,
-  TrialLifecycleClient,
+  TrialLifecycleClient
 } from './api/orchestrator_pb_service';
-import {ActorImplementation} from './CogmentService';
-import {CogSettings, TrialActor} from './types';
+import { ActorImplementation } from './CogmentService';
+import { CogSettings, TrialActor } from './types';
+import { MessageBase } from './types/UtilTypes';
 
 const logger = getLogger('TrialController');
 
@@ -74,7 +75,7 @@ export class TrialController {
     private cogSettings: CogSettings,
     private actors: [
       TrialActor,
-      ActorImplementation<Message, Message, Message>,
+      ActorImplementation<MessageBase, MessageBase>,
     ][],
     private trialLifecycleClient: TrialLifecycleClient,
     private clientActorClient: ClientActorClient,
@@ -122,7 +123,7 @@ export class TrialController {
     return new Promise((resolve, reject) => {
       this.trialLifecycleClient.getTrialInfo(
         new TrialInfoRequest(),
-        new grpc.Metadata({'trial-id': trialId}),
+        new grpc.Metadata({ 'trial-id': trialId }),
         (error, response) => {
           if (error || response === null) {
             return reject(error);
@@ -180,9 +181,9 @@ export class TrialController {
                   'Config type is not defined on the submitted actorClass',
                 );
               }
-              responseObject.config = configType
-                .deserializeBinary(config.getContent_asU8())
-                .toObject();
+              responseObject.config = configType.toObject(configType
+                .decode(config.getContent_asU8())
+              );
             }
             resolve(responseObject);
           },
@@ -243,7 +244,7 @@ export class TrialController {
     return new Promise((resolve, reject) => {
       this.trialLifecycleClient.terminateTrial(
         new TerminateTrialRequest(),
-        new grpc.Metadata({'trial-id': trialId}),
+        new grpc.Metadata({ 'trial-id': trialId }),
         (error, response) => {
           if (error || response === null) {
             return reject(error);
@@ -267,7 +268,7 @@ export class TrialController {
           if (error || response === null) {
             return reject(error);
           }
-          resolve({version: response.toObject().versionsList});
+          resolve({ version: response.toObject().versionsList });
         },
       );
     });
@@ -379,8 +380,8 @@ export class TrialController {
 export type SendMessageReturnType = TrialMessageReply.AsObject;
 export type StartTrialReturnType = TrialStartReply.AsObject;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type JoinTrialReturnType = TrialJoinReply.AsObject & {config: any};
-export type VersionReturnType = {version: VersionInfo.AsObject['versionsList']};
+export type JoinTrialReturnType = TrialJoinReply.AsObject & { config: any };
+export type VersionReturnType = { version: VersionInfo.AsObject['versionsList'] };
 
 /**
  * Arguments to joinTrial

@@ -2,7 +2,6 @@
 /dist/
 /coverage/
 /public/
-/examples/
 /src/cogment/api
 /docs/api/
 /src/__mocks__/*.ts
@@ -25,4 +24,3 @@ cli/lib/**/*
 tls
 dependency-check-*.*
 /__tests__/
-schemas/*.json

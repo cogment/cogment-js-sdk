@@ -20,10 +20,11 @@
  *
  */
 
+import { exec } from 'child_process';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
+import path from "path";
 import * as YAML from 'yaml';
-import {existsSync, readFileSync, writeFileSync} from 'fs';
-import {cogSettingsTemplate} from '../data/templates';
-import {exec} from 'child_process';
+import { cogSettingsTemplate } from '../data/templates';
 
 const shell = (command: string) => {
   return new Promise<void>((resolve) => {
@@ -65,18 +66,9 @@ export const generate: () => Promise<void> = async () => {
     await shell('npm i');
   }
 
-  if (isInstalled('grpc-tools')) {
+  if (!isInstalled('protobufjs')) {
     try {
-      await shell('npm i grpc-tools');
-    } catch {
-      throw new Error(
-        'Could not install auxilliary generation tools, try running `npm i --save-optional`',
-      );
-    }
-  }
-  if (isInstalled('protoc-gen-ts')) {
-    try {
-      await shell('npm i protoc-gen-ts');
+      await shell('npm i protobufjs');
     } catch {
       throw new Error(
         'Could not install auxilliary generation tools, try running `npm i --save-optional`',
@@ -88,19 +80,29 @@ export const generate: () => Promise<void> = async () => {
   const cogmentYaml = YAML.parse(cogmentYamlString);
   const protoFileNames = cogmentYaml.import.proto as string[];
 
-  const protoFiles: {[fileName: string]: string} = {};
+  const protoFiles: { [fileName: string]: string } = {};
   protoFileNames.forEach((fileName) => {
     const fileContent = readFileSync(fileName, 'utf-8');
     protoFiles[fileName] = fileContent;
   });
 
   const cogSettings = cogSettingsTemplate(protoFiles, cogmentYaml);
+  const outDirectory = "src"
 
-  await shell(
-    `node_modules/.bin/grpc_tools_node_protoc ${protoFileNames.join(
-      ' ',
-    )} --js_out=import_style=commonjs,binary:src --plugin=protoc-gen-ts=node_modules/.bin/protoc-gen-ts --ts_out=service=grpc-web:src`,
-  );
+  protoFileNames.forEach(file => {
+
+    const fileName = file.split("/").pop()?.split(".")[0] + "_pb"
+    if (!fileName) throw new Error("Could not parse file name");
+    const js = fileName + ".js"
+    const dts = fileName + ".d.ts"
+
+    const outJS = path.join(outDirectory, js)
+    const outTS = path.join(outDirectory, dts)
+
+    const command = `npx pbjs -t static-module -o ${outJS} -path=. ${file} && npx pbts -o ${outTS} ${outJS}`
+    shell(command)
+  })
+
   writeFileSync('src/CogSettings.ts', cogSettings);
   await shell(
     'npx tsc --noImplicitUseStrict --declaration --declarationMap --outDir src ./src/CogSettings.ts',

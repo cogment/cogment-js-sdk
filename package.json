@@ -18,7 +18,6 @@
   "directories": {
     "lib": "dist",
     "doc": "docs",
-    "example": "examples",
     "test": "__tests__"
   },
   "files": [
@@ -42,8 +41,6 @@
     "fiddly": "npx fiddly",
     "init": "npm-run-all init:*",
     "init:0": "npm-run-all init:0:*",
-    "init:0:install-cli": "npm-run-all init:0:install-cli:*",
-    "init:0:install-cli:0": "cd cli && npm i && npm install -g .",
     "init:0:install-test-suite": "cd __tests__/end-to-end/cogment-app/webapp && npm install",
     "init:1": "npm-run-all init:1:*",
     "init:1:fetch-cogment-cli": "node scripts/fetch_cogment_cli.js",
