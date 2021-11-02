@@ -10,7 +10,12 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true,
-    "lib": ["es5", "es2015", "dom", "es2018.asynciterable"],
+    "lib": [
+      "es5",
+      "es2015",
+      "dom",
+      "es2018.asynciterable"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": false,
@@ -24,16 +29,16 @@
     "strict": true,
     "target": "es5"
   },
-  "include": ["src"],
+  "include": [
+    "src"
+  ],
   "exclude": [
     "**/node_modules/*",
     "**/__data__/*",
-    "__tests__/end-to-end/cogment-app"
+    "__tests__/end-to-end/cogment-app",
+    "scripts"
   ],
   "references": [
-    {
-      "path": "./cli"
-    },
     {
       "path": "__tests__/end-to-end/cogment-app/webapp"
     }

@@ -19,22 +19,22 @@
  * SDK for the {@link https://cogment.ai | cogment.ai} framework.
  */
 
-import {grpc} from '@improbable-eng/grpc-web';
-import {getLogger} from '../lib/Logger';
+import { grpc } from '@improbable-eng/grpc-web';
+import { getLogger } from '../lib/Logger';
 import {
   TrialActionReply,
   TrialActionRequest,
   TrialListEntry,
-  TrialListRequest,
+  TrialListRequest
 } from './api/orchestrator_pb';
 import {
   ClientActor,
   ClientActorClient,
   TrialLifecycle,
-  TrialLifecycleClient,
+  TrialLifecycleClient
 } from './api/orchestrator_pb_service';
-import {CogmentService} from './CogmentService';
-import {CogSettings} from './types';
+import { CogmentService } from './CogmentService';
+import { CogSettings } from './types';
 
 const logger = getLogger();
 

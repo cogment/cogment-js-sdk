@@ -14,23 +14,7 @@
  *  limitations under the License.
  *
  */
+import { Message } from "protobufjs";
 
-import {Command} from '@oclif/command';
-import * as jetpack from 'fs-jetpack';
-
-export default class InitDockerComposeOverride extends Command {
-  static description =
-    'creates a docker-compose.override.yaml for local development';
-
-  static flags = {};
-
-  static args = [];
-
-  async run(): Promise<void> {
-    await jetpack.copyAsync(
-      'docker-compose.override.template.yaml',
-      'docker-compose.override.yaml',
-      {overwrite: true},
-    );
-  }
-}
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type MessageBase<T extends object = object> = Omit<Message<T>, "$type">

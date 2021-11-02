@@ -19,10 +19,10 @@ const path = require('path');
 
 module.exports = {
   parser: '@typescript-eslint/parser',
+  files: ['*.ts', '*.tsx'],
   parserOptions: {
     project: [
       './tsconfig.json',
-      './cli/tsconfig.json',
       './__tests__/tsconfig.json',
       './__tests__/end-to-end/cogment-app/webapp/tsconfig.json',
     ],
@@ -64,10 +64,10 @@ module.exports = {
     'tsdoc/syntax': 'error',
     'unicorn/filename-case': [
       'error',
-      {cases: {pascalCase: true, kebabCase: true}},
+      { cases: { pascalCase: true, kebabCase: true } },
     ],
     'deprecation/deprecation': 'warn',
-    'max-params': ['error', {max: 2}],
+    'max-params': ['error', { max: 2 }],
     'notice/notice': [
       'error',
       {

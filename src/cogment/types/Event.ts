@@ -15,8 +15,8 @@
  *
  */
 
-import {Message} from 'google-protobuf';
-import {CogMessage} from './CogMessage';
+import { CogMessage } from './CogMessage';
+import { MessageBase } from './UtilTypes';
 
 /**
  * The type of an incoming event, representing the state of the trial.
@@ -34,9 +34,9 @@ export enum EventType {
  * @typeParam FeedbackT - Protobuf message type of the feedback space.
  */
 export interface Event<
-  ObservationT extends Message,
-  FeedbackT extends Message,
-> {
+  ObservationT extends MessageBase,
+  FeedbackT extends MessageBase,
+  > {
   /**
    * The next message encoded as a protobuf message.
    */

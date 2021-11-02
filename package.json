@@ -33,8 +33,8 @@
     "build:docs:html": "typedoc --plugin none --out public/api",
     "build:install": "npm install",
     "build:protos": "npm-run-all build:protos:fetch build:protos:compile",
-    "build:protos:compile": "protoc -I . cogment/api/*.proto --js_out=import_style=commonjs,binary:src --ts_out=service=grpc-web:src",
-    "build:protos:fetch": "cogjs-cli fetch-protos",
+    "build:protos:compile": "node scripts/protos.js src/cogment/api cogment/api/*.proto",
+    "build:protos:fetch": "node scripts/fetch_protos.js",
     "build:webpack": "webpack",
     "build:webpack:watch": "npm run build:webpack -- --watch",
     "build:tsc": "npx tsc src/generate/index.ts --outDir dist/generate",
@@ -46,8 +46,7 @@
     "init:0:install-cli:0": "cd cli && npm i && npm install -g .",
     "init:0:install-test-suite": "cd __tests__/end-to-end/cogment-app/webapp && npm install",
     "init:1": "npm-run-all init:1:*",
-    "init:1:docker-compose-overrride": "cogjs-cli init:docker-compose-override",
-    "init:1:fetch-cogment-cli": "cogjs-cli fetch-cogment-cli --out bin/cogment",
+    "init:1:fetch-cogment-cli": "node scripts/fetch_cogment_cli.js",
     "init:2": "npm run build",
     "init:3": "export PATH=$PWD/bin:$PATH; cd ./__tests__/end-to-end/cogment-app/ && cogment run sync &&  cogment run generate",
     "lint": "npm-run-all lint:{eslint,prettier,remark}:check",
@@ -85,7 +84,10 @@
     "@improbable-eng/grpc-web": "^0.14.0",
     "@improbable-eng/grpc-web-node-http-transport": "^0.14.0",
     "debug": "^4.3.1",
+    "glob": "^7.2.0",
     "pascal-case": "^3.1.2",
+    "protobufjs": "^6.11.2",
+    "tar-fs": "^2.1.1",
     "typedoc-plugin-markdown": "^3.6.1"
   },
   "devDependencies": {
@@ -126,6 +128,7 @@
     "eslint-plugin-tsdoc": "^0.2.11",
     "eslint-plugin-unicorn": "^29.0.0",
     "execa": "^5.0.0",
+    "follow-redirects": "^1.14.5",
     "fs-jetpack": "^4.1.0",
     "google-protobuf": "^3.15.7",
     "jest": "^26.6.3",
@@ -158,7 +161,7 @@
     "tiny-warning": "^1.0.3",
     "ts-jest": "^26.5.4",
     "ts-loader": "^8.1.0",
-    "ts-protoc-gen": "^0.14.0",
+    "ts-protoc-gen": "^0.15.0",
     "tslib": "^2.3.1",
     "typedoc": "^0.20.35",
     "typescript": "^4.2.4",
@@ -170,7 +173,7 @@
   },
   "optionalDependencies": {
     "grpc-tools": "^1.11.2",
-    "ts-protoc-gen": "^0.14.0"
+    "ts-protoc-gen": "^0.15.0"
   },
   "engines": {
     "node": ">=10"

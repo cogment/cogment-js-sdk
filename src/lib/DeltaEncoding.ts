@@ -15,7 +15,8 @@
  *
  */
 
-import {Message} from 'google-protobuf';
+import { Message } from 'protobufjs';
+import { MessageBase } from '../cogment/types/UtilTypes';
 
 /**
  * A protobuf message type containing a `content` field of type bytes.
@@ -42,12 +43,12 @@ export interface SerializableProtobuf extends Message {
  *
  * @internal
  */
-export function deserializeData<T extends Message>({
+export function deserializeData<T extends MessageBase>({
   sourcePb,
   destinationPb,
 }: {
   sourcePb: SerializableProtobuf;
   destinationPb: typeof Message;
 }): T {
-  return destinationPb.deserializeBinary(sourcePb.getContent_asU8()) as T;
+  return destinationPb.decode(sourcePb.getContent_asU8()) as unknown as T;
 }

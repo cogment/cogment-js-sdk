@@ -15,7 +15,7 @@
  *
  */
 
-import {Message} from 'google-protobuf';
+import { Message } from 'protobufjs';
 
 /**
  * Generated static configuration of a Cogment actor.

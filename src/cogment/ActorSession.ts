@@ -15,28 +15,31 @@
  *
  */
 
-import {grpc} from '@improbable-eng/grpc-web';
-import {Message} from 'google-protobuf';
-import {Any as AnyPb} from 'google-protobuf/google/protobuf/any_pb';
-import {deserializeData} from '../lib/DeltaEncoding';
-import {getLogger} from '../lib/Logger';
-import {Action as ActionPb, Message as MessagePb} from './api/common_pb';
+import { grpc } from '@improbable-eng/grpc-web';
+import { Any as AnyPb } from 'google-protobuf/google/protobuf/any_pb';
+import { Message } from 'protobufjs';
+import { deserializeData } from '../lib/DeltaEncoding';
+import { getLogger } from '../lib/Logger';
+import { Action as ActionPb, Message as MessagePb } from './api/common_pb';
+import { cogment as Common } from './api/common_pb_2';
 import {
   TrialActionReply,
   TrialActionRequest,
-  TrialMessageRequest,
+  TrialMessageRequest
 } from './api/orchestrator_pb';
-import {ClientActorClient} from './api/orchestrator_pb_service';
-import {SendMessageReturnType} from './TrialController';
+import { ClientActorClient } from './api/orchestrator_pb_service';
+import { SendMessageReturnType } from './TrialController';
 import {
   CogSettings,
   CogSettingsActorClass,
   Event,
   EventType,
   Reward,
-  TrialActor,
+  TrialActor
 } from './types';
-import {CogMessage} from './types/CogMessage';
+import { CogMessage } from './types/CogMessage';
+import { MessageBase } from './types/UtilTypes';
+
 
 const logger = getLogger('ActorSession');
 
@@ -47,18 +50,20 @@ const logger = getLogger('ActorSession');
  * @typeParam RewardT - The reward type for this actor class
  */
 export class ActorSession<
-  ActionT extends Message,
-  ObservationT extends Message,
-  RewardT extends Message,
+  ActionT extends MessageBase,
+  ObservationT extends MessageBase,
   ActorConfigT = any,
-> {
+  > {
   private actorCogSettings: CogSettingsActorClass;
-  private events: Event<ObservationT, RewardT>[] = [];
+  private events: Event<ObservationT, Common.Reward>[] = [];
   private lastObservation?: ObservationT;
   private nextEventPromise?: Promise<void>;
   private nextEventResolve?: () => void;
   private running = false;
   private tickId?: number;
+
+  private ActionClass: typeof Message;
+  private ObservationClass: typeof Message;
 
   /**
    *
@@ -81,6 +86,9 @@ export class ActorSession<
   ) {
     this.actorCogSettings = cogSettings.actorClasses[actorClass.actorClass];
 
+    this.ActionClass = this.actorCogSettings.actionSpace;
+    this.ObservationClass = this.actorCogSettings.observationSpace;
+
     this.actionStreamClient.onMessage(this.onActionStreamMessage);
     this.actionStreamClient.onHeaders(this.onActionStreamHeaders);
     this.actionStreamClient.onEnd(this.onActionStreamEnd);
@@ -100,7 +108,7 @@ export class ActorSession<
    * Yields observations, messages and rewards received from the Cogment framework.
    * @returns - A generator that yields observations, messages and rewards.
    */
-  public async *eventLoop(): AsyncGenerator<Event<ObservationT, RewardT>> {
+  public async *eventLoop(): AsyncGenerator<Event<ObservationT, Common.Reward>> {
     if (!this.running) {
       logger.warn('Trial is not currently running.');
     }
@@ -108,8 +116,7 @@ export class ActorSession<
       const event = this.events.shift();
       if (event) {
         logger.debug(
-          `Dispatching event for tick id ${
-            event.tickId?.toString() ?? ''
+          `Dispatching event for tick id ${event.tickId?.toString() ?? ''
           } ${JSON.stringify(event, undefined, 2)}`,
         );
         // TODO: think through the logic on this one
@@ -146,7 +153,7 @@ export class ActorSession<
    */
   public sendAction(userAction: ActionT): void {
     const action: ActionPb = new ActionPb();
-    action.setContent(userAction.serializeBinary());
+    action.setContent(this.ActionClass.encode(userAction).finish());
     action.setTickId(-1);
     const request = new TrialActionRequest();
     request.setAction(action);
@@ -179,7 +186,7 @@ export class ActorSession<
     return new Promise<SendMessageReturnType>((resolve, reject) => {
       this.clientActorClient.sendMessage(
         request,
-        new grpc.Metadata({'trial-id': trialId, 'actor-name': from}),
+        new grpc.Metadata({ 'trial-id': trialId, 'actor-name': from }),
         (error, response) => {
           if (error || response === null) {
             return reject(error);
@@ -260,7 +267,7 @@ export class ActorSession<
         };
       });
 
-    const messages: {message: CogMessage; tickId: number; type: EventType}[] = [
+    const messages: { message: CogMessage; tickId: number; type: EventType }[] = [
       ...data.getMessagesList(),
     ].map((message) => {
       return {
@@ -288,7 +295,7 @@ export class ActorSession<
       ...rewards,
       ...observations,
     ].sort(
-      ({tickId: tickIdA}, {tickId: tickIdB}) => (tickIdA ?? 0) - (tickIdB ?? 0),
+      ({ tickId: tickIdA }, { tickId: tickIdB }) => (tickIdA ?? 0) - (tickIdB ?? 0),
     );
 
     if (this.events[0]) {
