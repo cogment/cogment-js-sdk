@@ -15,22 +15,22 @@
  *
  */
 
-import { grpc } from '@improbable-eng/grpc-web';
-import { getLogger } from '../lib/Logger';
-import { ActorSession } from './ActorSession';
+import {grpc} from '@improbable-eng/grpc-web';
+import {getLogger} from '../lib/Logger';
+import {ActorSession} from './ActorSession';
 import {
   TrialActionReply,
   TrialActionRequest,
   TrialListEntry,
-  TrialListRequest
+  TrialListRequest,
 } from './api/orchestrator_pb';
 import {
   ClientActorClient,
-  TrialLifecycleClient
+  TrialLifecycleClient,
 } from './api/orchestrator_pb_service';
-import { TrialController } from './TrialController';
-import { CogSettings, TrialActor } from './types';
-import { MessageBase } from './types/UtilTypes';
+import {TrialController} from './TrialController';
+import {CogSettings, TrialActor} from './types';
+import {MessageBase} from './types/UtilTypes';
 
 const logger = getLogger('CogmentService');
 
@@ -44,7 +44,7 @@ const logger = getLogger('CogmentService');
 export type ActorImplementation<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-  > = (session: ActorSession<ActionT, ObservationT>) => Promise<void>;
+> = (session: ActorSession<ActionT, ObservationT>) => Promise<void>;
 
 /**
  * Instantiate a new CogmentService that is bound to {@link CogSettings | `CogSettings`} and gRPC clients. This class
@@ -75,7 +75,7 @@ export class CogmentService {
       TrialActionReply
     >,
     private watchTrialsClient: grpc.Client<TrialListRequest, TrialListEntry>,
-  ) { }
+  ) {}
 
   /**
    * Return a TrialController configured with registered TrialActor's, CogSettings and gRPC clients.
@@ -102,9 +102,9 @@ export class CogmentService {
   public registerActor<
     ActionT extends MessageBase,
     ObservationT extends MessageBase,
-    >(
-      actorConfig: TrialActor,
-      actorImpl: ActorImplementation<ActionT, ObservationT>,
+  >(
+    actorConfig: TrialActor,
+    actorImpl: ActorImplementation<ActionT, ObservationT>,
   ): void {
     logger.info(
       `Registering actor ${actorConfig.name} with class ${actorConfig.actorClass}`,

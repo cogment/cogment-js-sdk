@@ -20,11 +20,11 @@
  *
  */
 
-import { exec } from 'child_process';
-import { existsSync, readFileSync, writeFileSync } from 'fs';
-import path from "path";
+import {exec} from 'child_process';
+import {existsSync, readFileSync, writeFileSync} from 'fs';
+import {join} from 'path';
 import * as YAML from 'yaml';
-import { cogSettingsTemplate } from '../data/templates';
+import {cogSettingsTemplate} from '../data/templates';
 
 const shell = (command: string) => {
   return new Promise<void>((resolve) => {
@@ -80,28 +80,27 @@ export const generate: () => Promise<void> = async () => {
   const cogmentYaml = YAML.parse(cogmentYamlString);
   const protoFileNames = cogmentYaml.import.proto as string[];
 
-  const protoFiles: { [fileName: string]: string } = {};
+  const protoFiles: {[fileName: string]: string} = {};
   protoFileNames.forEach((fileName) => {
     const fileContent = readFileSync(fileName, 'utf-8');
     protoFiles[fileName] = fileContent;
   });
 
   const cogSettings = cogSettingsTemplate(protoFiles, cogmentYaml);
-  const outDirectory = "src"
+  const outDirectory = 'src';
 
-  protoFileNames.forEach(file => {
+  protoFileNames.forEach((file) => {
+    const fileName = file.split('/').pop()?.split('.')[0] + '_pb';
+    if (!fileName) throw new Error('Could not parse file name');
+    const js = fileName + '.js';
+    const dts = fileName + '.d.ts';
 
-    const fileName = file.split("/").pop()?.split(".")[0] + "_pb"
-    if (!fileName) throw new Error("Could not parse file name");
-    const js = fileName + ".js"
-    const dts = fileName + ".d.ts"
+    const outJS = join(outDirectory, js);
+    const outTS = join(outDirectory, dts);
 
-    const outJS = path.join(outDirectory, js)
-    const outTS = path.join(outDirectory, dts)
-
-    const command = `npx pbjs -t static-module -o ${outJS} -path=. ${file} && npx pbts -o ${outTS} ${outJS}`
-    shell(command)
-  })
+    const command = `npx pbjs -t static-module -o ${outJS} -path=. ${file} && npx pbts -o ${outTS} ${outJS}`;
+    shell(command);
+  });
 
   writeFileSync('src/CogSettings.ts', cogSettings);
   await shell(
