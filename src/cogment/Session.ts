@@ -3,17 +3,17 @@ import { AsyncQueue } from "../lib/Utils";
 import { ActorRunTrialOutput } from "./api/common_pb";
 import { RecvEvent } from "./ClientService";
 import { ActorImplementation } from "./Context";
-import { Trial } from "./Trial"
+import { Trial } from "./Trial";
 import { EventType } from "./types";
-import { TrialActor } from "./types/TrialActor"
+import { TrialActor } from "./types/TrialActor";
 import { MessageBase } from "./types/UtilTypes";
 
-export class _Ending{
+export class _Ending {
 
 }
 
 
-export class _EndingAck{
+export class _EndingAck {
 
 }
 
@@ -22,11 +22,11 @@ export class Session<ActionT extends MessageBase, ObservationT extends MessageBa
     private _started = false;
     private _lastEventDelivered = false;
     private _dataQueue = new AsyncQueue<ActorRunTrialOutput>();
-    private _autoAck = true;
+    public _autoAck = true;
     private _activeActors: TrialActor[] = [];
 
-    constructor(public _trial: Trial, public name: string, private _impl: ActorImplementation<MessageBase, MessageBase>, config: MessageBase){
-        this._activeActors = _trial.actors.map(actor => ({name: actor.name, actorClass: actor.actorClass.name}))
+    constructor(public _trial: Trial, public name: string, private _impl: ActorImplementation<ActionT, ObservationT>, public config?: MessageBase) {
+        this._activeActors = _trial.actors.map(actor => ({ name: actor.name, actorClass: actor.actorClass.name }))
     }
 
     protected _start = (autoDoneSending: boolean) => {
@@ -39,11 +39,11 @@ export class Session<ActionT extends MessageBase, ObservationT extends MessageBa
         this._started = true
     }
 
-    private _run = async() => {
+    public _run = async () => {
         await this._impl(this)
     }
 
-    private _newEvent = (event: RecvEvent<ActionT, ObservationT>) => {
+    public _newEvent = (event: RecvEvent<ActionT, ObservationT>) => {
         if (!(this._started)) {
             console.warn(`[${this.name}] received an event before session was started.`)
             return
@@ -57,17 +57,17 @@ export class Session<ActionT extends MessageBase, ObservationT extends MessageBa
 
         this._eventQueue.put(event)
     }
-    protected _postData = (data: Message | _Ending | _EndingAck) => {
-        if (!this._started){
+    public _postData = (data: Message | _Ending | _EndingAck) => {
+        if (!this._started) {
             console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send until session is started.`)
             return
         }
-        if (this._trial.endingAck){
+        if (this._trial.endingAck) {
             console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send after acknowledging ending`)
             return
         }
 
-        if (!data){
+        if (!data) {
             throw new Error("Trial [${this._trial.id}] - Session for [${this.name}]: Data posted is `None`")
         }
 
@@ -78,8 +78,8 @@ export class Session<ActionT extends MessageBase, ObservationT extends MessageBa
 
         this._dataQueue.put(data)
     }
-    public async *_retrieveData(){
-        while (true){
+    public async *_retrieveData() {
+        while (true) {
             const data = await this._dataQueue.get()
             if (!data)
                 break
@@ -99,20 +99,20 @@ export class Session<ActionT extends MessageBase, ObservationT extends MessageBa
         else
             this._postData(new _EndingAck())
     }
-    public *eventLoop(){
-        if(!this._started){
+    public async *eventLoop() {
+        if (!this._started) {
             console.warn(`Event loop is not enabled until the [${this.name}] is started.`)
             return
         }
-        if (this._trial.ended){
+        if (this._trial.ended) {
             console.warn(`No more events for [${this.name}] because the trial has ended.`)
             return
         }
         const loopActive = !this._lastEventDelivered
-        while (loopActive){
+        while (loopActive) {
 
             const event = await this._eventQueue.get()
-            if (!event){
+            if (!event) {
                 this._lastEventDelivered = true
                 break
             }
@@ -128,24 +128,13 @@ export class Session<ActionT extends MessageBase, ObservationT extends MessageBa
 
     public getTickId = () => {
         return this._trial.tickId
-        }
+    }
     public isTrialOver = () => {
         return this._trial.ended
-        }
+    }
 
-    private _sendMessage = (payload, to) => {
-        if(!this._started)
-            console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message until session is started.`
-            return
-        if (this._trial.ending_ack)
-            console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message after acknowledging ending.`
-            return
-
-        for dest in to:
-            message = common_api.Message(tickId=-1, receiver_name=dest)
-            if payload is not None:
-                message.payload.Pack(payload)
-
-            this._post_data(message)
+    public _exitQueues = () => {
+        this._eventQueue.end();
+        this._dataQueue.end();
     }
 }

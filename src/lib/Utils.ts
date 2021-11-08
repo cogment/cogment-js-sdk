@@ -1,6 +1,8 @@
-import {grpc} from '@improbable-eng/grpc-web';
+import { grpc } from '@improbable-eng/grpc-web';
+import { Message as MessageGrpc } from 'google-protobuf';
+import { MessageBase, MessageClass } from '..';
 
-export type Status = {details: string; code: number; metadata: grpc.Metadata};
+export type Status = { details: string; code: number; metadata: grpc.Metadata };
 
 interface ResponseStream<T> {
   cancel(): void;
@@ -69,7 +71,7 @@ export const streamToGenerator = <T>(
 
 export class AsyncQueue<T> {
   private _data: T[] = [];
-  private _nextDataResolve: (going: boolean) => void = () => {};
+  private _nextDataResolve: (going: boolean) => void = () => { };
   private _nextDataPromise: Promise<boolean>;
   constructor() {
     this._nextDataPromise = new Promise<boolean>(
@@ -97,6 +99,9 @@ export class AsyncQueue<T> {
     if (!doContinue) {
       return;
     }
+    if (!this._data.length) {
+      return;
+    }
 
     return this._data.shift();
   };
@@ -105,3 +110,10 @@ export class AsyncQueue<T> {
     this._nextDataResolve(false);
   };
 }
+
+export const staticCastFromGoogle = <T extends MessageBase>(source: MessageGrpc, destClass: MessageClass): T => {
+  const binary = source.serializeBinary();
+  const deserialized = destClass.decode(binary);
+
+  return deserialized as T;
+};

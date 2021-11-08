@@ -21,4 +21,4 @@
  * @packageDocumentation
  */
 
-export * from './cogment';
+export * from './cogment/index';

@@ -14,21 +14,18 @@
  *  limitations under the License.
  *
  */
-
-import {grpc} from '@improbable-eng/grpc-web';
-import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
-import {VersionInfo, VersionRequest} from '../../src/cogment/api/common_pb';
-import {ActorSession} from '../../src/cogment/Actor';
-import {TrialActor} from '../../src/cogment/types';
-import {config} from '../../src/lib/Config';
-import {getLogger} from '../../src/lib/Logger';
-import {cogSettings} from './cogment-app/webapp/src/CogSettings';
-import {cogment_app as PB} from './cogment-app/webapp/src/data_pb';
+import { ActorSession } from '../../src/cogment/Actor';
+import { Context } from '../../src/cogment/Context';
+import { config } from '../../src/lib/Config';
+import { getLogger } from '../../src/lib/Logger';
+import { cogSettings } from './cogment-app/webapp/src/CogSettings';
+import { cogment_app as PB } from './cogment-app/webapp/src/data_pb';
 
 const logger = getLogger('cogment').childLogger('__tests__/end-to-end');
 
 describe('a cogment-app', () => {
   test('runs', async () => {
+
     const pingActor = async (
       actorSession: ActorSession<PB.ClientAction, PB.Observation>,
     ) => {
@@ -47,122 +44,37 @@ describe('a cogment-app', () => {
         observation,
         messages,
         rewards,
-        tickId,
       } of actorSession.eventLoop()) {
         if (observation) {
           logger.info(
             `Received an observation: ${JSON.stringify(
-              observation.toObject(),
+              observation,
               undefined,
               2,
             )}`,
           );
-          const action = new ClientAction();
-          action.setRequest('ping');
-          actorSession.sendAction(action);
+          const action = new PB.ClientAction();
+          action.request = 'ping';
+          actorSession.doAction(action);
         }
-        if (message) {
-          logger.info(message);
-        }
-
-        if (reward) {
-          logger.info(reward);
+        if (messages) {
+          logger.info(messages.join(","));
         }
 
-        if (tickId ?? 0 > 10) {
-          actorSession.stop();
+        if (rewards) {
+          logger.info(rewards.join(","));
         }
       }
     };
 
-    const trialActor: TrialActor = {name: 'client_actor', actorClass: 'client'};
-    const service = createService({
-      cogSettings: cogSettings,
-      grpcURL: config.connection.http,
-      unaryTransportFactory: NodeHttpTransport(),
-      streamingTransportFactory: grpc.WebsocketTransport(),
-    });
+    const context = new Context<PB.ClientAction, PB.Observation>(cogSettings)
+    context.registerActor(pingActor, 'client_actor', 'client')
 
-    // TODO: this fails if run before registerActor
-    // const trialController = service.createTrialController(trialLifecycleClient);
+    const controller = context.getController(config.connection.http)
+    const trialId = await controller.startTrial()
 
-    service.registerActor<ClientAction, Observation, never>(
-      trialActor,
-      pingActor,
-    );
+    context.joinTrial(trialId, config.connection.http, 'client_actor');
 
-    const trialController = service.createTrialController();
-    const {trialId} = await trialController.startTrial(trialActor.name);
-    await trialController.joinTrial(trialId, trialActor);
-    // eslint-disable-next-line compat/compat
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    return trialController.terminateTrial(trialId);
-  });
-
-  test('passes back actor config', async () => {
-    const trialActor: TrialActor = {name: 'client_actor', actorClass: 'client'};
-    const service = createService({
-      cogSettings: cogSettings,
-      grpcURL: config.connection.http,
-      unaryTransportFactory: NodeHttpTransport(),
-      streamingTransportFactory: grpc.WebsocketTransport(),
-    });
-
-    // TODO: this fails if run before registerActor
-    // const trialController = service.createTrialController(trialLifecycleClient);
-
-    service.registerActor<ClientAction, Observation, never>(
-      trialActor,
-      async (actorSession) => {
-        logger.info('Actor running');
-        actorSession.start();
-        logger.info('Actor session started');
-
-        setTimeout(actorSession.stop.bind(actorSession), 3000);
-
-        const action = new ClientAction();
-        action.setRequest('ping');
-        actorSession.sendAction(action);
-
-        for await (const {
-          observation,
-          message,
-          reward,
-          tickId,
-        } of actorSession.eventLoop()) {
-          if (observation) {
-            logger.info(
-              `Received an observation: ${JSON.stringify(
-                observation.toObject(),
-                undefined,
-                2,
-              )}`,
-            );
-            const action = new ClientAction();
-            action.setRequest('ping');
-            actorSession.sendAction(action);
-          }
-          if (message) {
-            logger.info(message);
-          }
-
-          if (reward) {
-            logger.info(reward);
-          }
-
-          if (tickId ?? 0 > 10) {
-            actorSession.stop();
-          }
-        }
-      },
-    );
-
-    const trialController = service.createTrialController();
-    const {trialId} = await trialController.startTrial(trialActor.name);
-    const joinResponse = await trialController.joinTrial(trialId, trialActor);
-    expect(joinResponse.config.configMessage).toEqual('test');
-
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    return trialController.terminateTrial(trialId);
+    return controller.terminateTrial([trialId]);
   });
 });

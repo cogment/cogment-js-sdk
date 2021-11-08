@@ -15,7 +15,7 @@
  *
  */
 
-import { Message } from 'protobufjs';
+import { MessageBase, MessageClass } from "./UtilTypes";
 
 /**
  * Generated static configuration of a Cogment actor.
@@ -25,12 +25,12 @@ export interface CogSettingsActorClass {
    * Protobuf message type of this actor's action space.
    * @see {@link CogmentYamlActorClass.action.space}
    */
-  actionSpace: typeof Message;
+  actionSpace: MessageClass;
   /**
    * Protobuf message type of this actor's config type.
    * @see {@link CogmentYamlActorClass.config_type}
    */
-  config?: typeof Message;
+  config?: MessageClass;
   /**
    * @see {@link CogmentYamlActorClass.name}
    */
@@ -38,16 +38,16 @@ export interface CogSettingsActorClass {
   /**
    * Protobuf message type of this actor's observation delta.
    */
-  observationDelta?: typeof Message;
+  observationDelta?: MessageClass;
   /**
    * Function used to transform observation deltas.
    */
-  observationDeltaApply?: (x: Message) => Message;
+  observationDeltaApply?: (x: MessageBase) => MessageBase;
   /**
    * Protobuf message type of this actor's observation space.
    * @see {@link CogmentYamlActorClass.observation.space}
    */
-  observationSpace: typeof Message;
+  observationSpace: MessageClass;
 }
 
 /**
@@ -65,7 +65,7 @@ export interface CogSettings {
     /**
      * Protobuf message type of the environment's configuration.
      */
-    config?: typeof Message;
+    config?: MessageClass;
   };
   /**
    * Trial static configuration.
@@ -74,6 +74,6 @@ export interface CogSettings {
     /**
      * Protobuf message type of the trial's configuration.
      */
-    config: typeof Message;
+    config: MessageClass;
   };
 }
