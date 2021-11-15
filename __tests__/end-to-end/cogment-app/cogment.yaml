@@ -16,7 +16,6 @@ commands:
     python -m pip install cogment[generate]
 
     cd environment && python -m cogment.generate && cd -
-    cd client && python -m cogment.generate && cd -
     cd echo && python -m cogment.generate && cd -
     cd configurator && python -m cogment.generate && cd -
 
@@ -26,7 +25,6 @@ commands:
   # Start and stop services
   start: docker-compose up orchestrator environment echo
   stop: docker-compose stop orchestrator environment echo
-  client: docker-compose run --rm client
 
 environment:
   config_type: cogment_app.EnvConfig
@@ -54,8 +52,6 @@ actor_classes:
 trial_params:
   environment:
     endpoint: grpc://environment:9000
-    config:
-      suffix: ''
   actors:
     - name: client_actor
       actor_class: client

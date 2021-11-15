@@ -1,8 +1,8 @@
-import { grpc } from '@improbable-eng/grpc-web';
-import { Message as MessageGrpc } from 'google-protobuf';
-import { MessageBase, MessageClass } from '..';
+import {grpc} from '@improbable-eng/grpc-web';
+import {Message as MessageGrpc} from 'google-protobuf';
+import {MessageBase, MessageClass} from '../cogment/types/UtilTypes';
 
-export type Status = { details: string; code: number; metadata: grpc.Metadata };
+export type Status = {details: string; code: number; metadata: grpc.Metadata};
 
 interface ResponseStream<T> {
   cancel(): void;
@@ -71,7 +71,7 @@ export const streamToGenerator = <T>(
 
 export class AsyncQueue<T> {
   private _data: T[] = [];
-  private _nextDataResolve: (going: boolean) => void = () => { };
+  private _nextDataResolve: (going: boolean) => void = () => {};
   private _nextDataPromise: Promise<boolean>;
   constructor() {
     this._nextDataPromise = new Promise<boolean>(
@@ -111,7 +111,10 @@ export class AsyncQueue<T> {
   };
 }
 
-export const staticCastFromGoogle = <T extends MessageBase>(source: MessageGrpc, destClass: MessageClass): T => {
+export const staticCastFromGoogle = <T extends MessageBase>(
+  source: MessageGrpc,
+  destClass: MessageClass,
+): T => {
   const binary = source.serializeBinary();
   const deserialized = destClass.decode(binary);
 

@@ -1,1 +1,1 @@
-cogment[generate]==1.3.0
+cogment-1.3.0.tar.gz[generate]

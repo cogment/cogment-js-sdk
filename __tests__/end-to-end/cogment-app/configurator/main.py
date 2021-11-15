@@ -20,7 +20,7 @@ import cog_settings
 
 async def pre_trial_hook(session):
     if session.trial_config:
-        session.environment_config.suffix = session.trial_config.env_config.suffix
+        session.environment_config.suffix = 'foo'
     return session
 
 

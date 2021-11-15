@@ -1,4 +1,4 @@
-FROM cogment/orchestrator:v1.0.0
+FROM orchestrator/local:latest
 
 ADD cogment.yaml .
 ADD *.proto .

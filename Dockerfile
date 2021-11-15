@@ -17,7 +17,6 @@ RUN curl -LSso /tmp/allure.deb ${ALLURE_URL} \
 
 COPY package*.json ./
 RUN npm install -g npm && npm install
-RUN python -m pip install cogment[generate]
 
 COPY . .
 

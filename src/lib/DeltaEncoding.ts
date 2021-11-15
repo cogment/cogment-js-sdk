@@ -15,8 +15,8 @@
  *
  */
 
-import { Message } from 'protobufjs';
-import { MessageBase } from '../cogment/types/UtilTypes';
+import {Message} from 'protobufjs';
+import {MessageBase} from '../cogment/types/UtilTypes';
 
 /**
  * A protobuf message type containing a `content` field of type bytes.

@@ -24,7 +24,7 @@ import {exec} from 'child_process';
 import {existsSync, readFileSync, writeFileSync} from 'fs';
 import {join} from 'path';
 import * as YAML from 'yaml';
-import {cogSettingsTemplate} from '../data/templates';
+import {cogSettingsTemplate, UtilTypes} from '../data/templates';
 
 const shell = (command: string) => {
   return new Promise<void>((resolve) => {
@@ -102,6 +102,7 @@ export const generate: () => Promise<void> = async () => {
     shell(command);
   });
 
+  writeFileSync('src/CogTypes.d.ts', UtilTypes);
   writeFileSync('src/CogSettings.ts', cogSettings);
   await shell(
     'npx tsc --noImplicitUseStrict --declaration --declarationMap --outDir src ./src/CogSettings.ts',
