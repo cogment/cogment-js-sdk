@@ -12,13 +12,10 @@ public
 src/cogment/api
 /cogment
 secrets
-/allure-report/
-/allure-results/
 /docs/api/
 docker-compose.override.yaml
 eslint.json
 dependency-check-*.*
 tls
 tsconfig.tsbuildinfo
-__tests__/allure-results
 bin/cogment

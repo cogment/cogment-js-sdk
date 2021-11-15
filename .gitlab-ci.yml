@@ -88,7 +88,6 @@ test:
   after_script:
     - docker-compose logs --no-color --tail all > docker.log
     - mkdir -p public
-    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/allure-report ./public/allure
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/coverage ./public/coverage
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/src/cogment/api ./src/cogment/api
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/junit.xml ./junit.xml

@@ -15,8 +15,7 @@
  *
  */
 import {ActorSession} from '../../src/cogment/Actor';
-import {Context} from '../../src/cogment/Context';
-import {Session} from '../../src/cogment/Session';
+import {Context, TransportType} from '../../src/cogment/Context';
 import {config} from '../../src/lib/Config';
 import {getLogger} from '../../src/lib/Logger';
 import {cogSettings} from './cogment-app/webapp/src/CogSettings';
@@ -25,13 +24,20 @@ import {cogment_app as PB} from './cogment-app/webapp/src/data_pb';
 const logger = getLogger('cogment').childLogger('__tests__/end-to-end');
 
 describe('a cogment-app', () => {
+  const observations: PB.Observation[] = [];
+
   test('runs', async () => {
+    let resolve = () => {};
+    const promise = new Promise<void>((_resolve) => {
+      resolve = _resolve;
+    });
+
     const pingActor = async (
       actorSession: ActorSession<PB.ClientAction, PB.Observation>,
     ) => {
-      logger.info('Actor running');
+      console.log('Actor running');
       actorSession.start();
-      logger.info('Actor session started');
+      console.log('Actor session started');
 
       let keepGoing = true;
       setTimeout(() => (keepGoing = false), 3000);
@@ -46,15 +52,20 @@ describe('a cogment-app', () => {
         rewards,
       } of actorSession.eventLoop()) {
         if (observation) {
-          logger.info(
+          console.log(
             `Received an observation: ${JSON.stringify(
               observation,
               undefined,
               2,
             )}`,
           );
+          observations;
           const action = new PB.ClientAction();
           action.request = 'ping';
+          if (!keepGoing) {
+            resolve();
+            return;
+          }
           actorSession.doAction(action);
         }
         if (messages) {
@@ -67,18 +78,20 @@ describe('a cogment-app', () => {
       }
     };
 
-    const context = new Context<PB.ClientAction, PB.Observation>(cogSettings);
+    const context = new Context<PB.ClientAction, PB.Observation>(
+      cogSettings,
+      'test_client',
+    );
     context.registerActor(pingActor, 'client_actor', 'client');
 
-    console.log(config.connection.http);
-
     const controller = context.getController(config.connection.http);
-    console.log('controller got');
     const trialId = await controller.startTrial();
-    console.log('started');
-    context.joinTrial(trialId, config.connection.http, 'client_actor');
-    console.log('joined');
-
-    return controller.terminateTrial([trialId]);
+    await context.joinTrial(trialId, config.connection.http, 'client_actor');
+    await promise;
+    return;
   });
+
+  // test('Receives Observations', async () => {
+  //   expect(observations).not.toHaveLength(0);
+  // });
 });

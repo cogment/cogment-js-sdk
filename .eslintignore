@@ -17,8 +17,6 @@ cog_settings.*
 bin
 /*.js
 /*.json
-/allure-results/
-/allure-report/
 /config/copyright.js
 cli/lib/**/*
 tls

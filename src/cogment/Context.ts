@@ -1,3 +1,4 @@
+import {grpc} from '@improbable-eng/grpc-web';
 import {ActorSession} from './Actor';
 import {TrialLifecycleSPClient} from './api/orchestrator_pb_service';
 import {ClientServicer} from './ClientService';
@@ -5,6 +6,37 @@ import {Controller} from './Control';
 import {Session} from './Session';
 import {CogSettings, TrialActor} from './types';
 import {MessageBase} from './types/UtilTypes';
+import {NodeHttpTransport} from '@improbable-eng/grpc-web-node-http-transport';
+
+import {Message} from 'google-protobuf';
+
+Message.bytesAsU8 = function (value) {
+  if (typeof value === 'string') {
+    throw new Error('Cannot convert string to Uint8Array');
+  }
+  return value;
+};
+
+export enum TransportType {
+  WEBSOCKET = 'websocket',
+  HTTP = 'http',
+  NODE = 'node',
+}
+
+export const getTransportFactory = (type: TransportType) => {
+  switch (type) {
+    case TransportType.WEBSOCKET:
+      return grpc.WebsocketTransport();
+    case TransportType.HTTP:
+      return grpc.CrossBrowserHttpTransport({
+        withCredentials: false,
+      });
+    case TransportType.NODE:
+      return NodeHttpTransport();
+    default:
+      throw new Error(`Unknown transport type: ${type}`);
+  }
+};
 
 export type ActorImplementation<
   ActionT extends MessageBase,
@@ -19,7 +51,13 @@ export class Context<
     string,
     [TrialActor, ActorImplementation<ActionT, ObservationT>]
   > = {};
-  constructor(private cogSettings: CogSettings, private _userId = 'client') {}
+  constructor(
+    private cogSettings: CogSettings,
+    private _userId = 'client',
+    private _transportType = TransportType.WEBSOCKET,
+  ) {
+    grpc.setDefaultTransport(getTransportFactory(this._transportType));
+  }
 
   public registerActor = (
     actorImpl: ActorImplementation<ActionT, ObservationT>,
@@ -40,6 +78,7 @@ export class Context<
       this.cogSettings,
       endpoint,
     );
+
     const initData = await servicer.join(trialId, actorName);
 
     if (!initData) throw new Error('initialData not received');
@@ -55,7 +94,13 @@ export class Context<
   };
 
   _getControlStub(endpoint: string) {
-    return new TrialLifecycleSPClient(endpoint);
+    return new TrialLifecycleSPClient(endpoint, {
+      transport: getTransportFactory(
+        this._transportType === TransportType.WEBSOCKET
+          ? TransportType.HTTP
+          : this._transportType,
+      ),
+    });
   }
   getController = (endpoint: string) => {
     const stub = this._getControlStub(endpoint);

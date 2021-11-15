@@ -1,5 +1,5 @@
 import {grpc} from '@improbable-eng/grpc-web';
-import {Message as MessageGrpc} from 'google-protobuf';
+import {Message, Message as MessageGrpc} from 'google-protobuf';
 import {MessageBase, MessageClass} from '../cogment/types/UtilTypes';
 
 export type Status = {details: string; code: number; metadata: grpc.Metadata};
@@ -29,9 +29,43 @@ interface BidirectionalStream<ReqT, ResT> {
   ): BidirectionalStream<ReqT, ResT>;
 }
 
-export const streamToGenerator = <T>(
-  stream: BidirectionalStream<any, T> | ResponseStream<T>,
+export function frameRequest(request: Message): Uint8Array {
+  const bytes = request.serializeBinary();
+  const frame = new ArrayBuffer(bytes.byteLength + 5);
+  new DataView(frame, 1, 4).setUint32(0, bytes.length, false /* big endian */);
+  new Uint8Array(frame, 5).set(bytes);
+  return new Uint8Array(frame);
+}
+
+export const streamToGenerator = <S extends Message, T extends Message>(
+  stream: BidirectionalStream<S, T> | ResponseStream<T>,
+  requestQueue?: AsyncQueue<S>,
 ) => {
+  if ((stream as BidirectionalStream<S, T>).write && requestQueue) {
+    const writeableStream = stream as BidirectionalStream<S, T>;
+    const inputStream = async () => {
+      let going = true;
+      while (going) {
+        const request = await requestQueue.get();
+        if (!request) {
+          going = false;
+        } else {
+          try {
+            console.log('writing request');
+            writeableStream.write(request);
+            console.log('written');
+          } catch (e) {
+            console.log('Error while sending the following request');
+            console.log(request);
+            throw e;
+          }
+        }
+      }
+      console.log('request queue exited');
+    };
+    inputStream();
+  }
+
   async function* generator() {
     const data: T[] = [];
 
@@ -41,6 +75,7 @@ export const streamToGenerator = <T>(
     );
 
     stream.on('data', (newData: T) => {
+      console.log('got data');
       data.push(newData);
       if (nextDataResolve) {
         nextDataResolve(true);

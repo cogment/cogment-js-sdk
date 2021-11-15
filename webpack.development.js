@@ -33,8 +33,6 @@ module.exports = {
       'dist',
       'coverage',
       'cogment',
-      'allure-results',
-      'allure-report',
     ],
   },
 };

@@ -8,7 +8,7 @@ commands:
     npm i
     cd ..
   sync: |
-    cogment sync environment client configurator echo webapp
+    cogment sync environment client echo webapp
   generate: |
     cogment run init-webapp
     cogment run sync
@@ -17,7 +17,6 @@ commands:
 
     cd environment && python -m cogment.generate && cd -
     cd echo && python -m cogment.generate && cd -
-    cd configurator && python -m cogment.generate && cd -
 
     cd webapp && npx cogment-js-sdk-generate && cd -
 
@@ -31,8 +30,6 @@ environment:
 
 trial:
   config_type: cogment_app.TrialConfig
-  pre_hooks:
-    - grpc://configurator:9000
 
 # Static configuration
 actor_classes:
@@ -56,8 +53,6 @@ trial_params:
     - name: client_actor
       actor_class: client
       endpoint: client
-      config:
-        config_message: 'test'
     - name: echo_echo_1
       actor_class: echo
       implementation: echo

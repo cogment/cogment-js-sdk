@@ -18,9 +18,10 @@
 const {getLogger, LogLevel} = require('./src/lib/Logger');
 const debug = require('debug');
 
+window.Uint8Array = Uint8Array;
+
 require('jest-extended');
 require('jest-chain');
-require('jest-allure/dist/setup');
 
 jest.setTimeout(10000);
 

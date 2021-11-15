@@ -111,7 +111,7 @@ const _processOutgoing = async <
     else if (data instanceof Message) output.setMessage(data);
     else if (data instanceof _EndingAck) {
       output.setState(CommunicationState.LAST_ACK);
-      await dataQueue.put(output);
+      dataQueue.put(output);
       break;
     } else {
       console.warn(
@@ -120,7 +120,7 @@ const _processOutgoing = async <
       continue;
     }
 
-    await dataQueue.put(output);
+    dataQueue.put(output);
   }
 };
 
@@ -177,7 +177,7 @@ export class ClientServicer<
 
   public trialId?: string;
 
-  constructor(private cogSettings: CogSettings, private endpoint: string) {
+  constructor(private cogSettings: CogSettings, endpoint: string) {
     this._actorStub = new ClientActorSPClient(endpoint);
   }
 
@@ -205,7 +205,10 @@ export class ClientServicer<
 
     const metadata = new grpc.Metadata({'trial-id': trialId});
 
-    this._replyItor = streamToGenerator(this._actorStub.runTrial(metadata))();
+    this._replyItor = streamToGenerator(
+      this._actorStub.runTrial(metadata),
+      this._requestQueue,
+    )();
 
     for await (const replyMessage of this._replyItor) {
       const reply = replyMessage.toObject();
@@ -222,14 +225,14 @@ export class ClientServicer<
       } else if (reply.state === CommunicationState.HEARTBEAT) {
         const newReply = new ActorRunTrialOutput();
         newReply.setState(reply.state);
-        await this._requestQueue.put(newReply);
+        this._requestQueue.put(newReply);
       } else if (reply.state === CommunicationState.LAST) {
         console.warn(
           `Trial [${trialId}] - Received 'LAST' state while joining`,
         );
         const newReply = new ActorRunTrialOutput();
         newReply.setState(CommunicationState.LAST_ACK);
-        await this._requestQueue.put(newReply);
+        this._requestQueue.put(newReply);
         break;
       } else if (reply.state === CommunicationState.LAST_ACK)
         throw new Error(
@@ -275,8 +278,6 @@ export class ClientServicer<
         throw new Error('string not expected from content decoding');
       }
     }
-
-    if (!initData?.config?.content) throw new Error('Content not set');
 
     const session = new ActorSession(
       impl,

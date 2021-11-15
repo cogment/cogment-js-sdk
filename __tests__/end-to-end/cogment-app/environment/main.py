@@ -14,9 +14,10 @@ async def environment(environment_session):
     # Start the trial and send that observation to all actors
     environment_session.start([("*", Observation(timestamp=int(time.time() * 1000)))])
 
-    suffix = environment_session.config.suffix or ""
+    suffix = "foo"
 
     async for event in environment_session.event_loop():
+        print("Environment started")
         if event.actions:
             actions = event.actions
             print(f"environment received actions")

@@ -56,8 +56,6 @@ pertinent to the js-sdk test suite:
 
 - [an echo actor](/__tests__/end-to-end/cogment-app/echo/)
 - [an environment](/__tests__/end-to-end/cogment-app/environment/)
-- [configuration pre-hook](/__tests__/end-to-end/cogment-app/configurator)
-  \- a gRPC service, configured in cogment.yaml
 - [cogment.yaml](/__tests__/end-to-end/cogment-app/cogment.yaml) - the
   configuration entrypoint into Cogment and is used to generate language
   specific static configuration files.
@@ -269,6 +267,5 @@ The rest, publishing the packages to dockerhub and updating the mirror repositor
 [semver.org]: https://semver.org
 [sentimental-versioning]: http://sentimentalversioning.org/
 [test-suite]: /__tests__/
-[tests]: https://ai-r.gitlab.io/cogment-js-sdk/allure
 [updating-cogment]: /docs/updating-cogment.md
 [webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs

@@ -16,16 +16,8 @@
 #
 #
 
-SCRIPT_NAME="$(basename "${0}")"
-# shellcheck disable=SC2034
-ALL_SERVICES=(orchestrator environment echo grpcwebproxy)
+source bin/hack.bash
 
-_log() {
-  printf "%s " "${SCRIPT_NAME}:"
-  printf "%s\n" "${@}"
-}
-
-_err() {
-  _log "${@}"
-  exit 1
-}
+#docker-compose pull cogment-cli || _err "Failed to pull cogment-cli"
+#docker-compose run cogment-cli run generate || _err "Failed to generate cogment project"
+docker-compose up --build "${ALL_SERVICES[@]}" || _err "Failed to bring up cogment project"
