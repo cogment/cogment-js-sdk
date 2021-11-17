@@ -20,11 +20,11 @@
  *
  */
 
-import {exec} from 'child_process';
-import {existsSync, readFileSync, writeFileSync} from 'fs';
-import {join} from 'path';
+import { exec } from 'child_process';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
 import * as YAML from 'yaml';
-import {cogSettingsTemplate, UtilTypes} from '../data/templates';
+import { cogSettingsTemplate, UtilTypes } from '../data/templates';
 
 const shell = (command: string) => {
   return new Promise<void>((resolve) => {
@@ -80,7 +80,7 @@ export const generate: () => Promise<void> = async () => {
   const cogmentYaml = YAML.parse(cogmentYamlString);
   const protoFileNames = cogmentYaml.import.proto as string[];
 
-  const protoFiles: {[fileName: string]: string} = {};
+  const protoFiles: { [fileName: string]: string } = {};
   protoFileNames.forEach((fileName) => {
     const fileContent = readFileSync(fileName, 'utf-8');
     protoFiles[fileName] = fileContent;
@@ -94,6 +94,7 @@ export const generate: () => Promise<void> = async () => {
     if (!fileName) throw new Error('Could not parse file name');
     const js = fileName + '.js';
     const dts = fileName + '.d.ts';
+    const json = fileName + '.json';
 
     const outJS = join(outDirectory, js);
     const outTS = join(outDirectory, dts);

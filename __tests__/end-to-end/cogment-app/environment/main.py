@@ -1,9 +1,8 @@
 import asyncio
 import time
 
-import cogment
-
 import cog_settings
+import cogment
 from data_pb2 import Observation
 
 
@@ -33,9 +32,9 @@ async def environment(environment_session):
                     print(f"Unknown action, expecting request or response properties")
 
             environment_session.produce_observations([("*", observation)])
-        # for message in event.messages:
-        #     (msg, sender) = message
-        #     print(f"environment received message - {msg} from sender {sender}")
+        for message in event.messages:
+            (msg, sender) = message
+            print(f"environment received message - {msg} from sender {sender}")
 
     print("environment end")
 

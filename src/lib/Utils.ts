@@ -1,8 +1,8 @@
-import {grpc} from '@improbable-eng/grpc-web';
-import {Message, Message as MessageGrpc} from 'google-protobuf';
-import {MessageBase, MessageClass} from '../cogment/types/UtilTypes';
+import { grpc } from '@improbable-eng/grpc-web';
+import { Message, Message as MessageGrpc } from 'google-protobuf';
+import { MessageBase, MessageClass } from '../cogment/types/UtilTypes';
 
-export type Status = {details: string; code: number; metadata: grpc.Metadata};
+export type Status = { details: string; code: number; metadata: grpc.Metadata };
 
 interface ResponseStream<T> {
   cancel(): void;
@@ -29,15 +29,17 @@ interface BidirectionalStream<ReqT, ResT> {
   ): BidirectionalStream<ReqT, ResT>;
 }
 
-export function frameRequest(request: Message): Uint8Array {
-  const bytes = request.serializeBinary();
-  const frame = new ArrayBuffer(bytes.byteLength + 5);
-  new DataView(frame, 1, 4).setUint32(0, bytes.length, false /* big endian */);
-  new Uint8Array(frame, 5).set(bytes);
-  return new Uint8Array(frame);
+export const base64ToUint8Array = (base64: string) => {
+  var binary_string = window.atob(base64);
+  var len = binary_string.length;
+  var bytes = new Uint8Array(len);
+  for (var i = 0; i < len; i++) {
+    bytes[i] = binary_string.charCodeAt(i);
+  }
+  return bytes;
 }
 
-export const streamToGenerator = <S extends Message, T extends Message>(
+export const streamToQueue = <S extends Message, T extends Message>(
   stream: BidirectionalStream<S, T> | ResponseStream<T>,
   requestQueue?: AsyncQueue<S>,
 ) => {
@@ -51,22 +53,19 @@ export const streamToGenerator = <S extends Message, T extends Message>(
           going = false;
         } else {
           try {
-            console.log('writing request');
             writeableStream.write(request);
-            console.log('written');
           } catch (e) {
-            console.log('Error while sending the following request');
-            console.log(request);
             throw e;
           }
         }
       }
-      console.log('request queue exited');
     };
     inputStream();
   }
 
-  async function* generator() {
+  const queue = new AsyncQueue<T>();
+
+  const generator = async () => {
     const data: T[] = [];
 
     let nextDataResolve: (going: boolean) => void;
@@ -75,7 +74,6 @@ export const streamToGenerator = <S extends Message, T extends Message>(
     );
 
     stream.on('data', (newData: T) => {
-      console.log('got data');
       data.push(newData);
       if (nextDataResolve) {
         nextDataResolve(true);
@@ -91,7 +89,7 @@ export const streamToGenerator = <S extends Message, T extends Message>(
     while (true) {
       const trialListEntry = data.shift();
       if (trialListEntry) {
-        yield trialListEntry;
+        queue.put(trialListEntry);
       } else {
         const doContinue = await nextDataPromise;
         if (!doContinue) {
@@ -100,13 +98,14 @@ export const streamToGenerator = <S extends Message, T extends Message>(
       }
     }
   }
+  generator();
 
-  return generator;
+  return queue;
 };
 
 export class AsyncQueue<T> {
   private _data: T[] = [];
-  private _nextDataResolve: (going: boolean) => void = () => {};
+  private _nextDataResolve: (going: boolean) => void = () => { };
   private _nextDataPromise: Promise<boolean>;
   constructor() {
     this._nextDataPromise = new Promise<boolean>(

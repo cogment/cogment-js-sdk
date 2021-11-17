@@ -14,20 +14,20 @@
  *  limitations under the License.
  *
  */
-import {ActorSession} from '../../src/cogment/Actor';
-import {Context, TransportType} from '../../src/cogment/Context';
-import {config} from '../../src/lib/Config';
-import {getLogger} from '../../src/lib/Logger';
-import {cogSettings} from './cogment-app/webapp/src/CogSettings';
-import {cogment_app as PB} from './cogment-app/webapp/src/data_pb';
-
-const logger = getLogger('cogment').childLogger('__tests__/end-to-end');
+import { ActorSession } from '../../src/cogment/Actor';
+import { cogmentAPI } from "../../src/cogment/api/common_pb_2";
+import { Context } from '../../src/cogment/Context';
+import { config } from '../../src/lib/Config';
+import { cogSettings } from './cogment-app/webapp/src/CogSettings';
+import { cogment_app as PB } from './cogment-app/webapp/src/data_pb';
 
 describe('a cogment-app', () => {
   const observations: PB.Observation[] = [];
+  const messagesList: PB.Message[] = [];
+  const rewardsList: cogmentAPI.Reward[] = [];
 
   test('runs', async () => {
-    let resolve = () => {};
+    let resolve = () => { };
     const promise = new Promise<void>((_resolve) => {
       resolve = _resolve;
     });
@@ -35,12 +35,9 @@ describe('a cogment-app', () => {
     const pingActor = async (
       actorSession: ActorSession<PB.ClientAction, PB.Observation>,
     ) => {
-      console.log('Actor running');
       actorSession.start();
-      console.log('Actor session started');
 
-      let keepGoing = true;
-      setTimeout(() => (keepGoing = false), 3000);
+      let iterations = 0;
 
       const action = new PB.ClientAction();
       action.request = 'ping';
@@ -52,29 +49,34 @@ describe('a cogment-app', () => {
         rewards,
       } of actorSession.eventLoop()) {
         if (observation) {
-          console.log(
-            `Received an observation: ${JSON.stringify(
-              observation,
-              undefined,
-              2,
-            )}`,
-          );
-          observations;
+          observations.push(observation);
           const action = new PB.ClientAction();
           action.request = 'ping';
-          if (!keepGoing) {
+          iterations++;
+          if (iterations >= 100) {
             resolve();
             return;
           }
           actorSession.doAction(action);
+          const message = new PB.Message();
+          console.log(PB)
+          message.request = "foo"
+
+          actorSession.sendMessage(message, ["echo_echo_1"], 'cogment_app.Message');
         }
-        if (messages) {
-          logger.info(messages.join(','));
+        if (messages.length) {
+          messages.forEach((messageRaw) => {
+            const message = actorSession.decodeMessage(PB.Message, messageRaw)
+            console.log("message", message)
+            messagesList.push(message)
+          });
         }
 
-        if (rewards) {
-          logger.info(rewards.join(','));
+        if (rewards.length) {
+          rewardsList.push(...rewards)
         }
+
+
       }
     };
 
@@ -91,7 +93,15 @@ describe('a cogment-app', () => {
     return;
   });
 
-  // test('Receives Observations', async () => {
-  //   expect(observations).not.toHaveLength(0);
-  // });
+  test('Receives observations', async () => {
+    expect(observations).not.toHaveLength(0);
+  });
+
+  test('Receives messages', async () => {
+    expect(messagesList).not.toHaveLength(0);
+  });
+
+  test('Observations are correct', async () => {
+    expect(observations[2].response).toBe("pingfoo");
+  });
 });

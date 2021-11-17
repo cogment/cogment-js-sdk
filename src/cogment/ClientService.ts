@@ -1,10 +1,11 @@
-import {grpc} from '@improbable-eng/grpc-web';
+import { grpc } from '@improbable-eng/grpc-web';
 import {
   AsyncQueue,
+  base64ToUint8Array,
   staticCastFromGoogle,
-  streamToGenerator,
+  streamToQueue
 } from '../lib/Utils';
-import {ActorSession} from './Actor';
+import { ActorSession } from './Actor';
 import {
   Action,
   ActorInitialInput,
@@ -13,34 +14,34 @@ import {
   ActorRunTrialOutput,
   CommunicationState,
   Message,
-  Reward,
+  Reward
 } from './api/common_pb';
-import common_pb_2, {cogmentAPI as Common} from './api/common_pb_2';
-import {ClientActorSPClient} from './api/orchestrator_pb_service';
-import {ActorImplementation} from './Context';
-import {_EndingAck} from './Session';
-import {Trial} from './Trial';
-import {CogSettings, EventType} from './types';
-import {MessageBase} from './types/UtilTypes';
+import common_pb_2, { cogmentAPI as Common } from './api/common_pb_2';
+import { ClientActorSPClient } from './api/orchestrator_pb_service';
+import { ActorImplementation } from './Context';
+import { _EndingAck } from './Session';
+import { Trial } from './Trial';
+import { CogSettings, EventType } from './types';
+import { MessageBase } from './types/UtilTypes';
 
 export class RecvEvent<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-> {
+  > {
   public observation?: ObservationT;
   public actions: ActionT[] = [];
   public rewards: Common.Reward[] = [];
   public messages: Common.Message[] = [];
 
-  constructor(public type: EventType) {}
+  constructor(public type: EventType) { }
 }
 
 const _processNormalData = <
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
->(
-  _data: ActorRunTrialInput,
-  session: ActorSession<ActionT, ObservationT>,
+  >(
+    _data: ActorRunTrialInput,
+    session: ActorSession<ActionT, ObservationT>,
 ) => {
   let recvEvent: RecvEvent<ActionT, ObservationT>;
   const data = _data.toObject();
@@ -60,7 +61,10 @@ const _processNormalData = <
       recvEvent.observation = observation as ObservationT;
       session._newEvent(recvEvent);
     } else {
-      throw new Error('content must be a Uint8Array');
+      const observation = obsSpace.decode(base64ToUint8Array(data.observation.content));
+
+      recvEvent.observation = observation as ObservationT;
+      session._newEvent(recvEvent);
     }
   } else if (data.reward) {
     const _reward = _data.getReward();
@@ -89,8 +93,7 @@ const _processNormalData = <
     );
   else
     throw new Error(
-      `Trial [${session._trial.id}] - Actor [${
-        session.name
+      `Trial [${session._trial.id}] - Actor [${session.name
       }] received unexpected data [${JSON.stringify(data)}]`,
     );
 };
@@ -98,9 +101,9 @@ const _processNormalData = <
 const _processOutgoing = async <
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
->(
-  dataQueue: AsyncQueue<ActorRunTrialOutput>,
-  session: ActorSession<ActionT, ObservationT>,
+  >(
+    dataQueue: AsyncQueue<ActorRunTrialOutput>,
+    session: ActorSession<ActionT, ObservationT>,
 ) => {
   for await (const data of session._retrieveData()) {
     const output = new ActorRunTrialOutput();
@@ -127,12 +130,15 @@ const _processOutgoing = async <
 const _processIncoming = async <
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
->(
-  replyItor: AsyncGenerator<ActorRunTrialInput, void, unknown>,
-  reqQueue: AsyncQueue<ActorRunTrialOutput>,
-  session: ActorSession<ActionT, ObservationT>,
+  >(
+    replyQueue: AsyncQueue<ActorRunTrialInput>,
+    reqQueue: AsyncQueue<ActorRunTrialOutput>,
+    session: ActorSession<ActionT, ObservationT>,
 ) => {
-  for await (const _data of replyItor) {
+  while (true) {
+    const _data = await replyQueue.get()
+    if (!_data) break;
+
     const data = _data.toObject();
 
     if (data.state === CommunicationState.NORMAL)
@@ -170,10 +176,10 @@ const _processIncoming = async <
 export class ClientServicer<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-> {
+  > {
   private _actorStub: ClientActorSPClient;
   private _requestQueue?: AsyncQueue<ActorRunTrialOutput>;
-  private _replyItor?: AsyncGenerator<ActorRunTrialInput, void, unknown>;
+  private _replyQueue?: AsyncQueue<ActorRunTrialInput>;
 
   public trialId?: string;
 
@@ -203,54 +209,52 @@ export class ClientServicer<
 
     this.trialId = trialId;
 
-    const metadata = new grpc.Metadata({'trial-id': trialId});
+    const metadata = new grpc.Metadata({ 'trial-id': trialId });
 
-    this._replyItor = streamToGenerator(
+    this._replyQueue = streamToQueue(
       this._actorStub.runTrial(metadata),
       this._requestQueue,
-    )();
+    );
 
-    for await (const replyMessage of this._replyItor) {
-      const reply = replyMessage.toObject();
-      if (reply.state === CommunicationState.NORMAL) {
-        if (reply.initInput) return reply.initInput;
-        else if (reply.details)
-          console.warn(
-            `Trial [${trialId}] - Received unexpected detail data [${reply.details}] while joining`,
-          );
-        else
-          throw new Error(
-            `Unexpected data [${JSON.stringify(reply)}] while joining`,
-          );
-      } else if (reply.state === CommunicationState.HEARTBEAT) {
-        const newReply = new ActorRunTrialOutput();
-        newReply.setState(reply.state);
-        this._requestQueue.put(newReply);
-      } else if (reply.state === CommunicationState.LAST) {
+    const replyMessage = await this._replyQueue.get();
+    if (!replyMessage) throw new Error("reply message is null, Orchestrator returned an empty reply whe joining")
+    const reply = replyMessage.toObject();
+    if (reply.state === CommunicationState.NORMAL) {
+      if (reply.initInput) return reply.initInput;
+      else if (reply.details)
         console.warn(
-          `Trial [${trialId}] - Received 'LAST' state while joining`,
+          `Trial [${trialId}] - Received unexpected detail data [${reply.details}] while joining`,
         );
-        const newReply = new ActorRunTrialOutput();
-        newReply.setState(CommunicationState.LAST_ACK);
-        this._requestQueue.put(newReply);
-        break;
-      } else if (reply.state === CommunicationState.LAST_ACK)
+      else
         throw new Error(
-          `Trial [${trialId}] - Received an unexpected 'LAST_ACK' while joining`,
+          `Unexpected data [${JSON.stringify(reply)}] while joining`,
         );
-      else if (reply.state === CommunicationState.END) {
-        let details: string;
-        if (reply.details) details = reply.details;
-        else details = '';
-        console.warn(
-          `Trial [${trialId}] - Ended forcefully [${details}] while joining`,
-        );
-        break;
-      } else
-        throw new Error(
-          `Received an invalid state [${reply.state}] while joining`,
-        );
-    }
+    } else if (reply.state === CommunicationState.HEARTBEAT) {
+      const newReply = new ActorRunTrialOutput();
+      newReply.setState(reply.state);
+      this._requestQueue.put(newReply);
+    } else if (reply.state === CommunicationState.LAST) {
+      console.warn(
+        `Trial [${trialId}] - Received 'LAST' state while joining`,
+      );
+      const newReply = new ActorRunTrialOutput();
+      newReply.setState(CommunicationState.LAST_ACK);
+      this._requestQueue.put(newReply);
+    } else if (reply.state === CommunicationState.LAST_ACK)
+      throw new Error(
+        `Trial [${trialId}] - Received an unexpected 'LAST_ACK' while joining`,
+      );
+    else if (reply.state === CommunicationState.END) {
+      let details: string;
+      if (reply.details) details = reply.details;
+      else details = '';
+      console.warn(
+        `Trial [${trialId}] - Ended forcefully [${details}] while joining`,
+      );
+    } else
+      throw new Error(
+        `Received an invalid state [${reply.state}] while joining`,
+      );
     return;
   };
 
@@ -258,7 +262,7 @@ export class ClientServicer<
     impl: ActorImplementation<ActionT, ObservationT>,
     initData: ActorInitialInput.AsObject,
   ) => {
-    if (!this._requestQueue || !this.trialId || !this._replyItor)
+    if (!this._requestQueue || !this.trialId || !this._replyQueue)
       throw new Error('ClientServicer has not joined');
 
     const trial = new Trial(this.trialId, [], this.cogSettings);
@@ -275,7 +279,7 @@ export class ClientServicer<
       if (initData.config.content instanceof Uint8Array) {
         config = actorClass.config.decode(initData.config.content);
       } else {
-        throw new Error('string not expected from content decoding');
+        config = actorClass.config.decode(base64ToUint8Array(initData.config.content));
       }
     }
 
@@ -289,7 +293,7 @@ export class ClientServicer<
     );
 
     _processOutgoing(this._requestQueue, session);
-    _processIncoming(this._replyItor, this._requestQueue, session);
+    _processIncoming(this._replyQueue, this._requestQueue, session);
     session._run();
   };
 }

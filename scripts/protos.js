@@ -21,11 +21,13 @@ protoFiles.forEach((file) => {
       const fileName = file.split('/').pop().split('.')[0] + '_pb_2';
       const js = fileName + '.js';
       const dts = fileName + '.d.ts';
+      const json = fileName + '.json.js';
 
       const outJS = path.join(outDirectory, js);
       const outTS = path.join(outDirectory, dts);
+      const outJSON = path.join(outDirectory, json);
 
-      const command = `npx pbjs -t static-module -o ${outJS} -path=. ${file} && npx pbts -o ${outTS} ${outJS}`;
+      const command = `npx pbjs -t json-module -o ${outJSON} -path=. ${file} && npx pbjs -t static-module -o ${outJS} -path=. ${file} && npx pbts -o ${outTS} ${outJS}`;
       require('child_process').execSync(command);
     });
   });

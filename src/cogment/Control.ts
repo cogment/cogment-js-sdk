@@ -1,33 +1,25 @@
-import {BrowserHeaders} from 'browser-headers';
-import {TrialConfig, TrialStateMap} from './api/common_pb';
+import { BrowserHeaders } from 'browser-headers';
+import { TrialConfig } from './api/common_pb';
 import {
   TerminateTrialRequest,
   TrialInfoRequest,
-  TrialStartRequest,
+  TrialStartRequest
 } from './api/orchestrator_pb';
-import {TrialLifecycleSPClient} from './api/orchestrator_pb_service';
-import {CogSettings} from './types';
-import {MessageBase} from './types/UtilTypes';
-
-class TrialInfo {
-  public envName?: string;
-  public tickId?: number;
-  public duration?: number;
-
-  constructor(public trialId: string, public apiState: TrialStateMap) {}
-}
+import { TrialLifecycleSPClient } from './api/orchestrator_pb_service';
+import { CogSettings } from './types';
+import { MessageBase } from './types/UtilTypes';
 
 export class Controller {
   constructor(
     private _cogSettings: CogSettings,
     private _lifecycleStub: TrialLifecycleSPClient,
     public userId: string,
-  ) {}
+  ) { }
 
   getActors = async (trialId: string) => {
     const req = new TrialInfoRequest();
     req.setGetActorList(true);
-    const metadata = new BrowserHeaders({'trial-id': trialId});
+    const metadata = new BrowserHeaders({ 'trial-id': trialId });
 
     return new Promise((resolve, reject) => {
       this._lifecycleStub.getTrialInfo(req, metadata, (err, _rep) => {
@@ -57,11 +49,13 @@ export class Controller {
       config.setContent(
         this._cogSettings.trial.config.encode(trialConfig).finish(),
       );
-      req.setConfig();
+      req.setConfig(config);
     }
     if (trialIdRequested) req.setTrialIdRequested(trialIdRequested);
 
+
     return new Promise<string>((resolve, reject) => {
+
       this._lifecycleStub.startTrial(req, (err, _rep) => {
         if (err) {
           reject(err);
@@ -82,7 +76,7 @@ export class Controller {
     const req = new TerminateTrialRequest();
     req.setHardTermination(hard);
 
-    const trialIdMetadata = new BrowserHeaders({'trial-id': trialIds});
+    const trialIdMetadata = new BrowserHeaders({ 'trial-id': trialIds });
     return new Promise((resolve, reject) => {
       this._lifecycleStub.terminateTrial(req, trialIdMetadata, (err, _rep) => {
         if (err) {

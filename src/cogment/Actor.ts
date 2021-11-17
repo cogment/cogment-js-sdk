@@ -1,14 +1,14 @@
-import {Action} from './api/common_pb';
-import {ActorImplementation} from './Context';
-import {Session} from './Session';
-import {Trial} from './Trial';
-import {CogSettingsActorClass} from './types';
-import {MessageBase} from './types/UtilTypes';
+import { Action } from './api/common_pb';
+import { ActorImplementation } from './Context';
+import { Session } from './Session';
+import { Trial } from './Trial';
+import { CogSettingsActorClass } from './types';
+import { MessageBase } from './types/UtilTypes';
 
 export class ActorSession<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-> extends Session<ActionT, ObservationT> {
+  > extends Session<ActionT, ObservationT> {
   public className: string;
 
   constructor(
@@ -42,4 +42,8 @@ export class ActorSession<
 
     this._postData(actionReq);
   };
+
+  public sendMessage(payload: MessageBase, to: string[], payloadTypeURL: string) {
+    this._sendMessage(payload, to, payloadTypeURL)
+  }
 }

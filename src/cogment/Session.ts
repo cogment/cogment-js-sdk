@@ -1,26 +1,31 @@
-import {Message} from 'google-protobuf';
-import {AsyncQueue} from '../lib/Utils';
-import {ActorRunTrialOutput} from './api/common_pb';
-import {RecvEvent} from './ClientService';
-import {ActorImplementation} from './Context';
-import {Trial} from './Trial';
-import {EventType} from './types';
-import {TrialActor} from './types/TrialActor';
-import {MessageBase} from './types/UtilTypes';
+import { Message as GoogleMessage } from 'google-protobuf';
+import { AsyncQueue } from '../lib/Utils';
+import { ActorRunTrialOutput, Message as CogmentMessage } from './api/common_pb';
+import { cogmentAPI, google } from './api/common_pb_2';
+import { RecvEvent } from './ClientService';
+import { ActorImplementation } from './Context';
+import { Trial } from './Trial';
+import { EventType } from './types';
+import { TrialActor } from './types/TrialActor';
+import { MessageBase, MessageClass } from './types/UtilTypes';
 
-export class _Ending {}
+export class _Ending { }
 
-export class _EndingAck {}
+export class _EndingAck { }
+
+interface constructorof<T> {
+  new(): T;
+}
 
 export class Session<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-> {
+  > {
   private _eventQueue = new AsyncQueue<RecvEvent<ActionT, ObservationT>>();
   private _started = false;
   private _lastEventDelivered = false;
   private _dataQueue = new AsyncQueue<
-    ActorRunTrialOutput | _Ending | _EndingAck | Message
+    ActorRunTrialOutput | _Ending | _EndingAck | GoogleMessage
   >();
   public _autoAck = true;
   private _activeActors: TrialActor[] = [];
@@ -67,7 +72,7 @@ export class Session<
 
     this._eventQueue.put(event);
   };
-  public _postData = (data: Message | _Ending | _EndingAck) => {
+  public _postData = (data: GoogleMessage | _Ending | _EndingAck) => {
     if (!this._started) {
       console.warn(
         `Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send until session is started.`,
@@ -156,4 +161,42 @@ export class Session<
     this._eventQueue.end();
     this._dataQueue.end();
   };
+
+  protected _sendMessage(payload: MessageBase, to: string[], payloadTypeURL: string) {
+    if (!this._started) {
+      console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message until session is started.`)
+      return
+    }
+    if (this._trial.endingAck) {
+      console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message after acknowledging ending.`)
+      return
+    }
+
+    to.forEach((dest) => {
+
+      const message = new cogmentAPI.Message()
+      const anyPB = new google.protobuf.Any();
+      anyPB.value = (payload.constructor as MessageClass).encode(payload).finish();
+      anyPB.type_url = payloadTypeURL;
+
+      message.payload = anyPB;
+      message.tickId = -1;
+      message.receiverName = dest;
+      message.senderName = this.name;
+
+      const binary = cogmentAPI.Message.encode(message).finish();
+      const cogMessage = CogmentMessage.deserializeBinary(binary)
+
+      console.log(cogMessage.toObject())
+
+      this._postData(cogMessage)
+    })
+  }
+
+  public decodeMessage<T extends MessageBase>(messageClass: (constructorof<T>), message: cogmentAPI.Message) {
+    const anyPB = message.payload;
+    if (!anyPB?.value) throw new Error('Message has no value')
+    const messagePB = (messageClass as unknown as MessageClass).decode(anyPB.value);
+    return messagePB as T;
+  }
 }

@@ -1,16 +1,14 @@
 import asyncio
 
+import cogment
 from google.protobuf.any_pb2 import Any
 
 import cog_settings
-import cogment
-from data_pb2 import (
-    EchoAction,
-    Message,
-)
+from data_pb2 import EchoAction, Message
 
 
 async def echo(actor_session):
+    print("Echo actor running in trial.")
     actor_session.start()
 
     async for event in actor_session.event_loop():
