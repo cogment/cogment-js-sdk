@@ -59,7 +59,6 @@ describe('a cogment-app', () => {
           }
           actorSession.doAction(action);
           const message = new PB.Message();
-          console.log(PB)
           message.request = "foo"
 
           actorSession.sendMessage(message, ["echo_echo_1"], 'cogment_app.Message');
