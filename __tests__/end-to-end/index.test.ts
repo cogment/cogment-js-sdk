@@ -84,8 +84,12 @@ describe('a cogment-app', () => {
     );
     context.registerActor(pingActor, 'client_actor', 'client');
 
+    console.log(config.connection.http)
+
     const controller = context.getController(config.connection.http);
+    console.log("get controller")
     const trialId = await controller.startTrial();
+    console.log("start trial")
     await context.joinTrial(trialId, config.connection.http, 'client_actor');
     await promise;
     return;

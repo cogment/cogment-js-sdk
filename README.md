@@ -192,7 +192,6 @@ for await (const trialListEntry of trialController.watchTrials([
 3. Initialize the repository:
    ```shell script
    npm install
-   npm run init
    ```
 
 #### Testing

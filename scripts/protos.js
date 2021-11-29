@@ -12,6 +12,9 @@ if (!fs.existsSync(outDirectory)) {
   fs.mkdirSync(outDirectory);
 }
 
+fs.chmodSync('./node_modules/protobufjs/cli/bin/pbjs', 0o755);
+fs.chmodSync('./node_modules/protobufjs/cli/bin/pbts', 0o755);
+
 protoFiles.forEach((file) => {
   glob(file, {}, (err, files) => {
     if (err) {
@@ -27,7 +30,9 @@ protoFiles.forEach((file) => {
       const outTS = path.join(outDirectory, dts);
       const outJSON = path.join(outDirectory, json);
 
-      const command = `npx pbjs -t json-module -o ${outJSON} -path=. ${file} && npx pbjs -t static-module -o ${outJS} -path=. ${file} && npx pbts -o ${outTS} ${outJS}`;
+
+
+      const command = `./node_modules/protobufjs/cli/bin/pbjs -t static-module -o ${outJS} -path=. ${file} && ./node_modules/protobufjs/cli/bin/pbts -o ${outTS} ${outJS}`;
       require('child_process').execSync(command);
     });
   });

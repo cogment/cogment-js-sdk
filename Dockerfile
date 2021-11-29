@@ -5,15 +5,7 @@ ENV NODE_ENV=development
 
 WORKDIR /app
 
-RUN curl -LSso /tmp/protoc.zip ${PROTOC_URL} \
-  && unzip -d /usr/local/ /tmp/protoc.zip \
-  && rm -rf /tmp/protoc.zip
-
-COPY package*.json ./
-RUN npm install -g npm && npm install
-
 COPY . .
-
-RUN npm run init
+RUN npm install -g npm && npm i
 
 CMD npm run test

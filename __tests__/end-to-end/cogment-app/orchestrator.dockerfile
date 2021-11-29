@@ -1,7 +1,7 @@
-FROM orchestrator/local:latest
+FROM cogment/orchestrator:v2.0.0-rc1
 
 ADD cogment.yaml .
 ADD *.proto .
 
-ENTRYPOINT ["orchestrator_dbg"]
-CMD ["--log_level=trace", "--params=cogment.yaml"]
+ENTRYPOINT ["orchestrator"]
+CMD ["--params=cogment.yaml"]

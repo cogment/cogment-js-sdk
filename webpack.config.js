@@ -16,7 +16,7 @@
  */
 
 const webpackCommon = require('./webpack.common');
-const {merge} = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -32,7 +32,7 @@ module.exports = [
         reportFilename: '../public/webpack/cjs/index.html',
         openAnalyzer: false,
         generateStatsFile: true,
-        statsOptions: {preset: 'verbose'},
+        statsOptions: { preset: 'verbose' },
         statsFilename: '../public/webpack/cjs/stats.json',
       }),
     ],
@@ -52,7 +52,7 @@ module.exports = [
         reportFilename: '../public/webpack/umd/index.html',
         openAnalyzer: false,
         generateStatsFile: true,
-        statsOptions: {preset: 'verbose'},
+        statsOptions: { preset: 'verbose' },
         statsFilename: '../public/webpack/umd/stats.json',
       }),
     ],
@@ -76,7 +76,7 @@ module.exports = [
         reportFilename: '../public/webpack/esm/index.html',
         openAnalyzer: false,
         generateStatsFile: true,
-        statsOptions: {preset: 'verbose'},
+        statsOptions: { preset: 'verbose' },
         statsFilename: '../public/webpack/esm/stats.json',
       }),
     ],
