@@ -17,13 +17,14 @@
 import { ActorSession } from '../../src/cogment/Actor';
 import { cogmentAPI } from "../../src/cogment/api/common_pb_2";
 import { Context } from '../../src/cogment/Context';
+import { MessageBase } from '../../src/cogment/types/UtilTypes';
 import { config } from '../../src/lib/Config';
 import { cogSettings } from './cogment-app/webapp/src/CogSettings';
 import { cogment_app as PB } from './cogment-app/webapp/src/data_pb';
 
 describe('a cogment-app', () => {
   const observations: PB.Observation[] = [];
-  const messagesList: PB.Message[] = [];
+  const messagesList: MessageBase[] = [];
   const rewardsList: cogmentAPI.Reward[] = [];
 
   test('runs', async () => {
@@ -61,12 +62,10 @@ describe('a cogment-app', () => {
           const message = new PB.Message();
           message.request = "foo"
 
-          actorSession.sendMessage(message, ["echo_echo_1"], 'cogment_app.Message');
+          actorSession.sendMessage(message, ["echo_echo_1"]);
         }
         if (messages.length) {
-          messages.forEach((messageRaw) => {
-            const message = actorSession.decodeMessage(PB.Message, messageRaw)
-            console.log("message", message)
+          messages.forEach((message) => {
             messagesList.push(message)
           });
         }

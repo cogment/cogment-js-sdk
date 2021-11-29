@@ -43,7 +43,7 @@ export class ActorSession<
     this._postData(actionReq);
   };
 
-  public sendMessage(payload: MessageBase, to: string[], payloadTypeURL: string) {
-    this._sendMessage(payload, to, payloadTypeURL)
+  public sendMessage(payload: MessageBase, to: string[]) {
+    this._sendMessage(payload, to)
   }
 }

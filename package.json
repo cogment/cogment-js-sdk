@@ -77,7 +77,7 @@
     "debug": "^4.3.1",
     "glob": "^7.2.0",
     "pascal-case": "^3.1.2",
-    "protobufjs": "^6.11.2",
+    "protobufjs": "https://github.com/protobufjs/protobuf.js.git#d13d5d5688052e366aa2e9169f50dfca376b32cf",
     "tar-fs": "^2.1.1",
     "typedoc-plugin-markdown": "^3.6.1"
   },
@@ -171,15 +171,64 @@
   "publishConfig": {
     "access": "public"
   },
-  "jest-junit": {
-    "suiteName": "cogment",
-    "outputDirectory": ".",
-    "outputName": "junit.xml",
-    "uniqueOutputName": true,
-    "classNameTemplate": "{classname} {title}",
-    "titleTemplate": "{title}",
-    "suiteNameTemplate": "{title}",
-    "ancestorSeparator": " › ",
-    "usePathForSuiteName": "true"
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "clover",
+      [
+        "html-spa",
+        {
+          "subdir": "report"
+        }
+      ],
+      "json",
+      "json-summary",
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "collectCoverageFrom": [
+      "src/cogment/*.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/cogment/api/",
+      "<rootDir>/src/generate/",
+      "<rootDir>/src/__data__",
+      "*.d.ts"
+    ],
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
+    "roots": [
+      "<rootDir>/src",
+      "<rootDir>/__tests__"
+    ],
+    "slowTestThreshold": 10,
+    "testEnvironment": "jsdom",
+    "verbose": true,
+    "projects": [
+      {
+        "prettierPath": "./node_modules/.bin/prettier",
+        "preset": "ts-jest",
+        "testPathIgnorePatterns": [
+          "<rootDir>/__tests__/end-to-end/cogment-app",
+          "<rootDir>/node_modules/",
+          "<rootDir>/dist/",
+          "<rootDir>/public/",
+          "<rootDir>/coverage/",
+          "<rootDir>/CHANGELOG.md",
+          "<rootDir>/.gitlab/",
+          "<rootDir>/.github/",
+          "<rootDir>/src/cogment/api/",
+          "<rootDir>/src/generate/"
+        ],
+        "displayName": "__tests__",
+        "testMatch": [
+          "<rootDir>/__tests__/**/*.test.*"
+        ]
+      }
+    ]
   }
 }

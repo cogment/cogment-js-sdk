@@ -31,7 +31,7 @@ export class RecvEvent<
   public observation?: ObservationT;
   public actions: ActionT[] = [];
   public rewards: Common.Reward[] = [];
-  public messages: Common.Message[] = [];
+  public messages: MessageBase[] = [];
 
   constructor(public type: EventType) { }
 }
@@ -42,7 +42,8 @@ const _processNormalData = <
   >(
     _data: ActorRunTrialInput,
     session: ActorSession<ActionT, ObservationT>,
-) => {
+    cogSettings: CogSettings
+  ) => {
   let recvEvent: RecvEvent<ActionT, ObservationT>;
   const data = _data.toObject();
   if (session._trial.ending) recvEvent = new RecvEvent(EventType.ENDING);
@@ -85,7 +86,22 @@ const _processNormalData = <
       common_pb_2.cogmentAPI.Message,
     );
 
-    recvEvent.messages = [message];
+    if (!message.payload) {
+      throw new Error('message payload not set on source pb, this should never happen');
+    }
+
+    if (!message.payload.type_url) {
+      throw new Error('message payload type_url not set on source pb, this should never happen');
+    }
+
+    if (!message.payload.value) {
+      throw new Error('message payload value not set on source pb, this should never happen');
+    }
+
+    const DestMessageClass = cogSettings.messageUrlMap[message.payload.type_url]
+    const destMessage = DestMessageClass.decode(message.payload.value)
+
+    recvEvent.messages = [destMessage];
     session._newEvent(recvEvent);
   } else if (data.details)
     console.warn(
@@ -134,6 +150,7 @@ const _processIncoming = async <
     replyQueue: AsyncQueue<ActorRunTrialInput>,
     reqQueue: AsyncQueue<ActorRunTrialOutput>,
     session: ActorSession<ActionT, ObservationT>,
+    cogSettings: CogSettings,
 ) => {
   while (true) {
     const _data = await replyQueue.get()
@@ -142,7 +159,7 @@ const _processIncoming = async <
     const data = _data.toObject();
 
     if (data.state === CommunicationState.NORMAL)
-      _processNormalData(_data, session);
+      _processNormalData(_data, session, cogSettings);
     else if (data.state === CommunicationState.HEARTBEAT) {
       const reply = new ActorRunTrialOutput();
       reply.setState(data.state);
@@ -293,7 +310,7 @@ export class ClientServicer<
     );
 
     _processOutgoing(this._requestQueue, session);
-    _processIncoming(this._replyQueue, this._requestQueue, session);
+    _processIncoming(this._replyQueue, this._requestQueue, session, this.cogSettings);
     session._run();
   };
 }

@@ -162,7 +162,7 @@ export class Session<
     this._dataQueue.end();
   };
 
-  protected _sendMessage(payload: MessageBase, to: string[], payloadTypeURL: string) {
+  protected _sendMessage(payload: MessageBase, to: string[]) {
     if (!this._started) {
       console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message until session is started.`)
       return
@@ -171,13 +171,19 @@ export class Session<
       console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message after acknowledging ending.`)
       return
     }
+    const clazz = (payload.constructor as MessageClass);
+    //@ts-ignore
+    if (!clazz.getTypeUrl()) {
+      throw new Error("protobuf message must have a typeUrl, attempted to send: " + JSON.stringify(payload))
+    }
 
     to.forEach((dest) => {
 
       const message = new cogmentAPI.Message()
       const anyPB = new google.protobuf.Any();
-      anyPB.value = (payload.constructor as MessageClass).encode(payload).finish();
-      anyPB.type_url = payloadTypeURL;
+      anyPB.value = clazz.encode(payload).finish();
+      //@ts-ignore
+      anyPB.type_url = clazz.getTypeUrl();
 
       message.payload = anyPB;
       message.tickId = -1;
@@ -191,12 +197,5 @@ export class Session<
 
       this._postData(cogMessage)
     })
-  }
-
-  public decodeMessage<T extends MessageBase>(messageClass: (constructorof<T>), message: cogmentAPI.Message) {
-    const anyPB = message.payload;
-    if (!anyPB?.value) throw new Error('Message has no value')
-    const messagePB = (messageClass as unknown as MessageClass).decode(anyPB.value);
-    return messagePB as T;
   }
 }

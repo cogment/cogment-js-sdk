@@ -54,6 +54,7 @@ export interface CogSettingsActorClass {
  * Generated static configuration for a Cogment application.
  */
 export interface CogSettings {
+  messageUrlMap: { [messageUrl: string]: MessageClass }
   /**
    * Actor class static configuration.
    */
