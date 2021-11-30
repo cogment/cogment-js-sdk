@@ -1,25 +1,47 @@
-import { BrowserHeaders } from 'browser-headers';
-import { TrialConfig } from './api/common_pb';
+import {BrowserHeaders} from 'browser-headers';
+import {streamToGenerator} from '../lib/Utils';
+import {
+  TrialConfig,
+  TrialState as TrialStateMsg,
+  TrialStateMap,
+} from './api/common_pb';
 import {
   TerminateTrialRequest,
   TrialInfoRequest,
-  TrialStartRequest
+  TrialListRequest,
+  TrialStartRequest,
 } from './api/orchestrator_pb';
-import { TrialLifecycleSPClient } from './api/orchestrator_pb_service';
-import { CogSettings } from './types';
-import { MessageBase } from './types/UtilTypes';
+import {TrialLifecycleSPClient} from './api/orchestrator_pb_service';
+import {CogSettings} from './types';
+import {MessageBase} from './types/UtilTypes';
+
+export enum TrialState {
+  UNKNOWN = TrialStateMsg.UNKNOWN,
+  INITIALIZING = TrialStateMsg.INITIALIZING,
+  PENDING = TrialStateMsg.PENDING,
+  RUNNING = TrialStateMsg.RUNNING,
+  TERMINATING = TrialStateMsg.TERMINATING,
+  ENDED = TrialStateMsg.ENDED,
+}
+
+export class TrialInfo {
+  public envName?: string;
+  public tickId?: number;
+  public duration?: number;
+  constructor(public trialId: string, public state: TrialState) {}
+}
 
 export class Controller {
   constructor(
     private _cogSettings: CogSettings,
     private _lifecycleStub: TrialLifecycleSPClient,
     public userId: string,
-  ) { }
+  ) {}
 
   getActors = async (trialId: string) => {
     const req = new TrialInfoRequest();
     req.setGetActorList(true);
-    const metadata = new BrowserHeaders({ 'trial-id': trialId });
+    const metadata = new BrowserHeaders({'trial-id': trialId});
 
     return new Promise((resolve, reject) => {
       this._lifecycleStub.getTrialInfo(req, metadata, (err, _rep) => {
@@ -53,9 +75,7 @@ export class Controller {
     }
     if (trialIdRequested) req.setTrialIdRequested(trialIdRequested);
 
-
     return new Promise<string>((resolve, reject) => {
-
       this._lifecycleStub.startTrial(req, (err, _rep) => {
         if (err) {
           reject(err);
@@ -76,8 +96,8 @@ export class Controller {
     const req = new TerminateTrialRequest();
     req.setHardTermination(hard);
 
-    const trialIdMetadata = new BrowserHeaders({ 'trial-id': trialIds });
-    return new Promise((resolve, reject) => {
+    const trialIdMetadata = new BrowserHeaders({'trial-id': trialIds});
+    return new Promise<boolean>((resolve, reject) => {
       this._lifecycleStub.terminateTrial(req, trialIdMetadata, (err, _rep) => {
         if (err) {
           reject(err);
@@ -88,9 +108,59 @@ export class Controller {
             return;
           }
 
-          resolve(rep);
+          resolve(true);
         }
       });
     });
   };
+
+  getTrialInfo = (trialIds: string[]) => {
+    const req = new TrialInfoRequest();
+    const trialIdMetadata = new BrowserHeaders({'trial-id': trialIds});
+    return new Promise<TrialInfo[]>((resolve, reject) => {
+      this._lifecycleStub.getTrialInfo(req, trialIdMetadata, (err, _rep) => {
+        if (err) {
+          reject(err);
+        } else {
+          const rep = _rep?.toObject();
+          if (!rep) {
+            reject(new Error('No response from server'));
+            return;
+          }
+
+          const result = rep.trialList.map((trial) => {
+            const trialInfo = new TrialInfo(trial.trialId, trial.state);
+            if (trial.envName) {
+              trialInfo.envName = trial.envName;
+            }
+            if (trial.tickId) {
+              trialInfo.tickId = trial.tickId;
+            }
+            if (trial.trialDuration) {
+              trialInfo.duration = trial.trialDuration;
+            }
+            return trialInfo;
+          });
+
+          resolve(result);
+        }
+      });
+    });
+  };
+
+  async *watchTrials(
+    trialStateFilters: TrialStateMap[keyof TrialStateMap][] = [],
+  ) {
+    const request = new TrialListRequest();
+    request.setFilterList(trialStateFilters);
+
+    const watchTrialsStream = this._lifecycleStub.watchTrials(request);
+    const generator = streamToGenerator(watchTrialsStream);
+
+    for await (let reply of generator()) {
+      if (!reply) break;
+      const info = new TrialInfo(reply.getTrialId(), reply.getState());
+      yield info;
+    }
+  }
 }

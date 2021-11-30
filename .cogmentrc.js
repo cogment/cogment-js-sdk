@@ -17,7 +17,7 @@
 
 module.exports = {
   connection: {
-    http: 'http://grpcwebproxy:8080',
+    http: 'http://localhost:8080',
   },
   logger: {
     level: 'debug',

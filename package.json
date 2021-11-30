@@ -72,6 +72,64 @@
   "browserslist": [
     "defaults"
   ],
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/cogment/*.ts"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/src/cogment/api/",
+      "<rootDir>/src/generate/",
+      "<rootDir>/src/__data__"
+    ],
+    "coverageReporters": [
+      "clover",
+      [
+        "html-spa",
+        {
+          "subdir": "report"
+        }
+      ],
+      "json",
+      "json-summary",
+      "lcov",
+      "text",
+      "text-summary"
+    ],
+    "projects": [
+      {
+        "prettierPath": "./node_modules/.bin/prettier",
+        "preset": "ts-jest",
+        "testPathIgnorePatterns": [
+          "<rootDir>/__tests__/end-to-end/cogment-app",
+          "<rootDir>/node_modules/",
+          "<rootDir>/dist/",
+          "<rootDir>/public/",
+          "<rootDir>/coverage/",
+          "<rootDir>/CHANGELOG.md",
+          "<rootDir>/.gitlab/",
+          "<rootDir>/.github/",
+          "<rootDir>/src/cogment/api/",
+          "<rootDir>/src/generate/"
+        ],
+        "displayName": "__tests__",
+        "testMatch": [
+          "<rootDir>/__tests__/**/*.test.*"
+        ]
+      }
+    ],
+    "reporters": [
+      "default"
+    ],
+    "roots": [
+      "<rootDir>/src",
+      "<rootDir>/__tests__"
+    ],
+    "slowTestThreshold": 10,
+    "testEnvironment": "jsdom",
+    "verbose": true
+  },
   "dependencies": {
     "@improbable-eng/grpc-web": "^0.14.0",
     "debug": "^4.3.1",
@@ -118,6 +176,7 @@
     "jest": "^27.3.1",
     "jest-environment-jsdom": "^27.3.1",
     "jest-matcher-utils": "^27.3.1",
+    "jest-snapshot": "^27.3.1",
     "jest-watch-typeahead": "^0.6.2",
     "jsdoc": "^3.6.7",
     "json5": "^2.2.0",
@@ -159,64 +218,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "coverageReporters": [
-      "clover",
-      [
-        "html-spa",
-        {
-          "subdir": "report"
-        }
-      ],
-      "json",
-      "json-summary",
-      "lcov",
-      "text",
-      "text-summary"
-    ],
-    "collectCoverageFrom": [
-      "src/cogment/*.ts"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/src/cogment/api/",
-      "<rootDir>/src/generate/",
-      "<rootDir>/src/__data__",
-      "*.d.ts"
-    ],
-    "reporters": [
-      "default"
-    ],
-    "roots": [
-      "<rootDir>/src",
-      "<rootDir>/__tests__"
-    ],
-    "slowTestThreshold": 10,
-    "testEnvironment": "jsdom",
-    "verbose": true,
-    "projects": [
-      {
-        "prettierPath": "./node_modules/.bin/prettier",
-        "preset": "ts-jest",
-        "testPathIgnorePatterns": [
-          "<rootDir>/__tests__/end-to-end/cogment-app",
-          "<rootDir>/node_modules/",
-          "<rootDir>/dist/",
-          "<rootDir>/public/",
-          "<rootDir>/coverage/",
-          "<rootDir>/CHANGELOG.md",
-          "<rootDir>/.gitlab/",
-          "<rootDir>/.github/",
-          "<rootDir>/src/cogment/api/",
-          "<rootDir>/src/generate/"
-        ],
-        "displayName": "__tests__",
-        "testMatch": [
-          "<rootDir>/__tests__/**/*.test.*"
-        ]
-      }
-    ]
   }
 }

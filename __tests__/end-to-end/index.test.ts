@@ -14,21 +14,29 @@
  *  limitations under the License.
  *
  */
-import { ActorSession } from '../../src/cogment/Actor';
-import { cogmentAPI } from "../../src/cogment/api/common_pb_2";
-import { Context } from '../../src/cogment/Context';
-import { MessageBase } from '../../src/cogment/types/UtilTypes';
-import { config } from '../../src/lib/Config';
-import { cogSettings } from './cogment-app/webapp/src/CogSettings';
-import { cogment_app as PB } from './cogment-app/webapp/src/data_pb';
+import {
+  ActorSession,
+  Context,
+  MessageBase,
+  Reward,
+  TrialInfo,
+  TrialState,
+} from '../../src';
+import {config} from '../../src/lib/Config';
+import {cogSettings} from './cogment-app/webapp/src/CogSettings';
+import {cogment_app as PB} from './cogment-app/webapp/src/data_pb';
 
 describe('a cogment-app', () => {
   const observations: PB.Observation[] = [];
   const messagesList: MessageBase[] = [];
-  const rewardsList: cogmentAPI.Reward[] = [];
+  const rewardsList: Reward[] = [];
+  let trialId: string;
+  let trialInfos: TrialInfo[];
+  let trialInfosAfterTermination: TrialInfo[];
+  let watchTrialsResponse: TrialInfo;
 
   test('runs', async () => {
-    let resolve = () => { };
+    let resolve = () => {};
     const promise = new Promise<void>((_resolve) => {
       resolve = _resolve;
     });
@@ -60,21 +68,19 @@ describe('a cogment-app', () => {
           }
           actorSession.doAction(action);
           const message = new PB.Message();
-          message.request = "foo"
+          message.request = 'foo';
 
-          actorSession.sendMessage(message, ["echo_echo_1"]);
+          actorSession.sendMessage(message, ['echo_echo_1']);
         }
         if (messages.length) {
           messages.forEach((message) => {
-            messagesList.push(message)
+            messagesList.push(message);
           });
         }
 
         if (rewards.length) {
-          rewardsList.push(...rewards)
+          rewardsList.push(...rewards);
         }
-
-
       }
     };
 
@@ -84,14 +90,19 @@ describe('a cogment-app', () => {
     );
     context.registerActor(pingActor, 'client_actor', 'client');
 
-    console.log(config.connection.http)
-
     const controller = context.getController(config.connection.http);
-    console.log("get controller")
-    const trialId = await controller.startTrial();
-    console.log("start trial")
+    trialId = await controller.startTrial();
+
     await context.joinTrial(trialId, config.connection.http, 'client_actor');
     await promise;
+    for await (let response of controller.watchTrials()) {
+      watchTrialsResponse = response;
+      trialInfos = await controller.getTrialInfo([response.trialId]);
+      break;
+    }
+    const termination = await controller.terminateTrial([trialId]);
+    console.log(termination);
+    trialInfosAfterTermination = await controller.getTrialInfo([trialId]);
     return;
   });
 
@@ -104,6 +115,23 @@ describe('a cogment-app', () => {
   });
 
   test('Observations are correct', async () => {
-    expect(observations[2].response).toBe("pingfoo");
+    expect(observations[2].response).toBe('pingfoo');
+  });
+
+  test('WatchTrials gives a response', async () => {
+    expect(watchTrialsResponse.trialId).toBe(trialId);
+    expect(watchTrialsResponse.state).toBe(TrialState.RUNNING);
+  });
+
+  test('trialInfo is correct', async () => {
+    expect(trialInfos.length).toBe(1);
+    expect(trialInfos[0].trialId).toBe(trialId);
+    expect(trialInfos[0].state).toBe(TrialState.RUNNING);
+    expect(trialInfos[0].tickId).toBe(99);
+  });
+
+  test('expect trial to terminate', async () => {
+    console.log(trialInfosAfterTermination);
+    expect(trialInfosAfterTermination.length).toBe(0);
   });
 });
