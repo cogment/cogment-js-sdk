@@ -1,19 +1,19 @@
-import { BrowserHeaders } from 'browser-headers';
-import { streamToGenerator } from '../lib/Utils';
+import {BrowserHeaders} from 'browser-headers';
+import {streamToGenerator} from '../lib/Utils';
 import {
   TrialConfig,
   TrialState as TrialStateMsg,
-  TrialStateMap
+  TrialStateMap,
 } from './api/common_pb';
 import {
   TerminateTrialRequest,
   TrialInfoRequest,
   TrialListRequest,
-  TrialStartRequest
+  TrialStartRequest,
 } from './api/orchestrator_pb';
-import { TrialLifecycleSPClient } from './api/orchestrator_pb_service';
-import { CogSettings } from './types';
-import { MessageBase } from './types/UtilTypes';
+import {TrialLifecycleSPClient} from './api/orchestrator_pb_service';
+import {CogSettings} from './types';
+import {MessageBase} from './types/UtilTypes';
 
 export enum TrialState {
   UNKNOWN = TrialStateMsg.UNKNOWN,
@@ -28,7 +28,7 @@ export class TrialInfo {
   public envName?: string;
   public tickId?: number;
   public duration?: number;
-  constructor(public trialId: string, public state: TrialState) { }
+  constructor(public trialId: string, public state: TrialState) {}
 }
 
 export class Controller {
@@ -36,12 +36,12 @@ export class Controller {
     private _cogSettings: CogSettings,
     private _lifecycleStub: TrialLifecycleSPClient,
     public userId: string,
-  ) { }
+  ) {}
 
   getActors = async (trialId: string) => {
     const req = new TrialInfoRequest();
     req.setGetActorList(true);
-    const metadata = new BrowserHeaders({ 'trial-id': trialId });
+    const metadata = new BrowserHeaders({'trial-id': trialId});
 
     return new Promise((resolve, reject) => {
       this._lifecycleStub.getTrialInfo(req, metadata, (err, _rep) => {
@@ -96,7 +96,7 @@ export class Controller {
     const req = new TerminateTrialRequest();
     req.setHardTermination(hard);
 
-    const trialIdMetadata = new BrowserHeaders({ 'trial-id': trialIds });
+    const trialIdMetadata = new BrowserHeaders({'trial-id': trialIds});
     return new Promise<boolean>((resolve, reject) => {
       this._lifecycleStub.terminateTrial(req, trialIdMetadata, (err, _rep) => {
         if (err) {
@@ -116,7 +116,7 @@ export class Controller {
 
   getTrialInfo = (trialIds: string[]) => {
     const req = new TrialInfoRequest();
-    const trialIdMetadata = new BrowserHeaders({ 'trial-id': trialIds });
+    const trialIdMetadata = new BrowserHeaders({'trial-id': trialIds});
     return new Promise<TrialInfo[]>((resolve, reject) => {
       this._lifecycleStub.getTrialInfo(req, trialIdMetadata, (err, _rep) => {
         if (err) {

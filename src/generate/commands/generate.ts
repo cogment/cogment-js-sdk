@@ -20,11 +20,17 @@
  *
  */
 
-import { exec } from 'child_process';
-import { chmodSync, existsSync, readFileSync, unlinkSync, writeFileSync } from 'fs';
-import { join } from 'path';
+import {exec} from 'child_process';
+import {
+  chmodSync,
+  existsSync,
+  readFileSync,
+  unlinkSync,
+  writeFileSync,
+} from 'fs';
+import {join} from 'path';
 import * as YAML from 'yaml';
-import { cogSettingsTemplate, UtilTypes } from '../data/templates';
+import {cogSettingsTemplate, UtilTypes} from '../data/templates';
 
 const shell = (command: string) => {
   return new Promise<void>((resolve) => {
@@ -67,19 +73,19 @@ const findObjects = (obj = {}, key: string) => {
   const recursiveSearch = (obj = {}) => {
     if (!obj || (typeof obj !== 'object' && typeof obj !== 'function')) {
       return;
-    };
+    }
     //@ts-ignore
     if (obj[key] !== undefined) {
       result.push(obj);
-    };
+    }
     Object.keys(obj).forEach(function (k) {
       //@ts-ignore
       recursiveSearch(obj[k]);
     });
-  }
+  };
   recursiveSearch(obj);
   return result;
-}
+};
 
 export interface PBType {
   typeURL: string;
@@ -101,14 +107,15 @@ export const generate: () => Promise<void> = async () => {
 
   if (!isInstalled('protobufjs')) {
     try {
-      await shell('npm i https://github.com/protobufjs/protobuf.js.git#d13d5d5688052e366aa2e9169f50dfca376b32cf');
+      await shell(
+        'npm i https://github.com/protobufjs/protobuf.js.git#d13d5d5688052e366aa2e9169f50dfca376b32cf',
+      );
     } catch {
       throw new Error(
         'Could not install auxilliary generation tools, try running `npm i --save-optional`',
       );
     }
   }
-
 
   chmodSync('./node_modules/protobufjs/cli/bin/pbjs', 0o755);
   chmodSync('./node_modules/protobufjs/cli/bin/pbts', 0o755);
@@ -117,12 +124,11 @@ export const generate: () => Promise<void> = async () => {
   const cogmentYaml = YAML.parse(cogmentYamlString);
   const protoFileNames = cogmentYaml.import.proto as string[];
 
-  const protoFiles: { [fileName: string]: string } = {};
+  const protoFiles: {[fileName: string]: string} = {};
   protoFileNames.forEach((fileName) => {
     const fileContent = readFileSync(fileName, 'utf-8');
     protoFiles[fileName] = fileContent;
   });
-
 
   const outDirectory = 'src';
 
@@ -138,7 +144,7 @@ export const generate: () => Promise<void> = async () => {
     const outTS = join(outDirectory, dts);
 
     const command = `node_modules/protobufjs/cli/bin/pbjs -t static-module -o ${outJS} -path=. ${file} && node_modules/protobufjs/cli/bin/pbts -o ${outTS} ${outJS}`;
-    await shell(command)
+    await shell(command);
     await sleepPromise(1000);
     const moduleName = join(process.cwd(), outJS);
     const module = require(moduleName);
@@ -148,9 +154,9 @@ export const generate: () => Promise<void> = async () => {
         typeURL: clazz.getTypeUrl(),
         typePath: clazz.getTypeUrl().split('/')[1].split('.'),
         file: fileName,
-      })
-    })
-  };
+      });
+    });
+  }
 
   const cogSettings = cogSettingsTemplate(protoFiles, cogmentYaml, types);
 

@@ -20,7 +20,7 @@ import {
   IConversionOptions,
   Properties,
   Reader,
-  Writer
+  Writer,
 } from 'protobufjs';
 
 export class Message {
@@ -37,7 +37,7 @@ export class Message {
    */
   public static create(
     this: Constructor<Message>,
-    properties?: { [k: string]: any },
+    properties?: {[k: string]: any},
   ): Message;
 
   /**
@@ -48,7 +48,7 @@ export class Message {
    */
   public static encode(
     this: Constructor<Message>,
-    message: any | { [k: string]: any },
+    message: any | {[k: string]: any},
     writer?: Writer,
   ): Writer;
 
@@ -60,7 +60,7 @@ export class Message {
    */
   public static encodeDelimited(
     this: Constructor<Message>,
-    message: any | { [k: string]: any },
+    message: any | {[k: string]: any},
     writer?: Writer,
   ): Writer;
 
@@ -89,7 +89,7 @@ export class Message {
    * @param message Plain object to verify
    * @returns 'null' if valid, otherwise the reason why it is not
    */
-  public static verify(message: { [k: string]: any }): string | null;
+  public static verify(message: {[k: string]: any}): string | null;
 
   /**
    * Creates a new message of this type from a plain object. Also converts values to their respective internal types.
@@ -98,7 +98,7 @@ export class Message {
    */
   public static fromObject(
     this: Constructor<Message>,
-    object: { [k: string]: any },
+    object: {[k: string]: any},
   ): Message;
 
   /**
@@ -111,13 +111,13 @@ export class Message {
     this: Constructor<Message>,
     message: Message,
     options?: IConversionOptions,
-  ): { [k: string]: any };
+  ): {[k: string]: any};
 
   /**
    * Converts this message to JSON.
    * @returns JSON object
    */
-  public toJSON(): { [k: string]: any };
+  public toJSON(): {[k: string]: any};
 }
 
 export type MessageBase = Message;
