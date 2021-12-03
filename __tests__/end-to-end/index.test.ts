@@ -20,11 +20,16 @@ import {
   MessageBase,
   Reward,
   TrialInfo,
-  TrialState,
+  TrialState
 } from '../../src';
-import {config} from '../../src/lib/Config';
-import {cogSettings} from './cogment-app/webapp/src/CogSettings';
-import {cogment_app as PB} from './cogment-app/webapp/src/data_pb';
+import { config } from '../../src/lib/Config';
+import { cogSettings } from './cogment-app/webapp/src/CogSettings';
+import { cogment_app as PB } from './cogment-app/webapp/src/data_pb';
+
+
+const sleep = (millis: number) => {
+  return new Promise(resolve => window.setTimeout(resolve, millis))
+}
 
 describe('a cogment-app', () => {
   const observations: PB.Observation[] = [];
@@ -36,7 +41,7 @@ describe('a cogment-app', () => {
   let watchTrialsResponse: TrialInfo;
 
   test('runs', async () => {
-    let resolve = () => {};
+    let resolve = () => { };
     const promise = new Promise<void>((_resolve) => {
       resolve = _resolve;
     });
@@ -100,8 +105,8 @@ describe('a cogment-app', () => {
       trialInfos = await controller.getTrialInfo([response.trialId]);
       break;
     }
-    const termination = await controller.terminateTrial([trialId]);
-    console.log(termination);
+    const termination = await controller.terminateTrial([trialId], true);
+    await sleep(1000);
     trialInfosAfterTermination = await controller.getTrialInfo([trialId]);
     return;
   });
@@ -131,7 +136,8 @@ describe('a cogment-app', () => {
   });
 
   test('expect trial to terminate', async () => {
-    console.log(trialInfosAfterTermination);
-    expect(trialInfosAfterTermination.length).toBe(0);
+    const noTrials = trialInfosAfterTermination.length === 0;
+    const terminating = trialInfosAfterTermination[0]?.state === TrialState.ENDED;
+    expect(noTrials || terminating).toBe(true);
   });
 });
