@@ -1,26 +1,26 @@
-import { Message as GoogleMessage } from 'google-protobuf';
-import { AsyncQueue } from '../lib/Utils';
-import { ActorRunTrialOutput, Message as CogmentMessage } from './api/common_pb';
-import { cogmentAPI, google } from './api/common_pb_2';
-import { RecvEvent } from './ClientService';
-import { ActorImplementation } from './Context';
-import { Trial } from './Trial';
-import { EventType } from './types';
-import { TrialActor } from './types/TrialActor';
-import { MessageBase, MessageClass } from './types/UtilTypes';
+import {Message as GoogleMessage} from 'google-protobuf';
+import {AsyncQueue} from '../lib/Utils';
+import {ActorRunTrialOutput, Message as CogmentMessage} from './api/common_pb';
+import {cogmentAPI, google} from './api/common_pb_2';
+import {RecvEvent} from './ClientService';
+import {ActorImplementation} from './Context';
+import {Trial} from './Trial';
+import {EventType} from './types';
+import {TrialActor} from './types/TrialActor';
+import {MessageBase, MessageClass} from './types/UtilTypes';
 
-export class _Ending { }
+export class _Ending {}
 
-export class _EndingAck { }
+export class _EndingAck {}
 
 interface constructorof<T> {
-  new(): T;
+  new (): T;
 }
 
 export class Session<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-  > {
+> {
   private _eventQueue = new AsyncQueue<RecvEvent<ActionT, ObservationT>>();
   private _started = false;
   private _lastEventDelivered = false;
@@ -164,22 +164,28 @@ export class Session<
 
   protected _sendMessage(payload: MessageBase, to: string[]) {
     if (!this._started) {
-      console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message until session is started.`)
-      return
+      console.warn(
+        `Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message until session is started.`,
+      );
+      return;
     }
     if (this._trial.endingAck) {
-      console.warn(`Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message after acknowledging ending.`)
-      return
+      console.warn(
+        `Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message after acknowledging ending.`,
+      );
+      return;
     }
-    const clazz = (payload.constructor as MessageClass);
+    const clazz = payload.constructor as MessageClass;
     //@ts-ignore
     if (!clazz.getTypeUrl()) {
-      throw new Error("protobuf message must have a typeUrl, attempted to send: " + JSON.stringify(payload))
+      throw new Error(
+        'protobuf message must have a typeUrl, attempted to send: ' +
+          JSON.stringify(payload),
+      );
     }
 
     to.forEach((dest) => {
-
-      const message = new cogmentAPI.Message()
+      const message = new cogmentAPI.Message();
       const anyPB = new google.protobuf.Any();
       anyPB.value = clazz.encode(payload).finish();
       //@ts-ignore
@@ -191,11 +197,9 @@ export class Session<
       message.senderName = this.name;
 
       const binary = cogmentAPI.Message.encode(message).finish();
-      const cogMessage = CogmentMessage.deserializeBinary(binary)
+      const cogMessage = CogmentMessage.deserializeBinary(binary);
 
-      console.log(cogMessage.toObject())
-
-      this._postData(cogMessage)
-    })
+      this._postData(cogMessage);
+    });
   }
 }

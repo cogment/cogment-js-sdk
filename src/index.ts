@@ -21,4 +21,7 @@
  * @packageDocumentation
  */
 
+import {cogmentAPI} from './cogment/api/common_pb_2';
+
 export * from './cogment/index';
+export type Reward = cogmentAPI.Reward;

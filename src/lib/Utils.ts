@@ -1,8 +1,8 @@
-import { grpc } from '@improbable-eng/grpc-web';
-import { Message, Message as MessageGrpc } from 'google-protobuf';
-import { MessageBase, MessageClass } from '../cogment/types/UtilTypes';
+import {grpc} from '@improbable-eng/grpc-web';
+import {Message, Message as MessageGrpc} from 'google-protobuf';
+import {MessageBase, MessageClass} from '../cogment/types/UtilTypes';
 
-export type Status = { details: string; code: number; metadata: grpc.Metadata };
+export type Status = {details: string; code: number; metadata: grpc.Metadata};
 
 interface ResponseStream<T> {
   cancel(): void;
@@ -37,7 +37,46 @@ export const base64ToUint8Array = (base64: string) => {
     bytes[i] = binary_string.charCodeAt(i);
   }
   return bytes;
-}
+};
+
+export const streamToGenerator = <S extends Message, T extends Message>(
+  stream: BidirectionalStream<S, T> | ResponseStream<T>,
+) => {
+  async function* generator() {
+    const data: T[] = [];
+
+    let nextDataResolve: (going: boolean) => void;
+    let nextDataPromise = new Promise<boolean>(
+      (resolve) => (nextDataResolve = resolve),
+    );
+
+    stream.on('data', (newData: T) => {
+      data.push(newData);
+      if (nextDataResolve) {
+        nextDataResolve(true);
+      }
+
+      nextDataPromise = new Promise((resolve) => (nextDataResolve = resolve));
+    });
+
+    stream.on('end', () => {
+      nextDataResolve(false);
+    });
+
+    while (true) {
+      const trialListEntry = data.shift();
+      if (trialListEntry) {
+        yield trialListEntry;
+      } else {
+        const doContinue = await nextDataPromise;
+        if (!doContinue) {
+          break;
+        }
+      }
+    }
+  }
+  return generator;
+};
 
 export const streamToQueue = <S extends Message, T extends Message>(
   stream: BidirectionalStream<S, T> | ResponseStream<T>,
@@ -97,7 +136,7 @@ export const streamToQueue = <S extends Message, T extends Message>(
         }
       }
     }
-  }
+  };
   generator();
 
   return queue;
@@ -105,7 +144,7 @@ export const streamToQueue = <S extends Message, T extends Message>(
 
 export class AsyncQueue<T> {
   private _data: T[] = [];
-  private _nextDataResolve: (going: boolean) => void = () => { };
+  private _nextDataResolve: (going: boolean) => void = () => {};
   private _nextDataPromise: Promise<boolean>;
   constructor() {
     this._nextDataPromise = new Promise<boolean>(
