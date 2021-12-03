@@ -69,6 +69,21 @@ export class Context<
     this.actors[actorName] = [{ name: actorName, actorClass }, actorImpl];
   };
 
+  _getControlStub(endpoint: string) {
+    return new TrialLifecycleSPClient(endpoint, {
+      transport: getTransportFactory(
+        this._transportType === TransportType.WEBSOCKET
+          ? TransportType.HTTP
+          : this._transportType,
+      ),
+    });
+  }
+
+  getController = (endpoint: string) => {
+    const stub = this._getControlStub(endpoint);
+    return new Controller(this.cogSettings, stub, this._userId);
+  };
+
   joinTrial = async (trialId: string, endpoint: string, actorName: string) => {
     const servicer = new ClientServicer<ActionT, ObservationT>(
       this.cogSettings,
@@ -87,19 +102,5 @@ export class Context<
     const actorImpl = this.actors[actorName][1];
 
     await servicer.runSession(actorImpl, initData);
-  };
-
-  _getControlStub(endpoint: string) {
-    return new TrialLifecycleSPClient(endpoint, {
-      transport: getTransportFactory(
-        this._transportType === TransportType.WEBSOCKET
-          ? TransportType.HTTP
-          : this._transportType,
-      ),
-    });
-  }
-  getController = (endpoint: string) => {
-    const stub = this._getControlStub(endpoint);
-    return new Controller(this.cogSettings, stub, this._userId);
   };
 }

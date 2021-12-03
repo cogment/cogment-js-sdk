@@ -79,6 +79,7 @@ export class Controller {
     const trialIdMetadata = new BrowserHeaders({ 'trial-id': trialIds });
     return new Promise((resolve, reject) => {
       this._lifecycleStub.terminateTrial(req, trialIdMetadata, (err, _rep) => {
+        console.log("terminate", _rep)
         if (err) {
           reject(err);
         } else {
