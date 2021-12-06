@@ -13,7 +13,7 @@ commands:
     cogment run init-webapp
     cogment run sync
 
-    python -m pip install cogment[generate]
+    python -m pip install cogment[generate]==2.0.0rc1
 
     cd environment && python -m cogment.generate && cd -
     cd echo && python -m cogment.generate && cd -

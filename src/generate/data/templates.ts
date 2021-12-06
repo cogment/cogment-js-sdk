@@ -18,10 +18,10 @@
  *  limitations under the License.
  *
  */
-import { pascalCase } from 'pascal-case';
-import { PBType } from '../commands/generate';
+import {pascalCase} from 'pascal-case';
+import {PBType} from '../commands/generate';
 
-const fileIn = (protoFiles: { [filename: string]: string }, token: string) => {
+const fileIn = (protoFiles: {[filename: string]: string}, token: string) => {
   for (const filename in protoFiles) {
     if (protoFiles[filename].includes(token)) {
       return filename.split('.')[0];
@@ -30,36 +30,39 @@ const fileIn = (protoFiles: { [filename: string]: string }, token: string) => {
   throw new Error('no proto file contains token ' + token);
 };
 
-const procToken = (protoFiles: { [filename: string]: string }, token: string) => {
+const procToken = (protoFiles: {[filename: string]: string}, token: string) => {
   const realToken = token.split('.')[1];
   const file = fileIn(protoFiles, realToken);
   return file + '_pb.' + token;
 };
 
 export const cogSettingsTemplate = (
-  protoFiles: { [filename: string]: string },
+  protoFiles: {[filename: string]: string},
   cogSettings: any,
   pbTypes: PBType[],
 ) => `
 import { MessageBase } from './CogTypes';
 import { MessageClass } from './CogTypes';
 
-${cogSettings.import.javascript
+${
+  cogSettings.import.javascript
     ? (cogSettings.import.javascript as string[])
-      .map((element: string) => `import * as ${element} from './${element}'`)
-      .join('\n')
+        .map((element: string) => `import * as ${element} from './${element}'`)
+        .join('\n')
     : ''
-  }
-${cogSettings.import.proto
+}
+${
+  cogSettings.import.proto
     ? (cogSettings.import.proto as string[])
-      .map(
-        (element: string) =>
-          `import * as ${element.split('.')[0] + '_pb'} from './${element.split('.')[0] + '_pb'
-          }'`,
-      )
-      .join('\n')
+        .map(
+          (element: string) =>
+            `import * as ${element.split('.')[0] + '_pb'} from './${
+              element.split('.')[0] + '_pb'
+            }'`,
+        )
+        .join('\n')
     : ''
-  }
+}
 
 
 export interface ActorClass {
@@ -67,77 +70,82 @@ export interface ActorClass {
   config?: MessageClass;
   actionSpace: MessageClass;
   observationSpace: MessageClass;
-  observationDelta?: MessageClass;
-  observationDeltaApply?: (x: MessageBase) => MessageBase;
 }
 
 ${(
-    cogSettings.actor_classes as {
-      name: string;
-      config_type: string;
-      action: { space: string };
-      observation: { space: string; delta: string };
-    }[]
-  )
-    .map(
-      (actorClass) => `
+  cogSettings.actor_classes as {
+    name: string;
+    config_type: string;
+    action: {space: string};
+    observation: {space: string; delta: string};
+  }[]
+)
+  .map((actorClass) => {
+    if (actorClass.observation.delta)
+      throw new Error(
+        `${actorClass.name} has an observation delta in the configuration file, this is no longer supported in Cogment 2.0, please remove this property`,
+      );
+
+    return `
 export class ${pascalCase(actorClass.name)}ActorClass implements ActorClass {
   name = '${actorClass.name}';
-  ${actorClass.config_type
-          ? `config = ${procToken(protoFiles, actorClass.config_type)}`
-          : ``
-        }
+  ${
+    actorClass.config_type
+      ? `config = ${procToken(protoFiles, actorClass.config_type)}`
+      : ``
+  }
   actionSpace = ${procToken(protoFiles, actorClass.action.space)};
   observationSpace = ${procToken(protoFiles, actorClass.observation.space)};
-  observationDelta = ${actorClass.observation.delta
-          ? procToken(protoFiles, actorClass.observation.delta)
-          : procToken(protoFiles, actorClass.observation.space)
-        };
-  observationDeltaApply(observationDelta: MessageBase) {
-    return observationDelta;
-  }
 }
-`,
-    )
-    .join('\n')}
+`;
+  })
+  .join('\n')}
 
 export const cogSettings = {
   messageUrlMap: {
-    ${pbTypes.map((pbType) => `["${pbType.typeURL}"]: ${pbType.file}.${pbType.typePath.join('.')}`).join(',\n  ')}
+    ${pbTypes
+      .map(
+        (pbType) =>
+          `["${pbType.typeURL}"]: ${pbType.file}.${pbType.typePath.join('.')}`,
+      )
+      .join(',\n  ')}
   },
   actorClasses: {
-      ${(cogSettings.actor_classes as { name: string }[])
-    .map(
-      (actorClass) =>
-        `${actorClass.name}: new ${pascalCase(
-          actorClass.name,
-        )}ActorClass()`,
-    )
-    .join(',\n')}
+      ${(cogSettings.actor_classes as {name: string}[])
+        .map(
+          (actorClass) =>
+            `${actorClass.name}: new ${pascalCase(
+              actorClass.name,
+            )}ActorClass()`,
+        )
+        .join(',\n')}
   },
   trial: {
-    ${cogSettings.trial.config_type
-    ? `config: ${procToken(protoFiles, cogSettings.trial.config_type)}`
-    : ``
-  }
+    ${
+      cogSettings.trial.config_type
+        ? `config: ${procToken(protoFiles, cogSettings.trial.config_type)}`
+        : ``
+    }
   },
   environment: {
-    ${cogSettings.environment.config_type
-    ? `config: ${procToken(
-      protoFiles,
-      cogSettings.environment.config_type,
-    )},`
-    : ``
-  }
+    ${
+      cogSettings.environment.config_type
+        ? `config: ${procToken(
+            protoFiles,
+            cogSettings.environment.config_type,
+          )},`
+        : ``
+    }
     class: {
       id: 'env',
-      ${cogSettings.environment.config_type
-    ? `config: ${procToken(
-      protoFiles,
-      cogSettings.environment.config_type,
-    )}`
-    : ``
-  }
+      ${
+        cogSettings.environment.config_type
+          ? `config: ${procToken(
+              protoFiles,
+              cogSettings.environment.config_type,
+            )}`
+          : ``
+      }
     }
   },
 };
