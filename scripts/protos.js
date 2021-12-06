@@ -30,8 +30,6 @@ protoFiles.forEach((file) => {
       const outTS = path.join(outDirectory, dts);
       const outJSON = path.join(outDirectory, json);
 
-
-
       const command = `./node_modules/protobufjs/cli/bin/pbjs -t static-module -o ${outJS} -path=. ${file} && ./node_modules/protobufjs/cli/bin/pbts -o ${outTS} ${outJS}`;
       require('child_process').execSync(command);
     });

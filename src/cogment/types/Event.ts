@@ -15,8 +15,8 @@
  *
  */
 
-import { CogMessage } from './CogMessage';
-import { MessageBase } from './UtilTypes';
+import {CogMessage} from './CogMessage';
+import {MessageBase} from './UtilTypes';
 
 /**
  * The type of an incoming event, representing the state of the trial.
@@ -36,7 +36,7 @@ export enum EventType {
 export interface Event<
   ObservationT extends MessageBase,
   FeedbackT extends MessageBase,
-  > {
+> {
   /**
    * The next message encoded as a protobuf message.
    */

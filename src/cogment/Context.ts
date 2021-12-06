@@ -1,13 +1,12 @@
-import { grpc } from '@improbable-eng/grpc-web';
-import { Message } from 'google-protobuf';
-import { base64ToUint8Array } from '../lib/Utils';
-import { ActorSession } from './Actor';
-import { TrialLifecycleSPClient } from './api/orchestrator_pb_service';
-import { ClientServicer } from './ClientService';
-import { Controller } from './Control';
-import { CogSettings, TrialActor } from './types';
-import { MessageBase } from './types/UtilTypes';
-
+import {grpc} from '@improbable-eng/grpc-web';
+import {Message} from 'google-protobuf';
+import {base64ToUint8Array} from '../lib/Utils';
+import {ActorSession} from './Actor';
+import {TrialLifecycleSPClient} from './api/orchestrator_pb_service';
+import {ClientServicer} from './ClientService';
+import {Controller} from './Control';
+import {CogSettings, TrialActor} from './types';
+import {MessageBase} from './types/UtilTypes';
 
 Message.bytesAsU8 = function (value) {
   if (typeof value === 'string') {
@@ -37,12 +36,12 @@ export const getTransportFactory = (type: TransportType) => {
 export type ActorImplementation<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-  > = (session: ActorSession<ActionT, ObservationT>) => Promise<void>;
+> = (session: ActorSession<ActionT, ObservationT>) => Promise<void>;
 
 export class Context<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-  > {
+> {
   private actors: Record<
     string,
     [TrialActor, ActorImplementation<ActionT, ObservationT>]
@@ -66,7 +65,22 @@ export class Context<
       );
     }
 
-    this.actors[actorName] = [{ name: actorName, actorClass }, actorImpl];
+    this.actors[actorName] = [{name: actorName, actorClass}, actorImpl];
+  };
+
+  _getControlStub(endpoint: string) {
+    return new TrialLifecycleSPClient(endpoint, {
+      transport: getTransportFactory(
+        this._transportType === TransportType.WEBSOCKET
+          ? TransportType.HTTP
+          : this._transportType,
+      ),
+    });
+  }
+
+  getController = (endpoint: string) => {
+    const stub = this._getControlStub(endpoint);
+    return new Controller(this.cogSettings, stub, this._userId);
   };
 
   joinTrial = async (trialId: string, endpoint: string, actorName: string) => {
@@ -87,19 +101,5 @@ export class Context<
     const actorImpl = this.actors[actorName][1];
 
     await servicer.runSession(actorImpl, initData);
-  };
-
-  _getControlStub(endpoint: string) {
-    return new TrialLifecycleSPClient(endpoint, {
-      transport: getTransportFactory(
-        this._transportType === TransportType.WEBSOCKET
-          ? TransportType.HTTP
-          : this._transportType,
-      ),
-    });
-  }
-  getController = (endpoint: string) => {
-    const stub = this._getControlStub(endpoint);
-    return new Controller(this.cogSettings, stub, this._userId);
   };
 }

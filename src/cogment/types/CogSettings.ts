@@ -15,7 +15,7 @@
  *
  */
 
-import { MessageBase, MessageClass } from "./UtilTypes";
+import {MessageBase, MessageClass} from './UtilTypes';
 
 /**
  * Generated static configuration of a Cogment actor.
@@ -54,7 +54,7 @@ export interface CogSettingsActorClass {
  * Generated static configuration for a Cogment application.
  */
 export interface CogSettings {
-  messageUrlMap: { [messageUrl: string]: MessageClass }
+  messageUrlMap: {[messageUrl: string]: MessageClass};
   /**
    * Actor class static configuration.
    */

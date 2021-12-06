@@ -15,13 +15,11 @@
  *
  */
 
-import type { MessageBase, MessageClass } from "./UtilTypes";
+import type {MessageBase, MessageClass} from './UtilTypes';
 
 export * from './CogmentYaml';
 export * from './CogSettings';
 export * from './Event';
 export * from './Reward';
 export * from './TrialActor';
-export type { MessageBase, MessageClass };
-
-
+export type {MessageBase, MessageClass};

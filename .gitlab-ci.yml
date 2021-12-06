@@ -90,7 +90,6 @@ test:
     - mkdir -p public
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/coverage ./public/coverage
     - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/src/cogment/api ./src/cogment/api
-    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/junit.xml ./junit.xml
     - bin/down.bash
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
@@ -100,8 +99,6 @@ test:
       - src/cogment/api
       - public
       - docker.log
-    reports:
-      junit: junit.xml
     when: always
 
 build_docker:

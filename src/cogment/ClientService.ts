@@ -24,6 +24,15 @@ import { Trial } from './Trial';
 import { CogSettings, EventType } from './types';
 import { MessageBase } from './types/UtilTypes';
 
+export interface IAny {
+
+  /** Any type_url */
+  type_url?: (string | null);
+
+  /** Any value */
+  value?: (Uint8Array | null);
+}
+
 export class RecvEvent<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
@@ -31,7 +40,7 @@ export class RecvEvent<
   public observation?: ObservationT;
   public actions: ActionT[] = [];
   public rewards: Common.Reward[] = [];
-  public messages: MessageBase[] = [];
+  public messages: (MessageBase | IAny)[] = [];
 
   constructor(public type: EventType) { }
 }
@@ -42,8 +51,8 @@ const _processNormalData = <
   >(
     _data: ActorRunTrialInput,
     session: ActorSession<ActionT, ObservationT>,
-    cogSettings: CogSettings
-  ) => {
+    cogSettings: CogSettings,
+) => {
   let recvEvent: RecvEvent<ActionT, ObservationT>;
   const data = _data.toObject();
   if (session._trial.ending) recvEvent = new RecvEvent(EventType.ENDING);
@@ -62,7 +71,9 @@ const _processNormalData = <
       recvEvent.observation = observation as ObservationT;
       session._newEvent(recvEvent);
     } else {
-      const observation = obsSpace.decode(base64ToUint8Array(data.observation.content));
+      const observation = obsSpace.decode(
+        base64ToUint8Array(data.observation.content),
+      );
 
       recvEvent.observation = observation as ObservationT;
       session._newEvent(recvEvent);
@@ -87,19 +98,31 @@ const _processNormalData = <
     );
 
     if (!message.payload) {
-      throw new Error('message payload not set on source pb, this should never happen');
+      throw new Error(
+        'message payload not set on source pb, this should never happen',
+      );
     }
 
     if (!message.payload.type_url) {
-      throw new Error('message payload type_url not set on source pb, this should never happen');
+      throw new Error(
+        'message payload type_url not set on source pb, this should never happen',
+      );
     }
 
     if (!message.payload.value) {
-      throw new Error('message payload value not set on source pb, this should never happen');
+      throw new Error(
+        'message payload value not set on source pb, this should never happen',
+      );
     }
 
-    const DestMessageClass = cogSettings.messageUrlMap[message.payload.type_url]
-    const destMessage = DestMessageClass.decode(message.payload.value)
+
+    let destMessage: (MessageBase | IAny) = message.payload;
+
+    const DestMessageClass =
+      cogSettings.messageUrlMap[message.payload.type_url];
+    if (DestMessageClass) {
+      destMessage = DestMessageClass.decode(message.payload.value);
+    }
 
     recvEvent.messages = [destMessage];
     session._newEvent(recvEvent);
@@ -153,7 +176,7 @@ const _processIncoming = async <
     cogSettings: CogSettings,
 ) => {
   while (true) {
-    const _data = await replyQueue.get()
+    const _data = await replyQueue.get();
     if (!_data) break;
 
     const data = _data.toObject();
@@ -234,7 +257,10 @@ export class ClientServicer<
     );
 
     const replyMessage = await this._replyQueue.get();
-    if (!replyMessage) throw new Error("reply message is null, Orchestrator returned an empty reply whe joining")
+    if (!replyMessage)
+      throw new Error(
+        'reply message is null, Orchestrator returned an empty reply whe joining',
+      );
     const reply = replyMessage.toObject();
     if (reply.state === CommunicationState.NORMAL) {
       if (reply.initInput) return reply.initInput;
@@ -251,9 +277,7 @@ export class ClientServicer<
       newReply.setState(reply.state);
       this._requestQueue.put(newReply);
     } else if (reply.state === CommunicationState.LAST) {
-      console.warn(
-        `Trial [${trialId}] - Received 'LAST' state while joining`,
-      );
+      console.warn(`Trial [${trialId}] - Received 'LAST' state while joining`);
       const newReply = new ActorRunTrialOutput();
       newReply.setState(CommunicationState.LAST_ACK);
       this._requestQueue.put(newReply);
@@ -296,7 +320,9 @@ export class ClientServicer<
       if (initData.config.content instanceof Uint8Array) {
         config = actorClass.config.decode(initData.config.content);
       } else {
-        config = actorClass.config.decode(base64ToUint8Array(initData.config.content));
+        config = actorClass.config.decode(
+          base64ToUint8Array(initData.config.content),
+        );
       }
     }
 
@@ -310,7 +336,12 @@ export class ClientServicer<
     );
 
     _processOutgoing(this._requestQueue, session);
-    _processIncoming(this._replyQueue, this._requestQueue, session, this.cogSettings);
+    _processIncoming(
+      this._replyQueue,
+      this._requestQueue,
+      session,
+      this.cogSettings,
+    );
     session._run();
   };
 }
