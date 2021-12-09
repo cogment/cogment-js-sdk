@@ -24,7 +24,7 @@ import { Trial } from './Trial';
 import { CogSettings, EventType } from './types';
 import { MessageBase } from './types/UtilTypes';
 
-export interface IAny {
+export interface AnyPB {
 
   /** Any type_url */
   type_url?: (string | null);
@@ -40,7 +40,7 @@ export class RecvEvent<
   public observation?: ObservationT;
   public actions: ActionT[] = [];
   public rewards: Common.Reward[] = [];
-  public messages: (MessageBase | IAny)[] = [];
+  public messages: (MessageBase | AnyPB)[] = [];
 
   constructor(public type: EventType) { }
 }
@@ -116,7 +116,7 @@ const _processNormalData = <
     }
 
 
-    let destMessage: (MessageBase | IAny) = message.payload;
+    let destMessage: (MessageBase | AnyPB) = message.payload;
 
     const DestMessageClass =
       cogSettings.messageUrlMap[message.payload.type_url];

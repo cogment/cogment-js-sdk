@@ -15,8 +15,7 @@
  *
  */
 import {
-  ActorSession,
-  Context,
+  ActorSession, AnyPB, Context,
   EventType,
   MessageBase,
   Reward,
@@ -35,7 +34,7 @@ const ORCHESTRATOR_URL =
 
 describe('a cogment-app', () => {
   const observations: PB.Observation[] = [];
-  const messagesList: MessageBase[] = [];
+  const messagesList: (MessageBase | AnyPB)[] = [];
   const rewardsList: Reward[] = [];
   let trialId: string;
   let trialInfos: TrialInfo[];

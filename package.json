@@ -1,6 +1,6 @@
 {
   "name": "@cogment/cogment-js-sdk",
-  "version": "1.26.1",
+  "version": "2.0.0",
   "description": "Javascript SDK for the Cogment Framework",
   "homepage": "https://github.com/cogment/cogment-js-sdk",
   "bugs": "https://github.com/cogment/cogment-js-sdk/issues",
@@ -38,7 +38,7 @@
     "build:tsc": "npx tsc src/generate/index.ts --outDir dist/generate",
     "cz": "git-cz",
     "fiddly": "npx fiddly",
-    "postinstall": "npm-run-all init:*",
+    "prepare": "npm-run-all init:*",
     "init:0": "npm-run-all init:0:*",
     "init:0:install-test-suite": "cd __tests__/end-to-end/cogment-app/webapp && npm install",
     "init:1": "npm-run-all init:1:*",

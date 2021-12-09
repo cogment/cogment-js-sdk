@@ -20,17 +20,17 @@
  *
  */
 
-import {exec} from 'child_process';
+import { exec } from 'child_process';
 import {
   chmodSync,
   existsSync,
   readFileSync,
   unlinkSync,
-  writeFileSync,
+  writeFileSync
 } from 'fs';
-import {join} from 'path';
+import { join } from 'path';
 import * as YAML from 'yaml';
-import {cogSettingsTemplate, UtilTypes} from '../data/templates';
+import { cogSettingsTemplate, UtilTypes } from '../data/templates';
 
 const shell = (command: string) => {
   return new Promise<void>((resolve) => {
@@ -108,7 +108,7 @@ export const generate: () => Promise<void> = async () => {
   if (!isInstalled('protobufjs')) {
     try {
       await shell(
-        'npm i https://github.com/protobufjs/protobuf.js.git#d13d5d5688052e366aa2e9169f50dfca376b32cf',
+        'npm i uglify-js tmp jsdoc https://github.com/protobufjs/protobuf.js.git#d13d5d5688052e366aa2e9169f50dfca376b32cf',
       );
     } catch {
       throw new Error(
@@ -120,11 +120,23 @@ export const generate: () => Promise<void> = async () => {
   chmodSync('./node_modules/protobufjs/cli/bin/pbjs', 0o755);
   chmodSync('./node_modules/protobufjs/cli/bin/pbts', 0o755);
 
-  const cogmentYamlString = readFileSync('./cogment.yaml', 'utf-8');
+  const args = process.argv.slice(2);
+  if (args.length === 0) {
+    throw new Error('Config not specified, please rerun as `npx cogment-js-sdk-generate <configFile>`');
+  }
+  const configFile = args[0];
+
+  let cogmentYamlString = '';
+  try {
+    cogmentYamlString = readFileSync(configFile, 'utf-8');
+  }
+  catch (e) {
+    throw new Error(`Config file '${configFile}' not found!`);
+  }
   const cogmentYaml = YAML.parse(cogmentYamlString);
   const protoFileNames = cogmentYaml.import.proto as string[];
 
-  const protoFiles: {[fileName: string]: string} = {};
+  const protoFiles: { [fileName: string]: string } = {};
   protoFileNames.forEach((fileName) => {
     const fileContent = readFileSync(fileName, 'utf-8');
     protoFiles[fileName] = fileContent;
