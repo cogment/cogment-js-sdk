@@ -39,7 +39,6 @@ This module, `cogment-js-sdk`, is the Javascript SDK for making use of Cogment w
 - [Test Report][tests]
 - [Coverage Report][coverage]
 - [Webpack Bundle Report][webpack]
-- [cogjs-cli][cogjs-cli]
 - [Semantic Versioning][semver.org]
 
 ## Usage
@@ -196,46 +195,15 @@ for await (const trialListEntry of trialController.watchTrials([
 
 #### Testing
 
-1. Change the contents of .cogmentrc.js from
-   ```
-   module.exports = {
-     connection: {
-       http: 'http://grpcwebproxy:8080',
-     },
-     logger: {
-       level: 'debug',
-     },
-   };
-   ```
-   To
-   ```
-   module.exports = {
-     connection: {
-       http: 'http://localhost:8080',
-     },
-     logger: {
-       level: 'debug',
-     },
-   };
-   ```
-2. Start the embeded cogment app
+1. Start the embeded cogment app
    ```shell script
    bin/up.bash
    ```
-3. Do one of the following:
+   
+2. Run the test suite:
 
-- To run the test suite once:
   ```shell script
   npm run test
-  ```
-- To watch for changes and rerun tests automatically in your console:
-  ```shell script
-  npm run test:watch
-  ```
-- To launch the [majestic test ui][majestic] to run / watch / visualize
-  tests:
-  ```shell script
-  npm run test:ui
   ```
 
 ### Release process
@@ -252,7 +220,6 @@ The rest, publishing the packages to dockerhub and updating the mirror repositor
 [changelog]: /CHANGELOG.md 'changelog'
 [code-of-conduct]: /CODE_OF_CONDUCT.md
 [codeguidelines]: /docs/codeguidelines.md
-[cogjs-cli]: /cli
 [cogment-app]: /__tests__/end-to-end/cogment-app/
 [cogment.ai]: https://cogment.ai 'cogment.ai'
 [contributing]: /CONTRIBUTING.md

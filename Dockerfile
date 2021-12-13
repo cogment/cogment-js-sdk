@@ -9,4 +9,4 @@ WORKDIR /app
 COPY . .
 RUN npm install -g npm && npm i
 
-CMD npx jest
+CMD npm run test:jest

@@ -30,7 +30,9 @@ const sleep = (millis: number) => {
 };
 
 const ORCHESTRATOR_URL =
-  process.env.ORCHESTRATOR_URL || 'http://localhost:8080';
+  process.env.ORCHESTRATOR_URL || 'http://grpcwebproxy:8080';
+
+  console.log(`ORCHESTRATOR_URL: ${ORCHESTRATOR_URL}`);
 
 describe('a cogment-app', () => {
   const observations: PB.Observation[] = [];

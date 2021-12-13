@@ -7,8 +7,6 @@ commands:
     cd webapp
     npm i
     cd ..
-  sync: |
-    cogment sync environment client echo webapp
   build: docker-compose build
   # Start and stop services
   start: docker-compose up orchestrator environment echo

@@ -10,10 +10,6 @@ For an introduction to Cogment or installation instructions see [docs.cogment.ai
 
 Run the code generation phase:
 
-```console
-cogment run generate
-```
-
 Build the project:
 
 ```console
