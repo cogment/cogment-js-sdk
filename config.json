@@ -1,4 +1,3 @@
 {
-  "cogmentApi": "https://cogment.github.io/cogment-api/v2.0.0/cogment-api-v2.0.0.tar.gz",
-  "cogmentCli": "https://github.com/cogment/cogment-cli/releases/download/v1.2.0/cogment-${OS}-amd64"
+  "cogmentApi": "https://cogment.github.io/cogment-api/v2.0.0/cogment-api-v2.0.0.tar.gz"
 }

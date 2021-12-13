@@ -20,17 +20,17 @@
  *
  */
 
-import { exec } from 'child_process';
+import {exec} from 'child_process';
 import {
   chmodSync,
   existsSync,
   readFileSync,
   unlinkSync,
-  writeFileSync
+  writeFileSync,
 } from 'fs';
-import { join } from 'path';
+import {join} from 'path';
 import * as YAML from 'yaml';
-import { cogSettingsTemplate, UtilTypes } from '../data/templates';
+import {cogSettingsTemplate, UtilTypes} from '../data/templates';
 
 const shell = (command: string) => {
   return new Promise<void>((resolve) => {
@@ -122,21 +122,22 @@ export const generate: () => Promise<void> = async () => {
 
   const args = process.argv.slice(2);
   if (args.length === 0) {
-    throw new Error('Config not specified, please rerun as `npx cogment-js-sdk-generate <configFile>`');
+    throw new Error(
+      'Config not specified, please rerun as `npx cogment-js-sdk-generate <configFile>`',
+    );
   }
   const configFile = args[0];
 
   let cogmentYamlString = '';
   try {
     cogmentYamlString = readFileSync(configFile, 'utf-8');
-  }
-  catch (e) {
+  } catch (e) {
     throw new Error(`Config file '${configFile}' not found!`);
   }
   const cogmentYaml = YAML.parse(cogmentYamlString);
   const protoFileNames = cogmentYaml.import.proto as string[];
 
-  const protoFiles: { [fileName: string]: string } = {};
+  const protoFiles: {[fileName: string]: string} = {};
   protoFileNames.forEach((fileName) => {
     const fileContent = readFileSync(fileName, 'utf-8');
     protoFiles[fileName] = fileContent;

@@ -10,7 +10,6 @@ jest.config.js
 webpack.*.js
 package.json
 package-lock.json
-typedoc.json
 tsconfig.json
 cog_settings.*
 **/*_pb*

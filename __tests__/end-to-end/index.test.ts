@@ -15,7 +15,9 @@
  *
  */
 import {
-  ActorSession, AnyPB, Context,
+  ActorSession,
+  AnyPB,
+  Context,
   EventType,
   MessageBase,
   Reward,
@@ -32,7 +34,7 @@ const sleep = (millis: number) => {
 const ORCHESTRATOR_URL =
   process.env.ORCHESTRATOR_URL || 'http://grpcwebproxy:8080';
 
-  console.log(`ORCHESTRATOR_URL: ${ORCHESTRATOR_URL}`);
+console.log(`ORCHESTRATOR_URL: ${ORCHESTRATOR_URL}`);
 
 describe('a cogment-app', () => {
   const observations: PB.Observation[] = [];
@@ -44,11 +46,11 @@ describe('a cogment-app', () => {
   let watchTrialsResponse: TrialInfo;
 
   test('runs', async () => {
-    let trialEndResolve = () => { };
+    let trialEndResolve = () => {};
     const trialEndPromise = new Promise<void>((_resolve) => {
       trialEndResolve = _resolve;
     });
-    let trialMiddleResolve = () => { };
+    let trialMiddleResolve = () => {};
     const trialMiddlePromise = new Promise<void>((_resolve) => {
       trialMiddleResolve = _resolve;
     });

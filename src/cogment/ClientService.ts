@@ -1,11 +1,11 @@
-import { grpc } from '@improbable-eng/grpc-web';
+import {grpc} from '@improbable-eng/grpc-web';
 import {
   AsyncQueue,
   base64ToUint8Array,
   staticCastFromGoogle,
-  streamToQueue
+  streamToQueue,
 } from '../lib/Utils';
-import { ActorSession } from './Actor';
+import {ActorSession} from './Actor';
 import {
   Action,
   ActorInitialInput,
@@ -14,44 +14,43 @@ import {
   ActorRunTrialOutput,
   CommunicationState,
   Message,
-  Reward
+  Reward,
 } from './api/common_pb';
-import common_pb_2, { cogmentAPI as Common } from './api/common_pb_2';
-import { ClientActorSPClient } from './api/orchestrator_pb_service';
-import { ActorImplementation } from './Context';
-import { _EndingAck } from './Session';
-import { Trial } from './Trial';
-import { CogSettings, EventType } from './types';
-import { MessageBase } from './types/UtilTypes';
+import common_pb_2, {cogmentAPI as Common} from './api/common_pb_2';
+import {ClientActorSPClient} from './api/orchestrator_pb_service';
+import {ActorImplementation} from './Context';
+import {_EndingAck} from './Session';
+import {Trial} from './Trial';
+import {CogSettings, EventType} from './types';
+import {MessageBase} from './types/UtilTypes';
 
 export interface AnyPB {
-
   /** Any type_url */
-  type_url?: (string | null);
+  type_url?: string | null;
 
   /** Any value */
-  value?: (Uint8Array | null);
+  value?: Uint8Array | null;
 }
 
 export class RecvEvent<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-  > {
+> {
   public observation?: ObservationT;
   public actions: ActionT[] = [];
   public rewards: Common.Reward[] = [];
   public messages: (MessageBase | AnyPB)[] = [];
 
-  constructor(public type: EventType) { }
+  constructor(public type: EventType) {}
 }
 
 const _processNormalData = <
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-  >(
-    _data: ActorRunTrialInput,
-    session: ActorSession<ActionT, ObservationT>,
-    cogSettings: CogSettings,
+>(
+  _data: ActorRunTrialInput,
+  session: ActorSession<ActionT, ObservationT>,
+  cogSettings: CogSettings,
 ) => {
   let recvEvent: RecvEvent<ActionT, ObservationT>;
   const data = _data.toObject();
@@ -115,8 +114,7 @@ const _processNormalData = <
       );
     }
 
-
-    let destMessage: (MessageBase | AnyPB) = message.payload;
+    let destMessage: MessageBase | AnyPB = message.payload;
 
     const DestMessageClass =
       cogSettings.messageUrlMap[message.payload.type_url];
@@ -132,7 +130,8 @@ const _processNormalData = <
     );
   else
     throw new Error(
-      `Trial [${session._trial.id}] - Actor [${session.name
+      `Trial [${session._trial.id}] - Actor [${
+        session.name
       }] received unexpected data [${JSON.stringify(data)}]`,
     );
 };
@@ -140,9 +139,9 @@ const _processNormalData = <
 const _processOutgoing = async <
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-  >(
-    dataQueue: AsyncQueue<ActorRunTrialOutput>,
-    session: ActorSession<ActionT, ObservationT>,
+>(
+  dataQueue: AsyncQueue<ActorRunTrialOutput>,
+  session: ActorSession<ActionT, ObservationT>,
 ) => {
   for await (const data of session._retrieveData()) {
     const output = new ActorRunTrialOutput();
@@ -169,11 +168,11 @@ const _processOutgoing = async <
 const _processIncoming = async <
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-  >(
-    replyQueue: AsyncQueue<ActorRunTrialInput>,
-    reqQueue: AsyncQueue<ActorRunTrialOutput>,
-    session: ActorSession<ActionT, ObservationT>,
-    cogSettings: CogSettings,
+>(
+  replyQueue: AsyncQueue<ActorRunTrialInput>,
+  reqQueue: AsyncQueue<ActorRunTrialOutput>,
+  session: ActorSession<ActionT, ObservationT>,
+  cogSettings: CogSettings,
 ) => {
   while (true) {
     const _data = await replyQueue.get();
@@ -216,7 +215,7 @@ const _processIncoming = async <
 export class ClientServicer<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
-  > {
+> {
   private _actorStub: ClientActorSPClient;
   private _requestQueue?: AsyncQueue<ActorRunTrialOutput>;
   private _replyQueue?: AsyncQueue<ActorRunTrialInput>;
@@ -249,7 +248,7 @@ export class ClientServicer<
 
     this.trialId = trialId;
 
-    const metadata = new grpc.Metadata({ 'trial-id': trialId });
+    const metadata = new grpc.Metadata({'trial-id': trialId});
 
     this._replyQueue = streamToQueue(
       this._actorStub.runTrial(metadata),

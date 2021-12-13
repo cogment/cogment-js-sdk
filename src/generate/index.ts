@@ -15,5 +15,5 @@
  *
  */
 
-import { generate } from './commands/generate';
+import {generate} from './commands/generate';
 void generate().catch((e) => console.log(e.message));

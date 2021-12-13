@@ -199,12 +199,11 @@ for await (const trialListEntry of trialController.watchTrials([
    ```shell script
    bin/up.bash
    ```
-   
 2. Run the test suite:
 
-  ```shell script
-  npm run test
-  ```
+```shell script
+npm run test
+```
 
 ### Release process
 
