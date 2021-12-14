@@ -7,6 +7,6 @@ ENV ORCHESTRATOR_URL=http://grpcwebproxy:8080
 WORKDIR /app
 
 COPY . .
-RUN npm install -g npm && npm i
+RUN npm install -g npm@6 && npm i
 
 CMD npm run test:jest
