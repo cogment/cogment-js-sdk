@@ -9,7 +9,6 @@ default:
     - docker
 
 stages:
-  - lint
   - test
   - build
   - publish
@@ -31,22 +30,6 @@ stages:
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
 
-shellcheck:
-  image: koalaman/shellcheck-alpine:stable
-  stage: lint
-  before_script:
-    - shellcheck --version
-  script:
-    - shellcheck ./scripts/*.sh
-
-shfmt:
-  image: mvdan/shfmt:v3.1.0-alpine
-  stage: lint
-  before_script:
-    - shfmt -version
-  script:
-    - shfmt -i 2 -ci -d ./scripts
-
 pre:install:
   stage: .pre
   image: node:14
@@ -59,14 +42,6 @@ pre:install:
     paths:
       - node_modules
       - __tests__/end-to-end/cogment-app/webapp/node_modules
-
-lint_js:
-  image: node:14
-  stage: lint
-  script:
-    - npm install -g npm@6
-    - npm install
-    - npm run lint:ci
 
 test:
   stage: test
