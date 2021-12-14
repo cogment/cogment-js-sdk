@@ -56,7 +56,6 @@
     "size": "npx size-limit",
     "start": "webpack serve",
     "storybook": "npx storybook",
-    "test:ci": "npm-run-all test:{jest,reports}",
     "test:jest": "jest --env=jsdom",
     "test:ui": "npx majestic --noOpen",
     "test:watch": "npm run test:jest -- --watch"
