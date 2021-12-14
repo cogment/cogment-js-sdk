@@ -13,7 +13,6 @@ stages:
   - test
   - build
   - publish
-  - pages
 
 .base_gh_ssh_agent:
   before_script:
@@ -84,19 +83,15 @@ test:
     - docker-compose run cogment-js-sdk
   after_script:
     - docker-compose logs --no-color --tail all > docker.log
-    - mkdir -p public
-    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/src/cogment/api ./src/cogment/api
-    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/public ./public
-    - docker cp $(docker-compose ps -a -q cogment-js-sdk):/app/dist ./dist
+    - mkdir -p dist
+    - docker container cp $(docker-compose ps -a -q cogment-js-sdk):/app/dist ./dist
     - bin/down.bash
   coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
   artifacts:
     expose_as: reports
     expire_in: 1 day
     paths:
-      - src/cogment/api
       - dist
-      - public
       - docker.log
     when: always
 
@@ -130,17 +125,3 @@ publish_branch_to_github:
     - git push --tags downstream ${CI_COMMIT_BRANCH}:${CI_COMMIT_BRANCH}
   only:
     - main
-
-pages:
-  stage: pages
-  variables:
-    NODE_ENV: production
-  before_script:
-    - apk add docker-compose
-  script:
-    - echo "Generating Gitlab pages"
-  artifacts:
-    paths:
-      - public
-  only:
-    - develop

@@ -9,4 +9,4 @@ RUN npm install -g npm@6
 RUN npm i
 RUN npx npm-run-all init:*
 
-CMD npm run test:jest && npm run test:reports
+CMD npm run test:jest
