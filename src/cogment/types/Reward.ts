@@ -15,30 +15,11 @@
  *
  */
 
-import {RewardSource} from '../api/common_pb';
+import { cogmentAPI } from '../api/common_pb_2';
 
+
+type Reward = cogmentAPI.Reward
 /**
  * A reward received from the Cogment framework.
  */
-export interface Reward {
-  /**
-   * Confidence in this reward's value.
-   */
-  confidence: number;
-  /**
-   * The name of the actor receiving the reward.
-   */
-  receiverName: string;
-  /**
-   * Reward sources.
-   */
-  sources: RewardSource;
-  /**
-   * The tick id of this reward.
-   */
-  tickId: number;
-  /**
-   * The value of this reward.
-   */
-  value: number;
-}
+export type { Reward };

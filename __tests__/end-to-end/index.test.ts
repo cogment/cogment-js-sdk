@@ -22,10 +22,10 @@ import {
   MessageBase,
   Reward,
   TrialInfo,
-  TrialState,
+  TrialState
 } from '../../src';
-import {cogSettings} from './cogment-app/webapp/src/CogSettings';
-import {cogment_app as PB} from './cogment-app/webapp/src/data_pb';
+import { cogSettings } from './cogment-app/webapp/src/CogSettings';
+import { cogment_app as PB } from './cogment-app/webapp/src/data_pb';
 
 const sleep = (millis: number) => {
   return new Promise((resolve) => window.setTimeout(resolve, millis));
@@ -43,7 +43,6 @@ describe('a cogment-app', () => {
   let trialId: string;
   let trialInfos: TrialInfo[];
   let trialInfosAfterTermination: TrialInfo[];
-  let watchTrialsResponse: TrialInfo;
 
   test('runs', async () => {
     let trialEndResolve = () => {};
@@ -78,9 +77,11 @@ describe('a cogment-app', () => {
           action.request = 'ping';
           iterations++;
           if (iterations === 50) {
+            console.log("Resolving middle promise");
             trialMiddleResolve();
           }
           if (iterations >= 100) {
+            console.log("Resolving end promise");
             await controller.terminateTrial([actorSession.getTrialId()], false);
           }
 
@@ -108,20 +109,23 @@ describe('a cogment-app', () => {
       cogSettings,
       'test_client',
     );
+    console.log("registering actor");
     context.registerActor(pingActor, 'client_actor', 'client');
 
+    console.log("getting controller");
     const controller = context.getController(ORCHESTRATOR_URL);
+    console.log("starting trial");
     trialId = await controller.startTrial();
 
+    console.log("joining trial");
     await context.joinTrial(trialId, ORCHESTRATOR_URL, 'client_actor');
 
+    console.log("waiting for middle promise");
     await trialMiddlePromise;
-    for await (let response of controller.watchTrials()) {
-      watchTrialsResponse = response;
-      trialInfos = await controller.getTrialInfo([response.trialId]);
-      break;
-    }
+    trialInfos = await controller.getTrialInfo([trialId]);
+    console.log("waiting for end promise");
     await trialEndPromise;
+    console.log("getting trial infos after termination");
     trialInfosAfterTermination = await controller.getTrialInfo([trialId]);
     return;
   });
@@ -138,21 +142,21 @@ describe('a cogment-app', () => {
     expect(observations[2].response).toBe('pingfoo');
   });
 
-  test('WatchTrials gives the running trial', async () => {
-    expect(watchTrialsResponse.trialId).toBe(trialId);
-    expect(watchTrialsResponse.state).toBe(TrialState.RUNNING);
-  });
-
   test('TrialInfo is correct', async () => {
     expect(trialInfos.length).toBe(1);
-    expect(trialInfos[0].trialId).toBe(trialId);
-    expect(trialInfos[0].state).toBe(TrialState.RUNNING);
-    expect(trialInfos[0].tickId).toBeGreaterThanOrEqual(49);
+    const thisTrial = trialInfos.find((trial) => trial.trialId === trialId);
+    expect(thisTrial).toBeDefined();
+    if(!thisTrial) return;
+    expect(thisTrial.trialId).toBe(trialId);
+    expect(thisTrial.state).toBe(TrialState.RUNNING);
+    expect(thisTrial.tickId).toBeGreaterThanOrEqual(49);
   });
 
   test('Trial Termintates', async () => {
     const noTrials = trialInfosAfterTermination.length === 0;
-    const ended = trialInfosAfterTermination[0]?.state === TrialState.ENDED;
+
+    const thisTrial = trialInfosAfterTermination.find((trial) => trial.trialId === trialId);
+    const ended = thisTrial?.state === TrialState.ENDED;
     expect(noTrials || ended).toBe(true);
   });
 });

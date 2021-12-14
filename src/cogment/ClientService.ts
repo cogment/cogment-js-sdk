@@ -1,11 +1,11 @@
-import {grpc} from '@improbable-eng/grpc-web';
+import { grpc } from '@improbable-eng/grpc-web';
 import {
   AsyncQueue,
   base64ToUint8Array,
   staticCastFromGoogle,
-  streamToQueue,
+  streamToQueue
 } from '../lib/Utils';
-import {ActorSession} from './Actor';
+import { ActorSession } from './Actor';
 import {
   Action,
   ActorInitialInput,
@@ -14,15 +14,15 @@ import {
   ActorRunTrialOutput,
   CommunicationState,
   Message,
-  Reward,
+  Reward
 } from './api/common_pb';
-import common_pb_2, {cogmentAPI as Common} from './api/common_pb_2';
-import {ClientActorSPClient} from './api/orchestrator_pb_service';
-import {ActorImplementation} from './Context';
-import {_EndingAck} from './Session';
-import {Trial} from './Trial';
-import {CogSettings, EventType} from './types';
-import {MessageBase} from './types/UtilTypes';
+import common_pb_2, { cogmentAPI as Common } from './api/common_pb_2';
+import { ClientActorSPClient } from './api/orchestrator_pb_service';
+import { ActorImplementation } from './Context';
+import { _EndingAck } from './Session';
+import { Trial } from './Trial';
+import { CogSettings, EventType } from './types';
+import { MessageBase } from './types/UtilTypes';
 
 export interface AnyPB {
   /** Any type_url */
