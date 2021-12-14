@@ -1,12 +1,12 @@
-import {grpc} from '@improbable-eng/grpc-web';
-import {Message} from 'google-protobuf';
-import {base64ToUint8Array} from '../lib/Utils';
-import {ActorSession} from './Actor';
-import {TrialLifecycleSPClient} from './api/orchestrator_pb_service';
-import {ClientServicer} from './ClientService';
-import {Controller} from './Control';
-import {CogSettings, TrialActor} from './types';
-import {MessageBase} from './types/UtilTypes';
+import { grpc } from '@improbable-eng/grpc-web';
+import { Message } from 'google-protobuf';
+import { base64ToUint8Array } from '../lib/Utils';
+import { ActorSession } from './Actor';
+import { TrialLifecycleSPClient } from './api/orchestrator_pb_service';
+import { ClientServicer } from './ClientService';
+import { Controller } from './Control';
+import { CogSettings, TrialActor } from './types';
+import { MessageBase } from './types/UtilTypes';
 
 Message.bytesAsU8 = function (value) {
   if (typeof value === 'string') {
@@ -46,6 +46,7 @@ export class Context<
     string,
     [TrialActor, ActorImplementation<ActionT, ObservationT>]
   > = {};
+  private controller?: Controller;
   constructor(
     private cogSettings: CogSettings,
     private _userId = 'client',
@@ -78,9 +79,15 @@ export class Context<
     });
   }
 
-  getController = (endpoint: string) => {
-    const stub = this._getControlStub(endpoint);
-    return new Controller(this.cogSettings, stub, this._userId);
+  getController = (endpoint?: string) => {
+    if(!this.controller) {
+      if(!endpoint) {
+        throw new Error('No endpoint provided and Controller was not initialized');
+      }
+      const stub = this._getControlStub(endpoint);
+      this.controller = new Controller(this.cogSettings, stub, this._userId);
+    }
+    return this.controller as Controller;
   };
 
   joinTrial = async (trialId: string, endpoint: string, actorName: string) => {

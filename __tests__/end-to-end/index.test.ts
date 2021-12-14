@@ -18,6 +18,7 @@ import {
   ActorSession,
   AnyPB,
   Context,
+  Controller,
   EventType,
   MessageBase,
   Reward,
@@ -43,98 +44,113 @@ describe('a cogment-app', () => {
   let trialId: string;
   let trialInfos: TrialInfo[];
   let trialInfosAfterTermination: TrialInfo[];
+  
 
-  test('runs', async () => {
-    let trialEndResolve = () => {};
-    const trialEndPromise = new Promise<void>((_resolve) => {
-      trialEndResolve = _resolve;
-    });
-    let trialMiddleResolve = () => {};
-    const trialMiddlePromise = new Promise<void>((_resolve) => {
-      trialMiddleResolve = _resolve;
-    });
+  
+  let trialMiddleResolve = () => { };
+  const trialMiddlePromise = new Promise<void>((_resolve) => {
+    trialMiddleResolve = _resolve;
+  });
+  let trialEndResolve = () => { };
+  const trialEndPromise = new Promise<void>((_resolve) => {
+    trialEndResolve = _resolve;
+  });
+  let trialTerminateResolve = () => { };
+  const trialTerminatePromise = new Promise<void>((_resolve) => {
+    trialTerminateResolve = _resolve;
+  });
 
-    const pingActor = async (
-      actorSession: ActorSession<PB.ClientAction, PB.Observation>,
-    ) => {
-      actorSession.start();
+  const pingActor = async (
+    actorSession: ActorSession<PB.ClientAction, PB.Observation>,
+  ) => {
+    actorSession.start();
 
-      let iterations = 0;
+    let iterations = 0;
 
-      const action = new PB.ClientAction();
-      action.request = 'ping';
-      actorSession.doAction(action);
+    const action = new PB.ClientAction();
+    action.request = 'ping';
+    actorSession.doAction(action);
 
-      for await (const {
-        observation,
-        messages,
-        rewards,
-        type,
-      } of actorSession.eventLoop()) {
-        if (observation) {
-          observations.push(observation);
-          const action = new PB.ClientAction();
-          action.request = 'ping';
-          iterations++;
-          if (iterations === 50) {
-            console.log("Resolving middle promise");
-            trialMiddleResolve();
-          }
-          if (iterations >= 100) {
-            console.log("Resolving end promise");
-            await controller.terminateTrial([actorSession.getTrialId()], false);
-          }
-
-          const message = new PB.Message();
-          message.request = 'foo';
-          if (type !== EventType.ENDING && type !== EventType.FINAL) {
-            actorSession.sendMessage(message, ['echo_echo_1']);
-            actorSession.doAction(action);
-          }
+    for await (const {
+      observation,
+      messages,
+      rewards,
+      type,
+    } of actorSession.eventLoop()) {
+      if (observation) {
+        observations.push(observation);
+        const action = new PB.ClientAction();
+        action.request = 'ping';
+        iterations++;
+        if (iterations === 10) {
+          console.log("Resolving middle promise");
+          trialMiddleResolve();
         }
-        if (messages.length) {
-          messages.forEach((message) => {
-            messagesList.push(message);
-          });
+        if (iterations === 20) {
+          console.log("Resolving end promise");
+          trialEndResolve();
         }
 
-        if (rewards.length) {
-          rewardsList.push(...rewards);
+        const message = new PB.Message();
+        message.request = 'foo';
+        if (type !== EventType.ENDING && type !== EventType.FINAL) {
+          actorSession.sendMessage(message, ['echo_echo_1']);
+          actorSession.doAction(action);
         }
       }
-      trialEndResolve();
-    };
+      if (messages.length) {
+        messages.forEach((message) => {
+          messagesList.push(message);
+        });
+      }
 
-    const context = new Context<PB.ClientAction, PB.Observation>(
+      if (rewards.length) {
+        rewardsList.push(...rewards);
+      }
+    }
+    trialTerminateResolve();
+  };
+
+  let context: Context<PB.ClientAction, PB.Observation>;
+  test('actor registers', async () => {
+    context = new Context<PB.ClientAction, PB.Observation>(
       cogSettings,
       'test_client',
     );
-    console.log("registering actor");
     context.registerActor(pingActor, 'client_actor', 'client');
+  })
 
-    console.log("getting controller");
-    const controller = context.getController(ORCHESTRATOR_URL);
-    console.log("starting trial");
+  let controller: Controller;
+  test('gets controller', async () => {
+    controller = context.getController(ORCHESTRATOR_URL);
+  })
+  test('starts trial', async () => {
     trialId = await controller.startTrial();
 
-    console.log("joining trial");
+  });
+  test('joins trial', async () => {
     await context.joinTrial(trialId, ORCHESTRATOR_URL, 'client_actor');
-
-    console.log("waiting for middle promise");
+  });
+  test('gets trial info', async () => {
     await trialMiddlePromise;
     trialInfos = await controller.getTrialInfo([trialId]);
-    console.log("waiting for end promise");
-    await trialEndPromise;
-    console.log("getting trial infos after termination");
-    trialInfosAfterTermination = await controller.getTrialInfo([trialId]);
-    return;
   });
 
-  test('Receives observations', async () => {
+  test('Trial terminates', async () => {
+    await trialEndPromise;
+    await controller.terminateTrial([trialId], false);
+  })
+
+  test('gets trial info after termination', async () => {
+    await trialTerminatePromise;
+    trialInfosAfterTermination = await controller.getTrialInfo([trialId]);
+  });
+
+  test('Received observations', async () => {
     expect(observations).not.toHaveLength(0);
   });
 
-  test('Receives messages', async () => {
+  test('Received messages', async () => {
     expect(messagesList).not.toHaveLength(0);
   });
 
@@ -146,17 +162,22 @@ describe('a cogment-app', () => {
     expect(trialInfos.length).toBe(1);
     const thisTrial = trialInfos.find((trial) => trial.trialId === trialId);
     expect(thisTrial).toBeDefined();
-    if(!thisTrial) return;
+    if (!thisTrial) return;
     expect(thisTrial.trialId).toBe(trialId);
     expect(thisTrial.state).toBe(TrialState.RUNNING);
-    expect(thisTrial.tickId).toBeGreaterThanOrEqual(49);
+    expect(thisTrial.tickId).toBeGreaterThanOrEqual(9);
   });
 
-  test('Trial Termintates', async () => {
+  
+
+  test('Trial termination was correct', async () => {
+    
     const noTrials = trialInfosAfterTermination.length === 0;
 
     const thisTrial = trialInfosAfterTermination.find((trial) => trial.trialId === trialId);
     const ended = thisTrial?.state === TrialState.ENDED;
+
+    console.log(trialInfosAfterTermination, noTrials, thisTrial)
     expect(noTrials || ended).toBe(true);
   });
 });

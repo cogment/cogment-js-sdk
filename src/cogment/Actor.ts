@@ -1,9 +1,9 @@
-import {Action} from './api/common_pb';
-import {ActorImplementation} from './Context';
-import {Session} from './Session';
-import {Trial} from './Trial';
-import {CogSettingsActorClass} from './types';
-import {MessageBase} from './types/UtilTypes';
+import { Action } from './api/common_pb';
+import { ActorImplementation } from './Context';
+import { Session } from './Session';
+import { Trial } from './Trial';
+import { CogSettingsActorClass } from './types';
+import { MessageBase } from './types/UtilTypes';
 
 export class ActorSession<
   ActionT extends MessageBase,
