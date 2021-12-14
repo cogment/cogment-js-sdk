@@ -75,7 +75,7 @@ test:
     COMPOSE_FILE: docker-compose.yaml
   before_script:
     - apk add bash docker-compose
-    - docker system prune -af --volumes
+    - docker container kill $(docker ps -q) && docker container rm $(docker ps -a -q)
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - docker-compose build cogment-js-sdk
     - bin/up.bash

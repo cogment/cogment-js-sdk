@@ -22,10 +22,10 @@ import {
   MessageBase,
   Reward,
   TrialInfo,
-  TrialState,
+  TrialState
 } from '../../src';
-import {cogSettings} from './cogment-app/webapp/src/CogSettings';
-import {cogment_app as PB} from './cogment-app/webapp/src/data_pb';
+import { cogSettings } from './cogment-app/webapp/src/CogSettings';
+import { cogment_app as PB } from './cogment-app/webapp/src/data_pb';
 
 const sleep = (millis: number) => {
   return new Promise((resolve) => window.setTimeout(resolve, millis));
