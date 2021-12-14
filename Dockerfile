@@ -1,6 +1,6 @@
 FROM nikolaik/python-nodejs AS dev
 
-ENV ORCHESTRATOR_URL=http://grpcwebproxy:8080
+ENV ORCHESTRATOR_URL=http://grpcwebproxy:8081
 
 WORKDIR /app
 

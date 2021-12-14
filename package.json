@@ -24,7 +24,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "npx cross-env ORCHESTRATOR_URL=http://localhost:8080 npm run test:jest",
+    "test": "npx cross-env ORCHESTRATOR_URL=http://localhost:8081 npm run test:jest",
     "analyze": "npx size-limit --why",
     "build": "npm-run-all build:protos build:webpack build:tsc",
     "build:install": "npm install",
