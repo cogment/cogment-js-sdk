@@ -1,6 +1,6 @@
-import {grpc} from '@improbable-eng/grpc-web';
-import {Message, Message as MessageGrpc} from 'google-protobuf';
-import {MessageBase, MessageClass} from '../cogment/types/UtilTypes';
+import { grpc } from '@improbable-eng/grpc-web';
+import { Message, Message as MessageGrpc } from 'google-protobuf';
+import { MessageBase, MessageClass } from '../cogment/types/UtilTypes';
 
 export type Status = {details: string; code: number; metadata: grpc.Metadata};
 
@@ -138,49 +138,49 @@ export const streamToQueue = <S extends Message, T extends Message>(
     }
   };
   generator();
-
+ 
   return queue;
 };
 
 export class AsyncQueue<T> {
-  private _data: T[] = [];
-  private _nextDataResolve: (going: boolean) => void = () => {};
-  private _nextDataPromise: Promise<boolean>;
+  private data: T[] = [];
+  private nextDataResolve: (going: boolean) => void = () => {};
+  private nextDataPromise: Promise<boolean>;
   constructor() {
-    this._nextDataPromise = new Promise<boolean>(
-      (resolve) => (this._nextDataResolve = resolve),
+     this.nextDataPromise = new Promise<boolean>(
+      (resolve) => ( this.nextDataResolve = resolve),
     );
   }
 
   public put = (newData: T) => {
-    this._data.push(newData);
-    if (this._nextDataResolve) {
-      this._nextDataResolve(true);
+     this.data.push(newData);
+    if ( this.nextDataResolve) {
+       this.nextDataResolve(true);
     }
 
-    this._nextDataPromise = new Promise(
-      (resolve) => (this._nextDataResolve = resolve),
+     this.nextDataPromise = new Promise(
+      (resolve) => ( this.nextDataResolve = resolve),
     );
   };
 
   public get = async () => {
-    if (this._data.length) {
-      return this._data.shift();
+    if ( this.data.length) {
+      return  this.data.shift();
     }
 
-    const doContinue = await this._nextDataPromise;
+    const doContinue = await  this.nextDataPromise;
     if (!doContinue) {
       return;
     }
-    if (!this._data.length) {
+    if (! this.data.length) {
       return;
     }
 
-    return this._data.shift();
+    return  this.data.shift();
   };
 
   public end = () => {
-    this._nextDataResolve(false);
+     this.nextDataResolve(false);
   };
 }
 

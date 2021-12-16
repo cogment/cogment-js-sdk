@@ -13,22 +13,22 @@ export class ActorSession<
 
   constructor(
     impl: ActorImplementation<ActionT, ObservationT>,
-    public _actorClass: CogSettingsActorClass,
+    public actorClass: CogSettingsActorClass,
     trial: Trial,
     name: string,
     public envName: string,
     public config?: MessageBase,
   ) {
     super(trial, name, impl, config);
-    this.className = _actorClass.name;
+    this.className = actorClass.name;
   }
 
   public start = (autoDoneSending = true) => {
-    this._start(autoDoneSending);
+     this.start(autoDoneSending);
   };
 
-  public _run = async () => {
-    await this._impl(this);
+  public run = async () => {
+    await  this.impl(this);
   };
 
   public doAction = (action?: ActionT) => {
@@ -37,13 +37,13 @@ export class ActorSession<
     actionReq.setTickId(-1);
     if (action)
       actionReq.setContent(
-        this._actorClass.actionSpace.encode(action).finish(),
+         this.actorClass.actionSpace.encode(action).finish(),
       );
 
-    this._postData(actionReq);
+     this.postData(actionReq);
   };
 
   public sendMessage(payload: MessageBase, to: string[]) {
-    this._sendMessage(payload, to);
+     this.sendMessage(payload, to);
   }
 }

@@ -49,10 +49,10 @@ export class Context<
   private controller?: Controller;
   constructor(
     private cogSettings: CogSettings,
-    private _userId = 'client',
-    private _transportType = TransportType.WEBSOCKET,
+    private userId = 'client',
+    private transportType = TransportType.WEBSOCKET,
   ) {
-    grpc.setDefaultTransport(getTransportFactory(this._transportType));
+    grpc.setDefaultTransport(getTransportFactory( this.transportType));
   }
 
   public registerActor = (
@@ -69,12 +69,12 @@ export class Context<
     this.actors[actorName] = [{name: actorName, actorClass}, actorImpl];
   };
 
-  _getControlStub(endpoint: string) {
+  getControlStub(endpoint: string) {
     return new TrialLifecycleSPClient(endpoint, {
       transport: getTransportFactory(
-        this._transportType === TransportType.WEBSOCKET
+         this.transportType === TransportType.WEBSOCKET
           ? TransportType.HTTP
-          : this._transportType,
+          :  this.transportType,
       ),
     });
   }
@@ -84,8 +84,8 @@ export class Context<
       if(!endpoint) {
         throw new Error('No endpoint provided and Controller was not initialized');
       }
-      const stub = this._getControlStub(endpoint);
-      this.controller = new Controller(this.cogSettings, stub, this._userId);
+      const stub =  this.getControlStub(endpoint);
+      this.controller = new Controller(this.cogSettings, stub,  this.userId);
     }
     return this.controller as Controller;
   };

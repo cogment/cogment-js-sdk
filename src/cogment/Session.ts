@@ -21,157 +21,157 @@ export class Session<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
 > {
-  private _eventQueue = new AsyncQueue<RecvEvent<ActionT, ObservationT>>();
-  private _started = false;
-  private _lastEventDelivered = false;
-  private _dataQueue = new AsyncQueue<
+  private eventQueue = new AsyncQueue<RecvEvent<ActionT, ObservationT>>();
+  private started = false;
+  private lastEventDelivered = false;
+  private dataQueue = new AsyncQueue<
     ActorRunTrialOutput | Ending | EndingAck | GoogleMessage
   >();
-  public _autoAck = true;
-  private _activeActors: TrialActor[] = [];
+  public autoAck = true;
+  private activeActors: TrialActor[] = [];
 
   constructor(
-    public _trial: Trial,
+    public trial: Trial,
     public name: string,
-    protected _impl: ActorImplementation<ActionT, ObservationT>,
+    protected impl: ActorImplementation<ActionT, ObservationT>,
     public config?: MessageBase,
   ) {
-    this._activeActors = _trial.actors.map((actor) => ({
+     this.activeActors = trial.actors.map((actor) => ({
       name: actor.name,
       actorClass: actor.actorClass.name,
     }));
   }
 
-  protected _start = (autoDoneSending: boolean) => {
-    if (this._started)
+  protected start = (autoDoneSending: boolean) => {
+    if ( this.started)
       throw new Error('Cannot start [${this.name}] more than once.');
-    if (this._trial.ended)
+    if ( this.trial.ended)
       throw new Error(
         'Cannot start [${this.name}] because the trial has ended.',
       );
 
-    this._autoAck = autoDoneSending;
-    this._started = true;
+     this.autoAck = autoDoneSending;
+     this.started = true;
   };
 
-  public _newEvent = (event: RecvEvent<ActionT, ObservationT>) => {
-    if (!this._started) {
+  public newEvent = (event: RecvEvent<ActionT, ObservationT>) => {
+    if (! this.started) {
       console.warn(
         `[${this.name}] received an event before session was started.`,
       );
       return;
     }
-    if (this._trial.ended) {
+    if ( this.trial.ended) {
       console.warn(`Event received after trial is over: [${event}]`);
       return;
     }
     if (!event)
       console.warn(
-        `Trial [${this._trial.id}] - Session for [${this.name}]: New event is undefined`,
+        `Trial [${ this.trial.id}] - Session for [${this.name}]: New event is undefined`,
       );
 
-    this._eventQueue.put(event);
+     this.eventQueue.put(event);
   };
-  public _postData = (data: GoogleMessage | Ending | EndingAck) => {
-    if (!this._started) {
+  public postData = (data: GoogleMessage | Ending | EndingAck) => {
+    if (! this.started) {
       console.warn(
-        `Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send until session is started.`,
+        `Trial [${ this.trial.id}] - Session for [${this.name}]: Cannot send until session is started.`,
       );
       return;
     }
-    if (this._trial.endingAck) {
+    if ( this.trial.endingAck) {
       console.warn(
-        `Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send after acknowledging ending`,
+        `Trial [${ this.trial.id}] - Session for [${this.name}]: Cannot send after acknowledging ending`,
       );
       return;
     }
 
     if (!data) {
       throw new Error(
-        'Trial [${this._trial.id}] - Session for [${this.name}]: Data posted is `None`',
+        'Trial [${ this.trial.id}] - Session for [${this.name}]: Data posted is `None`',
       );
     }
 
-    if (data instanceof Ending) this._trial.ending = true;
-    else if (data instanceof EndingAck) this._trial.endingAck = true;
+    if (data instanceof Ending)  this.trial.ending = true;
+    else if (data instanceof EndingAck)  this.trial.endingAck = true;
 
-    this._dataQueue.put(data);
+     this.dataQueue.put(data);
   };
-  public async *_retrieveData() {
+  public async *retrieveData() {
     while (true) {
-      const data = await this._dataQueue.get();
+      const data = await  this.dataQueue.get();
       if (!data) break;
       yield data;
     }
   }
 
   public sendingDone = () => {
-    if (this._autoAck)
+    if ( this.autoAck)
       throw new Error('Cannot manually end sending as it is set to automatic');
-    else if (!this._trial.ending)
+    else if (! this.trial.ending)
       throw new Error('Cannot stop sending before trial is ready to end');
-    else if (this._trial.ended)
+    else if ( this.trial.ended)
       console.warn(
-        `Trial [${this._trial.id}] - Session [${this.name}] end sending ignored because the trial has already ended.`,
+        `Trial [${ this.trial.id}] - Session [${this.name}] end sending ignored because the trial has already ended.`,
       );
-    else if (this._trial.endingAck)
+    else if ( this.trial.endingAck)
       console.warn(
-        `Trial [${this._trial.id}] - Session [${this.name}] cannot end sending more than once`,
+        `Trial [${ this.trial.id}] - Session [${this.name}] cannot end sending more than once`,
       );
-    else this._postData(new EndingAck());
+    else  this.postData(new EndingAck());
   };
   public async *eventLoop() {
-    if (!this._started) {
+    if (! this.started) {
       console.warn(
         `Event loop is not enabled until the [${this.name}] is started.`,
       );
       return;
     }
-    if (this._trial.ended) {
+    if ( this.trial.ended) {
       console.warn(
         `No more events for [${this.name}] because the trial has ended.`,
       );
       return;
     }
-    const loopActive = !this._lastEventDelivered;
+    const loopActive = ! this.lastEventDelivered;
     while (loopActive) {
-      const event = await this._eventQueue.get();
+      const event = await  this.eventQueue.get();
       if (!event) {
-        this._lastEventDelivered = true;
+         this.lastEventDelivered = true;
         break;
       }
 
-      this._lastEventDelivered = event.type == EventType.FINAL;
+       this.lastEventDelivered = event.type == EventType.FINAL;
       yield event;
     }
   }
 
   public getTrialId = () => {
-    return this._trial.id;
+    return  this.trial.id;
   };
 
   public getTickId = () => {
-    return this._trial.tickId;
+    return  this.trial.tickId;
   };
   public isTrialOver = () => {
-    return this._trial.ended;
+    return  this.trial.ended;
   };
 
-  public _exitQueues = () => {
-    this._eventQueue.end();
-    this._dataQueue.end();
+  public exitQueues = () => {
+     this.eventQueue.end();
+     this.dataQueue.end();
   };
 
-  protected _sendMessage(payload: MessageBase, to: string[]) {
-    if (!this._started) {
+  protected sendMessage(payload: MessageBase, to: string[]) {
+    if (! this.started) {
       console.warn(
-        `Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message until session is started.`,
+        `Trial [${ this.trial.id}] - Session for [${this.name}]: Cannot send message until session is started.`,
       );
       return;
     }
-    if (this._trial.endingAck) {
+    if ( this.trial.endingAck) {
       console.warn(
-        `Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send message after acknowledging ending.`,
+        `Trial [${ this.trial.id}] - Session for [${this.name}]: Cannot send message after acknowledging ending.`,
       );
       return;
     }
@@ -199,7 +199,7 @@ export class Session<
       const binary = cogmentAPI.Message.encode(message).finish();
       const cogMessage = CogmentMessage.deserializeBinary(binary);
 
-      this._postData(cogMessage);
+       this.postData(cogMessage);
     });
   }
 }

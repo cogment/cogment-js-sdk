@@ -57,21 +57,21 @@ const processNormalData = <
 ) => {
   let recvEvent: RecvEvent<ActionT, ObservationT>;
   const data = rawData.toObject();
-  if (session._trial.ending) recvEvent = new RecvEvent(EventType.ENDING);
+  if (session.trial.ending) recvEvent = new RecvEvent(EventType.ENDING);
   else recvEvent = new RecvEvent(EventType.ACTIVE);
 
   if (data.observation) {
-    if (session._trial.ending && session._autoAck)
-      session._postData(new EndingAck());
+    if (session.trial.ending && session.autoAck)
+      session.postData(new EndingAck());
 
-    session._trial.tickId = data.observation.tickId;
+    session.trial.tickId = data.observation.tickId;
 
-    const obsSpace = session._actorClass.observationSpace;
+    const obsSpace = session.actorClass.observationSpace;
 
     const observation = obsSpace.decode(asUint8Array(data.observation.content));
 
     recvEvent.observation = observation as ObservationT;
-    session._newEvent(recvEvent);
+    session.newEvent(recvEvent);
     
   } else if (data.reward) {
     const rawReward = rawData.getReward();
@@ -82,7 +82,7 @@ const processNormalData = <
       common_pb_2.cogmentAPI.Reward,
     );
     recvEvent.rewards = [reward];
-    session._newEvent(recvEvent);
+    session.newEvent(recvEvent);
   } else if (data.message) {
     const rawMessage = rawData.getMessage();
     if (!rawMessage)
@@ -119,14 +119,14 @@ const processNormalData = <
     }
 
     recvEvent.messages = [destMessage];
-    session._newEvent(recvEvent);
+    session.newEvent(recvEvent);
   } else if (data.details)
     console.warn(
-      `Trial [${session._trial.id}] - Actor [${session.name}] received unexpected detail data [${data.details}]`,
+      `Trial [${session.trial.id}] - Actor [${session.name}] received unexpected detail data [${data.details}]`,
     );
   else
     throw new Error(
-      `Trial [${session._trial.id}] - Actor [${
+      `Trial [${session.trial.id}] - Actor [${
         session.name
       }] received unexpected data [${JSON.stringify(data)}]`,
     );
@@ -139,7 +139,7 @@ const processOutgoing = async <
   dataQueue: AsyncQueue<ActorRunTrialOutput>,
   session: ActorSession<ActionT, ObservationT>,
 ) => {
-  for await (const data of session._retrieveData()) {
+  for await (const data of session.retrieveData()) {
     const output = new ActorRunTrialOutput();
     output.setState(CommunicationState.NORMAL);
 
@@ -152,7 +152,7 @@ const processOutgoing = async <
       break;
     } else {
       console.warn(
-        `Trial [${session._trial.id}] - Actor [{session.name}]: Unknown data type to send [{type(data)}]`,
+        `Trial [${session.trial.id}] - Actor [{session.name}]: Unknown data type to send [{type(data)}]`,
       );
       continue;
     }
@@ -183,27 +183,27 @@ const processIncoming = async <
       reply.setState(data.state);
       reqQueue.put(reply);
     } else if (data.state === CommunicationState.LAST)
-      session._trial.ending = true;
+      session.trial.ending = true;
     else if (data.state === CommunicationState.LAST_ACK)
       throw new Error(
-        `Trial [${session._trial.id}] - Actor [${session.name}] received an unexpected 'LAST_ACK'`,
+        `Trial [${session.trial.id}] - Actor [${session.name}] received an unexpected 'LAST_ACK'`,
       );
     else if (data.state === CommunicationState.END) {
-      if (session._trial.ending) {
-        session._newEvent(new RecvEvent(EventType.FINAL));
+      if (session.trial.ending) {
+        session.newEvent(new RecvEvent(EventType.FINAL));
       } else {
         let details = '';
         if (data.details) details = data.details;
         console.warn(
-          `Trial [${session._trial.id}] - Actor [${session.name}]: Trial ended forcefully [${details}]`,
+          `Trial [${session.trial.id}] - Actor [${session.name}]: Trial ended forcefully [${details}]`,
         );
       }
-      session._trial.ended = true;
-      session._exitQueues();
+      session.trial.ended = true;
+      session.exitQueues();
       break;
     } else
       throw new Error(
-        `Trial [${session._trial.id}] - Actor [${session.name}] received an invalid state [${data.state}]`,
+        `Trial [${session.trial.id}] - Actor [${session.name}] received an invalid state [${data.state}]`,
       );
   }
 };
@@ -212,18 +212,18 @@ export class ClientServicer<
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
 > {
-  private _actorStub: ClientActorSPClient;
-  private _requestQueue?: AsyncQueue<ActorRunTrialOutput>;
-  private _replyQueue?: AsyncQueue<ActorRunTrialInput>;
+  private actorStub: ClientActorSPClient;
+  private requestQueue?: AsyncQueue<ActorRunTrialOutput>;
+  private replyQueue?: AsyncQueue<ActorRunTrialInput>;
 
   public trialId?: string;
 
   constructor(private cogSettings: CogSettings, endpoint: string) {
-    this._actorStub = new ClientActorSPClient(endpoint);
+     this.actorStub = new ClientActorSPClient(endpoint);
   }
 
   join = async (trialId: string, actorName?: string, actorClass?: string) => {
-    if (this._requestQueue)
+    if ( this.requestQueue)
       throw new Error('ClientServicer has already joined');
 
     const req = new ActorRunTrialOutput();
@@ -239,19 +239,19 @@ export class ClientServicer<
 
     req.setInitOutput(init);
 
-    this._requestQueue = new AsyncQueue<ActorRunTrialOutput>();
-    this._requestQueue.put(req);
+     this.requestQueue = new AsyncQueue<ActorRunTrialOutput>();
+     this.requestQueue.put(req);
 
     this.trialId = trialId;
 
     const metadata = new grpc.Metadata({'trial-id': trialId});
 
-    this._replyQueue = streamToQueue(
-      this._actorStub.runTrial(metadata),
-      this._requestQueue,
+     this.replyQueue = streamToQueue(
+       this.actorStub.runTrial(metadata),
+       this.requestQueue,
     );
 
-    const replyMessage = await this._replyQueue.get();
+    const replyMessage = await  this.replyQueue.get();
     if (!replyMessage)
       throw new Error(
         'reply message is null, Orchestrator returned an empty reply whe joining',
@@ -270,12 +270,12 @@ export class ClientServicer<
     } else if (reply.state === CommunicationState.HEARTBEAT) {
       const newReply = new ActorRunTrialOutput();
       newReply.setState(reply.state);
-      this._requestQueue.put(newReply);
+       this.requestQueue.put(newReply);
     } else if (reply.state === CommunicationState.LAST) {
       console.warn(`Trial [${trialId}] - Received 'LAST' state while joining`);
       const newReply = new ActorRunTrialOutput();
       newReply.setState(CommunicationState.LAST_ACK);
-      this._requestQueue.put(newReply);
+       this.requestQueue.put(newReply);
     } else if (reply.state === CommunicationState.LAST_ACK)
       throw new Error(
         `Trial [${trialId}] - Received an unexpected 'LAST_ACK' while joining`,
@@ -298,7 +298,7 @@ export class ClientServicer<
     impl: ActorImplementation<ActionT, ObservationT>,
     initData: ActorInitialInput.AsObject,
   ) => {
-    if (!this._requestQueue || !this.trialId || !this._replyQueue)
+    if (! this.requestQueue || !this.trialId || ! this.replyQueue)
       throw new Error('ClientServicer has not joined');
 
     const trial = new Trial(this.trialId, [], this.cogSettings);
@@ -324,13 +324,13 @@ export class ClientServicer<
       config,
     );
 
-    processOutgoing(this._requestQueue, session);
+    processOutgoing( this.requestQueue, session);
     processIncoming(
-      this._replyQueue,
-      this._requestQueue,
+       this.replyQueue,
+       this.requestQueue,
       session,
       this.cogSettings,
     );
-    session._run();
+    session.run();
   };
 }

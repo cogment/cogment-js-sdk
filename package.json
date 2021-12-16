@@ -29,7 +29,7 @@
     "build": "npm-run-all build:protos build:webpack build:tsc",
     "build:install": "npm install",
     "build:protos": "npm-run-all build:protos:fetch build:protos:compile",
-    "build:protos:compile": "node scripts/protos.js --outDirectory src/cogment/api --protoFiles cogment/api/*.proto",
+    "build:protos:compile": "node scripts/protos.js --outDirectory src/cogment/api --protoFiles=\"cogment/api/*.proto\"",
     "build:protos:fetch": "node scripts/fetch_protos.js",
     "build:webpack": "webpack",
     "build:webpack:watch": "npm run build:webpack -- --watch",

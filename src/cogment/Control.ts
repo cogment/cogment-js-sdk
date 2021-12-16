@@ -34,8 +34,8 @@ export class TrialInfo {
 
 export class Controller {
   constructor(
-    private _cogSettings: CogSettings,
-    private _lifecycleStub: TrialLifecycleSPClient,
+    private cogSettings: CogSettings,
+    private lifecycleStub: TrialLifecycleSPClient,
     public userId: string,
   ) {}
 
@@ -45,7 +45,7 @@ export class Controller {
     const metadata = new BrowserHeaders({'trial-id': trialId});
 
     return new Promise((resolve, reject) => {
-      this._lifecycleStub.getTrialInfo(req, metadata, (err, rawRep) => {
+       this.lifecycleStub.getTrialInfo(req, metadata, (err, rawRep) => {
         if (err) {
           reject(err);
         } else {
@@ -70,14 +70,14 @@ export class Controller {
     if (trialConfig) {
       const config = new TrialConfig();
       config.setContent(
-        this._cogSettings.trial.config.encode(trialConfig).finish(),
+         this.cogSettings.trial.config.encode(trialConfig).finish(),
       );
       req.setConfig(config);
     }
     if (trialIdRequested) req.setTrialIdRequested(trialIdRequested);
 
     return new Promise<string>((resolve, reject) => {
-      this._lifecycleStub.startTrial(req, (err, rawRep) => {
+       this.lifecycleStub.startTrial(req, (err, rawRep) => {
         if (err) {
           reject(err);
         } else {
@@ -99,7 +99,7 @@ export class Controller {
 
     const trialIdMetadata = new BrowserHeaders({'trial-id': trialIds});
     return new Promise<boolean>((resolve, reject) => {
-      this._lifecycleStub.terminateTrial(req, trialIdMetadata, (err, rawRep) => {
+       this.lifecycleStub.terminateTrial(req, trialIdMetadata, (err, rawRep) => {
         if (err) {
           reject(err);
         } else {
@@ -119,7 +119,7 @@ export class Controller {
     const req = new TrialInfoRequest();
     const trialIdMetadata = new BrowserHeaders({'trial-id': trialIds});
     return new Promise<TrialInfo[]>((resolve, reject) => {
-      this._lifecycleStub.getTrialInfo(req, trialIdMetadata, (err, rawRep) => {
+       this.lifecycleStub.getTrialInfo(req, trialIdMetadata, (err, rawRep) => {
         if (err) {
           reject(err);
         } else {
@@ -155,7 +155,7 @@ export class Controller {
     const request = new TrialListRequest();
     request.setFilterList(trialStateFilters);
 
-    const watchTrialsStream = this._lifecycleStub.watchTrials(request);
+    const watchTrialsStream =  this.lifecycleStub.watchTrials(request);
     const generator = streamToGenerator(watchTrialsStream);
 
     for await (let reply of generator()) {
@@ -167,7 +167,7 @@ export class Controller {
 
   getRemoteVersions = () => {
     const request = new VersionRequest();
-    this._lifecycleStub.version(request, (err, rawRep) => {
+     this.lifecycleStub.version(request, (err, rawRep) => {
       if (err) {
         throw err;
       } else {
