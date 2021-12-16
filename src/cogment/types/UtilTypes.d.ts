@@ -15,12 +15,14 @@
  *
  */
 
+// Type only file for utility types such as the base Message class for all protobufjs messages. Made custom here to remove the $type property.
+
 import {
   Constructor,
   IConversionOptions,
   Properties,
   Reader,
-  Writer,
+  Writer
 } from 'protobufjs';
 
 export class Message {

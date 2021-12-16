@@ -48,16 +48,16 @@ describe('a cogment-app', () => {
 
   
   let trialMiddleResolve = () => { };
-  const trialMiddlePromise = new Promise<void>((_resolve) => {
-    trialMiddleResolve = _resolve;
+  const trialMiddlePromise = new Promise<void>((resolve) => {
+    trialMiddleResolve = resolve;
   });
   let trialEndResolve = () => { };
-  const trialEndPromise = new Promise<void>((_resolve) => {
-    trialEndResolve = _resolve;
+  const trialEndPromise = new Promise<void>((resolve) => {
+    trialEndResolve = resolve;
   });
   let trialTerminateResolve = () => { };
-  const trialTerminatePromise = new Promise<void>((_resolve) => {
-    trialTerminateResolve = _resolve;
+  const trialTerminatePromise = new Promise<void>((resolve) => {
+    trialTerminateResolve = resolve;
   });
 
   const pingActor = async (

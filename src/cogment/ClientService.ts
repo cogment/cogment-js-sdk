@@ -19,7 +19,7 @@ import {
 import common_pb_2, { cogmentAPI as Common } from './api/common_pb_2';
 import { ClientActorSPClient } from './api/orchestrator_pb_service';
 import { ActorImplementation } from './Context';
-import { _EndingAck } from './Session';
+import { EndingAck } from './Session';
 import { Trial } from './Trial';
 import { CogSettings, EventType } from './types';
 import { MessageBase } from './types/UtilTypes';
@@ -31,6 +31,9 @@ export interface AnyPB {
   /** Any value */
   value?: Uint8Array | null;
 }
+
+const asUint8Array = (data: Uint8Array | string ) => 
+    data instanceof Uint8Array ? data : base64ToUint8Array(data);
 
 export class RecvEvent<
   ActionT extends MessageBase,
@@ -44,55 +47,48 @@ export class RecvEvent<
   constructor(public type: EventType) {}
 }
 
-const _processNormalData = <
+const processNormalData = <
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
 >(
-  _data: ActorRunTrialInput,
+  rawData: ActorRunTrialInput,
   session: ActorSession<ActionT, ObservationT>,
   cogSettings: CogSettings,
 ) => {
   let recvEvent: RecvEvent<ActionT, ObservationT>;
-  const data = _data.toObject();
+  const data = rawData.toObject();
   if (session._trial.ending) recvEvent = new RecvEvent(EventType.ENDING);
   else recvEvent = new RecvEvent(EventType.ACTIVE);
 
   if (data.observation) {
     if (session._trial.ending && session._autoAck)
-      session._postData(new _EndingAck());
+      session._postData(new EndingAck());
 
     session._trial.tickId = data.observation.tickId;
 
     const obsSpace = session._actorClass.observationSpace;
-    if (data.observation.content instanceof Uint8Array) {
-      const observation = obsSpace.decode(data.observation.content);
 
-      recvEvent.observation = observation as ObservationT;
-      session._newEvent(recvEvent);
-    } else {
-      const observation = obsSpace.decode(
-        base64ToUint8Array(data.observation.content),
-      );
+    const observation = obsSpace.decode(asUint8Array(data.observation.content));
 
-      recvEvent.observation = observation as ObservationT;
-      session._newEvent(recvEvent);
-    }
+    recvEvent.observation = observation as ObservationT;
+    session._newEvent(recvEvent);
+    
   } else if (data.reward) {
-    const _reward = _data.getReward();
-    if (!_reward)
+    const rawReward = rawData.getReward();
+    if (!rawReward)
       throw new Error('reward not set on source pb, this should never happen');
     const reward = staticCastFromGoogle<common_pb_2.cogmentAPI.Reward>(
-      _reward,
+      rawReward,
       common_pb_2.cogmentAPI.Reward,
     );
     recvEvent.rewards = [reward];
     session._newEvent(recvEvent);
   } else if (data.message) {
-    const _message = _data.getMessage();
-    if (!_message)
+    const rawMessage = rawData.getMessage();
+    if (!rawMessage)
       throw new Error('message not set on source pb, this should never happen');
     const message = staticCastFromGoogle<common_pb_2.cogmentAPI.Message>(
-      _message,
+      rawMessage,
       common_pb_2.cogmentAPI.Message,
     );
 
@@ -136,7 +132,7 @@ const _processNormalData = <
     );
 };
 
-const _processOutgoing = async <
+const processOutgoing = async <
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
 >(
@@ -150,7 +146,7 @@ const _processOutgoing = async <
     if (data instanceof Action) output.setAction(data);
     else if (data instanceof Reward) output.setReward(data);
     else if (data instanceof Message) output.setMessage(data);
-    else if (data instanceof _EndingAck) {
+    else if (data instanceof EndingAck) {
       output.setState(CommunicationState.LAST_ACK);
       dataQueue.put(output);
       break;
@@ -165,7 +161,7 @@ const _processOutgoing = async <
   }
 };
 
-const _processIncoming = async <
+const processIncoming = async <
   ActionT extends MessageBase,
   ObservationT extends MessageBase,
 >(
@@ -175,13 +171,13 @@ const _processIncoming = async <
   cogSettings: CogSettings,
 ) => {
   while (true) {
-    const _data = await replyQueue.get();
-    if (!_data) break;
+    const rawData = await replyQueue.get();
+    if (!rawData) break;
 
-    const data = _data.toObject();
+    const data = rawData.toObject();
 
     if (data.state === CommunicationState.NORMAL)
-      _processNormalData(_data, session, cogSettings);
+      processNormalData(rawData, session, cogSettings);
     else if (data.state === CommunicationState.HEARTBEAT) {
       const reply = new ActorRunTrialOutput();
       reply.setState(data.state);
@@ -316,13 +312,7 @@ export class ClientServicer<
         );
       if (!actorClass.config) return; //Typescript nees this for some reason
       if (!initData?.config?.content) throw new Error('Content not set');
-      if (initData.config.content instanceof Uint8Array) {
-        config = actorClass.config.decode(initData.config.content);
-      } else {
-        config = actorClass.config.decode(
-          base64ToUint8Array(initData.config.content),
-        );
-      }
+      config = actorClass.config.decode(asUint8Array(initData.config.content));
     }
 
     const session = new ActorSession(
@@ -334,8 +324,8 @@ export class ClientServicer<
       config,
     );
 
-    _processOutgoing(this._requestQueue, session);
-    _processIncoming(
+    processOutgoing(this._requestQueue, session);
+    processIncoming(
       this._replyQueue,
       this._requestQueue,
       session,

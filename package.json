@@ -29,7 +29,7 @@
     "build": "npm-run-all build:protos build:webpack build:tsc",
     "build:install": "npm install",
     "build:protos": "npm-run-all build:protos:fetch build:protos:compile",
-    "build:protos:compile": "node scripts/protos.js src/cogment/api cogment/api/*.proto",
+    "build:protos:compile": "node scripts/protos.js --outDirectory src/cogment/api --protoFiles cogment/api/*.proto",
     "build:protos:fetch": "node scripts/fetch_protos.js",
     "build:webpack": "webpack",
     "build:webpack:watch": "npm run build:webpack -- --watch",
@@ -124,7 +124,8 @@
     "glob": "^7.2.0",
     "pascal-case": "^3.1.2",
     "protobufjs": "https://github.com/protobufjs/protobuf.js.git#d13d5d5688052e366aa2e9169f50dfca376b32cf",
-    "tar-fs": "^2.1.1"
+    "tar-fs": "^2.1.1",
+    "yargs": "^17.3.0"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.13.4",

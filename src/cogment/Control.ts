@@ -1,20 +1,20 @@
-import {BrowserHeaders} from 'browser-headers';
-import {streamToGenerator} from '../lib/Utils';
+import { BrowserHeaders } from 'browser-headers';
+import { streamToGenerator } from '../lib/Utils';
 import {
   TrialConfig,
   TrialState as TrialStateMsg,
   TrialStateMap,
-  VersionRequest,
+  VersionRequest
 } from './api/common_pb';
 import {
   TerminateTrialRequest,
   TrialInfoRequest,
   TrialListRequest,
-  TrialStartRequest,
+  TrialStartRequest
 } from './api/orchestrator_pb';
-import {TrialLifecycleSPClient} from './api/orchestrator_pb_service';
-import {CogSettings} from './types';
-import {MessageBase} from './types/UtilTypes';
+import { TrialLifecycleSPClient } from './api/orchestrator_pb_service';
+import { CogSettings } from './types';
+import { MessageBase } from './types/UtilTypes';
 
 export enum TrialState {
   UNKNOWN = TrialStateMsg.UNKNOWN,
@@ -45,11 +45,11 @@ export class Controller {
     const metadata = new BrowserHeaders({'trial-id': trialId});
 
     return new Promise((resolve, reject) => {
-      this._lifecycleStub.getTrialInfo(req, metadata, (err, _rep) => {
+      this._lifecycleStub.getTrialInfo(req, metadata, (err, rawRep) => {
         if (err) {
           reject(err);
         } else {
-          const rep = _rep?.toObject();
+          const rep = rawRep?.toObject();
           if (!rep) {
             reject(new Error('No response from server'));
             return;
@@ -77,11 +77,11 @@ export class Controller {
     if (trialIdRequested) req.setTrialIdRequested(trialIdRequested);
 
     return new Promise<string>((resolve, reject) => {
-      this._lifecycleStub.startTrial(req, (err, _rep) => {
+      this._lifecycleStub.startTrial(req, (err, rawRep) => {
         if (err) {
           reject(err);
         } else {
-          const rep = _rep?.toObject();
+          const rep = rawRep?.toObject();
           if (!rep) {
             reject(new Error('No response from server'));
             return;
@@ -99,11 +99,11 @@ export class Controller {
 
     const trialIdMetadata = new BrowserHeaders({'trial-id': trialIds});
     return new Promise<boolean>((resolve, reject) => {
-      this._lifecycleStub.terminateTrial(req, trialIdMetadata, (err, _rep) => {
+      this._lifecycleStub.terminateTrial(req, trialIdMetadata, (err, rawRep) => {
         if (err) {
           reject(err);
         } else {
-          const rep = _rep?.toObject();
+          const rep = rawRep?.toObject();
           if (!rep) {
             reject(new Error('No response from server'));
             return;
@@ -119,11 +119,11 @@ export class Controller {
     const req = new TrialInfoRequest();
     const trialIdMetadata = new BrowserHeaders({'trial-id': trialIds});
     return new Promise<TrialInfo[]>((resolve, reject) => {
-      this._lifecycleStub.getTrialInfo(req, trialIdMetadata, (err, _rep) => {
+      this._lifecycleStub.getTrialInfo(req, trialIdMetadata, (err, rawRep) => {
         if (err) {
           reject(err);
         } else {
-          const rep = _rep?.toObject();
+          const rep = rawRep?.toObject();
           if (!rep) {
             reject(new Error('No response from server'));
             return;
@@ -167,11 +167,11 @@ export class Controller {
 
   getRemoteVersions = () => {
     const request = new VersionRequest();
-    this._lifecycleStub.version(request, (err, _rep) => {
+    this._lifecycleStub.version(request, (err, rawRep) => {
       if (err) {
         throw err;
       } else {
-        const rep = _rep?.toObject();
+        const rep = rawRep?.toObject();
         if (!rep) {
           throw new Error('No response from server');
         }

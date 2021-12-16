@@ -1,17 +1,17 @@
-import {Message as GoogleMessage} from 'google-protobuf';
-import {AsyncQueue} from '../lib/Utils';
-import {ActorRunTrialOutput, Message as CogmentMessage} from './api/common_pb';
-import {cogmentAPI, google} from './api/common_pb_2';
-import {RecvEvent} from './ClientService';
-import {ActorImplementation} from './Context';
-import {Trial} from './Trial';
-import {EventType} from './types';
-import {TrialActor} from './types/TrialActor';
-import {MessageBase, MessageClass} from './types/UtilTypes';
+import { Message as GoogleMessage } from 'google-protobuf';
+import { AsyncQueue } from '../lib/Utils';
+import { ActorRunTrialOutput, Message as CogmentMessage } from './api/common_pb';
+import { cogmentAPI, google } from './api/common_pb_2';
+import { RecvEvent } from './ClientService';
+import { ActorImplementation } from './Context';
+import { Trial } from './Trial';
+import { EventType } from './types';
+import { TrialActor } from './types/TrialActor';
+import { MessageBase, MessageClass } from './types/UtilTypes';
 
-export class _Ending {}
+export class Ending {}
 
-export class _EndingAck {}
+export class EndingAck {}
 
 interface constructorof<T> {
   new (): T;
@@ -25,7 +25,7 @@ export class Session<
   private _started = false;
   private _lastEventDelivered = false;
   private _dataQueue = new AsyncQueue<
-    ActorRunTrialOutput | _Ending | _EndingAck | GoogleMessage
+    ActorRunTrialOutput | Ending | EndingAck | GoogleMessage
   >();
   public _autoAck = true;
   private _activeActors: TrialActor[] = [];
@@ -72,7 +72,7 @@ export class Session<
 
     this._eventQueue.put(event);
   };
-  public _postData = (data: GoogleMessage | _Ending | _EndingAck) => {
+  public _postData = (data: GoogleMessage | Ending | EndingAck) => {
     if (!this._started) {
       console.warn(
         `Trial [${this._trial.id}] - Session for [${this.name}]: Cannot send until session is started.`,
@@ -92,8 +92,8 @@ export class Session<
       );
     }
 
-    if (data instanceof _Ending) this._trial.ending = true;
-    else if (data instanceof _EndingAck) this._trial.endingAck = true;
+    if (data instanceof Ending) this._trial.ending = true;
+    else if (data instanceof EndingAck) this._trial.endingAck = true;
 
     this._dataQueue.put(data);
   };
@@ -118,7 +118,7 @@ export class Session<
       console.warn(
         `Trial [${this._trial.id}] - Session [${this.name}] cannot end sending more than once`,
       );
-    else this._postData(new _EndingAck());
+    else this._postData(new EndingAck());
   };
   public async *eventLoop() {
     if (!this._started) {
