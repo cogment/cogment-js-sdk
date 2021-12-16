@@ -42,7 +42,7 @@ export class Session<
     }));
   }
 
-  protected start = (autoDoneSending: boolean) => {
+  public internalStart = (autoDoneSending: boolean) => {
     if ( this.started)
       throw new Error('Cannot start [${this.name}] more than once.');
     if ( this.trial.ended)
@@ -162,7 +162,7 @@ export class Session<
      this.dataQueue.end();
   };
 
-  protected sendMessage(payload: MessageBase, to: string[]) {
+  protected sendMessageInternal(payload: MessageBase, to: string[]) {
     if (! this.started) {
       console.warn(
         `Trial [${ this.trial.id}] - Session for [${this.name}]: Cannot send message until session is started.`,

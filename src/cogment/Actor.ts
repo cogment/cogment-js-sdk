@@ -24,7 +24,7 @@ export class ActorSession<
   }
 
   public start = (autoDoneSending = true) => {
-     this.start(autoDoneSending);
+     this.internalStart(autoDoneSending);
   };
 
   public run = async () => {
@@ -44,6 +44,6 @@ export class ActorSession<
   };
 
   public sendMessage(payload: MessageBase, to: string[]) {
-     this.sendMessage(payload, to);
+     this.sendMessageInternal(payload, to);
   }
 }
