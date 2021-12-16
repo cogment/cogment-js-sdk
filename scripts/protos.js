@@ -16,8 +16,8 @@ if (!fs.existsSync(outDirectory)) {
   fs.mkdirSync(outDirectory);
 }
 
-fs.chmodSync('./node_modules/protobufjs/cli/bin/pbjs', 0o700);
-fs.chmodSync('./node_modules/protobufjs/cli/bin/pbts', 0o700);
+fs.chmodSync('./node_modules/protobufjs/cli/bin/pbjs', 0o755);
+fs.chmodSync('./node_modules/protobufjs/cli/bin/pbts', 0o755);
 
 protoFiles.forEach((file) => {
   glob(file, {}, (err, files) => {
