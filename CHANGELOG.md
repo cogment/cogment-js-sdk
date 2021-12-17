@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## v2.0.0-rc1 - 2021-12-17
+
+- Entirely reworked API and SDK, please see the offical Cogment documentation for new usage.
+
 ## v1.26.1 - 2021-10-19
 
 ### Added
