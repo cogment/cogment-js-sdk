@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+- Fix distribution package nesting
+
 ## v2.0.0-rc1 - 2021-12-17
 
 - Entirely reworked API and SDK, please see the offical Cogment documentation for new usage.
