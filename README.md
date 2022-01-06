@@ -63,86 +63,11 @@ pertinent to the js-sdk test suite:
   observation space, actor action space, etc) in addition to other
   utility protobufs needed by the user, you!
 
-The [ActorSession.test.ts](/__tests__/ActorSession.test.ts) is the most
+The [index.test.ts](/__tests__/end-to-end/index.test.ts) is the most
 feature complete example of a working cogment application and is
 documented to be read as such.
 
-Examples follow.
-
-### Instantiate a CogmentService
-
-```typescript
-import {createService} from 'cogment';
-import cogSettings from './CogSettings';
-
-const cogmentService = createService({
-  cogSettings,
-});
-```
-
-### Start and stop a trial
-
-```typescript
-import {createService} from 'cogment';
-import cogSettings from './CogSettings';
-
-const cogmentService = createService({
-  cogSettings,
-});
-
-const trialController = cogmentService.createTrialController();
-
-const {trialId} = await trialController.startTrial('unique-id');
-return trialController.terminateTrial(trialId);
-```
-
-### Register an actor and join the trial
-
-```typescript
-import {createService, TrialActor} from 'cogment';
-import cogSettings from './CogSettings';
-import {ClientAction, Observation} from './data_pb';
-
-const cogmentService = createService({
-  cogSettings,
-});
-
-const trialActor: TrialActor = {
-  name: 'client_actor',
-  actorClass: 'client',
-};
-
-cogmentService.registerActor<ClientAction, Observation, never>(
-  trialActor,
-  async (actorSession) => {
-    // Actor implementation here.
-  },
-);
-
-const trialController = cogmentService.createTrialController();
-const {trialId} = await trialController.startTrial(trialActor.name);
-await trialController.joinTrial(trialId, trialActor);
-return trialController.terminateTrial(trialId);
-```
-
-### Watch for trial state changes
-
-```typescript
-import {createService} from 'cogment';
-import cogSettings from './CogSettings';
-
-const cogmentService = createService({
-  cogSettings,
-});
-
-const trialController = cogmentService.createTrialController();
-
-for await (const trialListEntry of trialController.watchTrials([
-  0, 1, 2, 3, 4, 5,
-])) {
-  // Do stuff!
-}
-```
+Documentation available at [docs.cogment.ai](docs.cogment.ai)
 
 ## Development Workflow
 
@@ -178,17 +103,7 @@ for await (const trialListEntry of trialController.watchTrials([
    ```shell script
    git clone https://github.com/cogment/cogment-js-sdk.git
    ```
-2. Install node (check [.node-version](/.node-version) for the
-   appropriate version). The recommended way to manage node
-   distributions is through
-   [nvm (node version manager)](https://github.com/nvm-sh/nvm):
-   ```shell script
-   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
-   source ~/.nvm/nvm.sh
-   cd /path/to/cogment-js-sdk
-   nvm install
-   ```
-3. Initialize the repository:
+2. Initialize the repository:
    ```shell script
    npm install
    ```
@@ -218,19 +133,15 @@ The rest, publishing the packages to dockerhub and updating the mirror repositor
 [api-docs]: https://ai-r.gitlab.io/cogment-js-sdk 'api-docs'
 [changelog]: /CHANGELOG.md 'changelog'
 [code-of-conduct]: /CODE_OF_CONDUCT.md
-[codeguidelines]: /docs/codeguidelines.md
 [cogment-app]: /__tests__/end-to-end/cogment-app/
 [cogment.ai]: https://cogment.ai 'cogment.ai'
 [contributing]: /CONTRIBUTING.md
 [coverage]: https://ai-r.gitlab.io/cogment-js-sdk/coverage/lcov-report 'coverage report'
 [docs.cogment.ai]: https://docs.cogment.ai/
 [license]: /LICENSE.md 'license'
-[majestic]: https://github.com/Raathigesh/majestic 'majestic'
-[npm-cogment]: https://www.npmjs.com/package/cogment 'npm-cogment'
 [opencore-development]: /docs/opencore-development.md
 [repo]: https://github.com/cogment/cogment-js-sdk/ 'Repository'
 [semver.org]: https://semver.org
 [sentimental-versioning]: http://sentimentalversioning.org/
 [test-suite]: /__tests__/
-[updating-cogment]: /docs/updating-cogment.md
 [webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs

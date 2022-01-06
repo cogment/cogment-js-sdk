@@ -20,17 +20,17 @@
  *
  */
 
-import { exec } from 'child_process';
+import {exec} from 'child_process';
 import {
   chmodSync,
   existsSync,
   readFileSync,
   unlinkSync,
-  writeFileSync
+  writeFileSync,
 } from 'fs';
-import { join } from 'path';
+import {join} from 'path';
 import * as YAML from 'yaml';
-import { cogSettingsTemplate, UtilTypes } from '../data/templates';
+import {cogSettingsTemplate, UtilTypes} from '../data/templates';
 
 const shell = (command: string) => {
   console.log(`Executing: ${command}`);

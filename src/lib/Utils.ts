@@ -1,6 +1,6 @@
-import { grpc } from '@improbable-eng/grpc-web';
-import { Message, Message as MessageGrpc } from 'google-protobuf';
-import { MessageBase, MessageClass } from '../cogment/types/UtilTypes';
+import {grpc} from '@improbable-eng/grpc-web';
+import {Message, Message as MessageGrpc} from 'google-protobuf';
+import {MessageBase, MessageClass} from '../cogment/types/UtilTypes';
 
 export type Status = {details: string; code: number; metadata: grpc.Metadata};
 
@@ -138,7 +138,7 @@ export const streamToQueue = <S extends Message, T extends Message>(
     }
   };
   generator();
- 
+
   return queue;
 };
 
@@ -147,40 +147,40 @@ export class AsyncQueue<T> {
   private nextDataResolve: (going: boolean) => void = () => {};
   private nextDataPromise: Promise<boolean>;
   constructor() {
-     this.nextDataPromise = new Promise<boolean>(
-      (resolve) => ( this.nextDataResolve = resolve),
+    this.nextDataPromise = new Promise<boolean>(
+      (resolve) => (this.nextDataResolve = resolve),
     );
   }
 
   public put = (newData: T) => {
-     this.data.push(newData);
-    if ( this.nextDataResolve) {
-       this.nextDataResolve(true);
+    this.data.push(newData);
+    if (this.nextDataResolve) {
+      this.nextDataResolve(true);
     }
 
-     this.nextDataPromise = new Promise(
-      (resolve) => ( this.nextDataResolve = resolve),
+    this.nextDataPromise = new Promise(
+      (resolve) => (this.nextDataResolve = resolve),
     );
   };
 
   public get = async () => {
-    if ( this.data.length) {
-      return  this.data.shift();
+    if (this.data.length) {
+      return this.data.shift();
     }
 
-    const doContinue = await  this.nextDataPromise;
+    const doContinue = await this.nextDataPromise;
     if (!doContinue) {
       return;
     }
-    if (! this.data.length) {
+    if (!this.data.length) {
       return;
     }
 
-    return  this.data.shift();
+    return this.data.shift();
   };
 
   public end = () => {
-     this.nextDataResolve(false);
+    this.nextDataResolve(false);
   };
 }
 

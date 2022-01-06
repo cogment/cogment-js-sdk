@@ -1,11 +1,11 @@
-import { grpc } from '@improbable-eng/grpc-web';
+import {grpc} from '@improbable-eng/grpc-web';
 import {
   AsyncQueue,
   base64ToUint8Array,
   staticCastFromGoogle,
-  streamToQueue
+  streamToQueue,
 } from '../lib/Utils';
-import { ActorSession } from './Actor';
+import {ActorSession} from './Actor';
 import {
   Action,
   ActorInitialInput,
@@ -14,15 +14,15 @@ import {
   ActorRunTrialOutput,
   CommunicationState,
   Message,
-  Reward
+  Reward,
 } from './api/common_pb';
-import common_pb_2, { cogmentAPI as Common } from './api/common_pb_2';
-import { ClientActorSPClient } from './api/orchestrator_pb_service';
-import { ActorImplementation } from './Context';
-import { EndingAck } from './Session';
-import { Trial } from './Trial';
-import { CogSettings, EventType } from './types';
-import { MessageBase } from './types/UtilTypes';
+import common_pb_2, {cogmentAPI as Common} from './api/common_pb_2';
+import {ClientActorSPClient} from './api/orchestrator_pb_service';
+import {ActorImplementation} from './Context';
+import {EndingAck} from './Session';
+import {Trial} from './Trial';
+import {CogSettings, EventType} from './types';
+import {MessageBase} from './types/UtilTypes';
 
 export interface AnyPB {
   /** Any type_url */
@@ -32,8 +32,8 @@ export interface AnyPB {
   value?: Uint8Array | null;
 }
 
-const asUint8Array = (data: Uint8Array | string ) => 
-    data instanceof Uint8Array ? data : base64ToUint8Array(data);
+const asUint8Array = (data: Uint8Array | string) =>
+  data instanceof Uint8Array ? data : base64ToUint8Array(data);
 
 export class RecvEvent<
   ActionT extends MessageBase,
@@ -72,7 +72,6 @@ const processNormalData = <
 
     recvEvent.observation = observation as ObservationT;
     session.newEvent(recvEvent);
-    
   } else if (data.reward) {
     const rawReward = rawData.getReward();
     if (!rawReward)
@@ -219,12 +218,11 @@ export class ClientServicer<
   public trialId?: string;
 
   constructor(private cogSettings: CogSettings, endpoint: string) {
-     this.actorStub = new ClientActorSPClient(endpoint);
+    this.actorStub = new ClientActorSPClient(endpoint);
   }
 
   join = async (trialId: string, actorName?: string, actorClass?: string) => {
-    if ( this.requestQueue)
-      throw new Error('ClientServicer has already joined');
+    if (this.requestQueue) throw new Error('ClientServicer has already joined');
 
     const req = new ActorRunTrialOutput();
     req.setState(CommunicationState.NORMAL);
@@ -239,19 +237,19 @@ export class ClientServicer<
 
     req.setInitOutput(init);
 
-     this.requestQueue = new AsyncQueue<ActorRunTrialOutput>();
-     this.requestQueue.put(req);
+    this.requestQueue = new AsyncQueue<ActorRunTrialOutput>();
+    this.requestQueue.put(req);
 
     this.trialId = trialId;
 
     const metadata = new grpc.Metadata({'trial-id': trialId});
 
-     this.replyQueue = streamToQueue(
-       this.actorStub.runTrial(metadata),
-       this.requestQueue,
+    this.replyQueue = streamToQueue(
+      this.actorStub.runTrial(metadata),
+      this.requestQueue,
     );
 
-    const replyMessage = await  this.replyQueue.get();
+    const replyMessage = await this.replyQueue.get();
     if (!replyMessage)
       throw new Error(
         'reply message is null, Orchestrator returned an empty reply whe joining',
@@ -270,12 +268,12 @@ export class ClientServicer<
     } else if (reply.state === CommunicationState.HEARTBEAT) {
       const newReply = new ActorRunTrialOutput();
       newReply.setState(reply.state);
-       this.requestQueue.put(newReply);
+      this.requestQueue.put(newReply);
     } else if (reply.state === CommunicationState.LAST) {
       console.warn(`Trial [${trialId}] - Received 'LAST' state while joining`);
       const newReply = new ActorRunTrialOutput();
       newReply.setState(CommunicationState.LAST_ACK);
-       this.requestQueue.put(newReply);
+      this.requestQueue.put(newReply);
     } else if (reply.state === CommunicationState.LAST_ACK)
       throw new Error(
         `Trial [${trialId}] - Received an unexpected 'LAST_ACK' while joining`,
@@ -298,7 +296,7 @@ export class ClientServicer<
     impl: ActorImplementation<ActionT, ObservationT>,
     initData: ActorInitialInput.AsObject,
   ) => {
-    if (! this.requestQueue || !this.trialId || ! this.replyQueue)
+    if (!this.requestQueue || !this.trialId || !this.replyQueue)
       throw new Error('ClientServicer has not joined');
 
     const trial = new Trial(this.trialId, [], this.cogSettings);
@@ -324,10 +322,10 @@ export class ClientServicer<
       config,
     );
 
-    processOutgoing( this.requestQueue, session);
+    processOutgoing(this.requestQueue, session);
     processIncoming(
-       this.replyQueue,
-       this.requestQueue,
+      this.replyQueue,
+      this.requestQueue,
       session,
       this.cogSettings,
     );

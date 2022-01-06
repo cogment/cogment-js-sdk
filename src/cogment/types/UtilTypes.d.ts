@@ -22,7 +22,7 @@ import {
   IConversionOptions,
   Properties,
   Reader,
-  Writer
+  Writer,
 } from 'protobufjs';
 
 export class Message {

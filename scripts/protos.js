@@ -1,16 +1,18 @@
 const path = require('path');
 const glob = require('glob');
 const fs = require('fs');
-const yargs = require('yargs/yargs')
-const { hideBin } = require('yargs/helpers')
-const argv = yargs(hideBin(process.argv)).argv
+const yargs = require('yargs/yargs');
+const {hideBin} = require('yargs/helpers');
+const argv = yargs(hideBin(process.argv)).argv;
 
 if (!argv.outDirectory || !argv.protoFiles) {
   throw new Error('you must set an out Directory and a list of Proto files');
 }
 
 const outDirectory = argv.outDirectory;
-const protoFiles = Array.isArray(argv.protoFiles) ? argv.protoFiles : [argv.protoFiles];
+const protoFiles = Array.isArray(argv.protoFiles)
+  ? argv.protoFiles
+  : [argv.protoFiles];
 
 if (!fs.existsSync(outDirectory)) {
   fs.mkdirSync(outDirectory);

@@ -15,11 +15,10 @@
  *
  */
 
-import { cogmentAPI } from '../api/common_pb_2';
+import {cogmentAPI} from '../api/common_pb_2';
 
-
-type Reward = cogmentAPI.Reward
+type Reward = cogmentAPI.Reward;
 /**
  * A reward received from the Cogment framework.
  */
-export type { Reward };
+export type {Reward};

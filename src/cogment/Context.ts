@@ -1,12 +1,12 @@
-import { grpc } from '@improbable-eng/grpc-web';
-import { Message } from 'google-protobuf';
-import { base64ToUint8Array } from '../lib/Utils';
-import { ActorSession } from './Actor';
-import { TrialLifecycleSPClient } from './api/orchestrator_pb_service';
-import { ClientServicer } from './ClientService';
-import { Controller } from './Control';
-import { CogSettings, TrialActor } from './types';
-import { MessageBase } from './types/UtilTypes';
+import {grpc} from '@improbable-eng/grpc-web';
+import {Message} from 'google-protobuf';
+import {base64ToUint8Array} from '../lib/Utils';
+import {ActorSession} from './Actor';
+import {TrialLifecycleSPClient} from './api/orchestrator_pb_service';
+import {ClientServicer} from './ClientService';
+import {Controller} from './Control';
+import {CogSettings, TrialActor} from './types';
+import {MessageBase} from './types/UtilTypes';
 
 Message.bytesAsU8 = function (value) {
   if (typeof value === 'string') {
@@ -52,7 +52,7 @@ export class Context<
     private userId = 'client',
     private transportType = TransportType.WEBSOCKET,
   ) {
-    grpc.setDefaultTransport(getTransportFactory( this.transportType));
+    grpc.setDefaultTransport(getTransportFactory(this.transportType));
   }
 
   public registerActor = (
@@ -72,20 +72,22 @@ export class Context<
   getControlStub(endpoint: string) {
     return new TrialLifecycleSPClient(endpoint, {
       transport: getTransportFactory(
-         this.transportType === TransportType.WEBSOCKET
+        this.transportType === TransportType.WEBSOCKET
           ? TransportType.HTTP
-          :  this.transportType,
+          : this.transportType,
       ),
     });
   }
 
   getController = (endpoint?: string) => {
-    if(!this.controller) {
-      if(!endpoint) {
-        throw new Error('No endpoint provided and Controller was not initialized');
+    if (!this.controller) {
+      if (!endpoint) {
+        throw new Error(
+          'No endpoint provided and Controller was not initialized',
+        );
       }
-      const stub =  this.getControlStub(endpoint);
-      this.controller = new Controller(this.cogSettings, stub,  this.userId);
+      const stub = this.getControlStub(endpoint);
+      this.controller = new Controller(this.cogSettings, stub, this.userId);
     }
     return this.controller as Controller;
   };

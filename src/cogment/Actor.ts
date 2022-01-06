@@ -1,9 +1,9 @@
-import { Action } from './api/common_pb';
-import { ActorImplementation } from './Context';
-import { Session } from './Session';
-import { Trial } from './Trial';
-import { CogSettingsActorClass } from './types';
-import { MessageBase } from './types/UtilTypes';
+import {Action} from './api/common_pb';
+import {ActorImplementation} from './Context';
+import {Session} from './Session';
+import {Trial} from './Trial';
+import {CogSettingsActorClass} from './types';
+import {MessageBase} from './types/UtilTypes';
 
 export class ActorSession<
   ActionT extends MessageBase,
@@ -24,7 +24,7 @@ export class ActorSession<
   }
 
   public start = (autoDoneSending = true) => {
-     this.internalStart(autoDoneSending);
+    this.internalStart(autoDoneSending);
   };
 
   public run = async () => {
@@ -36,14 +36,12 @@ export class ActorSession<
     actionReq.setTimestamp(Date.now() * 1000);
     actionReq.setTickId(-1);
     if (action)
-      actionReq.setContent(
-         this.actorClass.actionSpace.encode(action).finish(),
-      );
+      actionReq.setContent(this.actorClass.actionSpace.encode(action).finish());
 
-     this.postData(actionReq);
+    this.postData(actionReq);
   };
 
   public sendMessage(payload: MessageBase, to: string[]) {
-     this.sendMessageInternal(payload, to);
+    this.sendMessageInternal(payload, to);
   }
 }
