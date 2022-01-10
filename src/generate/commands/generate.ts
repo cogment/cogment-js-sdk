@@ -52,9 +52,9 @@ const shell = (command: string) => {
   });
 };
 
-const isInstalled = (testPackage: string) => {
+const isInstalled = (...testPackages: string[]) => {
   try {
-    require.resolve(testPackage);
+    testPackages.forEach(testPackage => require.resolve(testPackage));
     return true;
   } catch {
     return false;
@@ -106,7 +106,7 @@ export const generate: () => Promise<void> = async () => {
     await shell('npm i');
   }
 
-  if (!isInstalled('protobufjs')) {
+  if (!isInstalled('protobufjs', 'uglify-js', 'tmp', 'jsdoc')) {
     try {
       await shell(
         'npm i uglify-js tmp jsdoc https://github.com/protobufjs/protobuf.js.git#d13d5d5688052e366aa2e9169f50dfca376b32cf',
