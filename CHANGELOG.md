@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+- Generate now installs packages that protobufjs needs, but doesn't have in its dependencies.
+
 ## v2.0.0-rc2 - 2022-01-03
 
 - Fix distribution package nesting
