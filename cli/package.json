@@ -43,7 +43,7 @@
     "axios": "^0.21.1",
     "cosmiconfig": "^7.0.0",
     "decompress": "^4.2.1",
-    "follow-redirects": "^1.13.3",
+    "follow-redirects": "^1.14.7",
     "fs-jetpack": "^4.1.0",
     "tslib": "^2.1.0"
   },
