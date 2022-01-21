@@ -28,7 +28,7 @@ export class ActorSession<
   };
 
   public run = async () => {
-    await  this.impl(this);
+    await this.impl(this);
   };
 
   public doAction = (action?: ActionT) => {

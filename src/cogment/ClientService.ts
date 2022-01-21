@@ -294,7 +294,7 @@ export class ClientServicer<
     return;
   };
 
-  public runSession = (
+  public runSession = async (
     impl: ActorImplementation<ActionT, ObservationT>,
     initData: ActorInitialInput.AsObject,
   ) => {
@@ -331,6 +331,6 @@ export class ClientServicer<
       session,
       this.cogSettings,
     );
-    session.run();
+    await session.run();
   };
 }
