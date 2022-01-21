@@ -129,7 +129,7 @@ describe('a cogment-app', () => {
 
   });
   test('joins trial', async () => {
-    await context.joinTrial(trialId, ORCHESTRATOR_URL, 'client_actor');
+    context.joinTrial(trialId, ORCHESTRATOR_URL, 'client_actor');
   });
   test('gets trial info', async () => {
     await trialMiddlePromise;
