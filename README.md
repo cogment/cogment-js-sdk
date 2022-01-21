@@ -136,6 +136,5 @@ The rest, publishing the packages to dockerhub and updating the mirror repositor
 [opencore-development]: /docs/opencore-development.md
 [repo]: https://github.com/cogment/cogment-js-sdk/ 'Repository'
 [semver.org]: https://semver.org
-[sentimental-versioning]: http://sentimentalversioning.org/
 [test-suite]: /__tests__/
 [webpack]: https://ai-r.gitlab.io/cogment-js-sdk/webpack/cjs
