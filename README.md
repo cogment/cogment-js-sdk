@@ -1,6 +1,6 @@
 # cogment-js-sdk
 
-[![Retrieve from npm](https://img.shields.io/badge/npm-%40cogment%2Fcogment--js--sdk-brightgreen)][npm-cogment] [![Apache 2 License](https://img.shields.io/badge/license-Apache%202-green)](./LICENSE) [![Changelog](https://img.shields.io/badge/-Changelog%20-blueviolet)](./CHANGELOG.md)
+[![Retrieve from npm](https://img.shields.io/badge/npm-%40cogment%2Fcogment--js--sdk-brightgreen)](https://www.npmjs.com/package/@cogment/cogment-js-sdk) [![Apache 2 License](https://img.shields.io/badge/license-Apache%202-green)](./LICENSE) [![Changelog](https://img.shields.io/badge/-Changelog%20-blueviolet)](./CHANGELOG.md)
 
 ![OSS Lifecycle](https://img.shields.io/osslifecycle/cogment/cogment-js-sdk)
 ![node-current (scoped)](https://img.shields.io/node/v/@cogment/cogment-js-sdk)
@@ -33,11 +33,6 @@ This module, `cogment-js-sdk`, is the Javascript SDK for making use of Cogment w
 - [Changelog][changelog]
 - [Contributing][contributing]
 - [Open Core Development][opencore-development]
-- [Coding guidelines][codeguidelines]
-- [Updating Cogment][updating-cogment]
-- [Sentimental Versioning][sentimental-versioning]
-- [Test Report][tests]
-- [Coverage Report][coverage]
 - [Webpack Bundle Report][webpack]
 - [Semantic Versioning][semver.org]
 
@@ -130,13 +125,12 @@ People having maintainers rights of the repository can follow these steps to rel
 
 The rest, publishing the packages to dockerhub and updating the mirror repositories, is handled directly by the CI.
 
-[api-docs]: https://ai-r.gitlab.io/cogment-js-sdk 'api-docs'
+[api-docs]: https://docs.cogment.ai/cogment/cogment-api-reference/javascript/ 'api-docs'
 [changelog]: /CHANGELOG.md 'changelog'
 [code-of-conduct]: /CODE_OF_CONDUCT.md
 [cogment-app]: /__tests__/end-to-end/cogment-app/
 [cogment.ai]: https://cogment.ai 'cogment.ai'
 [contributing]: /CONTRIBUTING.md
-[coverage]: https://ai-r.gitlab.io/cogment-js-sdk/coverage/lcov-report 'coverage report'
 [docs.cogment.ai]: https://docs.cogment.ai/
 [license]: /LICENSE.md 'license'
 [opencore-development]: /docs/opencore-development.md

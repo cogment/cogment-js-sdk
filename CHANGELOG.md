@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## v2.0.1 - 2022-01-25
 
+- Update Readme.md
+
 ### Fixed
 
 - Fix synchronicity problem when starting multiple trials.
