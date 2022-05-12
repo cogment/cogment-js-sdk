@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Changed
+
+- Update & simplify the readme.md
+- Update testing to leverage Cogment >=v2.2.0
+
+## v2.0.1 - 2022-01-25
+
 ### Fixed
 
 - Fix synchronicity problem when starting multiple trials.
