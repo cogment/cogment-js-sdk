@@ -9,7 +9,7 @@
 
 [Cogment](https://cogment.ai) is an innovative open source AI platform designed to leverage the advent of AI to benefit humankind through human-AI collaboration developed by [AI Redefined](https://ai-r.com). Cogment enables AI researchers and engineers to build, train and operate AI agents in simulated or real environments shared with humans. For the full user documentation visit <https://docs.cogment.ai>
 
-This module, `cogment-js-sdk`, is the Javascript SDK for making use of Cogment when working with Javascript. It's full documentation can be consulted at <https://docs.cogment.ai/cogment/cogment-api-reference/javascript/modules/>.
+This module, `cogment-js-sdk`, is the Javascript SDK for making use of Cogment when working with Javascript. It's full documentation can be consulted at <https://cogment.ai/docs/reference/javascript>.
 
 ## Table of contents
 
