@@ -72,6 +72,6 @@ function retrieve_package_version() {
 
 function update_package_version() {
   local version=$1
-  sed -i "/\"version\": \"\(${VERSION_SED_REGEX}\)\"/s/\(${VERSION_SED_REGEX}\)/${version}/" "${ROOT_DIR}/package.json"
+  sed -i.bak "/\"version\": \"${VERSION_SED_REGEX}\"/s/${VERSION_SED_REGEX}/${version}/" "${ROOT_DIR}/package.json"
   retrieve_package_version
 }
