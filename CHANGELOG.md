@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Update & simplify the readme.md
+- Update testing to leverage Cogment >=v2.2.0
 
 ## v2.0.1 - 2022-01-25
 
