@@ -1,8 +1,8 @@
 FROM nikolaik/python-nodejs AS dev
 
-ENV ORCHESTRATOR_URL=http://grpcwebproxy:8081
-
 WORKDIR /app
+
+ENV ORCHESTRATOR_URL=http://orchestrator:8081
 
 COPY . .
 RUN npm install -g npm@6

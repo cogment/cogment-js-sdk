@@ -18,7 +18,7 @@
 
 SCRIPT_NAME="$(basename "${0}")"
 # shellcheck disable=SC2034
-ALL_SERVICES=(orchestrator environment echo grpcwebproxy)
+ALL_SERVICES=(orchestrator environment echo)
 
 _log() {
   printf "%s " "${SCRIPT_NAME}:"

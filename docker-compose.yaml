@@ -1,18 +1,12 @@
 version: '3.7'
 
 services:
-  cogment-cli:
-    image: cogment/cli:v1.0.0-alpha9
-    volumes:
-      - ./:/cogment
-
   cogment-js-sdk:
-    image: registry.gitlab.com/ai-r/cogment-js-sdk/cogment-js-sdk:latest
     build:
       context: .
+      dockerfile: test.dockerfile
 
   echo:
-    image: registry.gitlab.com/ai-r/change_me/echo:latest
     build:
       context: ./__tests__/end-to-end/cogment-app/echo
       dockerfile: ../py_service.dockerfile
@@ -27,7 +21,6 @@ services:
     restart: on-failure
 
   environment:
-    image: registry.gitlab.com/ai-r/change_me/environment:latest
     build:
       context: ./__tests__/end-to-end/cogment-app/environment
       dockerfile: ../py_service.dockerfile
@@ -42,21 +35,15 @@ services:
     restart: on-failure
 
   orchestrator:
-    image: registry.gitlab.com/ai-r/change_me/orchestrator:latest
     build:
       context: ./__tests__/end-to-end/cogment-app/
       dockerfile: orchestrator.dockerfile
+    environment:
+      HTTP_PORT: 8081
     depends_on:
       - environment
       - echo
     restart: on-failure
-
-  grpcwebproxy:
-    build:
-      context: ./__tests__/end-to-end/cogment-app
-      dockerfile: grpcwebproxy.dockerfile
-    depends_on:
-      - orchestrator
-    restart: on-failure
     ports:
       - 8081:8081/tcp
+

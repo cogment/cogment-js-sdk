@@ -14,10 +14,10 @@
   "dependencies": {
     "@cogment/cogment-js-sdk": "file:../../../..",
     "grpc-tools": "^1.11.2",
-    "jsdoc": "^3.6.7",
+    "jsdoc": "^3.6.10",
     "protobufjs": "git+https://github.com/protobufjs/protobuf.js.git#d13d5d5688052e366aa2e9169f50dfca376b32cf",
     "tmp": "^0.2.1",
-    "uglify-js": "^3.14.5"
+    "uglify-js": "^3.15.4"
   },
   "devDependencies": {
     "ts-protoc-gen": "^0.14.0",

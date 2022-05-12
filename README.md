@@ -27,6 +27,7 @@ This module, `cogment-js-sdk`, is the Javascript SDK for making use of Cogment w
 - [API Documentation][https://docs.cogment.ai/cogment/cogment-api-reference/javascript/]
 - [Contributing](/CONTRIBUTING.md)
 - [Developers guide](#developers)
+
 ## Usage
 
 Install the package:
@@ -57,7 +58,7 @@ Documentation available at [docs.cogment.ai](https://docs.cogment.ai/)
 
 ## Developers
 
-### Docker
+### Develop and run test in docker
 
 #### Docker Setup
 
@@ -78,10 +79,10 @@ Documentation available at [docs.cogment.ai](https://docs.cogment.ai/)
    ```
 2. Run all tests
    ```shell script
-   docker-compose run cogment-js-sdk npm run test
+   docker-compose run cogment-js-sdk
    ```
 
-### Non-docker
+### Develop locally and run test using a dockerized cogment app
 
 #### Setup
 
@@ -101,10 +102,15 @@ Documentation available at [docs.cogment.ai](https://docs.cogment.ai/)
    bin/up.bash
    ```
 2. Run the test suite:
+   ```shell script
+   npm run test
+   ```
 
-```shell script
-npm run test
-```
+### Define the version of Cogment protobuf API
+
+The version of the cogment protobuf API is defined in the `config.json` file at the root of the repository. It should be defined as a URL pointing to a `.tar.gz` archive of the cogment api, e.g. `https://github.com/cogment/cogment/releases/download/v2.3.0/cogment-api.tar.gz`.
+
+To use a local version of the API copy the files in `./cogment/api` and run `npm run build:protos:compile && npm run build:webpack && npm run build:tsc` instead of the default `npm run build`.
 
 ### Release process
 

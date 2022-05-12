@@ -1,7 +1,6 @@
-FROM cogment/orchestrator:v2.0.0-rc1
+FROM cogment/cogment:v2.3.0
 
 ADD cogment.yaml .
 ADD *.proto .
 
-ENTRYPOINT ["orchestrator_dbg"]
-CMD ["--params=cogment.yaml", "--log_level=trace"]
+CMD ["services", "orchestrator", "--params=cogment.yaml", "--log_level=trace", "--actor_http_port=8081"]
