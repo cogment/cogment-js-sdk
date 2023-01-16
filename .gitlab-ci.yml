@@ -1,4 +1,4 @@
-image: docker:stable
+image: docker:20.10.3
 
 variables:
   COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
