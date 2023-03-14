@@ -72,6 +72,10 @@ function retrieve_package_version() {
 
 function update_package_version() {
   local version=$1
-  sed -i.bak "/\"version\": \"${VERSION_SED_REGEX}\"/s/${VERSION_SED_REGEX}/${version}/" "${ROOT_DIR}/packages/@cogment/cogment-js-sdk/package.json"
+  # Bump the version of the "main package"
+  npm --workspace @cogment/cogment-js-sdk version "${version}" --no-git-tag-version >/dev/null
+  # Update the other dependencies
+  npm --workspace @cogment/end-to-end-tests pkg set "dependencies.@cogment/cogment-js-sdk=${version}" >/dev/null
+  npm install >/dev/null
   retrieve_package_version
 }
