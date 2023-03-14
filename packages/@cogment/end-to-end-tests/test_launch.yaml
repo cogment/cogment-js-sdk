@@ -1,0 +1,28 @@
+scripts:
+  orchestrator:
+    environment:
+      COGMENT_ORCHESTRATOR_ACTOR_PORT: "9000"
+      COGMENT_WEB_PROXY_PORT: "8081"
+      COGMENT_DEFAULT_PARAMS_FILE: "./params.yaml"
+      #COGMENT_LOG_LEVEL: trace
+    commands:
+      - [".cogment/cogment", "services", "orchestrator"]
+
+  environment:
+    environment:
+      PYTHONUNBUFFERED: "true"
+    dir: "./py-services"
+    commands:
+      - [".venv/bin/python3", "-m", "env"]
+
+  echo:
+    environment:
+      PYTHONUNBUFFERED: "true"
+    dir: "./py-services"
+    commands:
+      - [".venv/bin/python3", "-m", "echo"]
+
+  js_sdk_tests:
+    commands:
+      - ["sleep", "2"]
+      - ["npm", "run", "test:test_js"]

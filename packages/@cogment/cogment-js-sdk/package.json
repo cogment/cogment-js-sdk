@@ -1,0 +1,131 @@
+{
+  "name": "@cogment/cogment-js-sdk",
+  "version": "2.0.2",
+  "description": "Javascript SDK for the Cogment Framework",
+  "homepage": "https://github.com/cogment/cogment-js-sdk",
+  "bugs": "https://github.com/cogment/cogment-js-sdk/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cogment/cogment-js-sdk.git"
+  },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "author": "Artificial Intelligence Redefined <dev+cogment@ai-r.com>",
+  "main": "dist/cogment.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "cogment-js-sdk-generate": "./run/generate"
+  },
+  "directories": {
+    "lib": "dist",
+    "doc": "docs",
+    "test": "__tests__"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "analyze": "npx size-limit --why",
+    "build": "npm-run-all build:protos build:webpack build:tsc",
+    "build:install": "npm install",
+    "build:protos": "npm-run-all build:protos:fetch build:protos:compile",
+    "build:protos:compile": "node scripts/protos.js --outDirectory src/cogment/api --protoFiles=\"cogment/api/*.proto\"",
+    "build:protos:fetch": "node scripts/fetch_protos.js",
+    "build:webpack": "webpack",
+    "build:webpack:watch": "npm run build:webpack -- --watch",
+    "build:tsc": "npx tsc src/generate/index.ts --outDir dist/generate",
+    "cz": "git-cz",
+    "fiddly": "npx fiddly",
+    "lint": "npm-run-all lint:{eslint,prettier}:check",
+    "lint:ci": "npm-run-all lint:prettier:ci",
+    "lint:eslint": "eslint .",
+    "lint:eslint:check": "npm run lint:eslint",
+    "lint:eslint:fix": "npm run lint:eslint -- --fix",
+    "lint:fix": "npm-run-all lint:{prettier,eslint}:fix",
+    "lint:prettier": "prettier .",
+    "lint:prettier:check": "npm run lint:prettier -- --check",
+    "lint:prettier:fix": "npm run lint:prettier -- --write",
+    "lint:prettier:ci": "npm run lint:prettier:check",
+    "size": "npx size-limit",
+    "start": "webpack serve",
+    "storybook": "npx storybook"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "dependencies": {
+    "@improbable-eng/grpc-web": "^0.14.0",
+    "debug": "^4.3.1",
+    "glob": "^7.2.0",
+    "pascal-case": "^3.1.2",
+    "protobufjs": "^7.2.0",
+    "tar-fs": "^2.1.1",
+    "yargs": "^17.3.0"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.13.4",
+    "@microsoft/tsdoc": "^0.13.0",
+    "@microsoft/tsdoc-config": "^0.14.0",
+    "@size-limit/preset-small-lib": "^4.10.2",
+    "@types/cross-spawn": "^6.0.2",
+    "@types/debug": "^4.1.5",
+    "@types/decompress": "^4.2.3",
+    "@types/eslint": "^7.2.8",
+    "@types/google-protobuf": "^3.7.4",
+    "@types/lodash": "^4.14.168",
+    "@types/long": "^4.0.1",
+    "@types/node": "^14.14.37",
+    "@types/semver": "^7.3.4",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "axios": "^0.21.1",
+    "cosmiconfig": "^7.0.0",
+    "cross-spawn": "^7.0.3",
+    "decompress": "^4.2.1",
+    "eslint": "^7.23.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-compat": "^3.8.0",
+    "eslint-plugin-deprecation": "^1.2.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-lodash": "^7.2.0",
+    "eslint-plugin-notice": "^0.9.10",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-tsdoc": "^0.2.11",
+    "eslint-plugin-unicorn": "^29.0.0",
+    "execa": "^5.0.0",
+    "follow-redirects": "^1.14.5",
+    "fs-jetpack": "^4.1.0",
+    "google-protobuf": "^3.15.7",
+    "jsdoc": "^3.6.7",
+    "json5": "^2.2.0",
+    "lint-staged": "^10.5.4",
+    "lodash": "^4.17.21",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.0",
+    "prettier-plugin-packagejson": "^2.2.10",
+    "prettier-plugin-properties": "^0.1.0",
+    "protobufjs-cli": "^1.1.0",
+    "rimraf": "^3.0.2",
+    "semver": "^7.3.5",
+    "source-map-loader": "^2.0.1",
+    "standard-version": "^9.3.0",
+    "tiny-invariant": "^1.1.0",
+    "tiny-warning": "^1.0.3",
+    "tmp": "^0.2.1",
+    "ts-loader": "^8.1.0",
+    "ts-protoc-gen": "^0.15.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.2.4",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  },
+  "optionalDependencies": {
+    "grpc-tools": "^1.11.2",
+    "ts-protoc-gen": "^0.15.0"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

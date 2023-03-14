@@ -8,7 +8,7 @@ dist
 coverage
 public
 .eslintcache
-src/cogment/api
+**/cogment/api
 /cogment
 secrets
 /docs/api/
@@ -17,5 +17,8 @@ eslint.json
 dependency-check-*.*
 tls
 tsconfig.tsbuildinfo
-bin/cogment
 *.bak
+
+.venv/
+.cogment/
+__pycache__/

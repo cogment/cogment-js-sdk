@@ -1,0 +1,13 @@
+# Cogment install directory
+.cogment
+
+# Python services
+py-services/cog_settings.py
+py-services/data_pb2.py
+py-services/data.proto
+py-services/cogment.yaml
+src/CogSettings.d.ts
+src/CogSettings.js
+src/CogTypes.d.ts
+src/data_pb.d.ts
+src/data_pb.js

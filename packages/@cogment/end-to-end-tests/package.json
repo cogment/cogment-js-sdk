@@ -1,0 +1,33 @@
+{
+  "name": "@cogment/end-to-end-tests",
+  "private": true,
+  "version": "1.0.0",
+  "description": "End to end tests of Cogment javascript SDK",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "install:cogment": "./scripts/install_cogment.sh",
+    "postinstall": "npm run install:cogment",
+    "build:app_protos_js": "npx cogment-js-sdk-generate cogment.yaml",
+    "build:app_protos_py": "./scripts/build_py_services.sh",
+    "build": "npm run build:app_protos_js && npm run build:app_protos_py",
+    "test:test_js": "jest --env=jsdom",
+    "test": ".cogment/cogment launch test_launch.yaml"
+  },
+  "dependencies": {
+    "@cogment/cogment-js-sdk": "^2.0.2",
+    "@types/jest": "^29.4.0",
+    "jest": "^29.4.1",
+    "jest-environment-jsdom": "^29.4.1",
+    "ts-jest": "^29.0.5"
+  },
+  "devDependencies": {
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3"
+  },
+  "jest": {
+    "preset": "ts-jest"
+  }
+}

@@ -67,11 +67,11 @@ function validate_version() {
 }
 
 function retrieve_package_version() {
-  sed -n "s/^.*\"version\"\ *\:\ *\"\(${VERSION_SED_REGEX}\)\"\ *,\ *$/\1/p" "${ROOT_DIR}/package.json"
+  sed -n "s/^.*\"version\"\ *\:\ *\"\(${VERSION_SED_REGEX}\)\"\ *,\ *$/\1/p" "${ROOT_DIR}/packages/@cogment/cogment-js-sdk/package.json"
 }
 
 function update_package_version() {
   local version=$1
-  sed -i.bak "/\"version\": \"${VERSION_SED_REGEX}\"/s/${VERSION_SED_REGEX}/${version}/" "${ROOT_DIR}/package.json"
+  sed -i.bak "/\"version\": \"${VERSION_SED_REGEX}\"/s/${VERSION_SED_REGEX}/${version}/" "${ROOT_DIR}/packages/@cogment/cogment-js-sdk/package.json"
   retrieve_package_version
 }

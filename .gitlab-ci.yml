@@ -1,14 +1,5 @@
-image: docker:20.10.3
-
-variables:
-  COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
-
-default:
-  tags:
-    - ai-r
-    - docker
-
 stages:
+  - lint
   - test
   - build
   - publish
@@ -30,67 +21,54 @@ stages:
     - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
 
-pre:install:
-  stage: .pre
-  image: node:14
+shellcheck:
+  image: koalaman/shellcheck-alpine:stable
+  stage: lint
+  before_script:
+    - shellcheck --version
   script:
-    - npm install -g npm@6
-    - npm install
-    - pushd __tests__/end-to-end/cogment-app/webapp && npm install && popd
-  artifacts:
-    expire_in: 1 day
-    paths:
-      - node_modules
-      - __tests__/end-to-end/cogment-app/webapp/node_modules
+    - shellcheck $(find . -name '*.sh' | xargs)
+
+shfmt:
+  image: mvdan/shfmt:v3.1.0-alpine
+  stage: lint
+  before_script:
+    - shfmt -version
+  script:
+    - shfmt -i 2 -ci -d .
 
 test:
-  stage: test
-  variables:
-    NODE_ENV: test
-    COMPOSE_FILE: docker-compose.yaml
+  image: python:3.9
   before_script:
-    - apk add bash docker-compose
-    - docker system prune -af --volumes
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-    - docker-compose build cogment-js-sdk
-    - bin/up.bash
+    - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+    - apt-get install -y nodejs
+    - npm install
+    - npm run build --workspaces --if-present
   script:
-    - docker-compose run cogment-js-sdk
-  after_script:
-    - docker-compose logs --no-color --tail all > docker.log
-    - mkdir -p dist
-    - docker container cp $(docker-compose ps -a -q cogment-js-sdk):/app/dist ./
-    - bin/down.bash
-  coverage: '/All files[^|]*\|[^|]*\s+([\d\.]+)/'
-  artifacts:
-    expose_as: reports
-    expire_in: 1 day
-    paths:
-      - dist
-      - docker.log
-    when: always
+    - cd ./packages/@cogment/end-to-end-tests
+    - npm run test
 
 dry_run_publish_tag_to_npm:
-  image: node:14
+  image: node:16
   stage: build
   variables:
     NODE_ENV: production
   script:
-    - npm publish --dry-run
+    - npm publish --workspace @cogment/cogment-js-sdk --dry-run
 
 publish_tag_to_npm:
-  image: node:14
+  image: node:16
   stage: publish
   variables:
     NODE_ENV: production
   script:
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'>.npmrc
-    - npm publish
+    - npm --workspace @cogment/cogment-js-sdk publish
   only:
     - /^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+(?:-[[:alnum:]]+)?$/
 
 publish_branch_to_github:
-  image: node:14 # No node usage here but git is required (and part of this image)
+  image: node:16 # No node usage here but git is required (and part of this image)
   extends: .base_gh_ssh_agent
   stage: publish
   script:
