@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## v2.0.4 - 2023-03-16
+
 ### Fixed
 
 - Fix the packaging for npm
