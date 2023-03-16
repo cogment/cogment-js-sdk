@@ -9,7 +9,7 @@ stages:
     ## _Inspired by https://docs.gitlab.com/ee/ci/ssh_keys/_
     ##
     ## Install ssh-agent if not already installed.
-    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - "command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )"
     ## Run ssh-agent
     - eval $(ssh-agent -s)
     ## Add the private key file to ssh-agent
@@ -42,8 +42,15 @@ test:
   before_script:
     - curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
     - apt-get install -y nodejs
-    - npm install
+    - npm ci --cache .npm --prefer-offline
     - npm run build --workspaces --if-present
+  cache:
+    - key:
+        files:
+          - package-lock.json
+      paths:
+        - ./packages/@cogment/cogment-js-sdk/dist
+        - .npm/
   script:
     - cd ./packages/@cogment/end-to-end-tests
     - npm run test
@@ -51,16 +58,15 @@ test:
 dry_run_publish_tag_to_npm:
   image: node:16
   stage: build
-  variables:
-    NODE_ENV: production
   script:
+    - npm ci --cache .npm --prefer-offline
     - npm publish --workspace @cogment/cogment-js-sdk --dry-run
 
 publish_tag_to_npm:
   image: node:16
   stage: publish
-  variables:
-    NODE_ENV: production
+  before_script:
+    - npm ci --cache .npm --prefer-offline
   script:
     - echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}'>.npmrc
     - npm --workspace @cogment/cogment-js-sdk publish
