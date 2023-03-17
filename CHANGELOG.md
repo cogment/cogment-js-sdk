@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+
+- Add missing dependency to `protobufjs-cli`
+- Generate process returns non-zero exit code on failure
+
 ## v2.0.5 - 2023-03-16
 
 ### Fixed
