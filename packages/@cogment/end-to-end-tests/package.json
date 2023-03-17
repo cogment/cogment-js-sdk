@@ -17,7 +17,7 @@
     "test": ".cogment/cogment launch test_launch.yaml"
   },
   "dependencies": {
-    "@cogment/cogment-js-sdk": "2.0.5",
+    "@cogment/cogment-js-sdk": "2.0.6",
     "@types/jest": "^29.4.0",
     "jest": "^29.4.1",
     "jest-environment-jsdom": "^29.4.1",
