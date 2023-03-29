@@ -1,3 +1,4 @@
+import {convertIfBuffer} from '../lib/Utils';
 import {Action} from './api/common_pb';
 import {ActorImplementation} from './Context';
 import {Session} from './Session';
@@ -36,11 +37,9 @@ export class ActorSession<
     actionReq.setTimestamp(Date.now() * 1000);
     actionReq.setTickId(-1);
     if (action) {
-      let serializedAction = this.actorClass.actionSpace.encode(action).finish();
-      if (serializedAction instanceof Buffer) {
-        // In some environment (including node & jsdom) encode actually returns a Buffer (and not a Uint8Array)
-        serializedAction = new Uint8Array(serializedAction.buffer, serializedAction.byteOffset, serializedAction.length);
-      }
+      const serializedAction = convertIfBuffer(
+        this.actorClass.actionSpace.encode(action).finish(),
+      );
       actionReq.setContent(serializedAction);
     }
 

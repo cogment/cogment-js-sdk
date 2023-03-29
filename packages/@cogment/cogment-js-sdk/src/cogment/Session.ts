@@ -1,5 +1,5 @@
 import {Message as GoogleMessage} from 'google-protobuf';
-import {AsyncQueue} from '../lib/Utils';
+import {AsyncQueue, convertIfBuffer} from '../lib/Utils';
 import {ActorRunTrialOutput, Message as CogmentMessage} from './api/common_pb';
 import {cogmentAPI, google} from './api/common_pb_2';
 import {RecvEvent} from './ClientService';
@@ -181,16 +181,16 @@ export class Session<
     //@ts-ignore
     if (!payloadClass.getTypeUrl()) {
       throw new Error(
-        `protobuf message must have a typeUrl, attempted to send payload of type "${payloadClass.name}": ${JSON.stringify(payload)}`,
+        `protobuf message must have a typeUrl, attempted to send payload of type "${
+          payloadClass.name
+        }": ${JSON.stringify(payload)}`,
       );
     }
 
     to.forEach((dest) => {
-      let serializedPayload = payloadClass.encode(payload).finish();
-      if (serializedPayload instanceof Buffer) {
-        // In some environment (including node & jsdom) encode actually returns a Buffer (and not a Uint8Array)
-        serializedPayload = new Uint8Array(serializedPayload.buffer, serializedPayload.byteOffset, serializedPayload.length);
-      }
+      const serializedPayload = convertIfBuffer(
+        payloadClass.encode(payload).finish(),
+      );
 
       const message = new cogmentAPI.Message();
       const anyPB = new google.protobuf.Any();
@@ -204,12 +204,9 @@ export class Session<
       message.senderName = this.name;
 
       // Cloderic: Not sure (like not sure at all) why this is here but it was like that before
-      let serializedMessage = cogmentAPI.Message.encode(message).finish();
-      if (serializedMessage instanceof Buffer) {
-        // In some environment (including node & jsdom) encode actually returns a Buffer (and not a Uint8Array)
-        serializedMessage = new Uint8Array(serializedMessage.buffer, serializedMessage.byteOffset, serializedMessage.length);
-      }
-
+      const serializedMessage = convertIfBuffer(
+        cogmentAPI.Message.encode(message).finish(),
+      );
       const cogMessage = CogmentMessage.deserializeBinary(serializedMessage);
 
       this.postData(cogMessage);

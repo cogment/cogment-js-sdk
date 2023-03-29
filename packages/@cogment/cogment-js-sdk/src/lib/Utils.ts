@@ -1,6 +1,7 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message, Message as MessageGrpc} from 'google-protobuf';
 import {MessageBase, MessageClass} from '../cogment/types/UtilTypes';
+import {Buffer} from 'buffer/';
 
 export type Status = {details: string; code: number; metadata: grpc.Metadata};
 
@@ -94,7 +95,10 @@ export const streamToQueue = <S extends Message, T extends Message>(
           try {
             writeableStream.write(request);
           } catch (error) {
-            console.error(`error while writing [${request}] to the stream`, error);
+            console.error(
+              `error while writing [${request}] to the stream`,
+              error,
+            );
             throw error;
           }
         }
@@ -193,4 +197,18 @@ export const staticCastFromGoogle = <T extends MessageBase>(
   const deserialized = destClass.decode(binary);
 
   return deserialized as T;
+};
+
+export const convertIfBuffer = (serializedAction: any) => {
+  const jsonAction = serializedAction.toJSON();
+  if (jsonAction && jsonAction.type === 'Buffer') {
+    // In some environment (including node & jsdom) encode actually returns a Buffer (and not a Uint8Array)
+    return new Uint8Array(
+      serializedAction.buffer,
+      serializedAction.byteOffset,
+      serializedAction.length,
+    );
+  } else {
+    return serializedAction;
+  }
 };
