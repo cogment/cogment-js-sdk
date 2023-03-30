@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## v2.0.7 - 2023-03-29
+
 ### Fixed
 
 - Fix `ReferenceError` to `Buffer` triggered when using the SDK in a web browser
