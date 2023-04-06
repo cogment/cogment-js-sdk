@@ -20,6 +20,9 @@ tls
 tsconfig.tsbuildinfo
 *.bak
 
+# Built js packages
+*.tgz
+
 .venv/
 .cogment/
 __pycache__/

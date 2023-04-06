@@ -1,4 +1,4 @@
-import {convertIfBuffer} from '../lib/Utils';
+import {encodePbMessage} from '../lib/Utils';
 import {Action} from './api/common_pb';
 import {ActorImplementation} from './Context';
 import {Session} from './Session';
@@ -37,9 +37,7 @@ export class ActorSession<
     actionReq.setTimestamp(Date.now() * 1000);
     actionReq.setTickId(-1);
     if (action) {
-      const serializedAction = convertIfBuffer(
-        this.actorClass.actionSpace.encode(action).finish(),
-      );
+      const serializedAction = encodePbMessage(this.actorClass.actionSpace, action);
       actionReq.setContent(serializedAction);
     }
 

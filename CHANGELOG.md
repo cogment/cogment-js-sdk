@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+
+- Further fix to protobuf serialization of user data structures.
+
 ## v2.0.7 - 2023-03-29
 
 ### Fixed

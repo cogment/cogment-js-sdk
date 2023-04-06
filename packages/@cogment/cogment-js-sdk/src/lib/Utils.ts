@@ -199,16 +199,18 @@ export const staticCastFromGoogle = <T extends MessageBase>(
   return deserialized as T;
 };
 
-export const convertIfBuffer = (serializedAction: any) => {
-  const jsonAction = serializedAction.toJSON();
-  if (jsonAction && jsonAction.type === 'Buffer') {
-    // In some environment (including node & jsdom) encode actually returns a Buffer (and not a Uint8Array)
+export const encodePbMessage = (messageClass: MessageClass, message: MessageBase) => {
+  const encodedMessage: any = messageClass.encode(message).finish();
+
+  if (encodedMessage instanceof Uint8Array) {
+    return encodedMessage;
+  }
+  else {
+    // Actually, in some environment (including node & jsdom) encode returns a Buffer (and not a Uint8Array)
     return new Uint8Array(
-      serializedAction.buffer,
-      serializedAction.byteOffset,
-      serializedAction.length,
+      encodedMessage.buffer,
+      encodedMessage.byteOffset,
+      encodedMessage.length,
     );
-  } else {
-    return serializedAction;
   }
 };

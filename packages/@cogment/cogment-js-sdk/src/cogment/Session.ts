@@ -1,5 +1,5 @@
 import {Message as GoogleMessage} from 'google-protobuf';
-import {AsyncQueue, convertIfBuffer} from '../lib/Utils';
+import {AsyncQueue, encodePbMessage} from '../lib/Utils';
 import {ActorRunTrialOutput, Message as CogmentMessage} from './api/common_pb';
 import {cogmentAPI, google} from './api/common_pb_2';
 import {RecvEvent} from './ClientService';
@@ -188,9 +188,7 @@ export class Session<
     }
 
     to.forEach((dest) => {
-      const serializedPayload = convertIfBuffer(
-        payloadClass.encode(payload).finish(),
-      );
+      const serializedPayload = encodePbMessage(payloadClass, payload);
 
       const message = new cogmentAPI.Message();
       const anyPB = new google.protobuf.Any();
@@ -204,9 +202,7 @@ export class Session<
       message.senderName = this.name;
 
       // Cloderic: Not sure (like not sure at all) why this is here but it was like that before
-      const serializedMessage = convertIfBuffer(
-        cogmentAPI.Message.encode(message).finish(),
-      );
+      const serializedMessage = encodePbMessage(cogmentAPI.Message, message);
       const cogMessage = CogmentMessage.deserializeBinary(serializedMessage);
 
       this.postData(cogMessage);

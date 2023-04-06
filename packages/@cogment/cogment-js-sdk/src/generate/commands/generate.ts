@@ -52,15 +52,6 @@ const shell = (command: string) => {
   });
 };
 
-const isInstalled = (...testPackages: string[]) => {
-  try {
-    testPackages.forEach((testPackage) => require.resolve(testPackage));
-    return true;
-  } catch {
-    return false;
-  }
-};
-
 const sleepPromise = (time: number) => {
   return new Promise<undefined>((resolve) => {
     setTimeout(() => {
@@ -101,22 +92,6 @@ export const generate: () => Promise<void> = async () => {
       "package.json not found! are you sure you're inside a javascript project?",
     );
   }
-
-  // if (!existsSync('./node_modules')) {
-  //   await shell('npm i');
-  // }
-
-  // if (!isInstalled('protobufjs', 'uglify-js', 'tmp', 'jsdoc')) {
-  //   try {
-  //     await shell(
-  //       'npm i uglify-js tmp jsdoc https://github.com/protobufjs/protobuf.js.git#d13d5d5688052e366aa2e9169f50dfca376b32cf',
-  //     );
-  //   } catch {
-  //     throw new Error(
-  //       'Could not install auxilliary generation tools, try running `npm i --save-optional`',
-  //     );
-  //   }
-  // }
 
   const args = process.argv.slice(2);
   if (args.length === 0) {
