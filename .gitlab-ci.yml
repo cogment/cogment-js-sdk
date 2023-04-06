@@ -52,8 +52,7 @@ test:
         - ./packages/@cogment/cogment-js-sdk/dist
         - .npm/
   script:
-    - cd ./packages/@cogment/end-to-end-tests
-    - npm run test
+    - npm run test --workspaces --if-present
 
 dry_run_publish_tag_to_npm:
   image: node:16
