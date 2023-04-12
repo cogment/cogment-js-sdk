@@ -173,7 +173,7 @@ export const UtilTypes = `
  *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WIanyHOUany WARRANanyIES OR CONDIanyIONS OF ANY KIND, either express or implied.
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  *
@@ -205,7 +205,7 @@ export class Message {
     public static encode(this: Constructor<Message>, message: (any | { [k: string]: any }), writer?: Writer): Writer;
 
     /**
-     * Encodes a message of this type preceeded by its length as a varint.
+     * Encodes a message of this type preceded by its length as a varint.
      * @param message Message to encode
      * @param [writer] Writer to use
      * @returns Writer
@@ -220,7 +220,7 @@ export class Message {
     public static decode(this: Constructor<Message>, reader: (Reader | Uint8Array)): Message;
 
     /**
-     * Decodes a message of this type preceeded by its length as a varint.
+     * Decodes a message of this type preceded by its length as a varint.
      * @param reader Reader or buffer to decode
      * @returns Decoded message
      */

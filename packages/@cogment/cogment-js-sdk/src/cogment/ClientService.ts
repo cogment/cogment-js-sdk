@@ -141,7 +141,6 @@ const processOutgoing = async <
   for await (const data of session.retrieveData()) {
     const output = new ActorRunTrialOutput();
     output.setState(CommunicationState.NORMAL);
-
     if (data instanceof Action) output.setAction(data);
     else if (data instanceof Reward) output.setReward(data);
     else if (data instanceof Message) output.setMessage(data);
@@ -151,7 +150,9 @@ const processOutgoing = async <
       break;
     } else {
       console.warn(
-        `Trial [${session.trial.id}] - Actor [${session.name}]: Unknown data type to send [${typeof(data)}]`,
+        `Trial [${session.trial.id}] - Actor [${
+          session.name
+        }]: Unknown data type to send [${typeof data}]`,
       );
       continue;
     }
@@ -309,7 +310,7 @@ export class ClientServicer<
         throw new Error(
           `Actor [${initData.actorName}] received config data of unknown type (was it defined in cogment.yaml)`,
         );
-      if (!actorClass.config) return; //Typescript nees this for some reason
+      if (!actorClass.config) return; //Typescript needs this for some reason
       if (!initData?.config?.content) throw new Error('Content not set');
       config = actorClass.config.decode(asUint8Array(initData.config.content));
     }

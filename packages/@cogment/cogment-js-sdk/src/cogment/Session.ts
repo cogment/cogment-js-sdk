@@ -1,13 +1,15 @@
 import {Message as GoogleMessage} from 'google-protobuf';
-import {AsyncQueue, encodePbMessage} from '../lib/Utils';
-import {ActorRunTrialOutput, Message as CogmentMessage} from './api/common_pb';
-import {cogmentAPI, google} from './api/common_pb_2';
+import {AsyncQueue, encodePbMessage, messageToAnyPB} from '../lib/Utils';
+import {
+  ActorRunTrialOutput,
+  Message as CogmentMessage,
+  Reward,
+} from './api/common_pb';
+import {cogmentAPI} from './api/common_pb_2';
 import {RecvEvent} from './ClientService';
 import {ActorImplementation} from './Context';
 import {Trial} from './Trial';
-import {EventType} from './types';
-import {TrialActor} from './types/TrialActor';
-import {MessageBase, MessageClass} from './types/UtilTypes';
+import {EventType, TrialActor, MessageBase, MessageClass} from './types';
 
 export class Ending {}
 
@@ -44,10 +46,10 @@ export class Session<
 
   public internalStart = (autoDoneSending: boolean) => {
     if (this.started)
-      throw new Error('Cannot start [${this.name}] more than once.');
+      throw new Error(`Cannot start [${this.name}] more than once.`);
     if (this.trial.ended)
       throw new Error(
-        'Cannot start [${this.name}] because the trial has ended.',
+        `Cannot start [${this.name}] because the trial has ended.`,
       );
 
     this.autoAck = autoDoneSending;
@@ -72,6 +74,7 @@ export class Session<
 
     this.eventQueue.put(event);
   };
+
   public postData = (data: GoogleMessage | Ending | EndingAck) => {
     if (!this.started) {
       console.warn(
@@ -164,6 +167,49 @@ export class Session<
     this.dataQueue.end();
   };
 
+  public addReward = (
+    value: number,
+    confidence: number,
+    to: string[],
+    tickId = -1,
+    userData: MessageBase | null = null,
+  ) => {
+    if (!this.started) {
+      console.warn(
+        `Trial [${this.trial.id}] - Session for [${this.name}]: Cannot send reward until session is started.`,
+      );
+      return;
+    }
+    if (this.trial.endingAck) {
+      console.warn(
+        `Trial [${this.trial.id}] - Session for [${this.name}]: Cannot send reward after acknowledging ending.`,
+      );
+      return;
+    }
+
+    to.forEach((receiverName) => {
+      const reward = new cogmentAPI.Reward();
+      reward.tickId = tickId;
+      reward.receiverName = receiverName;
+      reward.value = value;
+
+      const rewardSource = new cogmentAPI.RewardSource();
+      rewardSource.senderName = this.name;
+      rewardSource.confidence = confidence;
+      rewardSource.value = value;
+
+      if (userData) {
+        rewardSource.userData = messageToAnyPB(userData);
+      }
+
+      reward.sources.push(rewardSource);
+
+      const serializedReward = encodePbMessage(cogmentAPI.Reward, reward);
+      const cogReward = Reward.deserializeBinary(serializedReward);
+      this.postData(cogReward);
+    });
+  };
+
   protected sendMessageInternal(payload: MessageBase, to: string[]) {
     if (!this.started) {
       console.warn(
@@ -177,26 +223,10 @@ export class Session<
       );
       return;
     }
-    const payloadClass = payload.constructor as MessageClass;
-    //@ts-ignore
-    if (!payloadClass.getTypeUrl()) {
-      throw new Error(
-        `protobuf message must have a typeUrl, attempted to send payload of type "${
-          payloadClass.name
-        }": ${JSON.stringify(payload)}`,
-      );
-    }
 
     to.forEach((dest) => {
-      const serializedPayload = encodePbMessage(payloadClass, payload);
-
       const message = new cogmentAPI.Message();
-      const anyPB = new google.protobuf.Any();
-      anyPB.value = serializedPayload;
-      //@ts-ignore
-      anyPB.type_url = payloadClass.getTypeUrl();
-
-      message.payload = anyPB;
+      message.payload = messageToAnyPB(payload);
       message.tickId = -1;
       message.receiverName = dest;
       message.senderName = this.name;

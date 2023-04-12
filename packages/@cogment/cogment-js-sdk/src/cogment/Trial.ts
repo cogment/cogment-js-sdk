@@ -15,7 +15,7 @@ export class Trial {
     for (const actor of actorsInTrial) {
       if (!(actor.actorClass in cogSettings.actorClasses))
         throw new Error(
-          'class [{actor.actor_class}] of actor [{actor.name}] cannot be found.',
+          `class [${actor.actorClass}] of actor [${actor.name}] cannot be found.`,
         );
       const actorClass = cogSettings.actorClasses[actor.actorClass];
       const newActor = {name: actor.name, actorClass: actorClass};

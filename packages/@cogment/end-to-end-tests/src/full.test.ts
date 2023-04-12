@@ -14,22 +14,13 @@
  *  limitations under the License.
  *
  */
-import {
-  ActorSession,
-  AnyPB,
-  Context,
-  EventType,
-  MessageBase,
-  Reward,
-  TrialState,
-} from "@cogment/cogment-js-sdk";
+import { ActorSession, AnyPB, Context, EventType, MessageBase, Reward, TrialState } from "@cogment/cogment-js-sdk";
 import { cogSettings } from "../src/CogSettings";
 import { cogment_app as PB } from "../src/data_pb";
 
-const ORCHESTRATOR_URL =
-  process.env.ORCHESTRATOR_URL || "http://localhost:8081";
+const ORCHESTRATOR_URL = process.env.ORCHESTRATOR_URL || "http://localhost:8081";
 
-jest.setTimeout(30000)
+jest.setTimeout(30000);
 
 describe("a full cogment app", () => {
   test("a full trial", async () => {
@@ -50,19 +41,12 @@ describe("a full cogment app", () => {
       trialTerminateResolve = resolve;
     });
 
-    const actorImplementation = async (
-      actorSession: ActorSession<PB.ClientAction, PB.Observation>
-    ) => {
+    const actorImplementation = async (actorSession: ActorSession<PB.ClientAction, PB.Observation>) => {
       actorSession.start();
 
       let iterations = 0;
 
-      for await (const {
-        observation,
-        messages,
-        rewards,
-        type,
-      } of actorSession.eventLoop()) {
+      for await (const { observation, messages, rewards, type } of actorSession.eventLoop()) {
         if (observation) {
           observations.push(observation);
           const action = new PB.ClientAction();
@@ -77,10 +61,12 @@ describe("a full cogment app", () => {
             trialEndResolve();
           }
 
-          const message = new PB.Message({request: "foo"});
+          const message = new PB.Message({ request: "foo" });
+          const userData = new PB.UserData({ aBool: false, aFloat: 0.5 });
           if (type !== EventType.ENDING && type !== EventType.FINAL) {
             actorSession.sendMessage(message, ["echo_echo_1"]);
             actorSession.doAction(action);
+            actorSession.addReward(30, 0.5, ["client_actor"], -1, userData);
           }
         }
         if (messages.length) {
@@ -96,10 +82,7 @@ describe("a full cogment app", () => {
       trialTerminateResolve();
     };
 
-    const context = new Context<PB.ClientAction, PB.Observation>(
-      cogSettings,
-      "test_client"
-    );
+    const context = new Context<PB.ClientAction, PB.Observation>(cogSettings, "test_client");
     context.registerActor(actorImplementation, "client_actor", "client");
 
     const controller = context.getController(ORCHESTRATOR_URL);
@@ -118,15 +101,14 @@ describe("a full cogment app", () => {
     expect(thisTrial?.trialId).toBe(trialId);
     expect(thisTrial?.tickId).toBeGreaterThanOrEqual(9);
 
-
     await trialEndPromise;
     await controller.terminateTrial([trialId], false);
-
 
     await trialTerminatePromise;
 
     expect(observations).not.toHaveLength(0);
     expect(messagesList).not.toHaveLength(0);
+    expect(rewardsList).not.toHaveLength(0);
     expect(observations[2].response).toBe("ping");
   });
 });

@@ -1,7 +1,7 @@
 import {grpc} from '@improbable-eng/grpc-web';
 import {Message, Message as MessageGrpc} from 'google-protobuf';
 import {MessageBase, MessageClass} from '../cogment/types/UtilTypes';
-import {Buffer} from 'buffer/';
+import {google} from '../cogment/api/common_pb_2';
 
 export type Status = {details: string; code: number; metadata: grpc.Metadata};
 
@@ -199,13 +199,15 @@ export const staticCastFromGoogle = <T extends MessageBase>(
   return deserialized as T;
 };
 
-export const encodePbMessage = (messageClass: MessageClass, message: MessageBase) => {
+export const encodePbMessage = (
+  messageClass: MessageClass,
+  message: MessageBase,
+) => {
   const encodedMessage: any = messageClass.encode(message).finish();
 
   if (encodedMessage instanceof Uint8Array) {
     return encodedMessage;
-  }
-  else {
+  } else {
     // Actually, in some environment (including node & jsdom) encode returns a Buffer (and not a Uint8Array)
     return new Uint8Array(
       encodedMessage.buffer,
@@ -213,4 +215,22 @@ export const encodePbMessage = (messageClass: MessageClass, message: MessageBase
       encodedMessage.length,
     );
   }
+};
+
+export const messageToAnyPB = (message: MessageBase) => {
+  const messageClass = message.constructor as MessageClass;
+  if (!(messageClass as any).getTypeUrl()) {
+    throw new Error(
+      `protobuf message must have a typeUrl, attempted to send message of type "${
+        messageClass.name
+      }": ${JSON.stringify(messageClass)}`,
+    );
+  }
+
+  const serializedMessage = encodePbMessage(messageClass, message);
+
+  const anyPB = new google.protobuf.Any();
+  anyPB.value = serializedMessage;
+  anyPB.type_url = (messageClass as any).getTypeUrl();
+  return anyPB;
 };
