@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## v2.1.0 - 2023-04-21
+
 ### Added
 
 - Introduce `ActorSession.addReward` function enabling actors to send rewards to other actors.
